@@ -2,16 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { useLocation, Link, useNavigate } from 'react-router-dom';
 import {
   FileText,
-  AlertTriangle,
   HardDrive,
   Scale,
   Lock,
   ShieldAlert,
   CheckCircle,
   XCircle,
-  HelpCircle,
   ArrowRight,
-  ShieldCheck,
   AlertCircle
 } from 'lucide-react';
 
@@ -48,7 +45,7 @@ export const LegalPage = () => {
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-left space-y-8">
         {/* Header */}
         <div className="space-y-3">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#C5F36A]/10 border border-[#C5F36A]/30 text-xs font-mono font-bold uppercase tracking-wider text-[#C5F36A]">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono font-bold uppercase tracking-wider text-neutral-300">
             <Scale className="w-3.5 h-3.5" />
             ZEROX CLOUD LEGAL & POLICY CENTER
           </div>
@@ -60,26 +57,13 @@ export const LegalPage = () => {
           </p>
         </div>
 
-        {/* Critical Notice Callout Banner */}
-        <div className="p-4 sm:p-5 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-200 text-xs sm:text-sm flex items-start gap-3.5 shadow-lg">
-          <AlertTriangle className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
-          <div className="space-y-1">
-            <span className="font-bold text-amber-300 uppercase tracking-wide text-xs">
-              MANDATORY CUSTOMER NOTICE: STRICT NO REFUND & ZERO DATA LOSS LIABILITY
-            </span>
-            <p className="text-amber-200/90 leading-relaxed text-xs">
-              By purchasing or using any ZEROX CLOUD server or service, you explicitly agree that <strong className="text-white">all sales are final</strong> (refunds are solely available if we fail to provision the service) and that <strong className="text-white">ZEROX CLOUD is not responsible for any data loss</strong>. You are solely responsible for taking offsite backups.
-            </p>
-          </div>
-        </div>
-
-        {/* Tab Navigation */}
+        {/* Tab Navigation - Clean Neutral Monochrome */}
         <div className="flex flex-wrap gap-2 border-b border-white/10 pb-4">
           <button
             onClick={() => handleTabChange('terms')}
             className={`px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold flex items-center gap-2 transition-all ${
               activeTab === 'terms'
-                ? 'bg-white text-black shadow-lg shadow-white/10 scale-[1.02]'
+                ? 'bg-white text-black shadow-lg scale-[1.02]'
                 : 'bg-white/5 text-neutral-400 hover:text-white hover:bg-white/10'
             }`}
           >
@@ -91,7 +75,7 @@ export const LegalPage = () => {
             onClick={() => handleTabChange('refund')}
             className={`px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold flex items-center gap-2 transition-all ${
               activeTab === 'refund'
-                ? 'bg-[#C5F36A] text-black shadow-lg shadow-[#C5F36A]/20 scale-[1.02]'
+                ? 'bg-white text-black shadow-lg scale-[1.02]'
                 : 'bg-white/5 text-neutral-400 hover:text-white hover:bg-white/10'
             }`}
           >
@@ -103,7 +87,7 @@ export const LegalPage = () => {
             onClick={() => handleTabChange('dataloss')}
             className={`px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold flex items-center gap-2 transition-all ${
               activeTab === 'dataloss'
-                ? 'bg-amber-400 text-black shadow-lg shadow-amber-400/20 scale-[1.02]'
+                ? 'bg-white text-black shadow-lg scale-[1.02]'
                 : 'bg-white/5 text-neutral-400 hover:text-white hover:bg-white/10'
             }`}
           >
@@ -115,7 +99,7 @@ export const LegalPage = () => {
             onClick={() => handleTabChange('rules')}
             className={`px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold flex items-center gap-2 transition-all ${
               activeTab === 'rules'
-                ? 'bg-red-400 text-black shadow-lg shadow-red-400/20 scale-[1.02]'
+                ? 'bg-white text-black shadow-lg scale-[1.02]'
                 : 'bg-white/5 text-neutral-400 hover:text-white hover:bg-white/10'
             }`}
           >
@@ -127,7 +111,7 @@ export const LegalPage = () => {
             onClick={() => handleTabChange('privacy')}
             className={`px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold flex items-center gap-2 transition-all ${
               activeTab === 'privacy'
-                ? 'bg-blue-400 text-black shadow-lg shadow-blue-400/20 scale-[1.02]'
+                ? 'bg-white text-black shadow-lg scale-[1.02]'
                 : 'bg-white/5 text-neutral-400 hover:text-white hover:bg-white/10'
             }`}
           >
@@ -142,7 +126,7 @@ export const LegalPage = () => {
           {activeTab === 'terms' && (
             <div className="space-y-6">
               <div>
-                <span className="text-[11px] font-mono text-[#C5F36A] uppercase tracking-wider font-bold">
+                <span className="text-[11px] font-mono text-neutral-400 uppercase tracking-wider font-bold">
                   DOCUMENT TOS-2026-V3
                 </span>
                 <h2 className="text-xl sm:text-2xl font-black text-white mt-1">
@@ -156,7 +140,7 @@ export const LegalPage = () => {
               <div className="space-y-4">
                 <div className="p-4 rounded-xl bg-black/40 border border-white/10 space-y-2">
                   <h3 className="text-sm font-bold text-white flex items-center gap-2">
-                    <span className="w-5 h-5 rounded-md bg-[#C5F36A]/20 text-[#C5F36A] text-xs flex items-center justify-center font-mono font-bold">1</span>
+                    <span className="w-5 h-5 rounded-md bg-white/10 text-white text-xs flex items-center justify-center font-mono font-bold">1</span>
                     Account Eligibility & Registration
                   </h3>
                   <p className="text-neutral-300 text-xs leading-relaxed">
@@ -166,7 +150,7 @@ export const LegalPage = () => {
 
                 <div className="p-4 rounded-xl bg-black/40 border border-white/10 space-y-2">
                   <h3 className="text-sm font-bold text-white flex items-center gap-2">
-                    <span className="w-5 h-5 rounded-md bg-[#C5F36A]/20 text-[#C5F36A] text-xs flex items-center justify-center font-mono font-bold">2</span>
+                    <span className="w-5 h-5 rounded-md bg-white/10 text-white text-xs flex items-center justify-center font-mono font-bold">2</span>
                     Automated Service Provisioning & SLA
                   </h3>
                   <p className="text-neutral-300 text-xs leading-relaxed">
@@ -176,7 +160,7 @@ export const LegalPage = () => {
 
                 <div className="p-4 rounded-xl bg-black/40 border border-white/10 space-y-2">
                   <h3 className="text-sm font-bold text-white flex items-center gap-2">
-                    <span className="w-5 h-5 rounded-md bg-[#C5F36A]/20 text-[#C5F36A] text-xs flex items-center justify-center font-mono font-bold">3</span>
+                    <span className="w-5 h-5 rounded-md bg-white/10 text-white text-xs flex items-center justify-center font-mono font-bold">3</span>
                     Unmanaged Hosting Service Nature
                   </h3>
                   <p className="text-neutral-300 text-xs leading-relaxed">
@@ -186,7 +170,7 @@ export const LegalPage = () => {
 
                 <div className="p-4 rounded-xl bg-black/40 border border-white/10 space-y-2">
                   <h3 className="text-sm font-bold text-white flex items-center gap-2">
-                    <span className="w-5 h-5 rounded-md bg-[#C5F36A]/20 text-[#C5F36A] text-xs flex items-center justify-center font-mono font-bold">4</span>
+                    <span className="w-5 h-5 rounded-md bg-white/10 text-white text-xs flex items-center justify-center font-mono font-bold">4</span>
                     Billing, Renewals & Cancellation
                   </h3>
                   <p className="text-neutral-300 text-xs leading-relaxed">
@@ -196,7 +180,7 @@ export const LegalPage = () => {
 
                 <div className="p-4 rounded-xl bg-black/40 border border-white/10 space-y-2">
                   <h3 className="text-sm font-bold text-white flex items-center gap-2">
-                    <span className="w-5 h-5 rounded-md bg-[#C5F36A]/20 text-[#C5F36A] text-xs flex items-center justify-center font-mono font-bold">5</span>
+                    <span className="w-5 h-5 rounded-md bg-white/10 text-white text-xs flex items-center justify-center font-mono font-bold">5</span>
                     Modifications & Termination
                   </h3>
                   <p className="text-neutral-300 text-xs leading-relaxed">
@@ -211,8 +195,8 @@ export const LegalPage = () => {
           {activeTab === 'refund' && (
             <div className="space-y-6">
               <div>
-                <span className="text-[11px] font-mono text-[#C5F36A] uppercase tracking-wider font-bold">
-                  MANDATORY CLAUSE: STRICT NO-REFUND POLICY
+                <span className="text-[11px] font-mono text-neutral-400 uppercase tracking-wider font-bold">
+                  POLICY SECTION 02
                 </span>
                 <h2 className="text-xl sm:text-2xl font-black text-white mt-1">
                   Refund & Cancellation Policy
@@ -222,25 +206,25 @@ export const LegalPage = () => {
                 </p>
               </div>
 
-              {/* Bold Warning Box */}
-              <div className="p-5 rounded-2xl bg-red-500/10 border border-red-500/30 text-red-200 space-y-3">
-                <div className="flex items-center gap-2 text-red-400 font-bold uppercase tracking-wide text-xs">
-                  <XCircle className="w-4 h-4" />
-                  STRICT NO REFUND POLICY — ALL SALES ARE FINAL
+              {/* No-Refund Notice */}
+              <div className="p-5 rounded-2xl bg-white/[0.03] border border-white/10 text-neutral-200 space-y-2">
+                <div className="flex items-center gap-2 text-white font-bold uppercase tracking-wide text-xs">
+                  <XCircle className="w-4 h-4 text-neutral-400" />
+                  NO REFUND POLICY — ALL SALES ARE FINAL ONCE PURCHASED
                 </div>
-                <p className="text-xs leading-relaxed text-red-200/90 font-medium">
-                  Once a payment is completed and a service order is placed, <strong>NO REFUNDS, CREDITS, PRORATED RETURNS, OR PAYMENT REVERSALS</strong> will be issued under any normal circumstance. Once hardware, memory, disk allocation, and IP addresses are reserved, costs are incurred instantly.
+                <p className="text-xs leading-relaxed text-neutral-300 font-medium">
+                  Once a payment is completed and a service order is placed, <strong>NO REFUNDS, CREDITS, PRORATED RETURNS, OR PAYMENT REVERSALS</strong> will be issued under any normal circumstance. Once hardware, memory, disk allocation, and IP addresses are reserved, server operational costs are incurred instantly.
                 </p>
               </div>
 
               {/* The Sole Provisioning Exception */}
-              <div className="p-5 rounded-2xl bg-[#C5F36A]/10 border border-[#C5F36A]/30 text-white space-y-3">
-                <div className="flex items-center gap-2 text-[#C5F36A] font-bold uppercase tracking-wide text-xs">
-                  <CheckCircle className="w-4 h-4" />
+              <div className="p-5 rounded-2xl bg-white/[0.03] border border-white/10 text-neutral-200 space-y-3">
+                <div className="flex items-center gap-2 text-white font-bold uppercase tracking-wide text-xs">
+                  <CheckCircle className="w-4 h-4 text-neutral-400" />
                   THE SOLE EXCEPTION: FAILURE TO PROVIDE SERVICE
                 </div>
-                <p className="text-xs leading-relaxed text-neutral-200 font-medium">
-                  A refund is <strong>ONLY AND EXCLUSIVELY AVAILABLE IF ZEROX CLOUD FAILS TO PROVIDE THE PURCHASED SERVICE</strong>. 
+                <p className="text-xs leading-relaxed text-neutral-300 font-medium">
+                  A refund is <strong>ONLY AND EXCLUSIVELY AVAILABLE IF ZEROX CLOUD FAILS TO PROVIDE THE PURCHASED SERVICE</strong>.
                 </p>
                 <ul className="space-y-1.5 text-xs text-neutral-300 list-disc list-inside">
                   <li>
@@ -259,7 +243,7 @@ export const LegalPage = () => {
                 </h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
                   <div className="p-3.5 rounded-xl bg-black/40 border border-white/10 flex items-start gap-2.5">
-                    <XCircle className="w-4 h-4 text-red-400 shrink-0 mt-0.5" />
+                    <XCircle className="w-4 h-4 text-neutral-500 shrink-0 mt-0.5" />
                     <div>
                       <strong className="text-white">Buyer's Remorse:</strong>
                       <p className="text-neutral-400 text-[11px] mt-0.5">"I changed my mind", "I no longer want a server", or "I bought this by mistake".</p>
@@ -267,7 +251,7 @@ export const LegalPage = () => {
                   </div>
 
                   <div className="p-3.5 rounded-xl bg-black/40 border border-white/10 flex items-start gap-2.5">
-                    <XCircle className="w-4 h-4 text-red-400 shrink-0 mt-0.5" />
+                    <XCircle className="w-4 h-4 text-neutral-500 shrink-0 mt-0.5" />
                     <div>
                       <strong className="text-white">Modpack / Plugin Crashes:</strong>
                       <p className="text-neutral-400 text-[11px] mt-0.5">Inability to configure mods, incompatible plugins, syntax errors, or bad configs.</p>
@@ -275,7 +259,7 @@ export const LegalPage = () => {
                   </div>
 
                   <div className="p-3.5 rounded-xl bg-black/40 border border-white/10 flex items-start gap-2.5">
-                    <XCircle className="w-4 h-4 text-red-400 shrink-0 mt-0.5" />
+                    <XCircle className="w-4 h-4 text-neutral-500 shrink-0 mt-0.5" />
                     <div>
                       <strong className="text-white">Player / Community Inactivity:</strong>
                       <p className="text-neutral-400 text-[11px] mt-0.5">Your friends or community members stopped playing or failed to join.</p>
@@ -283,7 +267,7 @@ export const LegalPage = () => {
                   </div>
 
                   <div className="p-3.5 rounded-xl bg-black/40 border border-white/10 flex items-start gap-2.5">
-                    <XCircle className="w-4 h-4 text-red-400 shrink-0 mt-0.5" />
+                    <XCircle className="w-4 h-4 text-neutral-500 shrink-0 mt-0.5" />
                     <div>
                       <strong className="text-white">Client ISP Routing / Ping:</strong>
                       <p className="text-neutral-400 text-[11px] mt-0.5">Local network lag or ISP routing issues outside of our datacenter edge.</p>
@@ -291,7 +275,7 @@ export const LegalPage = () => {
                   </div>
 
                   <div className="p-3.5 rounded-xl bg-black/40 border border-white/10 flex items-start gap-2.5 sm:col-span-2">
-                    <XCircle className="w-4 h-4 text-red-400 shrink-0 mt-0.5" />
+                    <XCircle className="w-4 h-4 text-neutral-500 shrink-0 mt-0.5" />
                     <div>
                       <strong className="text-white">Suspension Due to Rule Violations:</strong>
                       <p className="text-neutral-400 text-[11px] mt-0.5">Any service suspended or terminated for DDoS attacks, crypto mining, bot spamming, or abuse will never receive a refund.</p>
@@ -301,9 +285,9 @@ export const LegalPage = () => {
               </div>
 
               {/* Chargebacks & Disputes Warning */}
-              <div className="p-4 rounded-xl bg-red-950/40 border border-red-500/40 space-y-2">
-                <h4 className="text-xs font-bold text-red-300 uppercase tracking-wider flex items-center gap-1.5">
-                  <ShieldAlert className="w-4 h-4" />
+              <div className="p-4 rounded-xl bg-white/[0.03] border border-white/10 space-y-2">
+                <h4 className="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-1.5">
+                  <ShieldAlert className="w-4 h-4 text-neutral-400" />
                   FRAUDULENT CHARGEBACKS & PAYMENT DISPUTES
                 </h4>
                 <p className="text-xs text-neutral-300 leading-relaxed">
@@ -317,8 +301,8 @@ export const LegalPage = () => {
           {activeTab === 'dataloss' && (
             <div className="space-y-6">
               <div>
-                <span className="text-[11px] font-mono text-amber-400 uppercase tracking-wider font-bold">
-                  CRITICAL LIABILITY WAIVER
+                <span className="text-[11px] font-mono text-neutral-400 uppercase tracking-wider font-bold">
+                  POLICY SECTION 03
                 </span>
                 <h2 className="text-xl sm:text-2xl font-black text-white mt-1">
                   Zero Data Loss Liability & Backup Policy
@@ -329,12 +313,12 @@ export const LegalPage = () => {
               </div>
 
               {/* Main Disclaimer Banner */}
-              <div className="p-5 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-200 space-y-3">
-                <div className="flex items-center gap-2 text-amber-300 font-bold uppercase tracking-wide text-xs">
-                  <HardDrive className="w-4 h-4" />
+              <div className="p-5 rounded-2xl bg-white/[0.03] border border-white/10 text-neutral-200 space-y-2">
+                <div className="flex items-center gap-2 text-white font-bold uppercase tracking-wide text-xs">
+                  <HardDrive className="w-4 h-4 text-neutral-400" />
                   WE ARE NOT RESPONSIBLE FOR DATA LOSS UNDER ANY CIRCUMSTANCES
                 </div>
-                <p className="text-xs leading-relaxed text-amber-100/90 font-medium">
+                <p className="text-xs leading-relaxed text-neutral-300 font-medium">
                   <strong>ZEROX CLOUD, ITS OPERATORS, AND AFFILIATES ARE STRICTLY NOT LIABLE OR RESPONSIBLE FOR ANY DATA LOSS, DATA CORRUPTION, MISSING WORLD FILES, WIPED PLAYER INVENTORIES, ACCIDENTAL DELETIONS, OR DATABASE CRASHES</strong>, regardless of how the loss occurs.
                 </p>
               </div>
@@ -342,7 +326,7 @@ export const LegalPage = () => {
               <div className="space-y-4">
                 <div className="p-4 rounded-xl bg-black/40 border border-white/10 space-y-2">
                   <h3 className="text-sm font-bold text-white flex items-center gap-2">
-                    <span className="w-5 h-5 rounded-md bg-amber-400/20 text-amber-400 text-xs flex items-center justify-center font-mono font-bold">1</span>
+                    <span className="w-5 h-5 rounded-md bg-white/10 text-white text-xs flex items-center justify-center font-mono font-bold">1</span>
                     Customer Sole Backup Responsibility
                   </h3>
                   <p className="text-neutral-300 text-xs leading-relaxed">
@@ -352,7 +336,7 @@ export const LegalPage = () => {
 
                 <div className="p-4 rounded-xl bg-black/40 border border-white/10 space-y-2">
                   <h3 className="text-sm font-bold text-white flex items-center gap-2">
-                    <span className="w-5 h-5 rounded-md bg-amber-400/20 text-amber-400 text-xs flex items-center justify-center font-mono font-bold">2</span>
+                    <span className="w-5 h-5 rounded-md bg-white/10 text-white text-xs flex items-center justify-center font-mono font-bold">2</span>
                     Hardware Failures & Force Majeure
                   </h3>
                   <p className="text-neutral-300 text-xs leading-relaxed">
@@ -362,7 +346,7 @@ export const LegalPage = () => {
 
                 <div className="p-4 rounded-xl bg-black/40 border border-white/10 space-y-2">
                   <h3 className="text-sm font-bold text-white flex items-center gap-2">
-                    <span className="w-5 h-5 rounded-md bg-amber-400/20 text-amber-400 text-xs flex items-center justify-center font-mono font-bold">3</span>
+                    <span className="w-5 h-5 rounded-md bg-white/10 text-white text-xs flex items-center justify-center font-mono font-bold">3</span>
                     Service Expiration & Automated 7-Day Purge
                   </h3>
                   <p className="text-neutral-300 text-xs leading-relaxed">
@@ -371,13 +355,13 @@ export const LegalPage = () => {
                   <ul className="space-y-1 text-xs text-neutral-400 list-disc list-inside mt-2">
                     <li><strong className="text-white">Day 1:</strong> Service is suspended (server goes offline).</li>
                     <li><strong className="text-white">Day 1 to 7:</strong> Files remain safely stored in dormant state awaiting renewal.</li>
-                    <li><strong className="text-white">Day 7:</strong> The container, allocations, and disk storage are <span className="text-red-400 font-bold">permanently and irreversibly wiped</span> by our automated recycler to free up host capacity. Once wiped, data recovery is 100% impossible.</li>
+                    <li><strong className="text-white">Day 7:</strong> The container, allocations, and disk storage are <span className="text-white font-bold underline">permanently and irreversibly wiped</span> by our automated recycler to free up host capacity. Once wiped, data recovery is 100% impossible.</li>
                   </ul>
                 </div>
 
                 <div className="p-4 rounded-xl bg-black/40 border border-white/10 space-y-2">
                   <h3 className="text-sm font-bold text-white flex items-center gap-2">
-                    <span className="w-5 h-5 rounded-md bg-amber-400/20 text-amber-400 text-xs flex items-center justify-center font-mono font-bold">4</span>
+                    <span className="w-5 h-5 rounded-md bg-white/10 text-white text-xs flex items-center justify-center font-mono font-bold">4</span>
                     User Error & Mod Incompatibility
                   </h3>
                   <p className="text-neutral-300 text-xs leading-relaxed">
@@ -392,8 +376,8 @@ export const LegalPage = () => {
           {activeTab === 'rules' && (
             <div className="space-y-6">
               <div>
-                <span className="text-[11px] font-mono text-red-400 uppercase tracking-wider font-bold">
-                  COMMUNITY & SERVER GOVERNANCE
+                <span className="text-[11px] font-mono text-neutral-400 uppercase tracking-wider font-bold">
+                  POLICY SECTION 04
                 </span>
                 <h2 className="text-xl sm:text-2xl font-black text-white mt-1">
                   Server Rules & Acceptable Use Policy (AUP)
@@ -403,11 +387,12 @@ export const LegalPage = () => {
                 </p>
               </div>
 
+              {/* Rules List - Completely Clean & Monochrome */}
               <div className="space-y-3">
                 {/* Rule 1 */}
                 <div className="p-4 rounded-xl bg-black/40 border border-white/10 space-y-1.5">
                   <div className="flex items-center gap-2">
-                    <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-red-500/20 text-red-400 border border-red-500/30">
+                    <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-white/10 text-white border border-white/15">
                       RULE 01
                     </span>
                     <h3 className="text-sm font-bold text-white">No DDoS, DoS, Stress Testing, or Port Probing</h3>
@@ -420,7 +405,7 @@ export const LegalPage = () => {
                 {/* Rule 2 */}
                 <div className="p-4 rounded-xl bg-black/40 border border-white/10 space-y-1.5">
                   <div className="flex items-center gap-2">
-                    <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-red-500/20 text-red-400 border border-red-500/30">
+                    <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-white/10 text-white border border-white/15">
                       RULE 02
                     </span>
                     <h3 className="text-sm font-bold text-white">Strict Prohibition on Cryptocurrency Mining</h3>
@@ -433,7 +418,7 @@ export const LegalPage = () => {
                 {/* Rule 3 */}
                 <div className="p-4 rounded-xl bg-black/40 border border-white/10 space-y-1.5">
                   <div className="flex items-center gap-2">
-                    <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-amber-500/20 text-amber-400 border border-amber-500/30">
+                    <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-white/10 text-white border border-white/15">
                       RULE 03
                     </span>
                     <h3 className="text-sm font-bold text-white">No CPU Thrashing, Infinite Loops, or Lag Machines</h3>
@@ -446,7 +431,7 @@ export const LegalPage = () => {
                 {/* Rule 4 */}
                 <div className="p-4 rounded-xl bg-black/40 border border-white/10 space-y-1.5">
                   <div className="flex items-center gap-2">
-                    <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-red-500/20 text-red-400 border border-red-500/30">
+                    <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-white/10 text-white border border-white/15">
                       RULE 04
                     </span>
                     <h3 className="text-sm font-bold text-white">Prohibited Content & Illegal Software</h3>
@@ -459,7 +444,7 @@ export const LegalPage = () => {
                 {/* Rule 5 */}
                 <div className="p-4 rounded-xl bg-black/40 border border-white/10 space-y-1.5">
                   <div className="flex items-center gap-2">
-                    <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-blue-500/20 text-blue-400 border border-blue-500/30">
+                    <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-white/10 text-white border border-white/15">
                       RULE 05
                     </span>
                     <h3 className="text-sm font-bold text-white">Discord Bot & Web Application Policies</h3>
@@ -472,7 +457,7 @@ export const LegalPage = () => {
                 {/* Rule 6 */}
                 <div className="p-4 rounded-xl bg-black/40 border border-white/10 space-y-1.5">
                   <div className="flex items-center gap-2">
-                    <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-purple-500/20 text-purple-400 border border-purple-500/30">
+                    <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-white/10 text-white border border-white/15">
                       RULE 06
                     </span>
                     <h3 className="text-sm font-bold text-white">Account Reselling & Fraud Prevention</h3>
@@ -485,7 +470,7 @@ export const LegalPage = () => {
                 {/* Rule 7 */}
                 <div className="p-4 rounded-xl bg-black/40 border border-white/10 space-y-1.5">
                   <div className="flex items-center gap-2">
-                    <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-neutral-500/20 text-neutral-400 border border-neutral-500/30">
+                    <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-white/10 text-white border border-white/15">
                       RULE 07
                     </span>
                     <h3 className="text-sm font-bold text-white">Staff Respect & Support Ticket Conduct</h3>
@@ -502,8 +487,8 @@ export const LegalPage = () => {
           {activeTab === 'privacy' && (
             <div className="space-y-6">
               <div>
-                <span className="text-[11px] font-mono text-blue-400 uppercase tracking-wider font-bold">
-                  PRIVACY & DATA HANDLING
+                <span className="text-[11px] font-mono text-neutral-400 uppercase tracking-wider font-bold">
+                  POLICY SECTION 05
                 </span>
                 <h2 className="text-xl sm:text-2xl font-black text-white mt-1">
                   Privacy Policy & Telemetry
@@ -557,7 +542,7 @@ export const LegalPage = () => {
             </Link>
             <a
               href="mailto:support@zeroxcloud.com"
-              className="px-4 py-2 rounded-xl bg-[#C5F36A] hover:bg-[#b2e057] text-black font-extrabold transition"
+              className="px-4 py-2 rounded-xl bg-white text-black hover:bg-neutral-200 font-extrabold transition"
             >
               Email Support
             </a>

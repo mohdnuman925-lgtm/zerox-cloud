@@ -97,17 +97,17 @@ export const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/refund" className="hover:text-[#C5F36A] transition font-medium">
+                <Link to="/refund" className="hover:text-white transition">
                   Refund Policy (Strict)
                 </Link>
               </li>
               <li>
-                <Link to="/dataloss" className="hover:text-amber-300 transition">
+                <Link to="/dataloss" className="hover:text-white transition">
                   Data Loss & Backups
                 </Link>
               </li>
               <li>
-                <Link to="/rules" className="hover:text-red-400 transition">
+                <Link to="/rules" className="hover:text-white transition">
                   Server Rules & AUP
                 </Link>
               </li>

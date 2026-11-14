@@ -351,7 +351,7 @@ export const CheckoutPage = () => {
                   </span>
                 </label>
                 <div className="text-[10px] text-neutral-400 pl-6 leading-relaxed">
-                  <strong className="text-amber-300">Important Notice:</strong> All sales are final. No refunds once bought (a refund is only provided in case ZEROX CLOUD fails to provision the service). ZEROX CLOUD is strictly not responsible for data loss; customers must maintain their own offsite backups.
+                  <strong className="text-white">Notice:</strong> All sales are final. No refunds once bought (a refund is only provided in case ZEROX CLOUD fails to provision the service). ZEROX CLOUD is strictly not responsible for data loss; customers must maintain their own offsite backups.
                 </div>
               </div>
 
