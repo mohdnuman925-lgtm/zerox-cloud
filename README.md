@@ -70,6 +70,67 @@ The full application (frontend SPA + REST API) will be served on `http://localho
 
 ---
 
+## 🌐 Production Domain Deployment (`zeroxcloud.site` & `n.stake.bond`)
+
+This repository is pre-configured with **Vercel Serverless & SPA architecture** (`vercel.json` + `api/index.js`), plus standalone Node/Express support.
+
+### Option A: Vercel Cloud Deployment (Recommended)
+Both `zeroxcloud.site` (or `zeroxxcloud.site`) and `n.stake.bond` can be attached to the exact same Vercel project:
+
+1. **Deploy to Vercel**:
+   - Link this GitHub repo (`mohdnuman925-lgtm/zerox-cloud`) in your Vercel Dashboard.
+   - Vercel automatically detects `vercel.json`, executes `npm run build`, and routes `/api/*` to the serverless function.
+
+2. **Add Custom Domains in Vercel**:
+   - Go to **Project Settings** → **Domains**.
+   - Add:
+     - `zeroxcloud.site` & `www.zeroxcloud.site` (or `zeroxxcloud.site`)
+     - `n.stake.bond`
+
+3. **Configure DNS Records** at your domain registrar / Cloudflare:
+   | Type | Host / Name | Target / Value | TTL |
+   | :--- | :--- | :--- | :--- |
+   | **A** | `@` (or domain apex) | `76.76.21.21` | Auto |
+   | **CNAME** | `www` | `cname.vercel-dns.com` | Auto |
+   | **CNAME** | `n` (for `n.stake.bond`) | `cname.vercel-dns.com` | Auto |
+
+Vercel will automatically provision SSL certificates for all domains within 60 seconds!
+
+---
+
+### Option B: VPS / Linux Server Deployment (Nginx / PM2)
+If hosting on an Ubuntu/Debian server for `n.stake.bond`:
+
+```bash
+# 1. Install & build
+npm install
+npm run build
+
+# 2. Run with PM2
+pm2 start server/index.js --name "zerox-cloud"
+pm2 save
+```
+
+**Nginx Configuration (`/etc/nginx/sites-available/zeroxcloud`)**:
+```nginx
+server {
+    server_name zeroxcloud.site zeroxxcloud.site n.stake.bond;
+
+    location / {
+        proxy_pass http://localhost:5050;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}
+```
+
+---
+
 ## 🔐 Demo Credentials
 
 | Role | Email | Password |

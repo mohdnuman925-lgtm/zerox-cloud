@@ -5,7 +5,12 @@ import bcrypt from 'bcryptjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const DB_FILE = path.join(__dirname, 'data', 'db.json');
+
+const isServerless = Boolean(process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME || process.env.LAMBDA_TASK_ROOT);
+const SEED_FILE = path.join(__dirname, 'data', 'db.json');
+const RUNTIME_DB_FILE = isServerless ? path.join('/tmp', 'zerox_db.json') : SEED_FILE;
+
+let memoryDB = null;
 
 const getInitialData = () => {
   const salt = bcrypt.genSaltSync(10);
@@ -542,29 +547,55 @@ const getInitialData = () => {
 };
 
 export const getDB = () => {
+  if (memoryDB) {
+    return memoryDB;
+  }
+
   try {
-    if (!fs.existsSync(DB_FILE)) {
-      const data = getInitialData();
-      fs.mkdirSync(path.dirname(DB_FILE), { recursive: true });
-      fs.writeFileSync(DB_FILE, JSON.stringify(data, null, 2), 'utf-8');
-      return data;
+    if (fs.existsSync(RUNTIME_DB_FILE)) {
+      const raw = fs.readFileSync(RUNTIME_DB_FILE, 'utf-8');
+      memoryDB = JSON.parse(raw);
+      return memoryDB;
     }
-    const raw = fs.readFileSync(DB_FILE, 'utf-8');
-    return JSON.parse(raw);
+
+    // If runtime file does not exist, check seed file
+    if (SEED_FILE !== RUNTIME_DB_FILE && fs.existsSync(SEED_FILE)) {
+      const raw = fs.readFileSync(SEED_FILE, 'utf-8');
+      memoryDB = JSON.parse(raw);
+      try {
+        fs.mkdirSync(path.dirname(RUNTIME_DB_FILE), { recursive: true });
+        fs.writeFileSync(RUNTIME_DB_FILE, JSON.stringify(memoryDB, null, 2), 'utf-8');
+      } catch (writeErr) {
+        // Safe fallback in read-only environment
+      }
+      return memoryDB;
+    }
+
+    // Default to initial data
+    memoryDB = getInitialData();
+    try {
+      fs.mkdirSync(path.dirname(RUNTIME_DB_FILE), { recursive: true });
+      fs.writeFileSync(RUNTIME_DB_FILE, JSON.stringify(memoryDB, null, 2), 'utf-8');
+    } catch (writeErr) {
+      // Safe fallback in read-only environment
+    }
+    return memoryDB;
   } catch (error) {
-    console.error('Error reading database file:', error);
-    return getInitialData();
+    console.error('Error initializing database:', error);
+    memoryDB = getInitialData();
+    return memoryDB;
   }
 };
 
 export const saveDB = (data) => {
+  memoryDB = data;
   try {
-    fs.mkdirSync(path.dirname(DB_FILE), { recursive: true });
-    fs.writeFileSync(DB_FILE, JSON.stringify(data, null, 2), 'utf-8');
+    fs.mkdirSync(path.dirname(RUNTIME_DB_FILE), { recursive: true });
+    fs.writeFileSync(RUNTIME_DB_FILE, JSON.stringify(data, null, 2), 'utf-8');
     return true;
   } catch (error) {
-    console.error('Error saving database file:', error);
-    return false;
+    console.warn('Database disk write warning (memory state retained):', error.message);
+    return true;
   }
 };
 
