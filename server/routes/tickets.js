@@ -1,6 +1,7 @@
 import express from 'express';
 import { getDB, saveDB, logAudit } from '../db.js';
 import { authenticateToken } from './auth.js';
+import { sanitizeString } from '../middleware/sanitize.js';
 
 const router = express.Router();
 
@@ -20,6 +21,15 @@ router.post('/create', authenticateToken, (req, res) => {
       return res.status(400).json({ error: 'Department, subject, and message are required' });
     }
 
+    const cleanSubject = sanitizeString(subject, 120);
+    const cleanMessage = sanitizeString(message, 5000);
+    const cleanDept = sanitizeString(department, 50);
+    const cleanPriority = ['low', 'medium', 'high', 'urgent'].includes(priority) ? priority : 'medium';
+
+    if (!cleanSubject || !cleanMessage) {
+      return res.status(400).json({ error: 'Subject and message cannot be empty or invalid' });
+    }
+
     const db = getDB();
     const ticketId = 'tkt-' + Date.now();
     const ticketNumber = 'TKT-' + Math.floor(1000 + Math.random() * 9000);
@@ -30,9 +40,9 @@ router.post('/create', authenticateToken, (req, res) => {
       user_id: req.user.id,
       user_name: req.user.name,
       user_email: req.user.email,
-      department,
-      priority,
-      subject,
+      department: cleanDept,
+      priority: cleanPriority,
+      subject: cleanSubject,
       status: 'open',
       created_at: new Date().toISOString(),
       updated_at: new Date().toISOString()
@@ -44,7 +54,7 @@ router.post('/create', authenticateToken, (req, res) => {
       sender_id: req.user.id,
       sender_name: req.user.name,
       sender_role: 'customer',
-      message,
+      message: cleanMessage,
       is_internal: false,
       created_at: new Date().toISOString()
     };
@@ -89,8 +99,9 @@ router.post('/:id/reply', authenticateToken, (req, res) => {
     const { id } = req.params;
     const { message } = req.body;
 
-    if (!message || message.trim() === '') {
-      return res.status(400).json({ error: 'Message cannot be empty' });
+    const cleanReply = sanitizeString(message, 5000);
+    if (!cleanReply) {
+      return res.status(400).json({ error: 'Message cannot be empty or invalid' });
     }
 
     const db = getDB();
@@ -106,7 +117,7 @@ router.post('/:id/reply', authenticateToken, (req, res) => {
       sender_id: req.user.id,
       sender_name: req.user.name,
       sender_role: 'customer',
-      message: message.trim(),
+      message: cleanReply,
       is_internal: false,
       created_at: new Date().toISOString()
     };

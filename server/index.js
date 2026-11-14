@@ -12,6 +12,7 @@ import billingRoutes from './routes/billing.js';
 import ticketRoutes from './routes/tickets.js';
 import adminRoutes from './routes/admin.js';
 import { getDB } from './db.js';
+import { apiRateLimiter } from './middleware/rateLimiter.js';
 
 dotenv.config();
 
@@ -22,7 +23,25 @@ const DIST_PATH = path.join(__dirname, '..', 'dist');
 const app = express();
 const PORT = process.env.PORT || 5050;
 
-// Permissive CORS for target domains: zeroxcloud.site, zeroxxcloud.site, n.stake.bond, localhost, vercel
+// Security: Disable X-Powered-By header to prevent technology fingerprinting
+app.disable('x-powered-by');
+
+// Security Headers Middleware (Clickjacking, MIME sniffing, HSTS, XSS protection)
+app.use((req, res, next) => {
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.setHeader('X-Frame-Options', 'DENY');
+  res.setHeader('X-XSS-Protection', '1; mode=block');
+  res.setHeader('Strict-Transport-Security', 'max-age=31536000; includeSubDomains; preload');
+  res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+  res.setHeader('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
+  res.setHeader(
+    'Content-Security-Policy',
+    "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https: blob:; connect-src 'self' https: http: ws: wss:; frame-ancestors 'none';"
+  );
+  next();
+});
+
+// Strict CORS for target domains: zeroxcloud.site, zeroxxcloud.site, n.stake.bond, localhost, vercel
 const allowedOrigins = [
   'https://zeroxcloud.site',
   'https://www.zeroxcloud.site',
@@ -49,14 +68,19 @@ app.use(cors({
     ) {
       return callback(null, true);
     }
-    return callback(null, true);
+    return callback(new Error('Blocked by CORS security policy: origin not allowed'));
   },
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
 }));
 
-app.use(express.json());
+// Payload size limit to prevent memory exhaustion / DoS attacks
+app.use(express.json({ limit: '100kb' }));
+app.use(express.urlencoded({ extended: true, limit: '100kb' }));
+
+// Apply Global Rate Limiting to all API routes
+app.use('/api', apiRateLimiter);
 
 // Initialize Database safely
 try {

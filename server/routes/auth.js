@@ -3,6 +3,8 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { getDB, saveDB, logAudit } from '../db.js';
 import { PterodactylAdapter } from '../providers/pterodactylAdapter.js';
+import { authRateLimiter } from '../middleware/rateLimiter.js';
+import { sanitizeString, isValidEmail, isStrongPassword } from '../middleware/sanitize.js';
 
 const router = express.Router();
 const JWT_SECRET = process.env.JWT_SECRET || 'zerox_cloud_jwt_secret_secure_key_2026';
@@ -30,27 +32,42 @@ export const authenticateToken = (req, res, next) => {
   });
 };
 
-// Register
-router.post('/register', async (req, res) => {
+// Register (Rate-limited, email & password validated, sanitized)
+router.post('/register', authRateLimiter, async (req, res) => {
   try {
     const { name, email, password } = req.body;
     if (!name || !email || !password) {
       return res.status(400).json({ error: 'All fields are required' });
     }
 
+    const cleanEmail = email.trim().toLowerCase();
+    const cleanName = sanitizeString(name, 60);
+
+    if (!cleanName || cleanName.length < 2) {
+      return res.status(400).json({ error: 'Name must be at least 2 characters' });
+    }
+
+    if (!isValidEmail(cleanEmail)) {
+      return res.status(400).json({ error: 'Please provide a valid email address' });
+    }
+
+    if (!isStrongPassword(password)) {
+      return res.status(400).json({ error: 'Password must be at least 8 characters' });
+    }
+
     const db = getDB();
-    const existing = db.profiles.find((u) => u.email.toLowerCase() === email.toLowerCase());
+    const existing = db.profiles.find((u) => u.email.toLowerCase() === cleanEmail);
     if (existing) {
       return res.status(400).json({ error: 'An account with this email already exists' });
     }
 
-    const salt = bcrypt.genSaltSync(10);
+    const salt = bcrypt.genSaltSync(12);
     const password_hash = bcrypt.hashSync(password, salt);
 
     const newUser = {
       id: 'usr-' + Date.now() + '-' + Math.random().toString(36).substring(2, 6),
-      name: name.trim(),
-      email: email.trim().toLowerCase(),
+      name: cleanName,
+      email: cleanEmail,
       password_hash,
       role: 'customer',
       panel_password: password,
@@ -83,18 +100,20 @@ router.post('/register', async (req, res) => {
   }
 });
 
-// Login
-router.post('/login', async (req, res) => {
+// Login (Rate-limited, brute-force audited)
+router.post('/login', authRateLimiter, async (req, res) => {
   try {
     const { email, password } = req.body;
     if (!email || !password) {
       return res.status(400).json({ error: 'Email and password are required' });
     }
 
+    const cleanEmail = email.trim().toLowerCase();
     const db = getDB();
-    const user = db.profiles.find((u) => u.email.toLowerCase() === email.trim().toLowerCase());
+    const user = db.profiles.find((u) => u.email.toLowerCase() === cleanEmail);
 
     if (!user) {
+      logAudit(cleanEmail, 'visitor', 'LOGIN_FAILED', 'auth', 'Failed login attempt - user not found');
       return res.status(401).json({ error: 'Invalid email or password' });
     }
 
@@ -104,12 +123,13 @@ router.post('/login', async (req, res) => {
 
     const isMatch = bcrypt.compareSync(password, user.password_hash);
     if (!isMatch) {
+      logAudit(user.name, user.role, 'LOGIN_FAILED', user.id, 'Failed login attempt - wrong password');
       return res.status(401).json({ error: 'Invalid email or password' });
     }
 
     const token = jwt.sign({ userId: user.id, role: user.role }, JWT_SECRET, { expiresIn: '7d' });
 
-    logAudit(user.name, user.role, 'LOGIN', user.id, 'User logged in');
+    logAudit(user.name, user.role, 'LOGIN', user.id, 'User logged in successfully');
 
     res.json({
       message: 'Logged in successfully',
