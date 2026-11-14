@@ -1,0 +1,1850 @@
+{
+  "profiles": [
+    {
+      "id": "usr-admin-01",
+      "name": "Super Admin",
+      "email": "admin@zeroxcloud.com",
+      "password_hash": "$2a$10$yllcBCfxcCYUkRNnfal0X.H54w/PjMkp.uyCGuaoTjncRT5pMtg0W",
+      "role": "super_admin",
+      "panel_password": "fgrdgbff",
+      "status": "active",
+      "created_at": "2026-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "usr-demo-01",
+      "name": "Mohd Numan",
+      "email": "mohdnuman925@gmail.com",
+      "password_hash": "$2a$10$yllcBCfxcCYUkRNnfal0X.RgHPVFxcBJW36t.g3MSSzDgr5ihQvnC",
+      "role": "customer",
+      "panel_password": "Ptero_User_2026!",
+      "status": "active",
+      "created_at": "2026-11-14T07:15:00.000Z"
+    },
+    {
+      "id": "usr-1794643516710-kq51",
+      "name": "Alex Gamer",
+      "email": "test.gamer.1794643516593@example.com",
+      "password_hash": "$2a$10$G/CxvRu0AGPXPKXZAMJv4O6/PSJrOw3GGkobzSu6MJcZEvRPoB88G",
+      "role": "customer",
+      "panel_password": "Password123!",
+      "status": "active",
+      "created_at": "2026-11-14T08:05:16.710Z"
+    },
+    {
+      "id": "usr-1794647797205-cxd9",
+      "name": "mannan",
+      "email": "mannan@zeroxcloud.site",
+      "password_hash": "$2a$10$eX0D5OEn5x9BwPpOjDhZH.VmN5QI5r2dUCM93mgjwXqZthdOhkmqm",
+      "role": "customer",
+      "panel_password": "mannan",
+      "status": "active",
+      "created_at": "2026-11-14T09:16:37.205Z"
+    },
+    {
+      "id": "usr-1794648148389-i8y7",
+      "name": "Alex Gamer",
+      "email": "test.gamer.1794648148273@example.com",
+      "password_hash": "$2a$10$LBncEQHezZE0SrGkLVZNKe50G1GYhb7gox.tknqG2Mw1zeeDPW952",
+      "role": "customer",
+      "panel_password": "Password123!",
+      "status": "active",
+      "created_at": "2026-11-14T09:22:28.389Z"
+    },
+    {
+      "id": "usr-1794654813819-66cs",
+      "name": "Alex Gamer",
+      "email": "test.gamer.1794654813688@example.com",
+      "password_hash": "$2a$10$UR9tOqbKe3GxZnzNsc9tlOzERI8EdS0l36igBK.ZCGj2tqj8gR/IC",
+      "role": "customer",
+      "panel_password": "Password123!",
+      "status": "active",
+      "created_at": "2026-11-14T11:13:33.819Z"
+    }
+  ],
+  "product_categories": [
+    {
+      "id": "cat-games",
+      "name": "Game Server Hosting",
+      "slug": "games",
+      "enabled": true,
+      "icon": "Gamepad2",
+      "sort_order": 1
+    },
+    {
+      "id": "cat-cloud",
+      "name": "Cloud / VPS Hosting",
+      "slug": "cloud",
+      "enabled": true,
+      "icon": "Cloud",
+      "sort_order": 2
+    },
+    {
+      "id": "cat-dedicated",
+      "name": "Dedicated Servers",
+      "slug": "dedicated",
+      "enabled": true,
+      "icon": "Server",
+      "sort_order": 3
+    },
+    {
+      "id": "cat-web",
+      "name": "Web Hosting",
+      "slug": "web",
+      "enabled": true,
+      "icon": "Globe",
+      "sort_order": 4
+    },
+    {
+      "id": "cat-bots",
+      "name": "Discord Bot Hosting",
+      "slug": "discord-bots",
+      "enabled": true,
+      "icon": "Bot",
+      "sort_order": 5
+    }
+  ],
+  "games": [
+    {
+      "id": "gm-minecraft",
+      "name": "Minecraft",
+      "slug": "minecraft",
+      "featured": true,
+      "image": "https://images.unsplash.com/photo-1627856013091-fed6e4e30025?w=600&auto=format&fit=crop&q=80",
+      "description": "Paper, Purpur, Forge, Fabric, Vanilla, Bedrock"
+    },
+    {
+      "id": "gm-rust",
+      "name": "Rust",
+      "slug": "rust",
+      "featured": true,
+      "image": "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=600&auto=format&fit=crop&q=80",
+      "description": "Oxide / uMod high-tick survival"
+    },
+    {
+      "id": "gm-cs2",
+      "name": "Counter-Strike 2",
+      "slug": "cs2",
+      "featured": true,
+      "image": "https://images.unsplash.com/photo-1511512578047-dfb367046420?w=600&auto=format&fit=crop&q=80",
+      "description": "128 tickrate competitive esports servers"
+    },
+    {
+      "id": "gm-ark",
+      "name": "ARK: Survival Evolved",
+      "slug": "ark",
+      "featured": false,
+      "image": "https://images.unsplash.com/photo-1538481199705-c710c4e965fc?w=600&auto=format&fit=crop&q=80",
+      "description": "Crossplay cluster support"
+    }
+  ],
+  "plans": [
+    {
+      "id": "plan-dirt",
+      "product_id": "prod-mc-dirt",
+      "category": "games",
+      "game_slug": "minecraft",
+      "processor": "intel",
+      "name": "DIRT PLAN",
+      "tag": "GAMES",
+      "badge": "CHEAPEST",
+      "price_inr": 40,
+      "price_usd": 0.5,
+      "ram": "4 GB",
+      "cpu": "100% CPU",
+      "storage": "20 GB NVMe",
+      "location": "India (Noida & Mumbai)",
+      "features": [
+        "Instant deployment",
+        "DDoS protection",
+        "24/7 support",
+        "Custom configurations",
+        "Full SFTP & MySQL"
+      ],
+      "sort_order": 1,
+      "enabled": true,
+      "stock_status": "in_stock",
+      "updated_at": "2026-11-14T09:20:57.602Z"
+    },
+    {
+      "id": "plan-wood",
+      "product_id": "prod-mc-wood",
+      "category": "games",
+      "game_slug": "minecraft",
+      "processor": "intel",
+      "name": "WOOD PLAN",
+      "tag": "GAMES",
+      "badge": "MOST SOLD",
+      "price_inr": 80,
+      "price_usd": 1,
+      "ram": "4 GB",
+      "cpu": "200% CPU",
+      "storage": "30 GB NVMe",
+      "location": "India (Noida & Mumbai)",
+      "features": [
+        "Instant deployment",
+        "DDoS protection",
+        "24/7 support",
+        "Custom configurations",
+        "Full SFTP & MySQL"
+      ],
+      "sort_order": 2,
+      "enabled": true,
+      "stock_status": "in_stock"
+    },
+    {
+      "id": "plan-stone",
+      "product_id": "prod-mc-stone",
+      "category": "games",
+      "game_slug": "minecraft",
+      "processor": "intel",
+      "name": "STONE PLAN",
+      "tag": "GAMES",
+      "badge": "",
+      "price_inr": 120,
+      "price_usd": 1.5,
+      "ram": "6 GB",
+      "cpu": "300% CPU",
+      "storage": "40 GB NVMe",
+      "location": "India (Noida & Mumbai)",
+      "features": [
+        "Instant deployment",
+        "DDoS protection",
+        "24/7 support",
+        "Custom configurations",
+        "Full SFTP & MySQL"
+      ],
+      "sort_order": 3,
+      "enabled": true,
+      "stock_status": "in_stock"
+    },
+    {
+      "id": "plan-coal",
+      "product_id": "prod-mc-coal",
+      "category": "games",
+      "game_slug": "minecraft",
+      "processor": "intel",
+      "name": "COAL PLAN",
+      "tag": "GAMES",
+      "badge": "",
+      "price_inr": 160,
+      "price_usd": 2,
+      "ram": "8 GB",
+      "cpu": "400% CPU",
+      "storage": "50 GB NVMe",
+      "location": "India (Noida & Mumbai)",
+      "features": [
+        "Instant deployment",
+        "DDoS protection",
+        "24/7 support",
+        "Custom configurations",
+        "Full SFTP & MySQL"
+      ],
+      "sort_order": 4,
+      "enabled": true,
+      "stock_status": "in_stock"
+    },
+    {
+      "id": "plan-lapis",
+      "product_id": "prod-mc-lapis",
+      "category": "games",
+      "game_slug": "minecraft",
+      "processor": "amd",
+      "name": "LAPIS PLAN",
+      "tag": "GAMES",
+      "badge": "",
+      "price_inr": 240,
+      "price_usd": 3,
+      "ram": "10 GB",
+      "cpu": "450% CPU",
+      "storage": "60 GB NVMe",
+      "location": "India (Noida & Mumbai)",
+      "features": [
+        "AMD EPYC 7C13 cores",
+        "Instant deployment",
+        "DDoS protection",
+        "24/7 support",
+        "Custom configurations"
+      ],
+      "sort_order": 5,
+      "enabled": true,
+      "stock_status": "in_stock"
+    },
+    {
+      "id": "plan-gold",
+      "product_id": "prod-mc-gold",
+      "category": "games",
+      "game_slug": "minecraft",
+      "processor": "amd",
+      "name": "GOLD PLAN",
+      "tag": "GAMES",
+      "badge": "",
+      "price_inr": 300,
+      "price_usd": 3.75,
+      "ram": "12 GB",
+      "cpu": "500% CPU",
+      "storage": "70 GB NVMe",
+      "location": "India (Noida & Mumbai)",
+      "features": [
+        "AMD EPYC 7C13 cores",
+        "Instant deployment",
+        "DDoS protection",
+        "24/7 support",
+        "Custom configurations"
+      ],
+      "sort_order": 6,
+      "enabled": true,
+      "stock_status": "in_stock"
+    },
+    {
+      "id": "plan-redstone",
+      "product_id": "prod-mc-redstone",
+      "category": "games",
+      "game_slug": "minecraft",
+      "processor": "amd",
+      "name": "REDSTONE PLAN",
+      "tag": "GAMES",
+      "badge": "LIMITED STOCK",
+      "price_inr": 360,
+      "price_usd": 4.5,
+      "ram": "16 GB",
+      "cpu": "600% CPU",
+      "storage": "90 GB NVMe",
+      "location": "India (Noida & Mumbai)",
+      "features": [
+        "AMD EPYC 7C13 cores",
+        "Instant deployment",
+        "DDoS protection",
+        "24/7 support",
+        "Custom configurations"
+      ],
+      "sort_order": 7,
+      "enabled": true,
+      "stock_status": "limited"
+    },
+    {
+      "id": "plan-vps-1",
+      "product_id": "prod-vps-1",
+      "category": "cloud",
+      "name": "CLOUD VPS-01",
+      "tag": "CLOUD",
+      "badge": "",
+      "price_inr": 450,
+      "price_usd": 5.5,
+      "ram": "4 GB DDR4",
+      "cpu": "2 vCPU Cores",
+      "storage": "60 GB NVMe SSD",
+      "bandwidth": "5 TB Bandwidth @ 1Gbps",
+      "location": "Mumbai, India",
+      "features": [
+        "Full Root Access",
+        "Dedicated IPv4 + IPv6",
+        "Sub-15ms Latency",
+        "Choice of Ubuntu/Debian/Alma/Windows",
+        "DDoS Mitigation"
+      ],
+      "sort_order": 1,
+      "enabled": true,
+      "stock_status": "in_stock"
+    },
+    {
+      "id": "plan-vps-2",
+      "product_id": "prod-vps-2",
+      "category": "cloud",
+      "name": "CLOUD VPS-02",
+      "tag": "CLOUD",
+      "badge": "RECOMMENDED",
+      "price_inr": 890,
+      "price_usd": 11,
+      "ram": "8 GB DDR4",
+      "cpu": "4 vCPU Cores",
+      "storage": "120 GB NVMe SSD",
+      "bandwidth": "10 TB Bandwidth @ 1Gbps",
+      "location": "Noida, India",
+      "features": [
+        "Full Root Access",
+        "Dedicated IPv4 + IPv6",
+        "Sub-15ms Latency",
+        "Choice of OS",
+        "Automated Daily Backups"
+      ],
+      "sort_order": 2,
+      "enabled": true,
+      "stock_status": "in_stock"
+    },
+    {
+      "id": "plan-vps-3",
+      "product_id": "prod-vps-3",
+      "category": "cloud",
+      "name": "CLOUD VPS-03",
+      "tag": "CLOUD",
+      "badge": "",
+      "price_inr": 1690,
+      "price_usd": 21,
+      "ram": "16 GB DDR4",
+      "cpu": "8 vCPU Cores",
+      "storage": "240 GB NVMe SSD",
+      "bandwidth": "20 TB Bandwidth @ 10Gbps",
+      "location": "Singapore, Asia",
+      "features": [
+        "Full Root Access",
+        "Dedicated IPv4 + IPv6",
+        "Sub-15ms Latency",
+        "BGP Optimized Routing",
+        "DDoS Protection"
+      ],
+      "sort_order": 3,
+      "enabled": true,
+      "stock_status": "in_stock"
+    },
+    {
+      "id": "plan-dedi-1",
+      "product_id": "prod-dedi-1",
+      "category": "dedicated",
+      "name": "ENTERPRISE INTEL E-2388G",
+      "tag": "DEDICATED",
+      "badge": "",
+      "price_inr": 6499,
+      "price_usd": 79,
+      "ram": "64 GB DDR4 ECC",
+      "cpu": "8 Cores / 16 Threads @ 5.1GHz",
+      "storage": "2x 1TB NVMe PCIe Gen4",
+      "bandwidth": "1 Gbps Unmetered",
+      "location": "Mumbai Datacenter",
+      "features": [
+        "100% Dedicated Hardware",
+        "IPMI / iDRAC remote console",
+        "Clean IPv4 Subnet (/29)",
+        "Tier-3 Datacenter SLA"
+      ],
+      "sort_order": 1,
+      "enabled": true,
+      "stock_status": "in_stock"
+    },
+    {
+      "id": "plan-dedi-2",
+      "product_id": "prod-dedi-2",
+      "category": "dedicated",
+      "name": "TITAN AMD RYZEN 9 7950X",
+      "tag": "DEDICATED",
+      "badge": "ULTRA PERFORMANCE",
+      "price_inr": 11999,
+      "price_usd": 145,
+      "ram": "128 GB DDR5 5200MHz",
+      "cpu": "16 Cores / 32 Threads @ 5.7GHz",
+      "storage": "2x 2TB NVMe PCIe Gen4",
+      "bandwidth": "10 Gbps Burst Unmetered",
+      "location": "Noida Datacenter",
+      "features": [
+        "Peak Single-Thread Speeds",
+        "Hardware RAID available",
+        "IPMI / KVM Included",
+        "Custom BGP Announce"
+      ],
+      "sort_order": 2,
+      "enabled": true,
+      "stock_status": "in_stock"
+    },
+    {
+      "id": "plan-web-1",
+      "product_id": "prod-web-1",
+      "category": "web",
+      "name": "STARTER WEB",
+      "tag": "WEB",
+      "badge": "",
+      "price_inr": 99,
+      "price_usd": 1.25,
+      "ram": "1 GB Cloud RAM",
+      "cpu": "1 Core CPU",
+      "storage": "10 GB NVMe Storage",
+      "bandwidth": "Unlimited Bandwidth",
+      "location": "India Fast Edge",
+      "features": [
+        "Host 1 Website",
+        "Free Wildcard SSL",
+        "5 Professional Emails",
+        "Daily Backups",
+        "cPanel / DirectAdmin"
+      ],
+      "sort_order": 1,
+      "enabled": true,
+      "stock_status": "in_stock"
+    },
+    {
+      "id": "plan-web-2",
+      "product_id": "prod-web-2",
+      "category": "web",
+      "name": "BUSINESS WEB PRO",
+      "tag": "WEB",
+      "badge": "POPULAR",
+      "price_inr": 249,
+      "price_usd": 3.1,
+      "ram": "4 GB Cloud RAM",
+      "cpu": "2 Core CPU",
+      "storage": "50 GB NVMe Storage",
+      "bandwidth": "Unlimited Bandwidth",
+      "location": "India Fast Edge",
+      "features": [
+        "Unlimited Websites",
+        "Free Wildcard SSL",
+        "Unlimited Business Emails",
+        "Real-time Malware Scanner",
+        "WordPress 1-Click"
+      ],
+      "sort_order": 2,
+      "enabled": true,
+      "stock_status": "in_stock"
+    },
+    {
+      "id": "plan-bot-1",
+      "product_id": "prod-bot-1",
+      "category": "discord-bots",
+      "name": "BOT SPARK",
+      "tag": "BOTS",
+      "badge": "",
+      "price_inr": 49,
+      "price_usd": 0.6,
+      "ram": "1 GB Dedicated RAM",
+      "cpu": "100% CPU",
+      "storage": "5 GB NVMe",
+      "bandwidth": "Always On 24/7",
+      "location": "India Edge",
+      "features": [
+        "Node.js, Python, Java, Go",
+        "Git Integration",
+        "Automatic Restarts on Crash",
+        "Real-time Console Logs"
+      ],
+      "sort_order": 1,
+      "enabled": true,
+      "stock_status": "in_stock"
+    },
+    {
+      "id": "plan-bot-2",
+      "product_id": "prod-bot-2",
+      "category": "discord-bots",
+      "name": "BOT TITAN CLUSTER",
+      "tag": "BOTS",
+      "badge": "HEAVY BOT",
+      "price_inr": 149,
+      "price_usd": 1.8,
+      "ram": "4 GB Dedicated RAM",
+      "cpu": "250% CPU",
+      "storage": "20 GB NVMe",
+      "bandwidth": "Always On 24/7",
+      "location": "India Edge",
+      "features": [
+        "Sharded Bot Ready",
+        "Postgres/Redis addon ready",
+        "Fast WebSocket Latency to Discord API",
+        "24/7 Monitored"
+      ],
+      "sort_order": 2,
+      "enabled": true,
+      "stock_status": "in_stock"
+    },
+    {
+      "id": "plan-mc-offer",
+      "product_id": "prod-mc-offer",
+      "category": "games",
+      "game_slug": "minecraft",
+      "processor": "offer",
+      "name": "Offer Plan",
+      "tag": "GAMES",
+      "badge": "LIMITED STOCK",
+      "price_inr": 360,
+      "price_usd": 4.5,
+      "ram": "8 GB",
+      "cpu": "400% CPU",
+      "storage": "60 GB NVMe",
+      "location": "India (Noida & Mumbai)",
+      "features": [
+        "Instant deployment",
+        "DDoS protection",
+        "24/7 priority support",
+        "Custom configurations",
+        "Full SFTP & MySQL"
+      ],
+      "sort_order": 20,
+      "enabled": true,
+      "stock_status": "in_stock"
+    },
+    {
+      "id": "plan-mc-network",
+      "product_id": "prod-mc-network",
+      "category": "games",
+      "game_slug": "minecraft",
+      "processor": "offer",
+      "name": "Minecraft Server Network Package",
+      "tag": "GAMES",
+      "badge": "PACKAGE (6)",
+      "save_badge": "SAVE 32%",
+      "original_price_inr": 2499,
+      "price_inr": 1700,
+      "price_usd": 21,
+      "ram": "32 GB",
+      "cpu": "1200% CPU",
+      "storage": "250 GB NVMe",
+      "location": "India (Noida & Mumbai)",
+      "features": [
+        "6 Interconnected Servers",
+        "BungeeCord / Velocity Proxy",
+        "DDoS protection 3.2 Tbps",
+        "Dedicated IP included",
+        "Free automated backups"
+      ],
+      "sort_order": 21,
+      "enabled": true,
+      "stock_status": "in_stock"
+    }
+  ],
+  "coupons": [
+    {
+      "id": "cpn-01",
+      "code": "ZEROXCLOUD",
+      "discount_percent": 10,
+      "description": "Welcome Offer: 10% OFF for new users",
+      "max_uses": 1000,
+      "current_uses": 15,
+      "valid_until": "2028-12-31T23:59:59Z",
+      "enabled": true
+    },
+    {
+      "id": "cpn-02",
+      "code": "LAUNCH20",
+      "discount_percent": 20,
+      "description": "Launch Celebration 20% Discount",
+      "max_uses": 500,
+      "current_uses": 48,
+      "valid_until": "2027-12-31T23:59:59Z",
+      "enabled": true
+    }
+  ],
+  "orders": [
+    {
+      "id": "ord-1794654813837",
+      "order_number": "ZX-21129",
+      "user_id": "usr-1794654813819-66cs",
+      "user_name": "Alex Gamer",
+      "user_email": "test.gamer.1794654813688@example.com",
+      "total_amount": 72,
+      "currency": "INR",
+      "status": "paid",
+      "payment_method": "Razorpay UPI",
+      "payment_id": "pay_1794654813837_h6c62",
+      "coupon_code": "ZEROXCLOUD",
+      "discount_amount": 8,
+      "items": [
+        {
+          "plan_id": "plan-wood",
+          "plan_name": "WOOD PLAN",
+          "category": "games",
+          "processor": "intel",
+          "location": "India (Noida & Mumbai)",
+          "game": "Minecraft",
+          "software": "Forge Minecraft",
+          "price": 80,
+          "quantity": 1
+        }
+      ],
+      "created_at": "2026-11-14T11:13:33.837Z"
+    },
+    {
+      "id": "ord-1794653321838",
+      "order_number": "ZX-59325",
+      "user_id": "usr-admin-01",
+      "user_name": "Super Admin",
+      "user_email": "admin@zeroxcloud.com",
+      "total_amount": 40,
+      "currency": "INR",
+      "status": "paid",
+      "payment_method": "Razorpay UPI",
+      "payment_id": "pay_1794653321838_ltpkw",
+      "coupon_code": null,
+      "discount_amount": 0,
+      "items": [
+        {
+          "plan_id": "plan-dirt",
+          "plan_name": "DIRT PLAN",
+          "category": "games",
+          "processor": "intel",
+          "location": "India (Noida & Mumbai)",
+          "game": "Minecraft",
+          "software": "Forge Minecraft",
+          "price": 40,
+          "quantity": 1
+        }
+      ],
+      "created_at": "2026-11-14T10:48:41.838Z"
+    },
+    {
+      "id": "ord-1794648562474",
+      "order_number": "ZX-51463",
+      "user_id": "usr-admin-01",
+      "user_name": "Super Admin",
+      "user_email": "admin@zeroxcloud.com",
+      "total_amount": 20,
+      "currency": "INR",
+      "status": "paid",
+      "payment_method": "Razorpay UPI",
+      "payment_id": "pay_1794648562474_hvu65",
+      "coupon_code": null,
+      "discount_amount": 0,
+      "items": [
+        {
+          "plan_id": "plan-dirt",
+          "plan_name": "DIRT PLAN",
+          "category": "games",
+          "processor": "intel",
+          "location": "India (Noida & Mumbai)",
+          "game": "Minecraft",
+          "software": "Forge Minecraft",
+          "price": 20,
+          "quantity": 1
+        }
+      ],
+      "created_at": "2026-11-14T09:29:22.474Z"
+    },
+    {
+      "id": "ord-1794648148410",
+      "order_number": "ZX-45967",
+      "user_id": "usr-1794648148389-i8y7",
+      "user_name": "Alex Gamer",
+      "user_email": "test.gamer.1794648148273@example.com",
+      "total_amount": 72,
+      "currency": "INR",
+      "status": "paid",
+      "payment_method": "Razorpay UPI",
+      "payment_id": "pay_1794648148410_6j8fq",
+      "coupon_code": "ZEROXCLOUD",
+      "discount_amount": 8,
+      "items": [
+        {
+          "plan_id": "plan-wood",
+          "plan_name": "WOOD PLAN",
+          "category": "games",
+          "processor": "intel",
+          "location": "India (Noida & Mumbai)",
+          "game": "Minecraft",
+          "software": "Forge Minecraft",
+          "price": 80,
+          "quantity": 1
+        }
+      ],
+      "created_at": "2026-11-14T09:22:28.410Z"
+    },
+    {
+      "id": "ord-1794648136053",
+      "order_number": "ZX-27616",
+      "user_id": "usr-1794647797205-cxd9",
+      "user_name": "mannan",
+      "user_email": "mannan@zeroxcloud.site",
+      "total_amount": 890,
+      "currency": "INR",
+      "status": "paid",
+      "payment_method": "Razorpay UPI",
+      "payment_id": "pay_1794648136053_8zpoq",
+      "coupon_code": null,
+      "discount_amount": 0,
+      "items": [
+        {
+          "plan_id": "plan-vps-2",
+          "plan_name": "CLOUD VPS-02",
+          "category": "cloud",
+          "processor": "standard",
+          "location": "Singapore, Asia",
+          "game": "Cloud VPS",
+          "software": "Debian 12 Bookworm",
+          "price": 890,
+          "quantity": 1
+        }
+      ],
+      "created_at": "2026-11-14T09:22:16.053Z"
+    },
+    {
+      "id": "ord-1794643803339",
+      "order_number": "ZX-16592",
+      "user_id": "usr-admin-01",
+      "user_name": "Super Admin",
+      "user_email": "admin@zeroxcloud.com",
+      "total_amount": 80,
+      "currency": "INR",
+      "status": "paid",
+      "payment_method": "Razorpay UPI",
+      "payment_id": "pay_1794643803339_u843v",
+      "coupon_code": null,
+      "discount_amount": 0,
+      "items": [
+        {
+          "plan_id": "plan-wood",
+          "plan_name": "WOOD PLAN",
+          "category": "games",
+          "processor": "intel",
+          "location": "India (Noida & Mumbai)",
+          "game": "Minecraft",
+          "software": "Forge Minecraft",
+          "price": 80,
+          "quantity": 1
+        }
+      ],
+      "created_at": "2026-11-14T08:10:03.339Z"
+    },
+    {
+      "id": "ord-1794643516741",
+      "order_number": "ZX-54831",
+      "user_id": "usr-1794643516710-kq51",
+      "user_name": "Alex Gamer",
+      "user_email": "test.gamer.1794643516593@example.com",
+      "total_amount": 72,
+      "currency": "INR",
+      "status": "paid",
+      "payment_method": "Razorpay UPI",
+      "payment_id": "pay_1794643516741_lyv71",
+      "coupon_code": "ZEROXCLOUD",
+      "discount_amount": 8,
+      "items": [
+        {
+          "plan_id": "plan-wood",
+          "plan_name": "WOOD PLAN",
+          "category": "games",
+          "processor": "intel",
+          "location": "India (Noida & Mumbai)",
+          "game": "Minecraft",
+          "software": "Forge Minecraft",
+          "price": 80,
+          "quantity": 1
+        }
+      ],
+      "created_at": "2026-11-14T08:05:16.741Z"
+    },
+    {
+      "id": "ord-1001",
+      "order_number": "ZX-84920",
+      "user_id": "usr-demo-01",
+      "user_name": "Mohd Numan",
+      "user_email": "mohdnuman925@gmail.com",
+      "total_amount": 80,
+      "currency": "INR",
+      "status": "paid",
+      "payment_method": "Razorpay UPI",
+      "payment_id": "pay_rzp_mock_84920",
+      "items": [
+        {
+          "plan_id": "plan-wood",
+          "plan_name": "WOOD PLAN",
+          "category": "games",
+          "game_slug": "minecraft",
+          "instance_type": "Forge Minecraft",
+          "location": "India (Noida & Mumbai)",
+          "price": 80,
+          "quantity": 1
+        }
+      ],
+      "created_at": "2026-11-14T07:20:00.000Z"
+    }
+  ],
+  "services": [
+    {
+      "id": "srv-1794654815047-za72",
+      "service_id": "ZX-SRV-7676",
+      "order_id": "ord-1794654813837",
+      "user_id": "usr-1794654813819-66cs",
+      "user_email": "test.gamer.1794654813688@example.com",
+      "plan_id": "plan-wood",
+      "name": "Alex's Minecraft",
+      "category": "games",
+      "game": "Minecraft (Forge Minecraft)",
+      "node": "delhi-node-01.zeroxcloud.com",
+      "ip_address": "103.174.102.45",
+      "port": 25986,
+      "status": "suspended",
+      "cpu_usage": 0,
+      "ram_usage": 0,
+      "ram_max": 4,
+      "disk_usage": 0.5,
+      "disk_max": 30,
+      "provider": "pterodactyl",
+      "provider_identifier": "demo-ptero-5gp6aw0",
+      "renewal_date": "2026-12-14T11:13:35.047Z",
+      "created_at": "2026-11-14T11:13:35.047Z"
+    },
+    {
+      "id": "srv-1794653323052-boj2",
+      "service_id": "ZX-SRV-1659",
+      "order_id": "ord-1794653321838",
+      "user_id": "usr-admin-01",
+      "user_email": "admin@zeroxcloud.com",
+      "plan_id": "plan-dirt",
+      "name": "Super's Minecraft",
+      "category": "games",
+      "game": "Minecraft (Forge Minecraft)",
+      "node": "delhi-node-01.zeroxcloud.com",
+      "ip_address": "103.174.102.45",
+      "port": 25656,
+      "status": "active",
+      "cpu_usage": 0,
+      "ram_usage": 0.1,
+      "ram_max": 4,
+      "disk_usage": 0.5,
+      "disk_max": 20,
+      "provider": "pterodactyl",
+      "provider_identifier": "demo-ptero-5o5v8il",
+      "renewal_date": "2026-12-14T10:48:43.052Z",
+      "created_at": "2026-11-14T10:48:43.052Z"
+    },
+    {
+      "id": "srv-1794648563683-r1dj",
+      "service_id": "ZX-SRV-5123",
+      "order_id": "ord-1794648562474",
+      "user_id": "usr-admin-01",
+      "user_email": "admin@zeroxcloud.com",
+      "plan_id": "plan-dirt",
+      "name": "Super's Minecraft",
+      "category": "games",
+      "game": "Minecraft (Forge Minecraft)",
+      "node": "delhi-node-01.zeroxcloud.com",
+      "ip_address": "103.174.102.45",
+      "port": 25652,
+      "status": "active",
+      "cpu_usage": 0,
+      "ram_usage": 0.1,
+      "ram_max": 4,
+      "disk_usage": 0.5,
+      "disk_max": 20,
+      "provider": "pterodactyl",
+      "provider_identifier": "demo-ptero-02tgejh",
+      "renewal_date": "2026-12-14T09:29:23.683Z",
+      "created_at": "2026-11-14T09:29:23.683Z"
+    },
+    {
+      "id": "srv-1794648149619-a5t4",
+      "service_id": "ZX-SRV-1481",
+      "order_id": "ord-1794648148410",
+      "user_id": "usr-1794648148389-i8y7",
+      "user_email": "test.gamer.1794648148273@example.com",
+      "plan_id": "plan-wood",
+      "name": "Alex's Minecraft",
+      "category": "games",
+      "game": "Minecraft (Forge Minecraft)",
+      "node": "delhi-node-01.zeroxcloud.com",
+      "ip_address": "103.174.102.45",
+      "port": 25555,
+      "status": "suspended",
+      "cpu_usage": 0,
+      "ram_usage": 0,
+      "ram_max": 4,
+      "disk_usage": 0.5,
+      "disk_max": 30,
+      "provider": "pterodactyl",
+      "provider_identifier": "demo-ptero-mr3r1sn",
+      "renewal_date": "2026-12-14T09:22:29.619Z",
+      "created_at": "2026-11-14T09:22:29.619Z"
+    },
+    {
+      "id": "srv-1794648137261-qov2",
+      "service_id": "ZX-SRV-8729",
+      "order_id": "ord-1794648136053",
+      "user_id": "usr-1794647797205-cxd9",
+      "user_email": "mannan@zeroxcloud.site",
+      "plan_id": "plan-vps-2",
+      "name": "mannan's Cloud VPS",
+      "category": "cloud",
+      "game": "Cloud VPS (Debian 12 Bookworm)",
+      "node": "delhi-node-01.zeroxcloud.com",
+      "ip_address": "103.174.103.88",
+      "port": 25892,
+      "status": "suspended",
+      "cpu_usage": 0,
+      "ram_usage": 0,
+      "ram_max": 8,
+      "disk_usage": 0.5,
+      "disk_max": 120,
+      "provider": "pterodactyl",
+      "provider_identifier": "demo-ptero-scl5ib8",
+      "renewal_date": "2026-12-14T09:22:17.261Z",
+      "created_at": "2026-11-14T09:22:17.261Z"
+    },
+    {
+      "id": "srv-1794643804552-hufj",
+      "service_id": "ZX-SRV-2672",
+      "order_id": "ord-1794643803339",
+      "user_id": "usr-admin-01",
+      "user_email": "admin@zeroxcloud.com",
+      "plan_id": "plan-wood",
+      "name": "Super's Minecraft",
+      "category": "games",
+      "game": "Minecraft (Forge Minecraft)",
+      "node": "delhi-node-01.zeroxcloud.com",
+      "ip_address": "103.174.102.45",
+      "port": 25991,
+      "status": "active",
+      "cpu_usage": 10,
+      "ram_usage": 1.8,
+      "ram_max": 4,
+      "disk_usage": 0.5,
+      "disk_max": 30,
+      "provider": "pterodactyl",
+      "provider_identifier": "demo-ptero-jx4oyfu",
+      "renewal_date": "2026-12-14T08:10:04.552Z",
+      "created_at": "2026-11-14T08:10:04.552Z"
+    },
+    {
+      "id": "srv-1794643517946-dc9l",
+      "service_id": "ZX-SRV-7441",
+      "order_id": "ord-1794643516741",
+      "user_id": "usr-1794643516710-kq51",
+      "user_email": "test.gamer.1794643516593@example.com",
+      "plan_id": "plan-wood",
+      "name": "Alex's Minecraft",
+      "category": "games",
+      "game": "Minecraft (Forge Minecraft)",
+      "node": "delhi-node-01.zeroxcloud.com",
+      "ip_address": "103.174.102.45",
+      "port": 25727,
+      "status": "suspended",
+      "cpu_usage": 0,
+      "ram_usage": 0,
+      "ram_max": 4,
+      "disk_usage": 0.5,
+      "disk_max": 30,
+      "provider": "pterodactyl",
+      "provider_identifier": "demo-ptero-3xqrg2z",
+      "renewal_date": "2026-12-14T08:05:17.946Z",
+      "created_at": "2026-11-14T08:05:17.946Z"
+    },
+    {
+      "id": "srv-1001",
+      "service_id": "ZX-SRV-4821",
+      "order_id": "ord-1001",
+      "user_id": "usr-demo-01",
+      "user_email": "mohdnuman925@gmail.com",
+      "plan_id": "plan-wood",
+      "name": "Mohd Minecraft SMP",
+      "category": "games",
+      "game": "Minecraft (Forge 1.20.4)",
+      "node": "delhi-node-01.zeroxcloud.com",
+      "ip_address": "103.174.102.45",
+      "port": 25565,
+      "status": "active",
+      "cpu_usage": 14.5,
+      "ram_usage": 1.8,
+      "ram_max": 4,
+      "disk_usage": 6.2,
+      "disk_max": 30,
+      "provider": "pterodactyl",
+      "provider_identifier": "pter_srv_4821",
+      "renewal_date": "2026-12-14T07:20:00Z",
+      "created_at": "2026-11-14T07:22:00.000Z"
+    }
+  ],
+  "provisioning_jobs": [
+    {
+      "id": "job-1794654815048",
+      "service_id": "srv-1794654815047-za72",
+      "user_id": "usr-1794654813819-66cs",
+      "status": "completed",
+      "attempts": 1,
+      "logs": "Allocated IP 103.174.102.45:25986. Node: delhi-node-01.zeroxcloud.com. Adapter mode: sandbox_demo",
+      "created_at": "2026-11-14T11:13:35.048Z"
+    },
+    {
+      "id": "job-1794653323052",
+      "service_id": "srv-1794653323052-boj2",
+      "user_id": "usr-admin-01",
+      "status": "completed",
+      "attempts": 1,
+      "logs": "Allocated IP 103.174.102.45:25656. Node: delhi-node-01.zeroxcloud.com. Adapter mode: sandbox_demo",
+      "created_at": "2026-11-14T10:48:43.052Z"
+    },
+    {
+      "id": "job-1794648563683",
+      "service_id": "srv-1794648563683-r1dj",
+      "user_id": "usr-admin-01",
+      "status": "completed",
+      "attempts": 1,
+      "logs": "Allocated IP 103.174.102.45:25652. Node: delhi-node-01.zeroxcloud.com. Adapter mode: sandbox_demo",
+      "created_at": "2026-11-14T09:29:23.683Z"
+    },
+    {
+      "id": "job-1794648149619",
+      "service_id": "srv-1794648149619-a5t4",
+      "user_id": "usr-1794648148389-i8y7",
+      "status": "completed",
+      "attempts": 1,
+      "logs": "Allocated IP 103.174.102.45:25555. Node: delhi-node-01.zeroxcloud.com. Adapter mode: sandbox_demo",
+      "created_at": "2026-11-14T09:22:29.619Z"
+    },
+    {
+      "id": "job-1794648137261",
+      "service_id": "srv-1794648137261-qov2",
+      "user_id": "usr-1794647797205-cxd9",
+      "status": "completed",
+      "attempts": 1,
+      "logs": "Allocated IP 103.174.103.88:25892. Node: delhi-node-01.zeroxcloud.com. Adapter mode: sandbox_demo",
+      "created_at": "2026-11-14T09:22:17.261Z"
+    },
+    {
+      "id": "job-1794643804552",
+      "service_id": "srv-1794643804552-hufj",
+      "user_id": "usr-admin-01",
+      "status": "completed",
+      "attempts": 1,
+      "logs": "Allocated IP 103.174.102.45:25991. Node: delhi-node-01.zeroxcloud.com. Adapter mode: sandbox_demo",
+      "created_at": "2026-11-14T08:10:04.552Z"
+    },
+    {
+      "id": "job-1794643517946",
+      "service_id": "srv-1794643517946-dc9l",
+      "user_id": "usr-1794643516710-kq51",
+      "status": "completed",
+      "attempts": 1,
+      "logs": "Allocated IP 103.174.102.45:25727. Node: delhi-node-01.zeroxcloud.com. Adapter mode: sandbox_demo",
+      "created_at": "2026-11-14T08:05:17.946Z"
+    },
+    {
+      "id": "job-1001",
+      "service_id": "srv-1001",
+      "user_id": "usr-demo-01",
+      "status": "completed",
+      "attempts": 1,
+      "logs": "Server initialized in Node delhi-node-01. Port 25565 assigned. Docker container spun up successfully.",
+      "created_at": "2026-11-14T07:20:30.000Z"
+    }
+  ],
+  "payments": [
+    {
+      "id": "pay-1001",
+      "order_id": "ord-1001",
+      "user_id": "usr-demo-01",
+      "amount": 80,
+      "currency": "INR",
+      "provider": "razorpay",
+      "provider_payment_id": "pay_rzp_mock_84920",
+      "status": "verified",
+      "created_at": "2026-11-14T07:21:00.000Z"
+    }
+  ],
+  "invoices": [
+    {
+      "id": "inv-1794654813837",
+      "invoice_number": "INV-2026-5057",
+      "order_id": "ord-1794654813837",
+      "user_id": "usr-1794654813819-66cs",
+      "user_name": "Alex Gamer",
+      "user_email": "test.gamer.1794654813688@example.com",
+      "amount": 80,
+      "discount": 8,
+      "tax": 0,
+      "total": 72,
+      "currency": "INR",
+      "status": "paid",
+      "items": [
+        {
+          "description": "WOOD PLAN (Minecraft) - 1 Month",
+          "amount": 80
+        }
+      ],
+      "created_at": "2026-11-14T11:13:33.837Z"
+    },
+    {
+      "id": "inv-1794653321838",
+      "invoice_number": "INV-2026-3171",
+      "order_id": "ord-1794653321838",
+      "user_id": "usr-admin-01",
+      "user_name": "Super Admin",
+      "user_email": "admin@zeroxcloud.com",
+      "amount": 40,
+      "discount": 0,
+      "tax": 0,
+      "total": 40,
+      "currency": "INR",
+      "status": "paid",
+      "items": [
+        {
+          "description": "DIRT PLAN (Minecraft) - 1 Month",
+          "amount": 40
+        }
+      ],
+      "created_at": "2026-11-14T10:48:41.838Z"
+    },
+    {
+      "id": "inv-1794648562474",
+      "invoice_number": "INV-2026-1908",
+      "order_id": "ord-1794648562474",
+      "user_id": "usr-admin-01",
+      "user_name": "Super Admin",
+      "user_email": "admin@zeroxcloud.com",
+      "amount": 20,
+      "discount": 0,
+      "tax": 0,
+      "total": 20,
+      "currency": "INR",
+      "status": "paid",
+      "items": [
+        {
+          "description": "DIRT PLAN (Minecraft) - 1 Month",
+          "amount": 20
+        }
+      ],
+      "created_at": "2026-11-14T09:29:22.474Z"
+    },
+    {
+      "id": "inv-1794648148410",
+      "invoice_number": "INV-2026-1904",
+      "order_id": "ord-1794648148410",
+      "user_id": "usr-1794648148389-i8y7",
+      "user_name": "Alex Gamer",
+      "user_email": "test.gamer.1794648148273@example.com",
+      "amount": 80,
+      "discount": 8,
+      "tax": 0,
+      "total": 72,
+      "currency": "INR",
+      "status": "paid",
+      "items": [
+        {
+          "description": "WOOD PLAN (Minecraft) - 1 Month",
+          "amount": 80
+        }
+      ],
+      "created_at": "2026-11-14T09:22:28.410Z"
+    },
+    {
+      "id": "inv-1794648136053",
+      "invoice_number": "INV-2026-5408",
+      "order_id": "ord-1794648136053",
+      "user_id": "usr-1794647797205-cxd9",
+      "user_name": "mannan",
+      "user_email": "mannan@zeroxcloud.site",
+      "amount": 890,
+      "discount": 0,
+      "tax": 0,
+      "total": 890,
+      "currency": "INR",
+      "status": "paid",
+      "items": [
+        {
+          "description": "CLOUD VPS-02 (Cloud VPS) - 1 Month",
+          "amount": 890
+        }
+      ],
+      "created_at": "2026-11-14T09:22:16.053Z"
+    },
+    {
+      "id": "inv-1794643803339",
+      "invoice_number": "INV-2026-2509",
+      "order_id": "ord-1794643803339",
+      "user_id": "usr-admin-01",
+      "user_name": "Super Admin",
+      "user_email": "admin@zeroxcloud.com",
+      "amount": 80,
+      "discount": 0,
+      "tax": 0,
+      "total": 80,
+      "currency": "INR",
+      "status": "paid",
+      "items": [
+        {
+          "description": "WOOD PLAN (Minecraft) - 1 Month",
+          "amount": 80
+        }
+      ],
+      "created_at": "2026-11-14T08:10:03.339Z"
+    },
+    {
+      "id": "inv-1794643516741",
+      "invoice_number": "INV-2026-9049",
+      "order_id": "ord-1794643516741",
+      "user_id": "usr-1794643516710-kq51",
+      "user_name": "Alex Gamer",
+      "user_email": "test.gamer.1794643516593@example.com",
+      "amount": 80,
+      "discount": 8,
+      "tax": 0,
+      "total": 72,
+      "currency": "INR",
+      "status": "paid",
+      "items": [
+        {
+          "description": "WOOD PLAN (Minecraft) - 1 Month",
+          "amount": 80
+        }
+      ],
+      "created_at": "2026-11-14T08:05:16.741Z"
+    },
+    {
+      "id": "inv-1001",
+      "invoice_number": "INV-2026-0042",
+      "order_id": "ord-1001",
+      "user_id": "usr-demo-01",
+      "user_name": "Mohd Numan",
+      "user_email": "mohdnuman925@gmail.com",
+      "amount": 80,
+      "tax": 0,
+      "total": 80,
+      "currency": "INR",
+      "status": "paid",
+      "items": [
+        {
+          "description": "WOOD PLAN - Minecraft Server Hosting (1 Month)",
+          "amount": 80
+        }
+      ],
+      "created_at": "2026-11-14T07:21:05.000Z"
+    }
+  ],
+  "support_tickets": [
+    {
+      "id": "tkt-1794654815093",
+      "ticket_number": "TKT-9378",
+      "user_id": "usr-1794654813819-66cs",
+      "user_name": "Alex Gamer",
+      "user_email": "test.gamer.1794654813688@example.com",
+      "department": "Game Server Support",
+      "priority": "high",
+      "subject": "Forge 1.20 memory allocation question",
+      "status": "open",
+      "created_at": "2026-11-14T11:13:35.093Z",
+      "updated_at": "2026-11-14T11:13:35.093Z"
+    },
+    {
+      "id": "tkt-1794648149671",
+      "ticket_number": "TKT-2513",
+      "user_id": "usr-1794648148389-i8y7",
+      "user_name": "Alex Gamer",
+      "user_email": "test.gamer.1794648148273@example.com",
+      "department": "Game Server Support",
+      "priority": "high",
+      "subject": "Forge 1.20 memory allocation question",
+      "status": "open",
+      "created_at": "2026-11-14T09:22:29.671Z",
+      "updated_at": "2026-11-14T09:22:29.671Z"
+    },
+    {
+      "id": "tkt-1794643517975",
+      "ticket_number": "TKT-1301",
+      "user_id": "usr-1794643516710-kq51",
+      "user_name": "Alex Gamer",
+      "user_email": "test.gamer.1794643516593@example.com",
+      "department": "Game Server Support",
+      "priority": "high",
+      "subject": "Forge 1.20 memory allocation question",
+      "status": "open",
+      "created_at": "2026-11-14T08:05:17.975Z",
+      "updated_at": "2026-11-14T08:05:17.975Z"
+    },
+    {
+      "id": "tkt-1001",
+      "ticket_number": "TKT-9302",
+      "user_id": "usr-demo-01",
+      "user_name": "Mohd Numan",
+      "user_email": "mohdnuman925@gmail.com",
+      "department": "Game Server Support",
+      "priority": "medium",
+      "subject": "Custom Forge Modpack Installation Help",
+      "status": "open",
+      "created_at": "2026-11-14T07:30:00.000Z",
+      "updated_at": "2026-11-14T07:30:00.000Z"
+    }
+  ],
+  "ticket_messages": [
+    {
+      "id": "msg-1001",
+      "ticket_id": "tkt-1001",
+      "sender_id": "usr-demo-01",
+      "sender_name": "Mohd Numan",
+      "sender_role": "customer",
+      "message": "Hello, I uploaded my custom mods to /mods via SFTP, can you confirm if my Java 17 flag is set correctly in startup?",
+      "is_internal": false,
+      "created_at": "2026-11-14T07:30:00.000Z"
+    },
+    {
+      "id": "msg-1794643517975",
+      "ticket_id": "tkt-1794643517975",
+      "sender_id": "usr-1794643516710-kq51",
+      "sender_name": "Alex Gamer",
+      "sender_role": "customer",
+      "message": "Can I allocate 6GB of heap?",
+      "is_internal": false,
+      "created_at": "2026-11-14T08:05:17.975Z"
+    },
+    {
+      "id": "msg-1794648149671",
+      "ticket_id": "tkt-1794648149671",
+      "sender_id": "usr-1794648148389-i8y7",
+      "sender_name": "Alex Gamer",
+      "sender_role": "customer",
+      "message": "Can I allocate 6GB of heap?",
+      "is_internal": false,
+      "created_at": "2026-11-14T09:22:29.671Z"
+    },
+    {
+      "id": "msg-1794654815093",
+      "ticket_id": "tkt-1794654815093",
+      "sender_id": "usr-1794654813819-66cs",
+      "sender_name": "Alex Gamer",
+      "sender_role": "customer",
+      "message": "Can I allocate 6GB of heap?",
+      "is_internal": false,
+      "created_at": "2026-11-14T11:13:35.093Z"
+    }
+  ],
+  "website_settings": {
+    "site_name": "ZEROX CLOUD",
+    "logo_text": "ZEROX CLOUD",
+    "hero_title": "Global cloud & game server hosting.",
+    "hero_subtitle": "Experience lightning-fast performance, unbeatable reliability, and 24/7 support for all your favorite games.",
+    "announcement_text": "ALL SYSTEMS OPERATIONAL",
+    "welcome_modal_enabled": true,
+    "welcome_discount_percent": 10,
+    "welcome_coupon_code": "ZEROXCLOUD",
+    "discord_url": "https://discord.gg/zeroxcloud",
+    "pterodactyl_panel_url": "https://panel.zeroxcloud.com",
+    "contact_email": "support@zeroxcloud.com",
+    "currency_default": "INR",
+    "tax_rate": 18,
+    "maintenance_mode": false
+  },
+  "audit_logs": [
+    {
+      "id": "log-1794654815095-3myd",
+      "actor_name": "Alex Gamer",
+      "actor_role": "customer",
+      "action": "CREATE_TICKET",
+      "target": "TKT-9378",
+      "details": "Opened ticket: Forge 1.20 memory allocation question",
+      "timestamp": "2026-11-14T11:13:35.095Z"
+    },
+    {
+      "id": "log-1794654815079-0rgb",
+      "actor_name": "Alex Gamer",
+      "actor_role": "customer",
+      "action": "SERVER_POWER_ACTION",
+      "target": "ZX-SRV-7676",
+      "details": "Sent STOP to Alex's Minecraft (103.174.102.45:25986)",
+      "timestamp": "2026-11-14T11:13:35.079Z"
+    },
+    {
+      "id": "log-1794654815052-juc1",
+      "actor_name": "Alex Gamer",
+      "actor_role": "customer",
+      "action": "CREATE_ORDER_AND_PROVISION",
+      "target": "ord-1794654813837",
+      "details": "Order ZX-21129 created. Total: INR 72. Services: 1",
+      "timestamp": "2026-11-14T11:13:35.052Z"
+    },
+    {
+      "id": "log-1794654813821-awh8",
+      "actor_name": "Alex Gamer",
+      "actor_role": "customer",
+      "action": "REGISTER",
+      "target": "usr-1794654813819-66cs",
+      "details": "User registered account",
+      "timestamp": "2026-11-14T11:13:33.821Z"
+    },
+    {
+      "id": "log-1794654813685-wrlr",
+      "actor_name": "Super Admin",
+      "actor_role": "super_admin",
+      "action": "LOGIN",
+      "target": "usr-admin-01",
+      "details": "User logged in",
+      "timestamp": "2026-11-14T11:13:33.685Z"
+    },
+    {
+      "id": "log-1794654729472-mmkq",
+      "actor_name": "Mohd Numan",
+      "actor_role": "customer",
+      "action": "LOGIN",
+      "target": "usr-demo-01",
+      "details": "User logged in",
+      "timestamp": "2026-11-14T11:12:09.472Z"
+    },
+    {
+      "id": "log-1794653941168-ri3c",
+      "actor_name": "Mohd Numan",
+      "actor_role": "customer",
+      "action": "LOGIN",
+      "target": "usr-demo-01",
+      "details": "User logged in",
+      "timestamp": "2026-11-14T10:59:01.168Z"
+    },
+    {
+      "id": "log-1794653537337-uplx",
+      "actor_name": "Mohd Numan",
+      "actor_role": "customer",
+      "action": "LOGIN",
+      "target": "usr-demo-01",
+      "details": "User logged in",
+      "timestamp": "2026-11-14T10:52:17.337Z"
+    },
+    {
+      "id": "log-1794653472386-0zyz",
+      "actor_name": "Mohd Numan",
+      "actor_role": "customer",
+      "action": "LOGIN",
+      "target": "usr-demo-01",
+      "details": "User logged in",
+      "timestamp": "2026-11-14T10:51:12.386Z"
+    },
+    {
+      "id": "log-1794653340280-7x6k",
+      "actor_name": "Super Admin",
+      "actor_role": "super_admin",
+      "action": "SERVER_POWER_ACTION",
+      "target": "ZX-SRV-2672",
+      "details": "Sent START to Super's Minecraft (103.174.102.45:25991)",
+      "timestamp": "2026-11-14T10:49:00.280Z"
+    },
+    {
+      "id": "log-1794653339831-iu80",
+      "actor_name": "Super Admin",
+      "actor_role": "super_admin",
+      "action": "SERVER_POWER_ACTION",
+      "target": "ZX-SRV-2672",
+      "details": "Sent STOP to Super's Minecraft (103.174.102.45:25991)",
+      "timestamp": "2026-11-14T10:48:59.831Z"
+    },
+    {
+      "id": "log-1794653323056-7t7p",
+      "actor_name": "Super Admin",
+      "actor_role": "super_admin",
+      "action": "CREATE_ORDER_AND_PROVISION",
+      "target": "ord-1794653321838",
+      "details": "Order ZX-59325 created. Total: INR 40. Services: 1",
+      "timestamp": "2026-11-14T10:48:43.056Z"
+    },
+    {
+      "id": "log-1794648563686-2sqd",
+      "actor_name": "Super Admin",
+      "actor_role": "super_admin",
+      "action": "CREATE_ORDER_AND_PROVISION",
+      "target": "ord-1794648562474",
+      "details": "Order ZX-51463 created. Total: INR 20. Services: 1",
+      "timestamp": "2026-11-14T09:29:23.686Z"
+    },
+    {
+      "id": "log-1794648540371-8216",
+      "actor_name": "Super Admin",
+      "actor_role": "super_admin",
+      "action": "UPDATE_WEBSITE_CONTENT",
+      "target": "settings",
+      "details": "Updated public website settings",
+      "timestamp": "2026-11-14T09:29:00.371Z"
+    },
+    {
+      "id": "log-1794648532131-xnbz",
+      "actor_name": "Super Admin",
+      "actor_role": "super_admin",
+      "action": "UPDATE_WEBSITE_CONTENT",
+      "target": "settings",
+      "details": "Updated public website settings",
+      "timestamp": "2026-11-14T09:28:52.131Z"
+    },
+    {
+      "id": "log-1794648191748-mvv6",
+      "actor_name": "mannan",
+      "actor_role": "customer",
+      "action": "SERVER_POWER_ACTION",
+      "target": "ZX-SRV-8729",
+      "details": "Sent STOP to mannan's Cloud VPS (103.174.103.88:25892)",
+      "timestamp": "2026-11-14T09:23:11.748Z"
+    },
+    {
+      "id": "log-1794648190800-fk97",
+      "actor_name": "mannan",
+      "actor_role": "customer",
+      "action": "SERVER_POWER_ACTION",
+      "target": "ZX-SRV-8729",
+      "details": "Sent START to mannan's Cloud VPS (103.174.103.88:25892)",
+      "timestamp": "2026-11-14T09:23:10.800Z"
+    },
+    {
+      "id": "log-1794648190284-9lmv",
+      "actor_name": "mannan",
+      "actor_role": "customer",
+      "action": "SERVER_POWER_ACTION",
+      "target": "ZX-SRV-8729",
+      "details": "Sent STOP to mannan's Cloud VPS (103.174.103.88:25892)",
+      "timestamp": "2026-11-14T09:23:10.284Z"
+    },
+    {
+      "id": "log-1794648189683-goz8",
+      "actor_name": "mannan",
+      "actor_role": "customer",
+      "action": "SERVER_POWER_ACTION",
+      "target": "ZX-SRV-8729",
+      "details": "Sent START to mannan's Cloud VPS (103.174.103.88:25892)",
+      "timestamp": "2026-11-14T09:23:09.683Z"
+    },
+    {
+      "id": "log-1794648188552-1a8e",
+      "actor_name": "mannan",
+      "actor_role": "customer",
+      "action": "SERVER_POWER_ACTION",
+      "target": "ZX-SRV-8729",
+      "details": "Sent STOP to mannan's Cloud VPS (103.174.103.88:25892)",
+      "timestamp": "2026-11-14T09:23:08.552Z"
+    },
+    {
+      "id": "log-1794648187312-ixtp",
+      "actor_name": "mannan",
+      "actor_role": "customer",
+      "action": "SERVER_POWER_ACTION",
+      "target": "ZX-SRV-8729",
+      "details": "Sent START to mannan's Cloud VPS (103.174.103.88:25892)",
+      "timestamp": "2026-11-14T09:23:07.312Z"
+    },
+    {
+      "id": "log-1794648184959-yulz",
+      "actor_name": "mannan",
+      "actor_role": "customer",
+      "action": "SERVER_POWER_ACTION",
+      "target": "ZX-SRV-8729",
+      "details": "Sent STOP to mannan's Cloud VPS (103.174.103.88:25892)",
+      "timestamp": "2026-11-14T09:23:04.959Z"
+    },
+    {
+      "id": "log-1794648182623-dbis",
+      "actor_name": "mannan",
+      "actor_role": "customer",
+      "action": "SERVER_POWER_ACTION",
+      "target": "ZX-SRV-8729",
+      "details": "Sent RESTART to mannan's Cloud VPS (103.174.103.88:25892)",
+      "timestamp": "2026-11-14T09:23:02.623Z"
+    },
+    {
+      "id": "log-1794648179150-xcbs",
+      "actor_name": "mannan",
+      "actor_role": "customer",
+      "action": "SERVER_POWER_ACTION",
+      "target": "ZX-SRV-8729",
+      "details": "Sent RESTART to mannan's Cloud VPS (103.174.103.88:25892)",
+      "timestamp": "2026-11-14T09:22:59.150Z"
+    },
+    {
+      "id": "log-1794648149674-h0nv",
+      "actor_name": "Alex Gamer",
+      "actor_role": "customer",
+      "action": "CREATE_TICKET",
+      "target": "TKT-2513",
+      "details": "Opened ticket: Forge 1.20 memory allocation question",
+      "timestamp": "2026-11-14T09:22:29.674Z"
+    },
+    {
+      "id": "log-1794648149655-vmyw",
+      "actor_name": "Alex Gamer",
+      "actor_role": "customer",
+      "action": "SERVER_POWER_ACTION",
+      "target": "ZX-SRV-1481",
+      "details": "Sent STOP to Alex's Minecraft (103.174.102.45:25555)",
+      "timestamp": "2026-11-14T09:22:29.655Z"
+    },
+    {
+      "id": "log-1794648149622-ako2",
+      "actor_name": "Alex Gamer",
+      "actor_role": "customer",
+      "action": "CREATE_ORDER_AND_PROVISION",
+      "target": "ord-1794648148410",
+      "details": "Order ZX-45967 created. Total: INR 72. Services: 1",
+      "timestamp": "2026-11-14T09:22:29.622Z"
+    },
+    {
+      "id": "log-1794648148391-57s2",
+      "actor_name": "Alex Gamer",
+      "actor_role": "customer",
+      "action": "REGISTER",
+      "target": "usr-1794648148389-i8y7",
+      "details": "User registered account",
+      "timestamp": "2026-11-14T09:22:28.391Z"
+    },
+    {
+      "id": "log-1794648148269-sh25",
+      "actor_name": "Super Admin",
+      "actor_role": "super_admin",
+      "action": "LOGIN",
+      "target": "usr-admin-01",
+      "details": "User logged in",
+      "timestamp": "2026-11-14T09:22:28.269Z"
+    },
+    {
+      "id": "log-1794648137266-trcv",
+      "actor_name": "mannan",
+      "actor_role": "customer",
+      "action": "CREATE_ORDER_AND_PROVISION",
+      "target": "ord-1794648136053",
+      "details": "Order ZX-27616 created. Total: INR 890. Services: 1",
+      "timestamp": "2026-11-14T09:22:17.267Z"
+    },
+    {
+      "id": "log-1794648057604-sptf",
+      "actor_name": "Super Admin",
+      "actor_role": "super_admin",
+      "action": "UPDATE_PLAN",
+      "target": "DIRT PLAN",
+      "details": "Price updated: ₹20 / $0.2",
+      "timestamp": "2026-11-14T09:20:57.604Z"
+    },
+    {
+      "id": "log-1794648011299-oeyx",
+      "actor_name": "Super Admin",
+      "actor_role": "super_admin",
+      "action": "UPDATE_PLAN",
+      "target": "DIRT PLAN",
+      "details": "Price updated: ₹20 / $0.2",
+      "timestamp": "2026-11-14T09:20:11.299Z"
+    },
+    {
+      "id": "log-1794647853238-dhvw",
+      "actor_name": "mannan",
+      "actor_role": "customer",
+      "action": "LOGIN",
+      "target": "usr-1794647797205-cxd9",
+      "details": "User logged in",
+      "timestamp": "2026-11-14T09:17:33.238Z"
+    },
+    {
+      "id": "log-1794647848287-uak2",
+      "actor_name": "Super Admin",
+      "actor_role": "super_admin",
+      "action": "CUSTOMER_ACTIVE",
+      "target": "mannan@zeroxcloud.site",
+      "details": "Admin review action",
+      "timestamp": "2026-11-14T09:17:28.287Z"
+    },
+    {
+      "id": "log-1794647811659-maai",
+      "actor_name": "Super Admin",
+      "actor_role": "super_admin",
+      "action": "CUSTOMER_SUSPENDED",
+      "target": "mannan@zeroxcloud.site",
+      "details": "Admin review action",
+      "timestamp": "2026-11-14T09:16:51.659Z"
+    },
+    {
+      "id": "log-1794647808621-gwwk",
+      "actor_name": "Super Admin",
+      "actor_role": "super_admin",
+      "action": "CUSTOMER_ACTIVE",
+      "target": "mohdnuman925@gmail.com",
+      "details": "Admin review action",
+      "timestamp": "2026-11-14T09:16:48.621Z"
+    },
+    {
+      "id": "log-1794647797207-8jx1",
+      "actor_name": "mannan",
+      "actor_role": "customer",
+      "action": "REGISTER",
+      "target": "usr-1794647797205-cxd9",
+      "details": "User registered account",
+      "timestamp": "2026-11-14T09:16:37.207Z"
+    },
+    {
+      "id": "log-1794647738197-9bbk",
+      "actor_name": "Super Admin",
+      "actor_role": "super_admin",
+      "action": "CUSTOMER_ACTIVE",
+      "target": "test.gamer.1794643516593@example.com",
+      "details": "Admin review action",
+      "timestamp": "2026-11-14T09:15:38.197Z"
+    },
+    {
+      "id": "log-1794647726931-bdan",
+      "actor_name": "Super Admin",
+      "actor_role": "super_admin",
+      "action": "CUSTOMER_SUSPENDED",
+      "target": "test.gamer.1794643516593@example.com",
+      "details": "Admin review action",
+      "timestamp": "2026-11-14T09:15:26.931Z"
+    },
+    {
+      "id": "log-1794647722895-xzqy",
+      "actor_name": "Super Admin",
+      "actor_role": "super_admin",
+      "action": "CUSTOMER_SUSPENDED",
+      "target": "mohdnuman925@gmail.com",
+      "details": "Admin review action",
+      "timestamp": "2026-11-14T09:15:22.895Z"
+    },
+    {
+      "id": "log-1794643804554-u2ox",
+      "actor_name": "Super Admin",
+      "actor_role": "super_admin",
+      "action": "CREATE_ORDER_AND_PROVISION",
+      "target": "ord-1794643803339",
+      "details": "Order ZX-16592 created. Total: INR 80. Services: 1",
+      "timestamp": "2026-11-14T08:10:04.554Z"
+    },
+    {
+      "id": "log-1794643790421-gbfs",
+      "actor_name": "Super Admin",
+      "actor_role": "super_admin",
+      "action": "UPDATE_PANEL_PASSWORD",
+      "target": "usr-admin-01",
+      "details": "Pterodactyl panel password updated",
+      "timestamp": "2026-11-14T08:09:50.421Z"
+    },
+    {
+      "id": "log-1794643756214-306q",
+      "actor_name": "Super Admin",
+      "actor_role": "super_admin",
+      "action": "LOGIN",
+      "target": "usr-admin-01",
+      "details": "User logged in",
+      "timestamp": "2026-11-14T08:09:16.214Z"
+    },
+    {
+      "id": "log-1794643517976-k8d1",
+      "actor_name": "Alex Gamer",
+      "actor_role": "customer",
+      "action": "CREATE_TICKET",
+      "target": "TKT-1301",
+      "details": "Opened ticket: Forge 1.20 memory allocation question",
+      "timestamp": "2026-11-14T08:05:17.976Z"
+    },
+    {
+      "id": "log-1794643517965-k9x3",
+      "actor_name": "Alex Gamer",
+      "actor_role": "customer",
+      "action": "SERVER_POWER_ACTION",
+      "target": "ZX-SRV-7441",
+      "details": "Sent STOP to Alex's Minecraft (103.174.102.45:25727)",
+      "timestamp": "2026-11-14T08:05:17.966Z"
+    },
+    {
+      "id": "log-1794643517948-20pe",
+      "actor_name": "Alex Gamer",
+      "actor_role": "customer",
+      "action": "CREATE_ORDER_AND_PROVISION",
+      "target": "ord-1794643516741",
+      "details": "Order ZX-54831 created. Total: INR 72. Services: 1",
+      "timestamp": "2026-11-14T08:05:17.948Z"
+    },
+    {
+      "id": "log-1794643516713-3xx0",
+      "actor_name": "Alex Gamer",
+      "actor_role": "customer",
+      "action": "REGISTER",
+      "target": "usr-1794643516710-kq51",
+      "details": "User registered account",
+      "timestamp": "2026-11-14T08:05:16.713Z"
+    },
+    {
+      "id": "log-1794643516589-ta5j",
+      "actor_name": "Super Admin",
+      "actor_role": "super_admin",
+      "action": "LOGIN",
+      "target": "usr-admin-01",
+      "details": "User logged in",
+      "timestamp": "2026-11-14T08:05:16.589Z"
+    },
+    {
+      "id": "log-1001",
+      "actor_name": "System Provisioner",
+      "actor_role": "system",
+      "action": "PROVISION_SERVICE_SUCCESS",
+      "target": "srv-1001",
+      "details": "Service ZX-SRV-4821 automatically provisioned upon payment verification",
+      "timestamp": "2026-11-14T07:22:00.000Z"
+    }
+  ]
+}

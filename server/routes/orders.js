@@ -1,0 +1,194 @@
+import express from 'express';
+import { getDB, saveDB, logAudit } from '../db.js';
+import { authenticateToken } from './auth.js';
+import { PterodactylAdapter } from '../providers/pterodactylAdapter.js';
+import { PaymentAdapter } from '../providers/paymentAdapters.js';
+
+const router = express.Router();
+
+// Get Current User Orders
+router.get('/', authenticateToken, (req, res) => {
+  const db = getDB();
+  const userOrders = db.orders.filter((o) => o.user_id === req.user.id);
+  res.json({ orders: userOrders });
+});
+
+// Checkout & Create Order
+router.post('/checkout', authenticateToken, async (req, res) => {
+  try {
+    const { items, coupon_code, currency = 'INR', payment_method = 'Razorpay' } = req.body;
+
+    if (!items || !Array.isArray(items) || items.length === 0) {
+      return res.status(400).json({ error: 'Your cart is empty' });
+    }
+
+    const db = getDB();
+
+    // 1. Re-validate each item and calculate verified total from database plans
+    let calculatedSubtotal = 0;
+    const validatedItems = [];
+
+    for (const item of items) {
+      const plan = db.plans.find((p) => p.id === item.plan_id && p.enabled);
+      if (!plan) {
+        return res.status(400).json({ error: `Selected plan (${item.plan_name || item.plan_id}) is no longer available` });
+      }
+
+      const unitPrice = currency === 'USD' ? Number(plan.price_usd) : Number(plan.price_inr);
+      calculatedSubtotal += unitPrice * (item.quantity || 1);
+
+      validatedItems.push({
+        plan_id: plan.id,
+        plan_name: plan.name,
+        category: plan.category,
+        processor: plan.processor || 'standard',
+        location: item.location || plan.location,
+        game: item.game || plan.game_slug || 'Minecraft',
+        software: item.software || item.instance_type || 'Paper',
+        price: unitPrice,
+        quantity: item.quantity || 1
+      });
+    }
+
+    // 2. Validate Coupon Discount
+    let discountAmount = 0;
+    let appliedCoupon = null;
+    if (coupon_code) {
+      appliedCoupon = db.coupons.find(
+        (c) => c.code.toUpperCase() === coupon_code.trim().toUpperCase() && c.enabled
+      );
+      if (appliedCoupon) {
+        discountAmount = (calculatedSubtotal * appliedCoupon.discount_percent) / 100;
+        appliedCoupon.current_uses += 1;
+      }
+    }
+
+    const totalAmount = Math.max(0, calculatedSubtotal - discountAmount);
+
+    // 3. Create Order Record
+    const orderNumber = 'ZX-' + Math.floor(10000 + Math.random() * 90000);
+    const orderId = 'ord-' + Date.now();
+
+    const newOrder = {
+      id: orderId,
+      order_number: orderNumber,
+      user_id: req.user.id,
+      user_name: req.user.name,
+      user_email: req.user.email,
+      total_amount: Number(totalAmount.toFixed(2)),
+      currency,
+      status: 'paid', // Instant demo verification or live gateway callback
+      payment_method,
+      payment_id: 'pay_' + Date.now() + '_' + Math.random().toString(36).substring(2, 7),
+      coupon_code: appliedCoupon ? appliedCoupon.code : null,
+      discount_amount: Number(discountAmount.toFixed(2)),
+      items: validatedItems,
+      created_at: new Date().toISOString()
+    };
+
+    db.orders.unshift(newOrder);
+
+    // 4. Create Invoice
+    const invoiceNumber = 'INV-' + new Date().getFullYear() + '-' + Math.floor(1000 + Math.random() * 9000);
+    const newInvoice = {
+      id: 'inv-' + Date.now(),
+      invoice_number: invoiceNumber,
+      order_id: orderId,
+      user_id: req.user.id,
+      user_name: req.user.name,
+      user_email: req.user.email,
+      amount: calculatedSubtotal,
+      discount: discountAmount,
+      tax: 0.00,
+      total: Number(totalAmount.toFixed(2)),
+      currency,
+      status: 'paid',
+      items: validatedItems.map((vi) => ({
+        description: `${vi.plan_name} (${vi.game || vi.category}) - 1 Month`,
+        amount: vi.price * vi.quantity
+      })),
+      created_at: new Date().toISOString()
+    };
+    db.invoices.unshift(newInvoice);
+
+    // 5. Automated Server Provisioning
+    const createdServices = [];
+    for (const item of validatedItems) {
+      const plan = db.plans.find((p) => p.id === item.plan_id);
+      const serviceId = 'ZX-SRV-' + Math.floor(1000 + Math.random() * 9000);
+
+      // Provision via Pterodactyl Adapter
+      const provResult = await PterodactylAdapter.provisionServer({
+        plan,
+        user: req.user,
+        location: item.location,
+        game: item.game,
+        software: item.software
+      });
+
+      const renewal = new Date();
+      renewal.setDate(renewal.getDate() + 30);
+
+      const serviceRecord = {
+        id: 'srv-' + Date.now() + '-' + Math.random().toString(36).substring(2, 6),
+        service_id: serviceId,
+        order_id: orderId,
+        user_id: req.user.id,
+        user_email: req.user.email,
+        plan_id: item.plan_id,
+        name: `${req.user.name.split(' ')[0]}'s ${item.game || item.plan_name}`,
+        category: item.category,
+        game: `${item.game} (${item.software})`,
+        node: provResult.node || 'delhi-node-01.zeroxcloud.com',
+        ip_address: provResult.ip_address || '103.174.102.45',
+        port: provResult.port || 25565,
+        status: provResult.status || 'active',
+        cpu_usage: 0.0,
+        ram_usage: 0.1,
+        ram_max: parseFloat(plan.ram) || 4.0,
+        disk_usage: 0.5,
+        disk_max: parseFloat(plan.storage) || 30.0,
+        provider: 'pterodactyl',
+        provider_identifier: provResult.provider_identifier,
+        renewal_date: renewal.toISOString(),
+        created_at: new Date().toISOString()
+      };
+
+      db.services.unshift(serviceRecord);
+      createdServices.push(serviceRecord);
+
+      // Create Provisioning Job Log
+      db.provisioning_jobs.unshift({
+        id: 'job-' + Date.now(),
+        service_id: serviceRecord.id,
+        user_id: req.user.id,
+        status: 'completed',
+        attempts: 1,
+        logs: `Allocated IP ${serviceRecord.ip_address}:${serviceRecord.port}. Node: ${serviceRecord.node}. Adapter mode: ${provResult.mode}`,
+        created_at: new Date().toISOString()
+      });
+    }
+
+    saveDB(db);
+
+    logAudit(
+      req.user.name,
+      req.user.role,
+      'CREATE_ORDER_AND_PROVISION',
+      orderId,
+      `Order ${orderNumber} created. Total: ${currency} ${totalAmount}. Services: ${createdServices.length}`
+    );
+
+    res.status(201).json({
+      message: 'Order placed and servers provisioned successfully',
+      order: newOrder,
+      invoice: newInvoice,
+      services: createdServices
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+export default router;
+

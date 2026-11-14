@@ -1,0 +1,350 @@
+import React, { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import { useCart } from '../context/CartContext';
+import { useAuth } from '../context/AuthContext';
+import {
+  CreditCard,
+  ShieldCheck,
+  CheckCircle,
+  Tag,
+  ArrowRight,
+  Server,
+  AlertCircle
+} from 'lucide-react';
+
+export const CheckoutPage = () => {
+  const {
+    items,
+    currency,
+    subtotal,
+    discountAmount,
+    total,
+    coupon,
+    applyCoupon,
+    removeCoupon,
+    clearCart
+  } = useCart();
+  const { user, token } = useAuth();
+  const navigate = useNavigate();
+
+  const [couponCode, setCouponCode] = useState('');
+  const [couponError, setCouponError] = useState('');
+  const [paymentMethod, setPaymentMethod] = useState(currency === 'INR' ? 'Razorpay UPI' : 'Stripe Card');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [orderSuccess, setOrderSuccess] = useState(null);
+
+  const symbol = currency === 'USD' ? '$' : '₹';
+
+  const handleApplyCoupon = async (e) => {
+    e.preventDefault();
+    if (!couponCode.trim()) return;
+    setCouponError('');
+    try {
+      await applyCoupon(couponCode.trim());
+      setCouponCode('');
+    } catch (err) {
+      setCouponError(err.message || 'Invalid coupon');
+    }
+  };
+
+  const handleCompleteOrder = async () => {
+    if (!user) {
+      navigate('/login?redirect=/checkout');
+      return;
+    }
+
+    if (items.length === 0) {
+      setError('Your cart is empty');
+      return;
+    }
+
+    setLoading(true);
+    setError('');
+
+    try {
+      const res = await fetch('/api/orders/checkout', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          items,
+          coupon_code: coupon ? coupon.code : null,
+          currency,
+          payment_method: paymentMethod
+        })
+      });
+
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.error || 'Failed to complete checkout');
+      }
+
+      clearCart();
+      setOrderSuccess(data);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (orderSuccess) {
+    return (
+      <div className="py-20 relative z-10 max-w-2xl mx-auto px-4 text-center">
+        <div className="p-8 sm:p-12 rounded-3xl bg-[#121814] border border-white/15 shadow-2xl text-white space-y-6">
+          <div className="w-16 h-16 rounded-full bg-[#C5F36A]/20 border border-[#C5F36A]/40 flex items-center justify-center text-[#C5F36A] mx-auto animate-bounce">
+            <CheckCircle className="w-8 h-8" />
+          </div>
+
+          <h1 className="text-3xl font-extrabold text-white">Payment Confirmed!</h1>
+          <p className="text-sm text-neutral-300">
+            Order <span className="font-mono font-bold text-white">#{orderSuccess.order.order_number}</span> has been processed. Your server instances have been automatically provisioned!
+          </p>
+
+          {/* Provisioned Services Summary */}
+          <div className="p-4 rounded-2xl bg-black/40 border border-white/10 text-left space-y-3">
+            <h4 className="text-xs font-mono font-bold uppercase text-[#C5F36A]">
+              Active Provisioned Services ({orderSuccess.services.length})
+            </h4>
+            {orderSuccess.services.map((srv) => (
+              <div key={srv.id} className="p-3 rounded-xl bg-white/5 border border-white/5 flex items-center justify-between text-xs">
+                <div>
+                  <p className="font-bold text-white">{srv.name}</p>
+                  <p className="text-neutral-400 font-mono text-[11px]">
+                    IP: {srv.ip_address}:{srv.port} • Node: {srv.node}
+                  </p>
+                </div>
+                <span className="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                  {srv.status}
+                </span>
+              </div>
+            ))}
+          </div>
+
+          <div className="flex flex-col sm:flex-row gap-3 pt-2">
+            <button
+              onClick={() => navigate('/client/servers')}
+              className="flex-1 py-3.5 rounded-xl bg-white text-black font-bold text-xs hover:bg-[#C5F36A] transition flex items-center justify-center gap-1 shadow-lg"
+            >
+              Open Server Console &rarr;
+            </button>
+            <button
+              onClick={() => navigate('/client/billing')}
+              className="flex-1 py-3.5 rounded-xl bg-white/10 hover:bg-white/15 text-white font-bold text-xs transition border border-white/10"
+            >
+              View Invoices
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="py-12 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-left mb-8">
+          <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#C5F36A]">
+            SECURE CHECKOUT
+          </span>
+          <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white mt-1">
+            Review &amp; Place Order
+          </h1>
+        </div>
+
+        {error && (
+          <div className="mb-6 p-4 rounded-2xl bg-red-500/10 border border-red-500/30 text-red-400 text-xs flex items-center gap-2">
+            <AlertCircle className="w-4 h-4 flex-shrink-0" />
+            <span>{error}</span>
+          </div>
+        )}
+
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+          {/* Left: Customer & Payment selection */}
+          <div className="lg:col-span-7 space-y-6">
+            {/* Account Info */}
+            <div className="p-6 rounded-3xl bg-[#121814] border border-white/10 space-y-4">
+              <h3 className="text-sm font-bold text-white flex items-center gap-2">
+                <span className="w-5 h-5 rounded-full bg-white/10 flex items-center justify-center text-xs">1</span>
+                Customer Account
+              </h3>
+              {user ? (
+                <div className="p-4 rounded-xl bg-white/5 border border-white/5 flex items-center justify-between text-xs">
+                  <div>
+                    <p className="font-bold text-white">{user.name}</p>
+                    <p className="text-neutral-400">{user.email}</p>
+                  </div>
+                  <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-[#C5F36A]/20 text-[#C5F36A]">
+                    Verified
+                  </span>
+                </div>
+              ) : (
+                <div className="p-4 rounded-xl bg-amber-500/10 border border-amber-500/20 text-xs text-amber-200 flex items-center justify-between">
+                  <span>Please sign in or create an account to activate services.</span>
+                  <Link
+                    to="/login?redirect=/checkout"
+                    className="px-3 py-1.5 rounded-lg bg-white text-black font-bold text-xs hover:bg-[#C5F36A] transition"
+                  >
+                    Sign In
+                  </Link>
+                </div>
+              )}
+            </div>
+
+            {/* Payment Method Selector */}
+            <div className="p-6 rounded-3xl bg-[#121814] border border-white/10 space-y-4">
+              <h3 className="text-sm font-bold text-white flex items-center gap-2">
+                <span className="w-5 h-5 rounded-full bg-white/10 flex items-center justify-center text-xs">2</span>
+                Payment Method
+              </h3>
+
+              <div className="space-y-2">
+                {[
+                  {
+                    id: 'Razorpay UPI',
+                    title: 'Razorpay (India & UPI)',
+                    subtitle: 'Google Pay, PhonePe, Paytm, QR & Indian NetBanking',
+                    recommended: currency === 'INR'
+                  },
+                  {
+                    id: 'Stripe Card',
+                    title: 'Stripe (Cards & International)',
+                    subtitle: 'Visa, MasterCard, Amex, Apple Pay',
+                    recommended: currency === 'USD'
+                  }
+                ].map((pm) => (
+                  <button
+                    key={pm.id}
+                    onClick={() => setPaymentMethod(pm.id)}
+                    className={`w-full p-4 rounded-2xl border text-left flex items-center justify-between transition ${
+                      paymentMethod === pm.id
+                        ? 'bg-white/15 border-[#C5F36A] text-white shadow-lg'
+                        : 'bg-black/30 border-white/10 text-neutral-300 hover:border-white/20'
+                    }`}
+                  >
+                    <div>
+                      <p className="text-xs sm:text-sm font-bold text-white flex items-center gap-2">
+                        {pm.title}
+                        {pm.recommended && (
+                          <span className="px-1.5 py-0.5 rounded text-[9px] bg-[#C5F36A] text-black font-extrabold uppercase">
+                            Recommended
+                          </span>
+                        )}
+                      </p>
+                      <p className="text-[11px] text-neutral-400 mt-0.5">{pm.subtitle}</p>
+                    </div>
+                    <CreditCard className="w-5 h-5 text-neutral-400" />
+                  </button>
+                ))}
+              </div>
+
+              <div className="flex items-center gap-2 text-[11px] text-neutral-400 pt-2">
+                <ShieldCheck className="w-4 h-4 text-[#C5F36A]" />
+                <span>256-bit Encrypted & Verified Server-Side Webhook Integration</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Right: Order Summary */}
+          <div className="lg:col-span-5">
+            <div className="p-6 rounded-3xl bg-[#121814] border border-white/10 space-y-6 sticky top-24 shadow-2xl">
+              <h3 className="text-base font-bold text-white">Order Summary</h3>
+
+              {/* Items List */}
+              <div className="space-y-3 max-h-60 overflow-y-auto">
+                {items.length === 0 ? (
+                  <p className="text-xs text-neutral-400">Cart is empty.</p>
+                ) : (
+                  items.map((item) => {
+                    const price = currency === 'USD' ? item.price_usd : item.price_inr;
+                    return (
+                      <div
+                        key={item.key}
+                        className="p-3 rounded-xl bg-white/5 border border-white/5 flex items-center justify-between text-xs"
+                      >
+                        <div>
+                          <p className="font-bold text-white">{item.plan_name}</p>
+                          <p className="text-neutral-400 text-[11px]">
+                            {item.game} • {item.ram} • {item.software}
+                          </p>
+                        </div>
+                        <span className="font-mono font-bold text-white">
+                          {symbol}{(price * item.quantity).toFixed(2)}
+                        </span>
+                      </div>
+                    );
+                  })
+                )}
+              </div>
+
+              {/* Coupon Form */}
+              {coupon ? (
+                <div className="p-3 rounded-xl bg-[#C5F36A]/10 border border-[#C5F36A]/30 flex items-center justify-between text-xs">
+                  <span className="text-[#C5F36A] font-bold">
+                    Coupon: {coupon.code} (-{coupon.discount_percent}%)
+                  </span>
+                  <button onClick={removeCoupon} className="text-neutral-400 hover:text-white underline text-[11px]">
+                    Remove
+                  </button>
+                </div>
+              ) : (
+                <form onSubmit={handleApplyCoupon} className="flex gap-2">
+                  <input
+                    type="text"
+                    value={couponCode}
+                    onChange={(e) => setCouponCode(e.target.value)}
+                    placeholder="Coupon code (e.g. ZEROXCLOUD)"
+                    className="flex-1 bg-black/40 border border-white/10 rounded-xl px-3 py-2 text-xs text-white uppercase placeholder-neutral-500 focus:outline-none focus:border-[#C5F36A]"
+                  />
+                  <button
+                    type="submit"
+                    className="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-bold text-white transition"
+                  >
+                    Apply
+                  </button>
+                </form>
+              )}
+              {couponError && <p className="text-[11px] text-red-400">{couponError}</p>}
+
+              {/* Breakdown */}
+              <div className="space-y-2 text-xs text-neutral-400 border-t border-white/10 pt-4">
+                <div className="flex justify-between">
+                  <span>Subtotal</span>
+                  <span className="font-mono text-white">{symbol}{subtotal.toFixed(2)}</span>
+                </div>
+                {discountAmount > 0 && (
+                  <div className="flex justify-between text-[#C5F36A]">
+                    <span>Discount</span>
+                    <span className="font-mono">-{symbol}{discountAmount.toFixed(2)}</span>
+                  </div>
+                )}
+                <div className="flex justify-between">
+                  <span>Setup Fees</span>
+                  <span className="text-emerald-400 font-bold">FREE ($0.00)</span>
+                </div>
+                <div className="flex justify-between text-base font-bold text-white border-t border-white/10 pt-3">
+                  <span>Total Due</span>
+                  <span className="text-[#C5F36A] font-mono">{symbol}{total.toFixed(2)}</span>
+                </div>
+              </div>
+
+              {/* Place Order CTA */}
+              <button
+                onClick={handleCompleteOrder}
+                disabled={loading || items.length === 0}
+                className="w-full py-4 rounded-xl bg-white text-black font-extrabold text-sm hover:bg-[#C5F36A] transition-all flex items-center justify-center gap-2 shadow-xl active:scale-[0.99] disabled:opacity-50"
+              >
+                {loading ? 'Processing & Provisioning...' : `Pay & Deploy Server (${symbol}${total.toFixed(2)})`}
+                <ArrowRight className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
