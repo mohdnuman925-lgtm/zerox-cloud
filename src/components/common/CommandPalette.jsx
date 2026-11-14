@@ -19,6 +19,9 @@ export const CommandPalette = ({ isOpen, onClose }) => {
     { title: 'Super Admin Control Center', category: 'Administration', path: '/admin/overview', icon: Shield },
     { title: 'Replay Cinematic Intro (Splash Screen)', category: 'Experience', action: 'replay-splash', icon: Play },
     { title: 'Terms of Service', category: 'Legal', path: '/terms', icon: FileText },
+    { title: 'Refund Policy (Strict No-Refund)', category: 'Legal', path: '/refund', icon: FileText },
+    { title: 'Data Loss & Backup Disclaimer', category: 'Legal', path: '/dataloss', icon: FileText },
+    { title: 'Server Rules & Acceptable Use (AUP)', category: 'Legal', path: '/rules', icon: FileText },
     { title: 'Privacy Policy', category: 'Legal', path: '/privacy', icon: FileText },
   ];
 

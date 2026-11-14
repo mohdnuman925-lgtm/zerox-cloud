@@ -88,7 +88,7 @@ export const Footer = () => {
           {/* Legal */}
           <div>
             <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-white mb-4">
-              Legal
+              Legal & Policies
             </h4>
             <ul className="space-y-2.5">
               <li>
@@ -97,19 +97,24 @@ export const Footer = () => {
                 </Link>
               </li>
               <li>
+                <Link to="/refund" className="hover:text-[#C5F36A] transition font-medium">
+                  Refund Policy (Strict)
+                </Link>
+              </li>
+              <li>
+                <Link to="/dataloss" className="hover:text-amber-300 transition">
+                  Data Loss & Backups
+                </Link>
+              </li>
+              <li>
+                <Link to="/rules" className="hover:text-red-400 transition">
+                  Server Rules & AUP
+                </Link>
+              </li>
+              <li>
                 <Link to="/privacy" className="hover:text-white transition">
                   Privacy Policy
                 </Link>
-              </li>
-              <li>
-                <Link to="/about" className="hover:text-white transition">
-                  About Us
-                </Link>
-              </li>
-              <li>
-                <a href="mailto:support@zeroxcloud.com" className="hover:text-white transition">
-                  support@zeroxcloud.com
-                </a>
               </li>
             </ul>
           </div>

@@ -111,6 +111,9 @@ export const App = () => {
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/terms" element={<LegalPage />} />
           <Route path="/privacy" element={<LegalPage />} />
+          <Route path="/refund" element={<LegalPage />} />
+          <Route path="/rules" element={<LegalPage />} />
+          <Route path="/dataloss" element={<LegalPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/checkout" element={<CheckoutPage />} />

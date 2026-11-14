@@ -33,6 +33,7 @@ export const CheckoutPage = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [orderSuccess, setOrderSuccess] = useState(null);
+  const [agreedToPolicy, setAgreedToPolicy] = useState(true);
 
   const symbol = currency === 'USD' ? '$' : '₹';
 
@@ -56,6 +57,11 @@ export const CheckoutPage = () => {
 
     if (items.length === 0) {
       setError('Your cart is empty');
+      return;
+    }
+
+    if (!agreedToPolicy) {
+      setError('You must acknowledge and agree to the Terms of Service, No-Refund Policy, and Data Loss Disclaimer to complete checkout.');
       return;
     }
 
@@ -331,10 +337,28 @@ export const CheckoutPage = () => {
                 </div>
               </div>
 
+              {/* Mandatory Policy Agreement & Disclaimers */}
+              <div className="p-3.5 rounded-xl bg-black/40 border border-white/10 space-y-2 text-[11px] text-neutral-300">
+                <label className="flex items-start gap-2.5 cursor-pointer select-none">
+                  <input
+                    type="checkbox"
+                    checked={agreedToPolicy}
+                    onChange={(e) => setAgreedToPolicy(e.target.checked)}
+                    className="mt-0.5 rounded bg-black/60 border-white/20 text-[#C5F36A] focus:ring-0 focus:ring-offset-0 cursor-pointer"
+                  />
+                  <span className="leading-snug">
+                    I agree to the <Link to="/terms" target="_blank" className="text-white underline hover:text-[#C5F36A]">Terms of Service</Link>, <Link to="/refund" target="_blank" className="text-white underline hover:text-[#C5F36A]">Refund Policy</Link>, and <Link to="/rules" target="_blank" className="text-white underline hover:text-[#C5F36A]">Server Rules</Link>.
+                  </span>
+                </label>
+                <div className="text-[10px] text-neutral-400 pl-6 leading-relaxed">
+                  <strong className="text-amber-300">Important Notice:</strong> All sales are final. No refunds once bought (a refund is only provided in case ZEROX CLOUD fails to provision the service). ZEROX CLOUD is strictly not responsible for data loss; customers must maintain their own offsite backups.
+                </div>
+              </div>
+
               {/* Place Order CTA */}
               <button
                 onClick={handleCompleteOrder}
-                disabled={loading || items.length === 0}
+                disabled={loading || items.length === 0 || !agreedToPolicy}
                 className="w-full py-4 rounded-xl bg-white text-black font-extrabold text-sm hover:bg-[#C5F36A] transition-all flex items-center justify-center gap-2 shadow-xl active:scale-[0.99] disabled:opacity-50"
               >
                 {loading ? 'Processing & Provisioning...' : `Pay & Deploy Server (${symbol}${total.toFixed(2)})`}
