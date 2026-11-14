@@ -174,10 +174,10 @@ export const ClientOverview = () => {
           </div>
           <div>
             <h4 className="text-sm font-bold text-white group-hover:text-[#C5F36A] transition">
-              Manage servers
+              My Services
             </h4>
             <p className="text-xs text-neutral-400 mt-0.5 leading-relaxed">
-              Open the panel, renew or review your services.
+              View your active instances, hardware specs, and repayment dates.
             </p>
           </div>
         </div>

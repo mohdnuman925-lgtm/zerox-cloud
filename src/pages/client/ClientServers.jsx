@@ -1,18 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useOutletContext } from 'react-router-dom';
+import { useNavigate, useOutletContext, Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import {
   Server,
-  Terminal,
-  RotateCw,
-  Power,
-  Play,
   Key,
   Plus,
   RefreshCw,
   Search,
   ExternalLink,
-  X
+  Calendar,
+  Clock,
+  Copy,
+  Check,
+  CreditCard,
+  HardDrive,
+  Cpu,
+  Layers,
+  Terminal,
+  AlertCircle
 } from 'lucide-react';
 
 export const ClientServers = () => {
@@ -23,9 +28,7 @@ export const ClientServers = () => {
   const [services, setServices] = useState([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
-  const [consoleModal, setConsoleModal] = useState(null);
-  const [consoleLogs, setConsoleLogs] = useState([]);
-  const [actionLoading, setActionLoading] = useState(null);
+  const [copiedId, setCopiedId] = useState(null);
 
   const fetchServices = async () => {
     try {
@@ -36,7 +39,7 @@ export const ClientServers = () => {
       const data = await res.json();
       setServices(data.services || []);
     } catch (err) {
-      console.error(err);
+      console.error('Error fetching services:', err);
     } finally {
       setLoading(false);
     }
@@ -46,62 +49,56 @@ export const ClientServers = () => {
     if (token) fetchServices();
   }, [token]);
 
-  const handlePowerAction = async (serviceId, signal) => {
-    setActionLoading(serviceId);
-    try {
-      const res = await fetch(`/api/services/${serviceId}/power`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`
-        },
-        body: JSON.stringify({ signal })
-      });
-      if (res.ok) {
-        await fetchServices();
-      }
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setActionLoading(null);
-    }
+  const handleCopyAddress = (id, address) => {
+    navigator.clipboard.writeText(address);
+    setCopiedId(id);
+    setTimeout(() => {
+      setCopiedId(null);
+    }, 2000);
   };
 
-  const handleOpenConsole = async (service) => {
-    setConsoleModal(service);
-    try {
-      const res = await fetch(`/api/services/${service.id}/console`, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-      const data = await res.json();
-      setConsoleLogs(data.logs || []);
-    } catch (err) {
-      console.error(err);
-    }
+  const getRepaymentInfo = (renewalDateStr) => {
+    if (!renewalDateStr) return { dateStr: 'Monthly', daysRemaining: null, isOverdue: false, isDueSoon: false };
+    const renewalDate = new Date(renewalDateStr);
+    const now = new Date();
+    const diffTime = renewalDate.getTime() - now.getTime();
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    return {
+      dateStr: renewalDate.toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric'
+      }),
+      daysRemaining: diffDays,
+      isOverdue: diffDays < 0,
+      isDueSoon: diffDays <= 5 && diffDays >= 0
+    };
   };
 
   const filtered = services.filter((s) =>
-    s.name.toLowerCase().includes(search.toLowerCase()) ||
-    s.node.toLowerCase().includes(search.toLowerCase()) ||
-    s.status.toLowerCase().includes(search.toLowerCase())
+    (s.name || '').toLowerCase().includes(search.toLowerCase()) ||
+    (s.node || '').toLowerCase().includes(search.toLowerCase()) ||
+    (s.ip_address || '').includes(search) ||
+    (s.game || '').toLowerCase().includes(search.toLowerCase()) ||
+    (s.status || '').toLowerCase().includes(search.toLowerCase())
   );
 
   const activeCount = services.filter((s) => s.status === 'active').length;
   const suspendedCount = services.filter((s) => s.status === 'suspended').length;
 
   return (
-    <div className="space-y-6 animate-fade-in">
+    <div className="space-y-6 animate-fade-in text-left">
       {/* Header */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
           <span className="text-xs font-mono font-bold uppercase tracking-wider text-neutral-400">
-            SERVERS
+            MY SERVICES &amp; SUBSCRIPTIONS
           </span>
           <h1 className="text-2xl sm:text-4xl font-extrabold text-white mt-0.5">
             Your services
           </h1>
           <p className="text-xs text-neutral-400 mt-1">
-            {activeCount} active • {suspendedCount} suspended
+            {activeCount} active • {suspendedCount} suspended • Server power &amp; console are managed in the Game Panel
           </p>
         </div>
 
@@ -111,7 +108,7 @@ export const ClientServers = () => {
             className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white/10 hover:bg-white/15 text-xs font-bold text-white transition border border-white/10"
           >
             <Key className="w-3.5 h-3.5 text-[#C5F36A]" />
-            Panel Access &amp; Password
+            Panel Password
           </button>
           <button
             onClick={() => navigate('/games')}
@@ -123,32 +120,30 @@ export const ClientServers = () => {
         </div>
       </div>
 
-      {/* Pterodactyl Panel integration banner matching video frame 044 */}
+      {/* Pterodactyl Panel Information Banner */}
       <div className="p-4 rounded-2xl bg-[#121814] border border-white/10 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         <div className="flex items-center gap-3">
-          <div className="p-2.5 rounded-xl bg-white/5 border border-white/10 text-[#C5F36A]">
+          <div className="p-2.5 rounded-xl bg-white/5 border border-white/10 text-[#C5F36A] shrink-0">
             <Terminal className="w-4 h-4" />
           </div>
-          <p className="text-xs text-neutral-300">
-            <span className="font-bold text-white">Pterodactyl Panel (portal.zeroxcloud.com):</span> Log in with your ZEROX CLOUD email and your website password.
-          </p>
+          <div>
+            <p className="text-xs text-neutral-300">
+              <span className="font-bold text-white">External Game Panel:</span> Server power actions (Start / Stop / Restart), live console logs, and file management are handled in Pterodactyl.
+            </p>
+            <p className="text-[11px] text-neutral-400 mt-0.5">
+              Log in at <span className="text-white font-mono">portal.zeroxcloud.com</span> using your account email and website password.
+            </p>
+          </div>
         </div>
 
-        <div className="flex items-center gap-2">
-          <button
-            onClick={onOpenPanelModal}
-            className="px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/15 text-xs font-medium text-white transition flex items-center gap-1.5"
-          >
-            <Key className="w-3.5 h-3.5 text-[#C5F36A]" />
-            Sync / Change Password
-          </button>
+        <div className="flex items-center gap-2 shrink-0">
           <a
             href="https://portal.zeroxcloud.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="px-3 py-1.5 rounded-xl bg-white text-black text-xs font-bold hover:bg-[#C5F36A] transition flex items-center gap-1.5"
+            className="px-3.5 py-2 rounded-xl bg-white text-black text-xs font-bold hover:bg-[#C5F36A] transition flex items-center gap-1.5 shadow"
           >
-            Open Panel
+            Open Game Panel
             <ExternalLink className="w-3.5 h-3.5" />
           </a>
         </div>
@@ -162,7 +157,7 @@ export const ClientServers = () => {
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            placeholder="Search by plan, node or status..."
+            placeholder="Search by server name, game, IP or node..."
             className="w-full bg-[#121814] border border-white/10 rounded-xl pl-10 pr-4 py-2 text-xs text-white placeholder-neutral-500 focus:outline-none focus:border-[#C5F36A]"
           />
         </div>
@@ -181,168 +176,173 @@ export const ClientServers = () => {
           <div className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center text-neutral-500">
             <Server className="w-6 h-6" />
           </div>
-          <h3 className="text-lg font-bold text-white">No services yet</h3>
+          <h3 className="text-lg font-bold text-white">No active services found</h3>
           <p className="text-xs text-neutral-400 max-w-sm">
-            Deploy your first server in under a minute with instant automated provisioning.
+            You do not have any active servers or subscriptions assigned to this account.
           </p>
           <button
             onClick={() => navigate('/games')}
             className="mt-2 px-6 py-2.5 rounded-xl bg-white text-black font-bold text-xs hover:bg-[#C5F36A] transition"
           >
-            Browse plans
+            Explore Game Hosting Plans
           </button>
         </div>
       ) : (
-        <div className="grid grid-cols-1 gap-4">
-          {filtered.map((srv) => (
-            <div
-              key={srv.id}
-              className="p-6 rounded-3xl bg-[#121814] border border-white/10 hover:border-white/20 transition flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 shadow-xl"
-            >
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-[#C5F36A] flex-shrink-0">
-                  <Server className="w-6 h-6" />
-                </div>
-                <div>
-                  <div className="flex items-center gap-2">
-                    <h3 className="text-base font-bold text-white">{srv.name}</h3>
-                    <span
-                      className={`px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase ${
-                        srv.status === 'active'
-                          ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
-                          : 'bg-red-500/20 text-red-400 border border-red-500/30'
-                      }`}
-                    >
-                      {srv.status}
-                    </span>
+        <div className="grid grid-cols-1 gap-5">
+          {filtered.map((srv) => {
+            const repayment = getRepaymentInfo(srv.renewal_date);
+            const connectionAddress = `${srv.ip_address || '103.174.102.45'}:${srv.port || 25565}`;
+
+            return (
+              <div
+                key={srv.id}
+                className="p-6 rounded-3xl bg-[#121814] border border-white/10 hover:border-white/20 transition space-y-5 shadow-xl"
+              >
+                {/* Top Info Bar */}
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-white/5 pb-4">
+                  <div className="flex items-center gap-3.5">
+                    <div className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-[#C5F36A] flex-shrink-0">
+                      <Server className="w-6 h-6" />
+                    </div>
+                    <div>
+                      <div className="flex items-center gap-2.5">
+                        <h3 className="text-base font-bold text-white">{srv.name}</h3>
+                        <span
+                          className={`px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase ${
+                            srv.status === 'active'
+                              ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
+                              : 'bg-red-500/20 text-red-400 border border-red-500/30'
+                          }`}
+                        >
+                          {srv.status}
+                        </span>
+                      </div>
+                      <p className="text-xs text-neutral-400 mt-0.5 font-mono">
+                        {srv.game || srv.category} • ID: {srv.service_id}
+                      </p>
+                    </div>
                   </div>
-                  <p className="text-xs font-mono text-neutral-400 mt-1">
-                    {srv.ip_address}:{srv.port} • {srv.game || srv.category}
-                  </p>
-                  <p className="text-[11px] text-neutral-500 mt-0.5">
-                    Node: {srv.node} • Renewal: {new Date(srv.renewal_date).toLocaleDateString()}
-                  </p>
-                </div>
-              </div>
 
-              {/* Resource Dials */}
-              <div className="flex items-center gap-4 text-center">
-                <div className="px-3 py-1.5 rounded-xl bg-black/40 border border-white/5">
-                  <span className="text-[10px] uppercase font-mono text-neutral-400 block">CPU</span>
-                  <span className="text-xs font-mono font-bold text-[#C5F36A]">{srv.cpu_usage || 0}%</span>
-                </div>
-                <div className="px-3 py-1.5 rounded-xl bg-black/40 border border-white/5">
-                  <span className="text-[10px] uppercase font-mono text-neutral-400 block">RAM</span>
-                  <span className="text-xs font-mono font-bold text-white">
-                    {srv.ram_usage || 0} / {srv.ram_max || 4} GB
-                  </span>
-                </div>
-                <div className="px-3 py-1.5 rounded-xl bg-black/40 border border-white/5">
-                  <span className="text-[10px] uppercase font-mono text-neutral-400 block">DISK</span>
-                  <span className="text-xs font-mono font-bold text-neutral-300">
-                    {srv.disk_usage || 0} / {srv.disk_max || 30} GB
-                  </span>
-                </div>
-              </div>
-
-              {/* Controls */}
-              <div className="flex items-center gap-2 w-full lg:w-auto">
-                <button
-                  onClick={() => handleOpenConsole(srv)}
-                  className="flex-1 lg:flex-none flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl bg-white/10 hover:bg-white/15 text-xs font-semibold text-white transition border border-white/10"
-                >
-                  <Terminal className="w-3.5 h-3.5 text-[#C5F36A]" />
-                  Console
-                </button>
-
-                {srv.status === 'active' ? (
-                  <button
-                    onClick={() => handlePowerAction(srv.id, 'stop')}
-                    disabled={actionLoading === srv.id}
-                    className="p-2 rounded-xl bg-red-500/20 text-red-400 hover:bg-red-500/30 transition border border-red-500/30"
-                    title="Stop server"
+                  {/* Panel Link Button */}
+                  <a
+                    href="https://portal.zeroxcloud.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-white/5 hover:bg-white/10 text-xs font-semibold text-white border border-white/10 transition"
                   >
-                    <Power className="w-4 h-4" />
-                  </button>
-                ) : (
-                  <button
-                    onClick={() => handlePowerAction(srv.id, 'start')}
-                    disabled={actionLoading === srv.id}
-                    className="p-2 rounded-xl bg-emerald-500/20 text-emerald-400 hover:bg-emerald-500/30 transition border border-emerald-500/30"
-                    title="Start server"
+                    Open in Game Panel
+                    <ExternalLink className="w-3.5 h-3.5 text-neutral-400" />
+                  </a>
+                </div>
+
+                {/* Details Grid (What they have & Repayment Date) */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
+                  {/* Item 1: Connection IP & Port */}
+                  <div className="p-4 rounded-2xl bg-black/40 border border-white/5 space-y-1.5 flex flex-col justify-between">
+                    <div>
+                      <span className="text-[10px] font-mono uppercase tracking-wider text-neutral-400 block font-bold">
+                        SERVER ADDRESS (IP:PORT)
+                      </span>
+                      <p className="font-mono text-sm font-bold text-white mt-1 break-all">
+                        {connectionAddress}
+                      </p>
+                    </div>
+                    <button
+                      onClick={() => handleCopyAddress(srv.id, connectionAddress)}
+                      className="mt-2 inline-flex items-center gap-1.5 text-[11px] font-mono text-neutral-400 hover:text-white transition w-fit"
+                    >
+                      {copiedId === srv.id ? (
+                        <>
+                          <Check className="w-3.5 h-3.5 text-emerald-400" />
+                          <span className="text-emerald-400">Copied to clipboard!</span>
+                        </>
+                      ) : (
+                        <>
+                          <Copy className="w-3.5 h-3.5" />
+                          <span>Copy connection address</span>
+                        </>
+                      )}
+                    </button>
+                  </div>
+
+                  {/* Item 2: Node & Location */}
+                  <div className="p-4 rounded-2xl bg-black/40 border border-white/5 space-y-1 flex flex-col justify-between">
+                    <div>
+                      <span className="text-[10px] font-mono uppercase tracking-wider text-neutral-400 block font-bold">
+                        DATACENTER NODE
+                      </span>
+                      <p className="font-mono text-xs font-bold text-white mt-1">
+                        {srv.node || 'delhi-node-01.zeroxcloud.com'}
+                      </p>
+                    </div>
+                    <p className="text-[11px] text-neutral-400">
+                      Tier-3 Sub-15ms Low Latency Edge
+                    </p>
+                  </div>
+
+                  {/* Item 3: Hardware Allocation (What they have) */}
+                  <div className="p-4 rounded-2xl bg-black/40 border border-white/5 space-y-1 flex flex-col justify-between">
+                    <div>
+                      <span className="text-[10px] font-mono uppercase tracking-wider text-neutral-400 block font-bold">
+                        HARDWARE RESOURCES
+                      </span>
+                      <p className="text-xs font-bold text-white mt-1">
+                        {srv.ram_max || 4} GB RAM • {srv.disk_max || 30} GB NVMe
+                      </p>
+                    </div>
+                    <p className="text-[11px] text-neutral-400">
+                      Dedicated high-frequency compute cores
+                    </p>
+                  </div>
+
+                  {/* Item 4: Repayment Date & Status */}
+                  <div className="p-4 rounded-2xl bg-white/[0.04] border border-white/10 space-y-1 flex flex-col justify-between">
+                    <div>
+                      <span className="text-[10px] font-mono uppercase tracking-wider text-[#C5F36A] block font-bold flex items-center gap-1">
+                        <Calendar className="w-3 h-3" />
+                        REPAYMENT / RENEWAL DATE
+                      </span>
+                      <p className="font-mono text-sm font-extrabold text-white mt-1">
+                        {repayment.dateStr}
+                      </p>
+                    </div>
+                    <div className="flex items-center justify-between text-[11px] pt-1">
+                      {repayment.daysRemaining !== null && (
+                        <span className={`font-mono font-bold ${repayment.isOverdue ? 'text-red-400' : 'text-neutral-400'}`}>
+                          {repayment.isOverdue
+                            ? 'Overdue'
+                            : repayment.daysRemaining === 0
+                            ? 'Due today'
+                            : `${repayment.daysRemaining} days left`}
+                        </span>
+                      )}
+                      <Link
+                        to="/client/billing"
+                        className="text-white hover:text-[#C5F36A] underline font-medium transition"
+                      >
+                        Billing history →
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Bottom Helper Bar */}
+                <div className="pt-3 border-t border-white/5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-[11px] text-neutral-400">
+                  <p>
+                    <span>Server control &amp; terminal:</span> Use the <a href="https://portal.zeroxcloud.com" target="_blank" rel="noopener noreferrer" className="text-white underline hover:text-[#C5F36A]">Pterodactyl Panel</a> to start, stop, restart, upload mods, and view console logs.
+                  </p>
+                  <Link
+                    to="/client/support"
+                    className="hover:text-white transition underline"
                   >
-                    <Play className="w-4 h-4" />
-                  </button>
-                )}
-
-                <button
-                  onClick={() => handlePowerAction(srv.id, 'restart')}
-                  disabled={actionLoading === srv.id}
-                  className="p-2 rounded-xl bg-white/10 text-white hover:bg-white/20 transition border border-white/10"
-                  title="Restart server"
-                >
-                  <RotateCw className={`w-4 h-4 ${actionLoading === srv.id ? 'animate-spin' : ''}`} />
-                </button>
+                    Need assistance? Open ticket
+                  </Link>
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
-      )}
-
-      {/* Live Console Logs Modal */}
-      {consoleModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fade-in">
-          <div className="w-full max-w-3xl rounded-3xl bg-[#101512] border border-white/15 shadow-2xl overflow-hidden flex flex-col h-[520px]">
-            <div className="p-4 bg-[#151C17] border-b border-white/10 flex items-center justify-between">
-              <div className="flex items-center gap-2.5">
-                <Terminal className="w-4 h-4 text-[#C5F36A]" />
-                <h3 className="text-sm font-bold text-white font-mono">
-                  {consoleModal.name} ({consoleModal.ip_address}:{consoleModal.port})
-                </h3>
-              </div>
-              <button
-                onClick={() => setConsoleModal(null)}
-                className="text-neutral-400 hover:text-white"
-              >
-                <X className="w-5 h-5" />
-              </button>
-            </div>
-
-            <div className="flex-1 p-4 bg-black/80 font-mono text-xs text-neutral-300 space-y-1.5 overflow-y-auto">
-              {consoleLogs.map((log, idx) => (
-                <p key={idx} className="leading-relaxed">
-                  {log}
-                </p>
-              ))}
-              <p className="text-[#C5F36A] animate-pulse">&gt; Terminal interactive session connected.</p>
-            </div>
-
-            <div className="p-3 bg-[#151C17] border-t border-white/10 flex items-center gap-2">
-              <input
-                type="text"
-                placeholder="Send server command (e.g. say Hello, op player)..."
-                className="flex-1 bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#C5F36A]"
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter' && e.target.value.trim()) {
-                    setConsoleLogs((prev) => [
-                      ...prev,
-                      `[${new Date().toLocaleTimeString()}] [Console]: > ${e.target.value}`
-                    ]);
-                    e.target.value = '';
-                  }
-                }}
-              />
-              <button
-                onClick={() => setConsoleModal(null)}
-                className="px-4 py-2 rounded-xl bg-white text-black font-bold text-xs"
-              >
-                Close
-              </button>
-            </div>
-          </div>
+            );
+          })}
         </div>
       )}
     </div>
   );
 };
-
