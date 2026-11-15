@@ -105,7 +105,10 @@ export const AuthProvider = ({ children }) => {
     return data;
   };
 
-  const isAdmin = user && (user.role === 'admin' || user.role === 'super_admin');
+  const isSuperAdmin = user && user.role === 'super_admin';
+  const isFounder = user && (user.role === 'founder' || user.role === 'super_admin');
+  const isAdmin = user && ['super_admin', 'founder', 'admin'].includes(user.role);
+  const isStaff = user && ['super_admin', 'founder', 'admin', 'moderator', 'ticket_staff'].includes(user.role);
 
   return (
     <AuthContext.Provider
@@ -114,6 +117,9 @@ export const AuthProvider = ({ children }) => {
         token,
         loading,
         isAdmin,
+        isSuperAdmin,
+        isFounder,
+        isStaff,
         login,
         register,
         discordLogin,

@@ -543,16 +543,103 @@ const getInitialData = () => {
         timestamp: new Date('2026-11-14T07:22:00Z').toISOString()
       }
     ],
-    nodes: getDefaultNodes()
+    nodes: getDefaultNodes(),
+    roles: getDefaultRoles()
   };
 };
 
 export const getDefaultNodes = () => [];
 
+export const getDefaultRoles = () => [
+  {
+    id: 'super_admin',
+    name: 'Super Admin',
+    description: 'Supreme owner access with full control over the platform, databases, and roles.',
+    badge_color: 'purple',
+    badge_text: '#EC4899',
+    badge_bg: 'rgba(236, 72, 153, 0.15)',
+    badge_border: 'rgba(236, 72, 153, 0.35)',
+    is_system: true,
+    created_at: new Date('2026-01-01T00:00:00Z').toISOString(),
+    permissions: ['all']
+  },
+  {
+    id: 'founder',
+    name: 'Founder',
+    description: 'Executive platform founder with complete management and administrative privileges.',
+    badge_color: 'amber',
+    badge_text: '#F59E0B',
+    badge_bg: 'rgba(245, 158, 11, 0.15)',
+    badge_border: 'rgba(245, 158, 11, 0.35)',
+    is_system: false,
+    created_at: new Date('2026-01-01T00:00:00Z').toISOString(),
+    permissions: ['all']
+  },
+  {
+    id: 'admin',
+    name: 'Administrator',
+    description: 'Manages customers, servers, products, nodes, billing, and support desks.',
+    badge_color: 'emerald',
+    badge_text: '#10B981',
+    badge_bg: 'rgba(16, 185, 129, 0.15)',
+    badge_border: 'rgba(16, 185, 129, 0.35)',
+    is_system: true,
+    created_at: new Date('2026-01-01T00:00:00Z').toISOString(),
+    permissions: [
+      'manage_servers',
+      'manage_nodes',
+      'manage_customers',
+      'manage_billing',
+      'manage_tickets',
+      'manage_content',
+      'view_audit_logs'
+    ]
+  },
+  {
+    id: 'moderator',
+    name: 'Moderator',
+    description: 'Assists with customer oversight, ticket escalation, and community moderation.',
+    badge_color: 'indigo',
+    badge_text: '#818CF8',
+    badge_bg: 'rgba(129, 140, 248, 0.15)',
+    badge_border: 'rgba(129, 140, 248, 0.35)',
+    is_system: false,
+    created_at: new Date('2026-01-01T00:00:00Z').toISOString(),
+    permissions: ['manage_customers', 'manage_tickets']
+  },
+  {
+    id: 'ticket_staff',
+    name: 'Ticket Staff',
+    description: 'Support agent handling customer inquiries, ticket replies, and technical assistance.',
+    badge_color: 'cyan',
+    badge_text: '#38BDF8',
+    badge_bg: 'rgba(56, 189, 248, 0.15)',
+    badge_border: 'rgba(56, 189, 248, 0.35)',
+    is_system: false,
+    created_at: new Date('2026-01-01T00:00:00Z').toISOString(),
+    permissions: ['manage_tickets']
+  },
+  {
+    id: 'customer',
+    name: 'Customer',
+    description: 'Standard client account with access to purchased cloud servers and billing portal.',
+    badge_color: 'neutral',
+    badge_text: '#9CA3AF',
+    badge_bg: 'rgba(156, 163, 175, 0.15)',
+    badge_border: 'rgba(156, 163, 175, 0.35)',
+    is_system: true,
+    created_at: new Date('2026-01-01T00:00:00Z').toISOString(),
+    permissions: ['client_access']
+  }
+];
+
 export const getDB = () => {
   if (memoryDB) {
     if (!memoryDB.nodes || !Array.isArray(memoryDB.nodes)) {
       memoryDB.nodes = [];
+    }
+    if (!memoryDB.roles || !Array.isArray(memoryDB.roles) || memoryDB.roles.length === 0) {
+      memoryDB.roles = getDefaultRoles();
     }
     return memoryDB;
   }
@@ -564,6 +651,9 @@ export const getDB = () => {
       if (!memoryDB.nodes || !Array.isArray(memoryDB.nodes)) {
         memoryDB.nodes = [];
       }
+      if (!memoryDB.roles || !Array.isArray(memoryDB.roles) || memoryDB.roles.length === 0) {
+        memoryDB.roles = getDefaultRoles();
+      }
       return memoryDB;
     }
 
@@ -573,6 +663,9 @@ export const getDB = () => {
       memoryDB = JSON.parse(raw);
       if (!memoryDB.nodes || !Array.isArray(memoryDB.nodes)) {
         memoryDB.nodes = [];
+      }
+      if (!memoryDB.roles || !Array.isArray(memoryDB.roles) || memoryDB.roles.length === 0) {
+        memoryDB.roles = getDefaultRoles();
       }
       try {
         fs.mkdirSync(path.dirname(RUNTIME_DB_FILE), { recursive: true });

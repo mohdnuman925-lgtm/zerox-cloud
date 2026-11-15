@@ -5,9 +5,26 @@ import { PterodactylAdapter } from '../providers/pterodactylAdapter.js';
 
 const router = express.Router();
 
-// Middleware: Strictly enforce Admin or Super Admin role
+// Middleware: Strictly enforce Staff / Admin role
 export const requireAdmin = (req, res, next) => {
-  if (!req.user || !['admin', 'super_admin'].includes(req.user.role)) {
+  if (!req.user) {
+    return res.status(401).json({ error: 'Authentication required' });
+  }
+  const db = getDB();
+  const baseStaffRoles = ['super_admin', 'founder', 'admin', 'moderator', 'ticket_staff'];
+  const customStaffRoleIds = (db.roles || [])
+    .filter(r => r.permissions && (r.permissions.includes('all') || r.permissions.some(p => p.startsWith('manage_'))))
+    .map(r => r.id);
+  const allowed = [...new Set([...baseStaffRoles, ...customStaffRoleIds])];
+
+  if (!allowed.includes(req.user.role)) {
+    return res.status(403).json({ error: 'Access denied: Staff authorization required' });
+  }
+  next();
+};
+
+export const requireSuperAdmin = (req, res, next) => {
+  if (!req.user || req.user.role !== 'super_admin') {
     return res.status(403).json({ error: 'Access denied: Super Admin authorization required' });
   }
   next();
@@ -101,6 +118,211 @@ router.post('/customers/:id/status', (req, res) => {
   );
 
   res.json({ message: `Customer account ${status} successfully`, customer });
+});
+
+// Customer Role Management (Super Admin Exclusive)
+router.post('/customers/:id/role', requireSuperAdmin, (req, res) => {
+  const { id } = req.params;
+  const { role } = req.body;
+
+  if (!role) {
+    return res.status(400).json({ error: 'Role is required' });
+  }
+
+  const db = getDB();
+  const customer = db.profiles.find((p) => p.id === id);
+
+  if (!customer) {
+    return res.status(404).json({ error: 'Customer not found' });
+  }
+
+  const roleExists = (db.roles || []).some((r) => r.id === role);
+  if (!roleExists) {
+    return res.status(400).json({ error: `Invalid role '${role}'. Role does not exist.` });
+  }
+
+  // Prevent demoting the only super_admin
+  if (customer.id === req.user.id && role !== 'super_admin') {
+    const superAdminCount = db.profiles.filter((p) => p.role === 'super_admin').length;
+    if (superAdminCount <= 1) {
+      return res.status(400).json({ error: 'Cannot demote the primary Super Admin account' });
+    }
+  }
+
+  const prevRole = customer.role;
+  customer.role = role;
+  saveDB(db);
+
+  logAudit(
+    req.user.name,
+    req.user.role,
+    'USER_ROLE_CHANGED',
+    customer.email,
+    `Role changed for ${customer.name} (${customer.email}) from ${prevRole} to ${role}`
+  );
+
+  res.json({
+    message: `Role for ${customer.name} successfully updated to ${role}`,
+    customer: {
+      id: customer.id,
+      name: customer.name,
+      email: customer.email,
+      role: customer.role,
+      status: customer.status
+    }
+  });
+});
+
+// Role Management Endpoints (Super Admin & Staff)
+router.get('/roles', (req, res) => {
+  const db = getDB();
+  const roles = (db.roles || []).map((r) => ({
+    ...r,
+    users_count: (db.profiles || []).filter((p) => p.role === r.id).length
+  }));
+  res.json({ roles });
+});
+
+router.post('/roles', requireSuperAdmin, (req, res) => {
+  const { name, description, badge_color = 'purple', permissions = [] } = req.body;
+
+  if (!name || name.trim().length < 2) {
+    return res.status(400).json({ error: 'Role name must be at least 2 characters long' });
+  }
+
+  const db = getDB();
+  const cleanName = name.trim();
+  const slug = req.body.id
+    ? req.body.id.trim().toLowerCase().replace(/[^a-z0-9_]/g, '_')
+    : cleanName.toLowerCase().replace(/[^a-z0-9_]/g, '_');
+
+  if (db.roles.some((r) => r.id === slug)) {
+    return res.status(400).json({ error: `A role with identifier '${slug}' already exists` });
+  }
+
+  const colorStyles = {
+    purple: { badge_text: '#EC4899', badge_bg: 'rgba(236, 72, 153, 0.15)', badge_border: 'rgba(236, 72, 153, 0.35)' },
+    amber: { badge_text: '#F59E0B', badge_bg: 'rgba(245, 158, 11, 0.15)', badge_border: 'rgba(245, 158, 11, 0.35)' },
+    emerald: { badge_text: '#10B981', badge_bg: 'rgba(16, 185, 129, 0.15)', badge_border: 'rgba(16, 185, 129, 0.35)' },
+    cyan: { badge_text: '#38BDF8', badge_bg: 'rgba(56, 189, 248, 0.15)', badge_border: 'rgba(56, 189, 248, 0.35)' },
+    indigo: { badge_text: '#818CF8', badge_bg: 'rgba(129, 140, 248, 0.15)', badge_border: 'rgba(129, 140, 248, 0.35)' },
+    rose: { badge_text: '#F43F5E', badge_bg: 'rgba(244, 63, 94, 0.15)', badge_border: 'rgba(244, 63, 94, 0.35)' },
+    blue: { badge_text: '#60A5FA', badge_bg: 'rgba(96, 165, 250, 0.15)', badge_border: 'rgba(96, 165, 250, 0.35)' },
+    neutral: { badge_text: '#9CA3AF', badge_bg: 'rgba(156, 163, 175, 0.15)', badge_border: 'rgba(156, 163, 175, 0.35)' }
+  };
+
+  const style = colorStyles[badge_color] || colorStyles.purple;
+
+  const newRole = {
+    id: slug,
+    name: cleanName,
+    description: (description || '').trim(),
+    badge_color,
+    badge_text: style.badge_text,
+    badge_bg: style.badge_bg,
+    badge_border: style.badge_border,
+    is_system: false,
+    created_at: new Date().toISOString(),
+    permissions: Array.isArray(permissions) ? permissions : []
+  };
+
+  db.roles.push(newRole);
+  saveDB(db);
+
+  logAudit(
+    req.user.name,
+    req.user.role,
+    'ROLE_CREATED',
+    newRole.name,
+    `Super Admin created role '${newRole.name}' (${newRole.id})`
+  );
+
+  res.status(201).json({ message: 'Role created successfully', role: newRole });
+});
+
+router.put('/roles/:id', requireSuperAdmin, (req, res) => {
+  const { id } = req.params;
+  const { name, description, badge_color, permissions } = req.body;
+
+  const db = getDB();
+  const roleIndex = db.roles.findIndex((r) => r.id === id);
+  if (roleIndex === -1) {
+    return res.status(404).json({ error: 'Role not found' });
+  }
+
+  const current = db.roles[roleIndex];
+  if (name) current.name = name.trim();
+  if (description !== undefined) current.description = description.trim();
+  if (badge_color) {
+    current.badge_color = badge_color;
+    const colorStyles = {
+      purple: { badge_text: '#EC4899', badge_bg: 'rgba(236, 72, 153, 0.15)', badge_border: 'rgba(236, 72, 153, 0.35)' },
+      amber: { badge_text: '#F59E0B', badge_bg: 'rgba(245, 158, 11, 0.15)', badge_border: 'rgba(245, 158, 11, 0.35)' },
+      emerald: { badge_text: '#10B981', badge_bg: 'rgba(16, 185, 129, 0.15)', badge_border: 'rgba(16, 185, 129, 0.35)' },
+      cyan: { badge_text: '#38BDF8', badge_bg: 'rgba(56, 189, 248, 0.15)', badge_border: 'rgba(56, 189, 248, 0.35)' },
+      indigo: { badge_text: '#818CF8', badge_bg: 'rgba(129, 140, 248, 0.15)', badge_border: 'rgba(129, 140, 248, 0.35)' },
+      rose: { badge_text: '#F43F5E', badge_bg: 'rgba(244, 63, 94, 0.15)', badge_border: 'rgba(244, 63, 94, 0.35)' },
+      blue: { badge_text: '#60A5FA', badge_bg: 'rgba(96, 165, 250, 0.15)', badge_border: 'rgba(96, 165, 250, 0.35)' },
+      neutral: { badge_text: '#9CA3AF', badge_bg: 'rgba(156, 163, 175, 0.15)', badge_border: 'rgba(156, 163, 175, 0.35)' }
+    };
+    const style = colorStyles[badge_color] || colorStyles.purple;
+    current.badge_text = style.badge_text;
+    current.badge_bg = style.badge_bg;
+    current.badge_border = style.badge_border;
+  }
+  if (Array.isArray(permissions)) {
+    if (current.id === 'super_admin' && !permissions.includes('all')) {
+      permissions.unshift('all');
+    }
+    current.permissions = permissions;
+  }
+
+  saveDB(db);
+
+  logAudit(
+    req.user.name,
+    req.user.role,
+    'ROLE_UPDATED',
+    current.name,
+    `Super Admin updated role '${current.name}' (${current.id})`
+  );
+
+  res.json({ message: 'Role updated successfully', role: current });
+});
+
+router.delete('/roles/:id', requireSuperAdmin, (req, res) => {
+  const { id } = req.params;
+  const db = getDB();
+
+  const role = db.roles.find((r) => r.id === id);
+  if (!role) {
+    return res.status(404).json({ error: 'Role not found' });
+  }
+
+  if (role.is_system || ['super_admin', 'admin', 'customer'].includes(id)) {
+    return res.status(403).json({ error: 'System roles cannot be deleted' });
+  }
+
+  let reassignedCount = 0;
+  db.profiles.forEach((p) => {
+    if (p.role === id) {
+      p.role = 'customer';
+      reassignedCount++;
+    }
+  });
+
+  db.roles = db.roles.filter((r) => r.id !== id);
+  saveDB(db);
+
+  logAudit(
+    req.user.name,
+    req.user.role,
+    'ROLE_DELETED',
+    role.name,
+    `Super Admin deleted role '${role.name}'. ${reassignedCount} users reassigned to customer.`
+  );
+
+  res.json({ message: 'Role deleted successfully', reassigned_count: reassignedCount });
 });
 
 // 3. Plan & Pricing Management

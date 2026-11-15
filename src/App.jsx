@@ -38,6 +38,7 @@ import { ClientSettings } from './pages/client/ClientSettings';
 import { AdminLayout } from './pages/admin/AdminLayout';
 import { AdminOverview } from './pages/admin/AdminOverview';
 import { AdminCustomers } from './pages/admin/AdminCustomers';
+import { AdminRoles } from './pages/admin/AdminRoles';
 import { AdminProducts } from './pages/admin/AdminProducts';
 import { AdminOrders } from './pages/admin/AdminOrders';
 import { AdminServers } from './pages/admin/AdminServers';
@@ -153,6 +154,7 @@ export const App = () => {
           <Route path="/admin" element={<AdminLayout />}>
             <Route path="overview" element={<AdminOverview />} />
             <Route path="customers" element={<AdminCustomers />} />
+            <Route path="roles" element={<AdminRoles />} />
             <Route path="products" element={<AdminProducts />} />
             <Route path="orders" element={<AdminOrders />} />
             <Route path="servers" element={<AdminServers />} />

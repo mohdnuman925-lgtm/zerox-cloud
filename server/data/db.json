@@ -15,7 +15,7 @@
       "name": "Mohd Numan",
       "email": "mohdnuman925@gmail.com",
       "password_hash": "$2a$10$yllcBCfxcCYUkRNnfal0X.RgHPVFxcBJW36t.g3MSSzDgr5ihQvnC",
-      "role": "customer",
+      "role": "ticket_staff",
       "panel_password": "Ptero_User_2026!",
       "status": "active",
       "created_at": "2026-11-14T07:15:00.000Z"
@@ -3699,6 +3699,60 @@
   },
   "audit_logs": [
     {
+      "id": "log-1794723454369-08bb",
+      "actor_name": "Super Admin",
+      "actor_role": "super_admin",
+      "action": "ROLE_DELETED",
+      "target": "Senior Mod",
+      "details": "Super Admin deleted role 'Senior Mod'. 0 users reassigned to customer.",
+      "timestamp": "2026-11-15T06:17:34.369Z"
+    },
+    {
+      "id": "log-1794723454358-itdr",
+      "actor_name": "Super Admin",
+      "actor_role": "super_admin",
+      "action": "USER_ROLE_CHANGED",
+      "target": "mohdnuman925@gmail.com",
+      "details": "Role changed for Mohd Numan (mohdnuman925@gmail.com) from founder to ticket_staff",
+      "timestamp": "2026-11-15T06:17:34.358Z"
+    },
+    {
+      "id": "log-1794723454346-hhov",
+      "actor_name": "Super Admin",
+      "actor_role": "super_admin",
+      "action": "USER_ROLE_CHANGED",
+      "target": "mohdnuman925@gmail.com",
+      "details": "Role changed for Mohd Numan (mohdnuman925@gmail.com) from customer to founder",
+      "timestamp": "2026-11-15T06:17:34.346Z"
+    },
+    {
+      "id": "log-1794723454330-loei",
+      "actor_name": "Super Admin",
+      "actor_role": "super_admin",
+      "action": "ROLE_UPDATED",
+      "target": "Senior Mod",
+      "details": "Super Admin updated role 'Senior Mod' (junior_mod)",
+      "timestamp": "2026-11-15T06:17:34.330Z"
+    },
+    {
+      "id": "log-1794723454316-u0xt",
+      "actor_name": "Super Admin",
+      "actor_role": "super_admin",
+      "action": "ROLE_CREATED",
+      "target": "Junior Mod",
+      "details": "Super Admin created role 'Junior Mod' (junior_mod)",
+      "timestamp": "2026-11-15T06:17:34.316Z"
+    },
+    {
+      "id": "log-1794723454273-rcap",
+      "actor_name": "Super Admin",
+      "actor_role": "super_admin",
+      "action": "LOGIN",
+      "target": "usr-admin-01",
+      "details": "User logged in successfully",
+      "timestamp": "2026-11-15T06:17:34.273Z"
+    },
+    {
       "id": "log-1794715605589-w92x",
       "actor_name": "Super Admin",
       "actor_role": "super_admin",
@@ -5094,5 +5148,98 @@
       "timestamp": "2026-11-14T07:22:00.000Z"
     }
   ],
-  "nodes": []
+  "nodes": [],
+  "roles": [
+    {
+      "id": "super_admin",
+      "name": "Super Admin",
+      "description": "Supreme owner access with full control over the platform, databases, and roles.",
+      "badge_color": "purple",
+      "badge_text": "#EC4899",
+      "badge_bg": "rgba(236, 72, 153, 0.15)",
+      "badge_border": "rgba(236, 72, 153, 0.35)",
+      "is_system": true,
+      "created_at": "2026-01-01T00:00:00.000Z",
+      "permissions": [
+        "all"
+      ]
+    },
+    {
+      "id": "founder",
+      "name": "Founder",
+      "description": "Executive platform founder with complete management and administrative privileges.",
+      "badge_color": "amber",
+      "badge_text": "#F59E0B",
+      "badge_bg": "rgba(245, 158, 11, 0.15)",
+      "badge_border": "rgba(245, 158, 11, 0.35)",
+      "is_system": false,
+      "created_at": "2026-01-01T00:00:00.000Z",
+      "permissions": [
+        "all"
+      ]
+    },
+    {
+      "id": "admin",
+      "name": "Administrator",
+      "description": "Manages customers, servers, products, nodes, billing, and support desks.",
+      "badge_color": "emerald",
+      "badge_text": "#10B981",
+      "badge_bg": "rgba(16, 185, 129, 0.15)",
+      "badge_border": "rgba(16, 185, 129, 0.35)",
+      "is_system": true,
+      "created_at": "2026-01-01T00:00:00.000Z",
+      "permissions": [
+        "manage_servers",
+        "manage_nodes",
+        "manage_customers",
+        "manage_billing",
+        "manage_tickets",
+        "manage_content",
+        "view_audit_logs"
+      ]
+    },
+    {
+      "id": "moderator",
+      "name": "Moderator",
+      "description": "Assists with customer oversight, ticket escalation, and community moderation.",
+      "badge_color": "indigo",
+      "badge_text": "#818CF8",
+      "badge_bg": "rgba(129, 140, 248, 0.15)",
+      "badge_border": "rgba(129, 140, 248, 0.35)",
+      "is_system": false,
+      "created_at": "2026-01-01T00:00:00.000Z",
+      "permissions": [
+        "manage_customers",
+        "manage_tickets"
+      ]
+    },
+    {
+      "id": "ticket_staff",
+      "name": "Ticket Staff",
+      "description": "Support agent handling customer inquiries, ticket replies, and technical assistance.",
+      "badge_color": "cyan",
+      "badge_text": "#38BDF8",
+      "badge_bg": "rgba(56, 189, 248, 0.15)",
+      "badge_border": "rgba(56, 189, 248, 0.35)",
+      "is_system": false,
+      "created_at": "2026-01-01T00:00:00.000Z",
+      "permissions": [
+        "manage_tickets"
+      ]
+    },
+    {
+      "id": "customer",
+      "name": "Customer",
+      "description": "Standard client account with access to purchased cloud servers and billing portal.",
+      "badge_color": "neutral",
+      "badge_text": "#9CA3AF",
+      "badge_bg": "rgba(156, 163, 175, 0.15)",
+      "badge_border": "rgba(156, 163, 175, 0.35)",
+      "is_system": true,
+      "created_at": "2026-01-01T00:00:00.000Z",
+      "permissions": [
+        "client_access"
+      ]
+    }
+  ]
 }

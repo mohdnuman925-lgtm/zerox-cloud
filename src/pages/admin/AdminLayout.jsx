@@ -3,6 +3,7 @@ import { Outlet, Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import {
   ShieldAlert,
+  ShieldCheck,
   LayoutDashboard,
   Users,
   Layers,
@@ -15,22 +16,23 @@ import {
   Settings,
   History,
   ArrowLeft,
-  LogOut
+  LogOut,
+  Sparkles
 } from 'lucide-react';
 
 export const AdminLayout = () => {
-  const { user, isAdmin, logout } = useAuth();
+  const { user, isAdmin, isSuperAdmin, isStaff, logout } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
 
-  if (!user || !isAdmin) {
+  if (!user || (!isAdmin && !isStaff)) {
     return (
       <div className="min-h-screen flex items-center justify-center p-6 bg-[#080B0A] text-white">
         <div className="max-w-md w-full p-8 rounded-3xl bg-[#121814] border border-red-500/30 text-center space-y-4 shadow-2xl">
           <ShieldAlert className="w-12 h-12 text-red-500 mx-auto" />
           <h2 className="text-2xl font-bold text-white">Access Denied</h2>
           <p className="text-xs text-neutral-400">
-            You do not possess Super Admin or Administrator privileges to enter the ZEROX CLOUD Control Center.
+            You do not possess Super Admin, Staff, or Administrator privileges to enter the ZEROX CLOUD Control Center.
           </p>
           <div className="flex gap-2 justify-center pt-2">
             <Link
@@ -51,19 +53,44 @@ export const AdminLayout = () => {
     );
   }
 
-  const adminNav = [
+  const allNav = [
     { label: 'Overview', path: '/admin/overview', icon: LayoutDashboard },
-    { label: 'Customers', path: '/admin/customers', icon: Users },
-    { label: 'Products & Plans', path: '/admin/products', icon: Layers },
-    { label: 'Orders', path: '/admin/orders', icon: ShoppingBag },
-    { label: 'Servers', path: '/admin/servers', icon: Server },
-    { label: 'Nodes & Wings', path: '/admin/nodes', icon: Cpu },
+    { label: 'Customers', path: '/admin/customers', icon: Users, minRoles: ['super_admin', 'founder', 'admin', 'moderator'] },
+    { label: 'Roles & Staff', path: '/admin/roles', icon: ShieldCheck, superAdminOnly: true },
+    { label: 'Products & Plans', path: '/admin/products', icon: Layers, minRoles: ['super_admin', 'founder', 'admin'] },
+    { label: 'Orders', path: '/admin/orders', icon: ShoppingBag, minRoles: ['super_admin', 'founder', 'admin'] },
+    { label: 'Servers', path: '/admin/servers', icon: Server, minRoles: ['super_admin', 'founder', 'admin'] },
+    { label: 'Nodes & Wings', path: '/admin/nodes', icon: Cpu, minRoles: ['super_admin', 'founder', 'admin'] },
     { label: 'Support Desk', path: '/admin/tickets', icon: LifeBuoy },
-    { label: 'Coupons', path: '/admin/coupons', icon: Tag },
-    { label: 'Website CMS', path: '/admin/content', icon: FileCode },
-    { label: 'System Settings', path: '/admin/settings', icon: Settings },
-    { label: 'Audit Logs', path: '/admin/audit-logs', icon: History },
+    { label: 'Coupons', path: '/admin/coupons', icon: Tag, minRoles: ['super_admin', 'founder', 'admin'] },
+    { label: 'Website CMS', path: '/admin/content', icon: FileCode, minRoles: ['super_admin', 'founder', 'admin'] },
+    { label: 'System Settings', path: '/admin/settings', icon: Settings, minRoles: ['super_admin', 'founder', 'admin'] },
+    { label: 'Audit Logs', path: '/admin/audit-logs', icon: History, minRoles: ['super_admin', 'founder', 'admin'] },
   ];
+
+  const adminNav = allNav.filter((item) => {
+    if (user.role === 'super_admin') return true;
+    if (item.superAdminOnly) return false;
+    if (item.minRoles && !item.minRoles.includes(user.role)) return false;
+    return true;
+  });
+
+  const getRoleBadgeStyle = (role) => {
+    switch (role) {
+      case 'super_admin':
+        return 'bg-pink-500/20 text-pink-400 border border-pink-500/40';
+      case 'founder':
+        return 'bg-amber-500/20 text-amber-400 border border-amber-500/40';
+      case 'admin':
+        return 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/40';
+      case 'ticket_staff':
+        return 'bg-sky-500/20 text-sky-400 border border-sky-500/40';
+      case 'moderator':
+        return 'bg-indigo-500/20 text-indigo-400 border border-indigo-500/40';
+      default:
+        return 'bg-[#C5F36A]/20 text-[#C5F36A] border border-[#C5F36A]/40';
+    }
+  };
 
   return (
     <div className="min-h-screen flex bg-[#060807] text-white">
@@ -80,7 +107,7 @@ export const AdminLayout = () => {
                 ZEROX CLOUD
               </span>
               <span className="text-[9px] font-mono tracking-widest uppercase text-[#C5F36A] font-bold block">
-                SUPER ADMIN
+                CONTROL CENTER
               </span>
             </div>
           </Link>
@@ -118,10 +145,10 @@ export const AdminLayout = () => {
             Client Area
           </Link>
 
-          <div className="flex items-center justify-between p-2 rounded-2xl bg-white/5 border border-white/5">
+          <div className="flex items-center justify-between p-2.5 rounded-2xl bg-white/5 border border-white/5">
             <div className="truncate">
               <p className="text-xs font-bold text-white truncate">{user.name}</p>
-              <span className="text-[9px] font-mono text-[#C5F36A] uppercase font-bold">
+              <span className={`inline-block px-2 py-0.5 rounded text-[9px] font-mono uppercase font-bold tracking-wider mt-0.5 ${getRoleBadgeStyle(user.role)}`}>
                 {user.role}
               </span>
             </div>
@@ -143,8 +170,8 @@ export const AdminLayout = () => {
       <div className="flex-1 flex flex-col min-w-0 overflow-y-auto">
         <header className="h-14 border-b border-white/10 bg-[#0B0F0C]/60 backdrop-blur-md px-6 flex items-center justify-between">
           <div className="flex items-center gap-2 text-xs text-neutral-400">
-            <ShieldAlert className="w-4 h-4 text-[#C5F36A]" />
-            <span>Server Role Verified: <strong className="text-white uppercase font-mono">{user.role}</strong></span>
+            <ShieldCheck className="w-4 h-4 text-[#C5F36A]" />
+            <span>Server Role: <strong className={`uppercase font-mono px-2 py-0.5 rounded text-[10px] ${getRoleBadgeStyle(user.role)}`}>{user.role}</strong></span>
           </div>
           <div className="flex items-center gap-3 text-xs">
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
