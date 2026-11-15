@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   Gamepad2,
@@ -9,7 +9,8 @@ import {
   ArrowRight,
   Check,
   Sparkles,
-  ChevronDown
+  ChevronDown,
+  ExternalLink
 } from 'lucide-react';
 import { ScrollReveal } from '../common/ScrollReveal';
 import { scrollTo } from '../../hooks/useLenis';
@@ -18,7 +19,16 @@ export const Hero = () => {
   const [activeTab, setActiveTab] = useState('games');
   const [scrollY, setScrollY] = useState(0);
   const [siteSettings, setSiteSettings] = useState(null);
+  const cardRef = useRef(null);
+  const [tilt, setTilt] = useState({ x: 0, y: 0 });
+  const [glare, setGlare] = useState({ x: 50, y: 50 });
+  const [isHovered, setIsHovered] = useState(false);
   const navigate = useNavigate();
+
+  const panelUrl = siteSettings?.pterodactyl_panel_url || 'https://portal.zorixcloud.com';
+  const displayPanelUrl = (panelUrl || '')
+    .replace(/^https?:\/\//, '')
+    .replace(/\/.*$/, '');
 
   useEffect(() => {
     fetch('/api/products/settings')
@@ -34,6 +44,32 @@ export const Hero = () => {
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const handleMouseMove = (e) => {
+    if (!cardRef.current) return;
+    const rect = cardRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    const xPct = x / rect.width - 0.5;
+    const yPct = y / rect.height - 0.5;
+
+    // Interactive 3D tilt physics matching reference recording
+    const rotateX = -yPct * 24;
+    const rotateY = xPct * 26;
+
+    setTilt({ x: rotateX, y: rotateY });
+    setGlare({ x: (x / rect.width) * 100, y: (y / rect.height) * 100 });
+  };
+
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+    setTilt({ x: 0, y: 0 });
+  };
 
   const tabs = [
     {
@@ -153,57 +189,104 @@ export const Hero = () => {
           </span>
         </div>
 
-        {/* Server Panel Preview Mockup with Floating Badges and Scroll Parallax */}
-        <ScrollReveal animation="zoom-in" delay={120} duration={850} className="mt-14 max-w-5xl mx-auto relative [perspective:1000px]">
-          {/* Floating SLA Badges with Parallax Drift */}
+        {/* Server Panel Preview Mockup with 3D Mouse Tilt & Floating Badges matching video */}
+        <ScrollReveal animation="zoom-in" delay={120} duration={850} className="mt-14 max-w-5xl mx-auto relative select-none">
           <div
-            className="hidden sm:flex absolute -top-4 left-6 z-20 items-center gap-2 px-4 py-1.5 rounded-full bg-[#0e1611]/85 border border-white/20 text-xs font-semibold text-white backdrop-blur-xl shadow-2xl transition-transform duration-100 ease-out"
+            ref={cardRef}
+            onMouseMove={handleMouseMove}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+            className="relative py-6 px-2"
             style={{
-              transform: `translateY(${-Math.min(scrollY * 0.08, 16)}px)`
+              perspective: '1200px'
             }}
           >
-            <Sparkles className="w-3.5 h-3.5 text-[#C5F36A]" />
-            99.9% Uptime SLA
-          </div>
-          <div
-            className="hidden sm:flex absolute -top-4 right-6 z-20 items-center gap-2 px-4 py-1.5 rounded-full bg-[#0e1611]/85 border border-white/20 text-xs font-semibold text-white backdrop-blur-xl shadow-2xl transition-transform duration-100 ease-out"
-            style={{
-              transform: `translateY(${-Math.min(scrollY * 0.08, 16)}px)`
-            }}
-          >
-            <span className="text-[#C5F36A]">⚡</span>
-            Sub-15ms Latency
-          </div>
-
-          {/* Browser Window Frame with subtle scroll perspective */}
-          <div
-            className="rounded-3xl bg-[#090f0b]/70 border border-white/20 shadow-[0_20px_60px_rgba(0,0,0,0.6),inset_0_1px_1px_rgba(255,255,255,0.16)] overflow-hidden text-left backdrop-blur-2xl transition-transform duration-100 ease-out"
-            style={{
-              transform: `translateY(${Math.min(scrollY * 0.04, 20)}px) scale(${Math.max(0.97, 1 - scrollY * 0.00008)})`
-            }}
-          >
-            {/* Browser Top Bar */}
-            <div className="px-5 py-3.5 bg-[#0e1611]/80 border-b border-white/10 backdrop-blur-xl flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <span className="w-3 h-3 rounded-full bg-[#EF4444] inline-block opacity-90" />
-                <span className="w-3 h-3 rounded-full bg-[#EAB308] inline-block opacity-90" />
-                <span className="w-3 h-3 rounded-full bg-[#10B981] inline-block opacity-90" />
+            {/* 3D Tilted Card Wrapper */}
+            <div
+              className="relative rounded-3xl transition-transform ease-out will-change-transform cursor-pointer"
+              style={{
+                transformStyle: 'preserve-3d',
+                transform: isHovered
+                  ? `rotateX(${tilt.x}deg) rotateY(${tilt.y}deg) scale3d(1.02, 1.02, 1.02)`
+                  : 'rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)',
+                transitionDuration: isHovered ? '120ms' : '650ms',
+                transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)'
+              }}
+            >
+              {/* Floating SLA Badges with 3D Parallax Depth */}
+              <div
+                className="hidden sm:flex absolute -top-3 left-6 z-30 items-center gap-2 px-3.5 py-1.5 rounded-full bg-black/85 border border-white/20 text-xs font-semibold text-white backdrop-blur-xl shadow-2xl transition-transform"
+                style={{
+                  transform: 'translateZ(38px)'
+                }}
+              >
+                <Sparkles className="w-3.5 h-3.5 text-white" />
+                99.9% Uptime SLA
               </div>
-              <div className="px-5 py-1 rounded-lg bg-black/50 text-[11px] font-mono text-neutral-400 border border-white/5">
-                panel.zeroxcloud.site / server / live-console
-              </div>
-              <div className="w-12" />
-            </div>
 
-            {/* High-Resolution Live Console Artwork matching reference video */}
-            <div className="relative group cursor-pointer overflow-hidden">
-              <img
-                src="/assets/shell.png"
-                alt="Pterodactyl Panel Preview"
-                className="w-full h-auto object-cover select-none"
-              />
-              {/* Subtle hover overlay hint */}
-              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors flex items-center justify-center pointer-events-none" />
+              <div
+                className="hidden sm:flex absolute -top-3 right-6 z-30 items-center gap-2 px-3.5 py-1.5 rounded-full bg-black/85 border border-white/20 text-xs font-semibold text-white backdrop-blur-xl shadow-2xl transition-transform"
+                style={{
+                  transform: 'translateZ(38px)'
+                }}
+              >
+                <span className="text-[#C5F36A] text-xs">⚡</span>
+                Sub-15ms Latency
+              </div>
+
+              {/* Browser Window Frame */}
+              <div className="relative rounded-3xl bg-[#090f0b]/80 border border-white/20 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.8),inset_0_1px_1px_rgba(255,255,255,0.18)] overflow-hidden text-left backdrop-blur-2xl">
+                {/* Browser Top Bar */}
+                <div className="px-5 py-3.5 bg-[#0e1611]/90 border-b border-white/10 backdrop-blur-xl flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <span className="w-3 h-3 rounded-full bg-[#EF4444] inline-block opacity-90 shadow-sm" />
+                    <span className="w-3 h-3 rounded-full bg-[#EAB308] inline-block opacity-90 shadow-sm" />
+                    <span className="w-3 h-3 rounded-full bg-[#10B981] inline-block opacity-90 shadow-sm" />
+                  </div>
+                  <div className="px-4 py-1 rounded-lg bg-black/60 text-[11px] font-mono text-neutral-300 border border-white/10">
+                    {displayPanelUrl} / server / live-console
+                  </div>
+                  <div className="w-12" />
+                </div>
+
+                {/* High-Resolution Live Console Artwork matching reference video */}
+                <div className="relative overflow-hidden">
+                  <img
+                    src="/assets/shell.png"
+                    alt="Pterodactyl Panel Preview"
+                    className="w-full h-auto object-cover select-none block"
+                    loading="eager"
+                  />
+
+                  {/* Dynamic Specular Light Glare Overlay */}
+                  <div
+                    className="absolute inset-0 pointer-events-none transition-opacity duration-300"
+                    style={{
+                      opacity: isHovered ? 0.35 : 0,
+                      background: `radial-gradient(circle 420px at ${glare.x}% ${glare.y}%, rgba(255, 255, 255, 0.28) 0%, rgba(255, 255, 255, 0.08) 35%, transparent 70%)`
+                    }}
+                  />
+                </div>
+              </div>
+
+              {/* Floating Bottom Game Panel Pill Button */}
+              <div
+                className="absolute -bottom-4 left-1/2 -translate-x-1/2 z-30 flex items-center justify-center transition-transform"
+                style={{
+                  transform: 'translateX(-50%) translateZ(42px)'
+                }}
+              >
+                <a
+                  href={panelUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2.5 px-4 sm:px-5 py-2 rounded-full bg-black/90 hover:bg-neutral-900 border border-white/25 hover:border-[#C5F36A]/50 text-xs font-semibold text-white shadow-[0_10px_30px_rgba(0,0,0,0.8)] backdrop-blur-xl transition-all duration-200 active:scale-95 group"
+                >
+                  <Gamepad2 className="w-4 h-4 text-white group-hover:text-[#C5F36A] transition-colors" />
+                  <span className="tracking-wide">Game Panel: {displayPanelUrl}</span>
+                  <ExternalLink className="w-3.5 h-3.5 text-neutral-400 group-hover:text-white transition-colors" />
+                </a>
+              </div>
             </div>
           </div>
         </ScrollReveal>

@@ -191,6 +191,18 @@ export const GameHostingPage = () => {
                 </button>
 
                 <button
+                  onClick={() => setSelectedProcessor('ryzen')}
+                  className={`flex items-center gap-2 px-4 py-2.5 rounded-xl border text-xs sm:text-sm font-semibold transition-all backdrop-blur-md ${
+                    selectedProcessor === 'ryzen'
+                      ? 'bg-rose-500/20 border-rose-500/40 text-rose-300 shadow-[0_4px_20px_rgba(244,63,94,0.15),inset_0_1px_0_rgba(255,255,255,0.2)]'
+                      : 'bg-black/30 border-white/10 text-neutral-400 hover:text-white hover:border-white/25 hover:bg-white/5'
+                  }`}
+                >
+                  <Flame className="w-4 h-4 text-rose-400" />
+                  AMD Ryzen 9 7950X
+                </button>
+
+                <button
                   onClick={() => setSelectedProcessor('offer')}
                   className={`flex items-center gap-2 px-4 py-2.5 rounded-xl border text-xs sm:text-sm font-semibold transition-all backdrop-blur-md ${
                     selectedProcessor === 'offer'
