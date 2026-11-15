@@ -783,6 +783,40 @@
   ],
   "orders": [
     {
+      "id": "ord-1794729839327",
+      "order_number": "ZX-41095",
+      "user_id": "usr-demo-01",
+      "user_name": "Mohd Numan",
+      "user_email": "mohdnuman925@gmail.com",
+      "subtotal": 40,
+      "discount_amount": 0,
+      "taxable_amount": 40,
+      "gst_rate": 18,
+      "gst_amount": 7.2,
+      "total_amount": 47.2,
+      "currency": "INR",
+      "status": "paid",
+      "payment_method": "Cashfree Payments",
+      "payment_id": "cf_demo_1794729839327",
+      "payment_session_id": "session_demo_cf_18ejyeg",
+      "coupon_code": null,
+      "gstin": "07AAAAA0000A1Z5",
+      "items": [
+        {
+          "plan_id": "plan-dirt",
+          "plan_name": "DIRT PLAN",
+          "category": "games",
+          "processor": "intel",
+          "location": "India (Noida & Mumbai)",
+          "game": "minecraft",
+          "software": "Paper",
+          "price": 40,
+          "quantity": 1
+        }
+      ],
+      "created_at": "2026-11-15T08:03:59.327Z"
+    },
+    {
       "id": "ord-1794715604278",
       "order_number": "ZX-84119",
       "user_id": "usr-1794715602980-lie2",
@@ -1638,6 +1672,30 @@
   ],
   "services": [
     {
+      "id": "srv-1794729840532-p9m8",
+      "service_id": "ZX-SRV-6929",
+      "order_id": "ord-1794729839327",
+      "user_id": "usr-demo-01",
+      "user_email": "mohdnuman925@gmail.com",
+      "plan_id": "plan-dirt",
+      "name": "Mohd's minecraft",
+      "category": "games",
+      "game": "minecraft (Paper)",
+      "node": "delhi-node-01.zeroxcloud.site",
+      "ip_address": "103.174.102.45",
+      "port": 25543,
+      "status": "active",
+      "cpu_usage": 0,
+      "ram_usage": 0.1,
+      "ram_max": 4,
+      "disk_usage": 0.5,
+      "disk_max": 20,
+      "provider": "pterodactyl",
+      "provider_identifier": "demo-ptero-v4kypom",
+      "renewal_date": "2026-12-15T08:04:00.532Z",
+      "created_at": "2026-11-15T08:04:00.532Z"
+    },
+    {
       "id": "srv-1794715605480-ssw9",
       "service_id": "ZX-SRV-3263",
       "order_id": "ord-1794715604278",
@@ -2361,6 +2419,15 @@
   ],
   "provisioning_jobs": [
     {
+      "id": "job-1794729840532",
+      "service_id": "srv-1794729840532-p9m8",
+      "user_id": "usr-demo-01",
+      "status": "completed",
+      "attempts": 1,
+      "logs": "Allocated IP 103.174.102.45:25543. Node: delhi-node-01.zeroxcloud.site. Adapter mode: sandbox_demo",
+      "created_at": "2026-11-15T08:04:00.532Z"
+    },
+    {
       "id": "job-1794715605480",
       "service_id": "srv-1794715605480-ssw9",
       "user_id": "usr-1794715602980-lie2",
@@ -2645,6 +2712,32 @@
     }
   ],
   "invoices": [
+    {
+      "id": "inv-1794729839327",
+      "invoice_number": "INV-2026-8461",
+      "order_id": "ord-1794729839327",
+      "user_id": "usr-demo-01",
+      "user_name": "Mohd Numan",
+      "user_email": "mohdnuman925@gmail.com",
+      "amount": 40,
+      "discount": 0,
+      "taxable_amount": 40,
+      "tax": 7.2,
+      "gst_rate": 18,
+      "cgst": 3.6,
+      "sgst": 3.6,
+      "total": 47.2,
+      "currency": "INR",
+      "status": "paid",
+      "gstin": "07AAAAA0000A1Z5",
+      "items": [
+        {
+          "description": "DIRT PLAN (minecraft) - 1 Month",
+          "amount": 40
+        }
+      ],
+      "created_at": "2026-11-15T08:03:59.327Z"
+    },
     {
       "id": "inv-1794715604279",
       "invoice_number": "INV-2026-8816",
@@ -3710,6 +3803,24 @@
     "maintenance_mode": false
   },
   "audit_logs": [
+    {
+      "id": "log-1794729840536-r5nv",
+      "actor_name": "Mohd Numan",
+      "actor_role": "ticket_staff",
+      "action": "CREATE_ORDER_AND_PROVISION",
+      "target": "ord-1794729839327",
+      "details": "Order ZX-41095 created. Total: INR 47.2. Services: 1",
+      "timestamp": "2026-11-15T08:04:00.536Z"
+    },
+    {
+      "id": "log-1794729839296-fjev",
+      "actor_name": "Mohd Numan",
+      "actor_role": "ticket_staff",
+      "action": "LOGIN",
+      "target": "usr-demo-01",
+      "details": "User logged in successfully",
+      "timestamp": "2026-11-15T08:03:59.296Z"
+    },
     {
       "id": "log-1794723454369-08bb",
       "actor_name": "Super Admin",

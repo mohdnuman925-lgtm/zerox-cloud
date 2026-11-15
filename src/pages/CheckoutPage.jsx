@@ -18,6 +18,9 @@ export const CheckoutPage = () => {
     currency,
     subtotal,
     discountAmount,
+    taxableAmount,
+    gstAmount,
+    gstRate,
     total,
     coupon,
     applyCoupon,
@@ -30,6 +33,7 @@ export const CheckoutPage = () => {
   const [couponCode, setCouponCode] = useState('');
   const [couponError, setCouponError] = useState('');
   const [paymentMethod, setPaymentMethod] = useState(currency === 'INR' ? 'Cashfree Payments' : 'Stripe Card');
+  const [gstin, setGstin] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [orderSuccess, setOrderSuccess] = useState(null);
@@ -79,7 +83,8 @@ export const CheckoutPage = () => {
           items,
           coupon_code: coupon ? coupon.code : null,
           currency,
-          payment_method: paymentMethod
+          payment_method: paymentMethod,
+          gstin: gstin.trim() || null
         })
       });
 
@@ -109,6 +114,36 @@ export const CheckoutPage = () => {
           <p className="text-sm text-neutral-300">
             Order <span className="font-mono font-bold text-white">#{orderSuccess.order.order_number}</span> has been processed. Your server instances have been automatically provisioned!
           </p>
+
+          {/* Payment & GST Summary */}
+          <div className="p-4 rounded-2xl bg-black/40 border border-white/10 text-left space-y-2 text-xs">
+            <div className="flex justify-between text-neutral-400">
+              <span>Subtotal</span>
+              <span className="font-mono text-white">
+                {orderSuccess.order.currency === 'USD' ? '$' : '₹'}
+                {Number(orderSuccess.order.subtotal || orderSuccess.order.taxable_amount || (orderSuccess.order.total_amount / 1.18)).toFixed(2)}
+              </span>
+            </div>
+            <div className="flex justify-between text-neutral-400">
+              <span>GST (18%)</span>
+              <span className="font-mono text-white">
+                +{orderSuccess.order.currency === 'USD' ? '$' : '₹'}
+                {Number(orderSuccess.order.gst_amount || (orderSuccess.order.total_amount - (orderSuccess.order.total_amount / 1.18))).toFixed(2)}
+              </span>
+            </div>
+            <div className="flex justify-between text-white font-bold pt-2 border-t border-white/10">
+              <span>Total Paid</span>
+              <span className="font-mono text-[#C5F36A]">
+                {orderSuccess.order.currency === 'USD' ? '$' : '₹'}
+                {Number(orderSuccess.order.total_amount).toFixed(2)}
+              </span>
+            </div>
+            {orderSuccess.order.gstin && (
+              <div className="pt-1 text-[11px] text-neutral-400 border-t border-white/5">
+                GSTIN: <span className="font-mono text-white">{orderSuccess.order.gstin}</span>
+              </div>
+            )}
+          </div>
 
           {/* Provisioned Services Summary */}
           <div className="p-4 rounded-2xl bg-black/40 border border-white/10 text-left space-y-3">
@@ -178,14 +213,31 @@ export const CheckoutPage = () => {
                 Customer Account
               </h3>
               {user ? (
-                <div className="p-4 rounded-xl bg-white/5 border border-white/5 flex items-center justify-between text-xs">
-                  <div>
-                    <p className="font-bold text-white">{user.name}</p>
-                    <p className="text-neutral-400">{user.email}</p>
+                <div className="space-y-3">
+                  <div className="p-4 rounded-xl bg-white/5 border border-white/5 flex items-center justify-between text-xs">
+                    <div>
+                      <p className="font-bold text-white">{user.name}</p>
+                      <p className="text-neutral-400">{user.email}</p>
+                    </div>
+                    <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-[#C5F36A]/20 text-[#C5F36A]">
+                      Verified
+                    </span>
                   </div>
-                  <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-[#C5F36A]/20 text-[#C5F36A]">
-                    Verified
-                  </span>
+
+                  {/* Optional GSTIN Input for Business Invoice */}
+                  <div className="p-3.5 rounded-xl bg-black/40 border border-white/10 space-y-1.5">
+                    <label className="text-[11px] font-semibold text-neutral-300 block">
+                      GSTIN / Business Tax ID <span className="text-neutral-500 font-normal">(Optional for GST Invoice &amp; ITC)</span>
+                    </label>
+                    <input
+                      type="text"
+                      value={gstin}
+                      onChange={(e) => setGstin(e.target.value.toUpperCase())}
+                      placeholder="e.g. 07AAAAA0000A1Z5"
+                      maxLength={15}
+                      className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2 text-xs text-white placeholder-neutral-500 uppercase font-mono focus:outline-none focus:border-[#C5F36A] transition"
+                    />
+                  </div>
                 </div>
               ) : (
                 <div className="p-4 rounded-xl bg-amber-500/10 border border-amber-500/20 text-xs text-amber-200 flex items-center justify-between">
@@ -281,15 +333,24 @@ export const CheckoutPage = () => {
                     return (
                       <div
                         key={item.key}
-                        className="p-3 rounded-xl bg-white/5 border border-white/5 flex items-center justify-between text-xs"
+                        className="p-3 rounded-xl bg-white/5 border border-white/5 flex items-center justify-between text-xs gap-3"
                       >
-                        <div>
-                          <p className="font-bold text-white">{item.plan_name}</p>
-                          <p className="text-neutral-400 text-[11px]">
-                            {item.game} • {item.ram} • {item.software}
-                          </p>
+                        <div className="flex items-center gap-3">
+                          {item.image && (
+                            <img
+                              src={item.image}
+                              alt={item.plan_name}
+                              className="w-10 h-10 rounded-lg object-cover object-top border border-white/10 shrink-0 shadow"
+                            />
+                          )}
+                          <div>
+                            <p className="font-bold text-white">{item.plan_name}</p>
+                            <p className="text-neutral-400 text-[11px]">
+                              {item.game} • {item.ram} • {item.software}
+                            </p>
+                          </div>
                         </div>
-                        <span className="font-mono font-bold text-white">
+                        <span className="font-mono font-bold text-white shrink-0">
                           {symbol}{(price * item.quantity).toFixed(2)}
                         </span>
                       </div>
@@ -327,7 +388,7 @@ export const CheckoutPage = () => {
               )}
               {couponError && <p className="text-[11px] text-red-400">{couponError}</p>}
 
-              {/* Breakdown */}
+              {/* Breakdown with GST */}
               <div className="space-y-2 text-xs text-neutral-400 border-t border-white/10 pt-4">
                 <div className="flex justify-between">
                   <span>Subtotal</span>
@@ -335,17 +396,31 @@ export const CheckoutPage = () => {
                 </div>
                 {discountAmount > 0 && (
                   <div className="flex justify-between text-[#C5F36A]">
-                    <span>Discount</span>
+                    <span>Discount ({coupon?.code})</span>
                     <span className="font-mono">-{symbol}{discountAmount.toFixed(2)}</span>
                   </div>
                 )}
                 <div className="flex justify-between">
                   <span>Setup Fees</span>
-                  <span className="text-emerald-400 font-bold">FREE ($0.00)</span>
+                  <span className="text-emerald-400 font-bold">FREE</span>
+                </div>
+                <div className="flex justify-between text-neutral-300">
+                  <span className="flex items-center gap-1.5">
+                    <span>GST (18%)</span>
+                    <span className="text-[10px] text-neutral-500 font-mono">
+                      {currency === 'INR' ? '(CGST 9% + SGST 9%)' : '(18% Tax)'}
+                    </span>
+                  </span>
+                  <span className="font-mono text-white">+{symbol}{gstAmount.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between text-base font-bold text-white border-t border-white/10 pt-3">
-                  <span>Total Due</span>
-                  <span className="text-[#C5F36A] font-mono">{symbol}{total.toFixed(2)}</span>
+                  <div>
+                    <span>Total Due</span>
+                    <span className="block text-[10px] font-normal text-neutral-400 font-sans">
+                      Includes 18% GST ({symbol}{gstAmount.toFixed(2)})
+                    </span>
+                  </div>
+                  <span className="text-[#C5F36A] font-mono text-lg">{symbol}{total.toFixed(2)}</span>
                 </div>
               </div>
 

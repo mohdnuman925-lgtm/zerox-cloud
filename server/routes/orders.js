@@ -50,7 +50,7 @@ router.post('/checkout', authenticateToken, async (req, res) => {
       });
     }
 
-    // 2. Validate Coupon Discount
+    // 2. Validate Coupon Discount & 18% GST Calculation
     let discountAmount = 0;
     let appliedCoupon = null;
     if (coupon_code) {
@@ -63,7 +63,10 @@ router.post('/checkout', authenticateToken, async (req, res) => {
       }
     }
 
-    const totalAmount = Math.max(0, calculatedSubtotal - discountAmount);
+    const GST_RATE = 0.18; // 18% standard GST
+    const taxableAmount = Math.max(0, calculatedSubtotal - discountAmount);
+    const gstAmount = Number((taxableAmount * GST_RATE).toFixed(2));
+    const totalAmount = Number((taxableAmount + gstAmount).toFixed(2));
 
     // 3. Create Order Record
     const orderNumber = 'ZX-' + Math.floor(10000 + Math.random() * 90000);
@@ -86,21 +89,26 @@ router.post('/checkout', authenticateToken, async (req, res) => {
       user_id: req.user.id,
       user_name: req.user.name,
       user_email: req.user.email,
-      total_amount: Number(totalAmount.toFixed(2)),
+      subtotal: Number(calculatedSubtotal.toFixed(2)),
+      discount_amount: Number(discountAmount.toFixed(2)),
+      taxable_amount: Number(taxableAmount.toFixed(2)),
+      gst_rate: 18,
+      gst_amount: gstAmount,
+      total_amount: totalAmount,
       currency,
       status: 'paid', // Instant demo verification or live gateway callback
       payment_method,
       payment_id: cashfreeData?.cf_order_id || 'pay_' + Date.now() + '_' + Math.random().toString(36).substring(2, 7),
       payment_session_id: cashfreeData?.payment_session_id || null,
       coupon_code: appliedCoupon ? appliedCoupon.code : null,
-      discount_amount: Number(discountAmount.toFixed(2)),
+      gstin: req.body.gstin ? req.body.gstin.trim().toUpperCase() : null,
       items: validatedItems,
       created_at: new Date().toISOString()
     };
 
     db.orders.unshift(newOrder);
 
-    // 4. Create Invoice
+    // 4. Create Invoice with 18% GST Breakdown (CGST 9% + SGST 9% / IGST 18%)
     const invoiceNumber = 'INV-' + new Date().getFullYear() + '-' + Math.floor(1000 + Math.random() * 9000);
     const newInvoice = {
       id: 'inv-' + Date.now(),
@@ -109,12 +117,17 @@ router.post('/checkout', authenticateToken, async (req, res) => {
       user_id: req.user.id,
       user_name: req.user.name,
       user_email: req.user.email,
-      amount: calculatedSubtotal,
-      discount: discountAmount,
-      tax: 0.00,
-      total: Number(totalAmount.toFixed(2)),
+      amount: Number(calculatedSubtotal.toFixed(2)),
+      discount: Number(discountAmount.toFixed(2)),
+      taxable_amount: Number(taxableAmount.toFixed(2)),
+      tax: gstAmount,
+      gst_rate: 18,
+      cgst: Number((gstAmount / 2).toFixed(2)),
+      sgst: Number((gstAmount / 2).toFixed(2)),
+      total: totalAmount,
       currency,
       status: 'paid',
+      gstin: req.body.gstin ? req.body.gstin.trim().toUpperCase() : null,
       items: validatedItems.map((vi) => ({
         description: `${vi.plan_name} (${vi.game || vi.category}) - 1 Month`,
         amount: vi.price * vi.quantity

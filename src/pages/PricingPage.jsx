@@ -84,13 +84,14 @@ export const PricingPage = () => {
                 >
                   <div>
                     {(plan.game_slug === 'minecraft' || plan.category === 'games') && (
-                      <div className="h-32 -mx-6 -mt-6 mb-4 overflow-hidden relative">
+                      <div className="h-36 -mx-6 -mt-6 mb-4 overflow-hidden relative group">
                         <img
-                          src={minecraftPlanImage}
+                          src={plan.image || minecraftPlanImage}
                           alt="Minecraft"
-                          className="w-full h-full object-cover object-top"
+                          className="w-full h-full object-cover object-top opacity-100 group-hover:scale-105 transition-all duration-500"
+                          loading="eager"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-[#121814] via-black/20 to-transparent" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#121814] via-black/20 to-transparent pointer-events-none" />
                       </div>
                     )}
                     <div className="flex items-center justify-between mb-3">

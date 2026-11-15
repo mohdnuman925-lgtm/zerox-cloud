@@ -85,6 +85,11 @@ export const AdminOrders = () => {
                   </td>
                   <td className="p-4 font-mono font-bold text-white">
                     {ord.currency === 'USD' ? '$' : '₹'}{Number(ord.total_amount).toFixed(2)}
+                    {ord.gst_amount > 0 && (
+                      <span className="block text-[10px] text-neutral-400 font-normal">
+                        incl. {ord.currency === 'USD' ? '$' : '₹'}{Number(ord.gst_amount).toFixed(2)} GST
+                      </span>
+                    )}
                   </td>
                   <td className="p-4 font-mono text-[11px]">
                     {ord.payment_method}

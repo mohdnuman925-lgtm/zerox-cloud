@@ -162,13 +162,22 @@ export const AdminProducts = () => {
               {plans.map((p) => (
                 <tr key={p.id} className="hover:bg-white/5 transition">
                   <td className="p-4 pl-6">
-                    <div className="flex items-center gap-2">
-                      <span className="font-bold text-white">{p.name}</span>
-                      {p.badge && (
-                        <span className="px-1.5 py-0.5 rounded text-[9px] font-bold bg-[#C5F36A] text-black">
-                          {p.badge}
-                        </span>
+                    <div className="flex items-center gap-3">
+                      {(p.game_slug === 'minecraft' || p.category === 'games') && (
+                        <img
+                          src={p.image || '/assets/minecraft-plan-card.jpg'}
+                          alt={p.name}
+                          className="w-9 h-9 rounded-xl object-cover object-top border border-white/10 shrink-0 shadow-md"
+                        />
                       )}
+                      <div>
+                        <span className="font-bold text-white block">{p.name}</span>
+                        {p.badge && (
+                          <span className="px-1.5 py-0.5 rounded text-[9px] font-bold bg-[#C5F36A] text-black">
+                            {p.badge}
+                          </span>
+                        )}
+                      </div>
                     </div>
                   </td>
                   <td className="p-4 font-mono uppercase text-[11px] text-neutral-400">

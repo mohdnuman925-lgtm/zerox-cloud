@@ -53,6 +53,7 @@ export const CartProvider = ({ children }) => {
           ram: productPlan.ram,
           cpu: productPlan.cpu,
           storage: productPlan.storage,
+          image: productPlan.image || ((productPlan.game_slug === 'minecraft' || (config.game && config.game.toLowerCase().includes('minecraft'))) ? '/assets/minecraft-plan-card.jpg' : null),
           quantity: 1
         }
       ];
@@ -105,14 +106,17 @@ export const CartProvider = ({ children }) => {
     setCoupon(null);
   };
 
-  // Calculations
+  // Calculations with 18% Standard GST
+  const GST_RATE = 0.18; // 18% GST (Standard Indian & Digital Service Tax)
   const subtotal = items.reduce((sum, item) => {
     const unitPrice = currency === 'USD' ? item.price_usd : item.price_inr;
     return sum + unitPrice * item.quantity;
   }, 0);
 
   const discountAmount = coupon ? (subtotal * coupon.discount_percent) / 100 : 0;
-  const total = Math.max(0, subtotal - discountAmount);
+  const taxableAmount = Math.max(0, subtotal - discountAmount);
+  const gstAmount = Number((taxableAmount * GST_RATE).toFixed(2));
+  const total = Number((taxableAmount + gstAmount).toFixed(2));
   const totalCount = items.reduce((sum, item) => sum + item.quantity, 0);
 
   return (
@@ -132,6 +136,9 @@ export const CartProvider = ({ children }) => {
         removeCoupon,
         subtotal,
         discountAmount,
+        taxableAmount,
+        gstRate: 18,
+        gstAmount,
         total,
         totalCount
       }}

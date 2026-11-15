@@ -13,6 +13,7 @@ export const CartDrawer = () => {
     updateQuantity,
     subtotal,
     discountAmount,
+    gstAmount,
     total,
     coupon,
     applyCoupon,
@@ -101,24 +102,33 @@ export const CartDrawer = () => {
                     key={item.key}
                     className="p-4 rounded-xl bg-white/5 border border-white/10 flex flex-col gap-2 relative group"
                   >
-                    <div className="flex items-start justify-between">
-                      <div>
-                        <span className="text-[10px] font-mono uppercase tracking-wider text-[#C5F36A]">
-                          {item.game || item.category}
-                        </span>
-                        <h4 className="text-sm font-bold text-white leading-tight">
-                          {item.plan_name}
-                        </h4>
-                        <p className="text-xs text-neutral-400 mt-0.5">
-                          {item.ram} • {item.cpu} • {item.software}
-                        </p>
-                        <p className="text-[11px] text-neutral-500 mt-0.5">
-                          📍 {item.location}
-                        </p>
+                    <div className="flex items-start justify-between gap-3">
+                      <div className="flex items-start gap-3">
+                        {item.image && (
+                          <img
+                            src={item.image}
+                            alt={item.plan_name}
+                            className="w-12 h-12 rounded-xl object-cover object-top border border-white/10 shrink-0 shadow-md"
+                          />
+                        )}
+                        <div>
+                          <span className="text-[10px] font-mono uppercase tracking-wider text-[#C5F36A]">
+                            {item.game || item.category}
+                          </span>
+                          <h4 className="text-sm font-bold text-white leading-tight">
+                            {item.plan_name}
+                          </h4>
+                          <p className="text-xs text-neutral-400 mt-0.5">
+                            {item.ram} • {item.cpu} • {item.software}
+                          </p>
+                          <p className="text-[11px] text-neutral-500 mt-0.5">
+                            📍 {item.location}
+                          </p>
+                        </div>
                       </div>
                       <button
                         onClick={() => removeFromCart(item.key)}
-                        className="text-neutral-500 hover:text-red-400 p-1 transition"
+                        className="text-neutral-500 hover:text-red-400 p-1 transition shrink-0"
                         title="Remove item"
                       >
                         <Trash2 className="w-4 h-4" />
@@ -213,6 +223,17 @@ export const CartDrawer = () => {
                     </span>
                   </div>
                 )}
+                <div className="flex justify-between text-neutral-300">
+                  <span className="flex items-center gap-1">
+                    <span>GST (18%)</span>
+                    <span className="text-[10px] text-neutral-500 font-mono">
+                      {currency === 'INR' ? '(CGST+SGST)' : ''}
+                    </span>
+                  </span>
+                  <span className="font-mono text-white">
+                    +{symbol}{gstAmount.toFixed(2)}
+                  </span>
+                </div>
                 <div className="flex justify-between text-base font-bold text-white pt-2 border-t border-white/10">
                   <span>Total Due Today</span>
                   <span className="font-mono text-[#C5F36A]">

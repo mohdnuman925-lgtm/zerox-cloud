@@ -399,37 +399,37 @@ export const GameHostingPage = () => {
                           }`}
                         >
                           {/* Top Card Graphic Banner Header */}
-                          <div className="h-44 relative overflow-hidden bg-black/50 rounded-t-3xl flex flex-col justify-between group">
+                          <div className="h-48 relative overflow-hidden bg-black/40 rounded-t-3xl flex flex-col justify-between group">
                             {/* Minecraft Character illustration artwork */}
                             <img
-                              src={minecraftPlanImage}
+                              src={plan.image || minecraftPlanImage}
                               alt={plan.name}
-                              className="absolute inset-0 w-full h-full object-cover object-top opacity-85 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
+                              className="absolute inset-0 w-full h-full object-cover object-top opacity-100 group-hover:scale-105 transition-all duration-500"
                               loading="eager"
                             />
-                            <div className="absolute inset-0 bg-gradient-to-t from-[#121814] via-[#121814]/30 to-black/30 pointer-events-none" />
+                            <div className="absolute inset-0 bg-gradient-to-t from-[#121814] via-black/20 to-black/20 pointer-events-none" />
 
                             <div className="relative z-10 flex flex-wrap items-center gap-1.5 p-3">
-                              <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase tracking-wider bg-black/75 text-white backdrop-blur-md border border-white/10">
+                              <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase tracking-wider bg-black/80 text-white backdrop-blur-md border border-white/15">
                                 {plan.tag || 'GAMES'}
                               </span>
                               {plan.badge && (
-                                <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase tracking-wider bg-black/75 text-[#C5F36A] backdrop-blur-md border border-[#C5F36A]/30">
+                                <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase tracking-wider bg-black/80 text-[#C5F36A] backdrop-blur-md border border-[#C5F36A]/40">
                                   {plan.badge}
                                 </span>
                               )}
                               {plan.save_badge && (
-                                <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase tracking-wider bg-emerald-500/80 text-white backdrop-blur-sm">
+                                <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase tracking-wider bg-emerald-500/90 text-white backdrop-blur-sm">
                                   {plan.save_badge}
                                 </span>
                               )}
                             </div>
 
                             <div className="relative z-10 p-3 pt-0">
-                              <span className="text-[10px] font-mono uppercase tracking-widest text-[#C5F36A] font-bold block drop-shadow-md">
+                              <span className="text-[10px] font-mono uppercase tracking-widest text-[#C5F36A] font-bold block drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]">
                                 MINECRAFT
                               </span>
-                              <h3 className="text-base font-extrabold text-white tracking-tight leading-tight truncate drop-shadow-md">
+                              <h3 className="text-base font-extrabold text-white tracking-tight leading-tight truncate drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]">
                                 {plan.name}
                               </h3>
                             </div>
