@@ -57,7 +57,7 @@ export const CartDrawer = () => {
       />
 
       <div className="fixed inset-y-0 right-0 max-w-full flex pl-10">
-        <div className="w-screen max-w-md bg-[#0b130e]/85 backdrop-blur-2xl border-l border-white/15 shadow-2xl flex flex-col text-white">
+        <div className="w-screen max-w-md bg-[#0b130e]/40 backdrop-blur-2xl border-l border-white/15 shadow-2xl flex flex-col text-white">
           {/* Header */}
           <div className="p-5 border-b border-white/10 backdrop-blur-xl flex items-center justify-between">
             <div className="flex items-center gap-2.5">

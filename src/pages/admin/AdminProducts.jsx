@@ -339,7 +339,7 @@ export const AdminProducts = () => {
             className={`p-3.5 rounded-2xl text-left border transition-all backdrop-blur-xl ${
               selectedCategory === stat.id
                 ? 'bg-white/10 border-white/30 shadow-lg ring-1 ring-white/20'
-                : 'bg-[#0e1611]/60 border-white/10 hover:border-white/20 hover:bg-white/5'
+                : 'bg-[#0e1611]/25 border-white/10 hover:border-white/20 hover:bg-white/5'
             }`}
           >
             <div className="text-[10px] font-mono uppercase tracking-wider text-neutral-400">
@@ -353,7 +353,7 @@ export const AdminProducts = () => {
       </div>
 
       {/* Filter and Search Bar */}
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-3 p-3 rounded-2xl bg-[#0e1611]/60 border border-white/15 backdrop-blur-xl">
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-3 p-3 rounded-2xl bg-[#0e1611]/25 border border-white/15 backdrop-blur-2xl">
         {/* Category Pills */}
         <div className="flex flex-wrap items-center gap-1.5 w-full sm:w-auto">
           {CATEGORIES.map((cat) => (
@@ -418,7 +418,7 @@ export const AdminProducts = () => {
       )}
 
       {/* Plans List Table */}
-      <div className="rounded-3xl bg-[#0e1611]/60 border border-white/15 backdrop-blur-2xl shadow-[0_12px_40px_rgba(0,0,0,0.45),inset_0_1px_1px_rgba(255,255,255,0.14)] overflow-hidden">
+      <div className="rounded-3xl bg-[#0e1611]/25 border border-white/15 backdrop-blur-2xl shadow-[0_12px_40px_rgba(0,0,0,0.45),inset_0_1px_1px_rgba(255,255,255,0.14)] overflow-hidden">
         <div className="p-4 border-b border-white/10 flex items-center justify-between text-xs text-neutral-400">
           <span>
             Showing <strong className="text-white">{filteredPlans.length}</strong> of{' '}

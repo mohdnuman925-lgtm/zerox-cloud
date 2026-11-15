@@ -138,7 +138,7 @@ export const Hero = () => {
         </p>
 
         {/* Segmented Category Tabs */}
-        <div className="mt-10 inline-flex flex-wrap items-center justify-center p-1.5 rounded-2xl bg-[#0e1611]/60 border border-white/15 backdrop-blur-2xl gap-1 shadow-[0_8px_32px_rgba(0,0,0,0.4),inset_0_1px_1px_rgba(255,255,255,0.14)]">
+        <div className="mt-10 inline-flex flex-wrap items-center justify-center p-1.5 rounded-2xl bg-[#0e1611]/25 border border-white/15 backdrop-blur-2xl gap-1 shadow-[0_8px_32px_rgba(0,0,0,0.4),inset_0_1px_1px_rgba(255,255,255,0.14)]">
           {tabs.map((tab) => {
             const Icon = tab.icon;
             const isActive = activeTab === tab.id;
@@ -160,7 +160,7 @@ export const Hero = () => {
         </div>
 
         {/* Active Tab Glass Callout Box */}
-        <div className="mt-6 max-w-3xl mx-auto p-4 sm:p-5 rounded-2xl bg-[#0e1611]/60 border border-white/15 backdrop-blur-2xl flex flex-col sm:flex-row items-center justify-between gap-4 text-left shadow-[0_12px_36px_rgba(0,0,0,0.45),inset_0_1px_1px_rgba(255,255,255,0.14)]">
+        <div className="mt-6 max-w-3xl mx-auto p-4 sm:p-5 rounded-2xl bg-[#0e1611]/25 border border-white/15 backdrop-blur-2xl flex flex-col sm:flex-row items-center justify-between gap-4 text-left shadow-[0_12px_36px_rgba(0,0,0,0.45),inset_0_1px_1px_rgba(255,255,255,0.14)]">
           <p className="text-xs sm:text-sm text-neutral-200 leading-relaxed font-normal">
             {currentTab.desc}
           </p>

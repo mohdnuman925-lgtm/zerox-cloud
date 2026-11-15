@@ -142,7 +142,7 @@ export const GameHostingPage = () => {
             <div className="flex flex-wrap gap-3">
               <button
                 onClick={() => setSelectedLocation('India (Noida & Mumbai)')}
-                className="flex items-center gap-2.5 px-5 py-2.5 rounded-2xl bg-[#0e1611]/60 border border-white/20 text-xs sm:text-sm font-semibold text-white shadow-[0_8px_30px_rgba(0,0,0,0.4),inset_0_1px_1px_rgba(255,255,255,0.15)] backdrop-blur-xl hover:border-white/35 transition"
+                className="flex items-center gap-2.5 px-5 py-2.5 rounded-2xl bg-[#0e1611]/25 border border-white/20 text-xs sm:text-sm font-semibold text-white shadow-[0_8px_30px_rgba(0,0,0,0.4),inset_0_1px_1px_rgba(255,255,255,0.15)] backdrop-blur-2xl hover:border-white/35 transition"
               >
                 <img src="/assets/india.png" alt="India" className="w-5 h-3.5 object-cover rounded-sm shadow" />
                 <span>India (Noida &amp; Mumbai)</span>
@@ -160,7 +160,7 @@ export const GameHostingPage = () => {
             </div>
 
             {/* Processor box container */}
-            <div className="p-4 sm:p-5 rounded-2xl bg-[#0e1611]/60 border border-white/15 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.4),inset_0_1px_1px_rgba(255,255,255,0.14)] space-y-3">
+            <div className="p-4 sm:p-5 rounded-2xl bg-[#0e1611]/25 border border-white/15 backdrop-blur-2xl shadow-[0_8px_32px_rgba(0,0,0,0.4),inset_0_1px_1px_rgba(255,255,255,0.14)] space-y-3">
               <span className="text-[11px] font-mono font-bold tracking-wider text-neutral-400 block">
                 • SELECT YOUR PROCESSOR
               </span>
@@ -231,10 +231,10 @@ export const GameHostingPage = () => {
               <button
                 type="button"
                 onClick={() => handleGameSelect('minecraft')}
-                className={`flex items-center gap-3 px-5 py-3 rounded-2xl border text-xs sm:text-sm font-semibold transition-all shadow-[0_8px_30px_rgba(0,0,0,0.4),inset_0_1px_1px_rgba(255,255,255,0.15)] backdrop-blur-xl ${
+                className={`flex items-center gap-3 px-5 py-3 rounded-2xl border text-xs sm:text-sm font-semibold transition-all shadow-[0_8px_30px_rgba(0,0,0,0.4),inset_0_1px_1px_rgba(255,255,255,0.15)] backdrop-blur-2xl ${
                   selectedGame === 'minecraft'
-                    ? 'bg-[#0e1812]/75 border-white/35 ring-1 ring-[#C5F36A]/50 text-white shadow-[0_0_25px_-5px_rgba(197,243,106,0.3)]'
-                    : 'bg-[#0c120e]/50 border-white/10 text-neutral-400 hover:text-white hover:border-white/20 hover:bg-white/5'
+                    ? 'bg-[#0e1812]/35 border-white/35 ring-1 ring-[#C5F36A]/50 text-white shadow-[0_0_25px_-5px_rgba(197,243,106,0.3)]'
+                    : 'bg-[#0c120e]/25 border-white/10 text-neutral-400 hover:text-white hover:border-white/20 hover:bg-white/5'
                 }`}
               >
                 <div className="w-10 h-10 rounded-xl overflow-hidden border border-emerald-500/40 bg-emerald-950/80 p-1.5 flex items-center justify-center shrink-0 shadow-md">
@@ -255,10 +255,10 @@ export const GameHostingPage = () => {
               <button
                 type="button"
                 onClick={() => handleGameSelect('rust')}
-                className={`flex items-center gap-3 px-5 py-3 rounded-2xl border text-xs sm:text-sm font-semibold transition-all shadow-[0_8px_30px_rgba(0,0,0,0.4),inset_0_1px_1px_rgba(255,255,255,0.15)] backdrop-blur-xl ${
+                className={`flex items-center gap-3 px-5 py-3 rounded-2xl border text-xs sm:text-sm font-semibold transition-all shadow-[0_8px_30px_rgba(0,0,0,0.4),inset_0_1px_1px_rgba(255,255,255,0.15)] backdrop-blur-2xl ${
                   selectedGame === 'rust'
-                    ? 'bg-[#18110b]/75 border-orange-500/50 ring-1 ring-orange-500/50 text-white shadow-[0_0_25px_-5px_rgba(249,115,22,0.3)]'
-                    : 'bg-[#0c120e]/50 border-white/10 text-neutral-400 hover:text-white hover:border-white/20 hover:bg-white/5'
+                    ? 'bg-[#18110b]/35 border-orange-500/50 ring-1 ring-orange-500/50 text-white shadow-[0_0_25px_-5px_rgba(249,115,22,0.3)]'
+                    : 'bg-[#0c120e]/25 border-white/10 text-neutral-400 hover:text-white hover:border-white/20 hover:bg-white/5'
                 }`}
               >
                 <div className="w-10 h-10 rounded-xl overflow-hidden border border-orange-500/40 bg-orange-950/80 p-1.5 flex items-center justify-center shrink-0 shadow-md">
@@ -279,10 +279,10 @@ export const GameHostingPage = () => {
               <button
                 type="button"
                 onClick={() => handleGameSelect('cs2')}
-                className={`flex items-center gap-3 px-5 py-3 rounded-2xl border text-xs sm:text-sm font-semibold transition-all shadow-[0_8px_30px_rgba(0,0,0,0.4),inset_0_1px_1px_rgba(255,255,255,0.15)] backdrop-blur-xl ${
+                className={`flex items-center gap-3 px-5 py-3 rounded-2xl border text-xs sm:text-sm font-semibold transition-all shadow-[0_8px_30px_rgba(0,0,0,0.4),inset_0_1px_1px_rgba(255,255,255,0.15)] backdrop-blur-2xl ${
                   selectedGame === 'cs2'
-                    ? 'bg-[#0b1419]/75 border-sky-500/50 ring-1 ring-sky-500/50 text-white shadow-[0_0_25px_-5px_rgba(56,189,248,0.3)]'
-                    : 'bg-[#0c120e]/50 border-white/10 text-neutral-400 hover:text-white hover:border-white/20 hover:bg-white/5'
+                    ? 'bg-[#0b1419]/35 border-sky-500/50 ring-1 ring-sky-500/50 text-white shadow-[0_0_25px_-5px_rgba(56,189,248,0.3)]'
+                    : 'bg-[#0c120e]/25 border-white/10 text-neutral-400 hover:text-white hover:border-white/20 hover:bg-white/5'
                 }`}
               >
                 <div className="w-10 h-10 rounded-xl overflow-hidden border border-sky-500/40 bg-sky-950/80 p-1.5 flex items-center justify-center shrink-0 shadow-md">
@@ -335,7 +335,7 @@ export const GameHostingPage = () => {
                         className={`px-4 py-2 rounded-xl text-xs font-semibold border transition-all backdrop-blur-md ${
                           isSelected
                             ? 'bg-white/20 text-white border-white/40 shadow-[0_4px_16px_rgba(255,255,255,0.1),inset_0_1px_0_rgba(255,255,255,0.2)]'
-                            : 'bg-[#0c140f]/50 border-white/10 text-neutral-400 hover:text-white hover:border-white/25 hover:bg-white/5'
+                            : 'bg-[#0c140f]/25 border-white/10 text-neutral-400 hover:text-white hover:border-white/25 hover:bg-white/5'
                         }`}
                       >
                         {inst}
@@ -360,7 +360,7 @@ export const GameHostingPage = () => {
                 </div>
 
                 {/* Featured Minecraft Plans Showcase Banner */}
-                <div className="p-4 sm:p-5 rounded-3xl bg-gradient-to-r from-emerald-950/40 via-[#0e1611]/60 to-black/60 border border-emerald-500/30 backdrop-blur-2xl flex flex-col sm:flex-row items-center gap-5 shadow-[0_16px_40px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.15)]">
+                <div className="p-4 sm:p-5 rounded-3xl bg-gradient-to-r from-emerald-950/25 via-[#0e1611]/25 to-black/25 border border-emerald-500/30 backdrop-blur-2xl flex flex-col sm:flex-row items-center gap-5 shadow-[0_16px_40px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.15)]">
                   <div className="w-24 h-32 sm:w-28 sm:h-36 rounded-2xl overflow-hidden border border-white/20 shadow-xl shrink-0">
                     <img
                       src={minecraftPlanImage}
@@ -405,7 +405,7 @@ export const GameHostingPage = () => {
                           className="h-full"
                         >
                         <div
-                          className={`relative rounded-3xl bg-[#0b130e]/60 backdrop-blur-2xl border transition-all duration-300 flex flex-col justify-between overflow-hidden shadow-[0_12px_36px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.14)] hover:shadow-[0_16px_48px_rgba(0,0,0,0.65),0_0_25px_rgba(197,243,106,0.15),inset_0_1px_1px_rgba(255,255,255,0.22)] hover:border-[#C5F36A]/45 hover:-translate-y-1 h-full ${
+                          className={`relative rounded-3xl bg-[#0b130e]/25 backdrop-blur-2xl border transition-all duration-300 flex flex-col justify-between overflow-hidden shadow-[0_12px_36px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.14)] hover:shadow-[0_16px_48px_rgba(0,0,0,0.65),0_0_25px_rgba(197,243,106,0.15),inset_0_1px_1px_rgba(255,255,255,0.22)] hover:border-[#C5F36A]/45 hover:-translate-y-1 h-full ${
                             isFeatured
                               ? 'border-white/35 ring-1 ring-white/20'
                               : 'border-white/15 hover:border-white/30'
@@ -420,7 +420,7 @@ export const GameHostingPage = () => {
                               className="absolute inset-0 w-full h-full object-cover object-top opacity-100 group-hover:scale-105 transition-all duration-500"
                               loading="eager"
                             />
-                            <div className="absolute inset-0 bg-gradient-to-t from-[#0b130e] via-black/20 to-black/20 pointer-events-none" />
+                            <div className="absolute inset-0 bg-gradient-to-t from-[#0b130e]/60 via-black/20 to-transparent pointer-events-none" />
 
                             <div className="relative z-10 flex flex-wrap items-center gap-1.5 p-3">
                               <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase tracking-wider bg-black/80 text-white backdrop-blur-md border border-white/15">
@@ -467,7 +467,7 @@ export const GameHostingPage = () => {
 
                             {/* Resource Grid: RAM, CPU, SSD */}
                             <div className="grid grid-cols-3 gap-2 py-3 border-y border-white/10 text-center">
-                              <div className="p-2 rounded-xl bg-white/[0.04] backdrop-blur-sm border border-white/10 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]">
+                              <div className="p-2 rounded-xl bg-black/25 backdrop-blur-sm border border-white/10 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]">
                                 <span className="text-[10px] uppercase font-mono text-neutral-400 block">
                                   RAM
                                 </span>
@@ -475,7 +475,7 @@ export const GameHostingPage = () => {
                                   {plan.ram}
                                 </span>
                               </div>
-                              <div className="p-2 rounded-xl bg-white/[0.04] backdrop-blur-sm border border-white/10 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]">
+                              <div className="p-2 rounded-xl bg-black/25 backdrop-blur-sm border border-white/10 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]">
                                 <span className="text-[10px] uppercase font-mono text-neutral-400 block">
                                   CPU
                                 </span>
@@ -483,7 +483,7 @@ export const GameHostingPage = () => {
                                   {plan.cpu}
                                 </span>
                               </div>
-                              <div className="p-2 rounded-xl bg-white/[0.04] backdrop-blur-sm border border-white/10 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]">
+                              <div className="p-2 rounded-xl bg-black/25 backdrop-blur-sm border border-white/10 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]">
                                 <span className="text-[10px] uppercase font-mono text-neutral-400 block">
                                   SSD
                                 </span>

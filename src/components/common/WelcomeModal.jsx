@@ -52,7 +52,7 @@ export const WelcomeModal = () => {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-md animate-fade-in">
-      <div className="relative w-full max-w-md p-7 rounded-3xl bg-[#0c140f]/80 backdrop-blur-2xl border border-white/20 shadow-[0_20px_60px_rgba(0,0,0,0.7),inset_0_1px_1px_rgba(255,255,255,0.2)] text-center text-white">
+      <div className="relative w-full max-w-md p-7 rounded-3xl bg-[#0c140f]/35 backdrop-blur-2xl border border-white/20 shadow-[0_20px_60px_rgba(0,0,0,0.7),inset_0_1px_1px_rgba(255,255,255,0.2)] text-center text-white">
         {/* Close X */}
         <button
           onClick={handleClose}
