@@ -151,7 +151,7 @@ router.post('/checkout', authenticateToken, async (req, res) => {
         name: `${req.user.name.split(' ')[0]}'s ${item.game || item.plan_name}`,
         category: item.category,
         game: `${item.game} (${item.software})`,
-        node: provResult.node || 'delhi-node-01.zeroxcloud.com',
+        node: provResult.node || 'delhi-node-01.zeroxcloud.site',
         ip_address: provResult.ip_address || '103.174.102.45',
         port: provResult.port || 25565,
         status: provResult.status || 'active',

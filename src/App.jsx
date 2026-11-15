@@ -41,6 +41,7 @@ import { AdminCustomers } from './pages/admin/AdminCustomers';
 import { AdminProducts } from './pages/admin/AdminProducts';
 import { AdminOrders } from './pages/admin/AdminOrders';
 import { AdminServers } from './pages/admin/AdminServers';
+import { AdminNodes } from './pages/admin/AdminNodes';
 import { AdminTickets } from './pages/admin/AdminTickets';
 import { AdminCoupons } from './pages/admin/AdminCoupons';
 import { AdminContent } from './pages/admin/AdminContent';
@@ -155,6 +156,7 @@ export const App = () => {
             <Route path="products" element={<AdminProducts />} />
             <Route path="orders" element={<AdminOrders />} />
             <Route path="servers" element={<AdminServers />} />
+            <Route path="nodes" element={<AdminNodes />} />
             <Route path="tickets" element={<AdminTickets />} />
             <Route path="coupons" element={<AdminCoupons />} />
             <Route path="content" element={<AdminContent />} />

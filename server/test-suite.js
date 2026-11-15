@@ -194,8 +194,103 @@ async function runTests() {
   assert(dcSsoData.token, 'Discord auth token must be generated');
   console.log(`✓ Test 13 Passed: Discord OAuth2 URL & SSO Verification OK (User: ${dcSsoData.user.name})`);
 
+  // Test 14: Infrastructure Nodes & Wings Management (CRUD, Edit IP, Limits & Maintenance)
+  // 14a. List nodes
+  const listNodesRes = await fetch(`${BASE_URL}/api/admin/nodes`, {
+    headers: { Authorization: `Bearer ${adminToken}` }
+  });
+  assert.strictEqual(listNodesRes.status, 200, 'Should fetch nodes fleet');
+  const listNodesData = await listNodesRes.json();
+  assert(listNodesData.nodes.length >= 3, 'Default nodes should be pre-seeded');
+  assert(listNodesData.summary.total_memory_gb > 0, 'Fleet memory metrics must be calculated');
+
+  // 14b. Customer role restriction check
+  const custNodesRes = await fetch(`${BASE_URL}/api/admin/nodes`, {
+    headers: { Authorization: `Bearer ${userToken}` }
+  });
+  assert.strictEqual(custNodesRes.status, 403, 'Regular customer must be forbidden from nodes admin API');
+
+  // 14c. Create new node
+  const testNodeFqdn = `node-test-${Date.now()}.zeroxcloud.site`;
+  const createNodeRes = await fetch(`${BASE_URL}/api/admin/nodes`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${adminToken}`
+    },
+    body: JSON.stringify({
+      name: 'Frankfurt Node 01 (Equinix FR2)',
+      fqdn: testNodeFqdn,
+      ip_address: '194.187.249.50',
+      location: 'Frankfurt, Germany',
+      country_code: 'DE',
+      daemon_port: 8080,
+      daemon_sftp: 2022,
+      scheme: 'https',
+      status: 'online',
+      maintenance_mode: false,
+      memory_limit_mb: 131072, // 128 GB
+      memory_overcommit_pct: 10,
+      disk_limit_mb: 2097152, // 2 TB
+      disk_overcommit_pct: 15,
+      cpu_cores: 64,
+      port_range_start: 25565,
+      port_range_end: 25999,
+      max_servers: 60,
+      description: 'AMD EPYC 7763, Tier-IV Datacenter, 10Gbps transit'
+    })
+  });
+  assert.strictEqual(createNodeRes.status, 201, 'Node creation should succeed');
+  const createNodeData = await createNodeRes.json();
+  const createdNodeId = createNodeData.node.id;
+  assert.strictEqual(createNodeData.node.ip_address, '194.187.249.50');
+
+  // 14d. Edit Node IP, FQDN, and limits
+  const updateNodeRes = await fetch(`${BASE_URL}/api/admin/nodes/${createdNodeId}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${adminToken}`
+    },
+    body: JSON.stringify({
+      ip_address: '194.187.249.99', // Updated IP
+      memory_limit_mb: 262144, // Upgraded to 256 GB
+      max_servers: 85
+    })
+  });
+  assert.strictEqual(updateNodeRes.status, 200, 'Node update should succeed');
+  const updateNodeData = await updateNodeRes.json();
+  assert.strictEqual(updateNodeData.node.ip_address, '194.187.249.99', 'IP address must be updated');
+  assert.strictEqual(updateNodeData.node.memory_limit_mb, 262144, 'Memory limit must be updated');
+  assert.strictEqual(updateNodeData.node.max_servers, 85, 'Max servers must be updated');
+
+  // 14e. Toggle maintenance mode
+  const maintRes = await fetch(`${BASE_URL}/api/admin/nodes/${createdNodeId}/maintenance`, {
+    method: 'POST',
+    headers: { Authorization: `Bearer ${adminToken}` }
+  });
+  assert.strictEqual(maintRes.status, 200, 'Maintenance toggle should succeed');
+  const maintData = await maintRes.json();
+  assert.strictEqual(maintData.node.maintenance_mode, true, 'Node maintenance mode should be true');
+
+  // 14f. Query node servers
+  const nodeSrvRes = await fetch(`${BASE_URL}/api/admin/nodes/${createdNodeId}/servers`, {
+    headers: { Authorization: `Bearer ${adminToken}` }
+  });
+  assert.strictEqual(nodeSrvRes.status, 200);
+  const nodeSrvData = await nodeSrvRes.json();
+  assert(Array.isArray(nodeSrvData.servers));
+
+  // 14g. Delete node
+  const delNodeRes = await fetch(`${BASE_URL}/api/admin/nodes/${createdNodeId}`, {
+    method: 'DELETE',
+    headers: { Authorization: `Bearer ${adminToken}` }
+  });
+  assert.strictEqual(delNodeRes.status, 200, 'Node deletion should succeed');
+  console.log(`✓ Test 14 Passed: Infrastructure Nodes & Wings Management OK (CRUD, IP edit, Limits & Maintenance)`);
+
   console.log('----------------------------------------------------');
-  console.log('ALL 13 INTEGRATION TESTS COMPLETED SUCCESSFULLY!');
+  console.log('ALL 14 INTEGRATION TESTS COMPLETED SUCCESSFULLY!');
   console.log('----------------------------------------------------');
 }
 

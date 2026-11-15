@@ -217,6 +217,278 @@ router.get('/servers', (req, res) => {
   });
 });
 
+// 5b. Infrastructure Nodes & Wings Management
+router.get('/nodes', (req, res) => {
+  const db = getDB();
+  const nodes = (db.nodes || []).map((node) => {
+    const activeServers = (db.services || []).filter(
+      (s) => s.node === node.fqdn || s.node === node.name || s.node === node.id || s.ip_address === node.ip_address
+    );
+
+    const allocatedMemoryMb = activeServers.reduce((sum, s) => sum + (parseFloat(s.ram_max || 4) * 1024), 0);
+    const allocatedDiskMb = activeServers.reduce((sum, s) => sum + (parseFloat(s.disk_max || 30) * 1024), 0);
+    const effectiveMaxMemory = (node.memory_limit_mb || 65536) * (1 + (node.memory_overcommit_pct || 0) / 100);
+    const effectiveMaxDisk = (node.disk_limit_mb || 1048576) * (1 + (node.disk_overcommit_pct || 0) / 100);
+
+    return {
+      ...node,
+      allocated_memory_mb: allocatedMemoryMb,
+      allocated_disk_mb: allocatedDiskMb,
+      allocated_servers_count: activeServers.length,
+      memory_usage_pct: Math.min(100, Math.round((allocatedMemoryMb / Math.max(1, effectiveMaxMemory)) * 100)),
+      disk_usage_pct: Math.min(100, Math.round((allocatedDiskMb / Math.max(1, effectiveMaxDisk)) * 100)),
+      server_usage_pct: Math.min(100, Math.round((activeServers.length / Math.max(1, node.max_servers || 50)) * 100))
+    };
+  });
+
+  const totalMemoryMb = nodes.reduce((sum, n) => sum + (n.memory_limit_mb || 0), 0);
+  const totalAllocatedMemoryMb = nodes.reduce((sum, n) => sum + (n.allocated_memory_mb || 0), 0);
+  const totalDiskMb = nodes.reduce((sum, n) => sum + (n.disk_limit_mb || 0), 0);
+  const totalAllocatedDiskMb = nodes.reduce((sum, n) => sum + (n.allocated_disk_mb || 0), 0);
+  const totalServers = nodes.reduce((sum, n) => sum + (n.allocated_servers_count || 0), 0);
+
+  const summary = {
+    total_nodes: nodes.length,
+    online_nodes: nodes.filter((n) => n.status === 'online').length,
+    maintenance_nodes: nodes.filter((n) => n.status === 'maintenance' || n.maintenance_mode).length,
+    total_memory_gb: Math.round(totalMemoryMb / 1024),
+    allocated_memory_gb: Math.round(totalAllocatedMemoryMb / 1024),
+    total_disk_tb: Number((totalDiskMb / (1024 * 1024)).toFixed(1)),
+    allocated_disk_tb: Number((totalAllocatedDiskMb / (1024 * 1024)).toFixed(2)),
+    total_active_instances: totalServers
+  };
+
+  res.json({ nodes, summary });
+});
+
+router.post('/nodes', (req, res) => {
+  try {
+    const {
+      name,
+      fqdn,
+      ip_address,
+      location = 'India (Noida & Mumbai)',
+      country_code = 'IN',
+      daemon_port = 8080,
+      daemon_sftp = 2022,
+      scheme = 'https',
+      status = 'online',
+      maintenance_mode = false,
+      memory_limit_mb = 65536,
+      memory_overcommit_pct = 0,
+      disk_limit_mb = 1048576,
+      disk_overcommit_pct = 0,
+      cpu_cores = 32,
+      port_range_start = 25565,
+      port_range_end = 25999,
+      max_servers = 50,
+      description = ''
+    } = req.body;
+
+    if (!name || !fqdn || !ip_address) {
+      return res.status(400).json({ error: 'Node name, FQDN/domain, and primary IP address are required' });
+    }
+
+    const db = getDB();
+    if (!db.nodes) db.nodes = [];
+
+    // Check duplicate FQDN or IP
+    const existing = db.nodes.find(
+      (n) => n.fqdn.toLowerCase() === fqdn.toLowerCase() || n.ip_address === ip_address
+    );
+    if (existing) {
+      return res.status(400).json({ error: `A node with FQDN "${fqdn}" or IP "${ip_address}" already exists` });
+    }
+
+    const newNode = {
+      id: 'node-' + Date.now(),
+      name: name.trim(),
+      fqdn: fqdn.trim().toLowerCase(),
+      ip_address: ip_address.trim(),
+      location: location.trim(),
+      country_code: country_code.trim().toUpperCase(),
+      daemon_port: Number(daemon_port) || 8080,
+      daemon_sftp: Number(daemon_sftp) || 2022,
+      scheme: scheme === 'http' ? 'http' : 'https',
+      status: status || 'online',
+      maintenance_mode: Boolean(maintenance_mode),
+      memory_limit_mb: Number(memory_limit_mb) || 65536,
+      memory_overcommit_pct: Number(memory_overcommit_pct) || 0,
+      disk_limit_mb: Number(disk_limit_mb) || 1048576,
+      disk_overcommit_pct: Number(disk_overcommit_pct) || 0,
+      cpu_cores: Number(cpu_cores) || 32,
+      port_range_start: Number(port_range_start) || 25565,
+      port_range_end: Number(port_range_end) || 25999,
+      max_servers: Number(max_servers) || 50,
+      description: description ? description.trim() : '',
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString()
+    };
+
+    db.nodes.push(newNode);
+    saveDB(db);
+
+    logAudit(
+      req.user.name,
+      req.user.role,
+      'NODE_CREATED',
+      newNode.name,
+      `Created node ${newNode.name} (${newNode.fqdn} / ${newNode.ip_address}) with ${newNode.memory_limit_mb}MB RAM and ${newNode.disk_limit_mb}MB Disk`
+    );
+
+    res.status(201).json({ success: true, node: newNode });
+  } catch (err) {
+    console.error('Failed to create node:', err);
+    res.status(500).json({ error: 'Failed to create node: ' + err.message });
+  }
+});
+
+router.put('/nodes/:id', (req, res) => {
+  try {
+    const { id } = req.params;
+    const db = getDB();
+    if (!db.nodes) db.nodes = [];
+
+    const node = db.nodes.find((n) => n.id === id);
+    if (!node) {
+      return res.status(404).json({ error: 'Node not found' });
+    }
+
+    const {
+      name,
+      fqdn,
+      ip_address,
+      location,
+      country_code,
+      daemon_port,
+      daemon_sftp,
+      scheme,
+      status,
+      maintenance_mode,
+      memory_limit_mb,
+      memory_overcommit_pct,
+      disk_limit_mb,
+      disk_overcommit_pct,
+      cpu_cores,
+      port_range_start,
+      port_range_end,
+      max_servers,
+      description
+    } = req.body;
+
+    if (name !== undefined) node.name = name.trim();
+    if (fqdn !== undefined) node.fqdn = fqdn.trim().toLowerCase();
+    if (ip_address !== undefined) node.ip_address = ip_address.trim();
+    if (location !== undefined) node.location = location.trim();
+    if (country_code !== undefined) node.country_code = country_code.trim().toUpperCase();
+    if (daemon_port !== undefined) node.daemon_port = Number(daemon_port);
+    if (daemon_sftp !== undefined) node.daemon_sftp = Number(daemon_sftp);
+    if (scheme !== undefined) node.scheme = scheme === 'http' ? 'http' : 'https';
+    if (status !== undefined) node.status = status;
+    if (maintenance_mode !== undefined) node.maintenance_mode = Boolean(maintenance_mode);
+    if (memory_limit_mb !== undefined) node.memory_limit_mb = Number(memory_limit_mb);
+    if (memory_overcommit_pct !== undefined) node.memory_overcommit_pct = Number(memory_overcommit_pct);
+    if (disk_limit_mb !== undefined) node.disk_limit_mb = Number(disk_limit_mb);
+    if (disk_overcommit_pct !== undefined) node.disk_overcommit_pct = Number(disk_overcommit_pct);
+    if (cpu_cores !== undefined) node.cpu_cores = Number(cpu_cores);
+    if (port_range_start !== undefined) node.port_range_start = Number(port_range_start);
+    if (port_range_end !== undefined) node.port_range_end = Number(port_range_end);
+    if (max_servers !== undefined) node.max_servers = Number(max_servers);
+    if (description !== undefined) node.description = description.trim();
+    node.updated_at = new Date().toISOString();
+
+    saveDB(db);
+
+    logAudit(
+      req.user.name,
+      req.user.role,
+      'NODE_UPDATED',
+      node.name,
+      `Updated node ${node.name} (IP: ${node.ip_address}, Limits: ${node.memory_limit_mb}MB RAM / ${node.disk_limit_mb}MB Disk)`
+    );
+
+    res.json({ success: true, node });
+  } catch (err) {
+    console.error('Failed to update node:', err);
+    res.status(500).json({ error: 'Failed to update node: ' + err.message });
+  }
+});
+
+router.post('/nodes/:id/maintenance', (req, res) => {
+  const { id } = req.params;
+  const db = getDB();
+  const node = (db.nodes || []).find((n) => n.id === id);
+  if (!node) {
+    return res.status(404).json({ error: 'Node not found' });
+  }
+
+  node.maintenance_mode = !node.maintenance_mode;
+  node.status = node.maintenance_mode ? 'maintenance' : 'online';
+  node.updated_at = new Date().toISOString();
+  saveDB(db);
+
+  logAudit(
+    req.user.name,
+    req.user.role,
+    'NODE_MAINTENANCE_TOGGLED',
+    node.name,
+    `Maintenance mode ${node.maintenance_mode ? 'ENABLED' : 'DISABLED'} on node ${node.name}`
+  );
+
+  res.json({ success: true, node });
+});
+
+router.delete('/nodes/:id', (req, res) => {
+  const { id } = req.params;
+  const force = req.query.force === 'true';
+  const db = getDB();
+  const nodeIndex = (db.nodes || []).findIndex((n) => n.id === id);
+
+  if (nodeIndex === -1) {
+    return res.status(404).json({ error: 'Node not found' });
+  }
+
+  const node = db.nodes[nodeIndex];
+  const activeServers = (db.services || []).filter(
+    (s) => s.node === node.fqdn || s.node === node.name || s.node === node.id || s.ip_address === node.ip_address
+  );
+
+  if (activeServers.length > 0 && !force) {
+    return res.status(400).json({
+      error: `Cannot delete node "${node.name}": There are ${activeServers.length} active customer servers assigned to this node. Migrate or remove them first, or confirm force delete.`
+    });
+  }
+
+  db.nodes.splice(nodeIndex, 1);
+  saveDB(db);
+
+  logAudit(
+    req.user.name,
+    req.user.role,
+    'NODE_DELETED',
+    node.name,
+    `Deleted infrastructure node ${node.name} (${node.fqdn} / ${node.ip_address})`
+  );
+
+  res.json({ success: true, message: `Node "${node.name}" deleted successfully.` });
+});
+
+router.get('/nodes/:id/servers', (req, res) => {
+  const { id } = req.params;
+  const db = getDB();
+  const node = (db.nodes || []).find((n) => n.id === id);
+
+  if (!node) {
+    return res.status(404).json({ error: 'Node not found' });
+  }
+
+  const servers = (db.services || []).filter(
+    (s) => s.node === node.fqdn || s.node === node.name || s.node === node.id || s.ip_address === node.ip_address
+  );
+
+  res.json({ node, servers });
+});
+
 // 6. Support Tickets Desk (Staff View)
 router.get('/tickets', (req, res) => {
   const db = getDB();

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
-import { Server, RefreshCw, Activity, Terminal, ShieldAlert } from 'lucide-react';
+import { Server, RefreshCw, Activity, Terminal, ShieldAlert, Cpu } from 'lucide-react';
 
 export const AdminServers = () => {
   const { token } = useAuth();
@@ -41,13 +42,22 @@ export const AdminServers = () => {
           </p>
         </div>
 
-        <button
-          onClick={fetchServers}
-          className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white/5 hover:bg-white/10 text-xs text-neutral-300 hover:text-white border border-white/10 transition"
-        >
-          <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} />
-          Refresh
-        </button>
+        <div className="flex items-center gap-2.5">
+          <Link
+            to="/admin/nodes"
+            className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-[#C5F36A] text-black font-extrabold text-xs hover:bg-[#d4f788] transition shadow"
+          >
+            <Cpu className="w-3.5 h-3.5" />
+            Manage Nodes &amp; Limits
+          </Link>
+          <button
+            onClick={fetchServers}
+            className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white/5 hover:bg-white/10 text-xs text-neutral-300 hover:text-white border border-white/10 transition"
+          >
+            <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} />
+            Refresh
+          </button>
+        </div>
       </div>
 
       {/* Services Table */}
