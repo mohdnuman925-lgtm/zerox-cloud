@@ -58,7 +58,7 @@ export const LegalPage = () => {
         </div>
 
         {/* Tab Navigation - Clean Neutral Monochrome */}
-        <div className="flex flex-wrap gap-2 -b pb-4">
+        <div className="flex flex-wrap gap-2 border-b border-white/10 pb-4">
           <button
             onClick={() => handleTabChange('terms')}
             className={`px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold flex items-center gap-2 transition-all ${
@@ -121,7 +121,7 @@ export const LegalPage = () => {
         </div>
 
         {/* Tab Content Panels */}
-        <div className="p-6 sm:p-10 rounded-3xl  backdrop-blur-2xl space-y-8 text-xs sm:text-sm text-neutral-300 leading-relaxed shadow-2xl">
+        <div className="bg-[#0c140f]/5 border border-white/15 p-6 sm:p-10 rounded-3xl backdrop-blur-2xl space-y-8 text-xs sm:text-sm text-neutral-300 leading-relaxed shadow-2xl">
           {/* TAB 1: TERMS OF SERVICE */}
           {activeTab === 'terms' && (
             <div className="space-y-6">

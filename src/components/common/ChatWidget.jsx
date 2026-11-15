@@ -37,9 +37,9 @@ export const ChatWidget = () => {
   return (
     <div className="fixed bottom-5 right-5 z-40">
       {isOpen ? (
-        <div className="w-80 sm:w-96 rounded-2xl  backdrop-blur-2xl shadow-2xl overflow-hidden flex flex-col h-[450px] animate-scale-up">
+        <div className="bg-[#0c140f]/5 border border-white/15 w-80 sm:w-96 rounded-2xl backdrop-blur-2xl shadow-2xl overflow-hidden flex flex-col h-[450px] animate-scale-up">
           {/* Header */}
-          <div className="flex items-center justify-between p-4 bg-[#17201a] -b">
+          <div className="flex items-center justify-between p-4 bg-[#17201a] border-b border-white/10">
             <div className="flex items-center gap-2.5">
               <div className="relative">
                 <div className="w-8 h-8 rounded-full bg-[#C5F36A] flex items-center justify-center text-black font-bold text-xs">
@@ -87,7 +87,7 @@ export const ChatWidget = () => {
           </div>
 
           {/* Input Box */}
-          <form onSubmit={handleSend} className="p-3  backdrop-blur-2xl -t flex items-center gap-2">
+          <form onSubmit={handleSend} className="p-3 backdrop-blur-2xl border-t border-white/10 flex items-center gap-2">
             <input
               type="text"
               value={input}

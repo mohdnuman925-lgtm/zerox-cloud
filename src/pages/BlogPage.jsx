@@ -48,7 +48,7 @@ export const BlogPage = () => {
           {posts.map((post) => (
             <article
               key={post.id}
-              className="p-6 rounded-3xl  backdrop-blur-2xl transition duration-300 flex flex-col justify-between shadow-xl"
+              className="bg-[#0c140f]/5 border border-white/15 p-6 rounded-3xl backdrop-blur-2xl transition duration-300 flex flex-col justify-between shadow-xl"
             >
               <div>
                 <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase bg-white/10 text-[#C5F36A]">
@@ -62,7 +62,7 @@ export const BlogPage = () => {
                 </p>
               </div>
 
-              <div className="mt-6 pt-4 -t flex items-center justify-between text-[11px] text-neutral-500">
+              <div className="mt-6 pt-4 border-t border-white/10 flex items-center justify-between text-[11px] text-neutral-500">
                 <span className="flex items-center gap-1 font-mono">
                   <Calendar className="w-3 h-3" /> {post.date}
                 </span>

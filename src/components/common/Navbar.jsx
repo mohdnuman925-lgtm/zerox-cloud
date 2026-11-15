@@ -46,7 +46,7 @@ export const Navbar = ({ onOpenSearch }) => {
     <header className="sticky top-0 z-40 w-full px-3 sm:px-6 lg:px-8 pt-3 sm:pt-4 transition-all duration-300 pointer-events-none">
       <div className="max-w-7xl mx-auto pointer-events-auto">
         <div
-          className={`rounded-full bg-[#0e1611]/5 backdrop-blur-2xl px-4 sm:px-6 h-14 flex items-center justify-between gap-3 sm:gap-4 transition-all duration-300 shadow-[0_8px_32px_rgba(0,0,0,0.35)] ${
+          className={`rounded-full border border-white/15 bg-[#0e1611]/5 backdrop-blur-2xl px-4 sm:px-6 h-14 flex items-center justify-between gap-3 sm:gap-4 transition-all duration-300 shadow-[0_8px_32px_rgba(0,0,0,0.35)] ${
             isScrolled
               ? 'bg-[#0e1611]/10 shadow-[0_12px_40px_rgba(0,0,0,0.55)]'
               : ''
@@ -74,7 +74,7 @@ export const Navbar = ({ onOpenSearch }) => {
               </button>
 
               {gamesOpen && (
-                <div className="absolute top-full left-0 mt-3 w-72 p-2 rounded-2xl bg-[#0e1611]/5 backdrop-blur-2xl shadow-2xl space-y-1 animate-fade-in z-50">
+                <div className="absolute top-full left-0 mt-3 w-72 p-2 rounded-2xl border border-white/15 bg-[#0e1611]/5 backdrop-blur-2xl shadow-2xl space-y-1 animate-fade-in z-50">
                   <Link
                     to="/games?game=minecraft"
                     className="flex items-center justify-between p-2.5 rounded-xl hover:bg-white/10 text-neutral-200 hover:text-white transition group"
@@ -186,7 +186,7 @@ export const Navbar = ({ onOpenSearch }) => {
                 <ChevronDown className="w-3.5 h-3.5 text-neutral-400" />
               </button>
               {legalOpen && (
-                <div className="absolute top-full left-0 mt-3 w-48 p-2 rounded-2xl bg-[#0e1611]/5 backdrop-blur-2xl shadow-2xl space-y-1 animate-fade-in z-50">
+                <div className="absolute top-full left-0 mt-3 w-48 p-2 rounded-2xl border border-white/15 bg-[#0e1611]/5 backdrop-blur-2xl shadow-2xl space-y-1 animate-fade-in z-50">
                   <Link
                     to="/terms"
                     className="block p-2 rounded-xl text-xs text-neutral-200 hover:text-white hover:bg-white/10 transition"
@@ -325,7 +325,7 @@ export const Navbar = ({ onOpenSearch }) => {
 
         {/* Mobile Dropdown Drawer with Matching 95% Transparency and No Outline */}
         {mobileMenuOpen && (
-          <div className="lg:hidden mt-2 p-4 rounded-3xl bg-[#0e1611]/5 backdrop-blur-2xl shadow-2xl space-y-2 text-sm animate-fade-in text-white">
+          <div className="lg:hidden mt-2 p-4 rounded-3xl border border-white/15 bg-[#0e1611]/5 backdrop-blur-2xl shadow-2xl space-y-2 text-sm animate-fade-in text-white">
             <div>
               <Link
                 to="/games"
@@ -334,7 +334,7 @@ export const Navbar = ({ onOpenSearch }) => {
               >
                 Game Servers
               </Link>
-              <div className="pl-3 pb-1 space-y-1 -l ml-2">
+              <div className="pl-3 pb-1 space-y-1 border-l border-white/10 ml-2">
                 <Link
                   to="/games?game=minecraft"
                   onClick={() => setMobileMenuOpen(false)}
@@ -434,7 +434,7 @@ export const Navbar = ({ onOpenSearch }) => {
               Privacy Policy
             </Link>
 
-            <div className="pt-2 -t flex items-center justify-between">
+            <div className="pt-2 border-t border-white/10 flex items-center justify-between">
               <span className="text-xs text-neutral-400">Currency</span>
               <button
                 onClick={handleCurrencyToggle}
@@ -444,7 +444,7 @@ export const Navbar = ({ onOpenSearch }) => {
               </button>
             </div>
 
-            <div className="pt-2 -t flex items-center justify-between">
+            <div className="pt-2 border-t border-white/10 flex items-center justify-between">
               <span className="text-xs text-neutral-400">Clicking Sound</span>
               <button
                 onClick={toggleSound}

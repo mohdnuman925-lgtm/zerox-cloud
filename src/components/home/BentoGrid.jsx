@@ -13,7 +13,7 @@ export const BentoGrid = () => {
           <ScrollReveal animation="fade-up" delay={0} className="md:col-span-2 h-full">
             <Link
               to="/games"
-              className="group relative overflow-hidden rounded-3xl bg-[#0c140f]/5 backdrop-blur-2xl transition-all duration-300 min-h-[300px] sm:min-h-[340px] h-full flex flex-col justify-end p-6 sm:p-8 shadow-[0_12px_40px_rgba(0,0,0,0.35)] hover:shadow-[0_16px_48px_rgba(0,0,0,0.55)] block"
+              className="group relative overflow-hidden rounded-3xl border border-white/15 bg-[#0c140f]/5 backdrop-blur-2xl transition-all duration-300 min-h-[300px] sm:min-h-[340px] h-full flex flex-col justify-end p-6 sm:p-8 shadow-[0_12px_40px_rgba(0,0,0,0.35)] hover:shadow-[0_16px_48px_rgba(0,0,0,0.55)] block"
             >
               {/* Background Image from reference video */}
               <img
@@ -45,7 +45,7 @@ export const BentoGrid = () => {
           <ScrollReveal animation="fade-up" delay={120} className="h-full">
             <Link
               to="/cloud"
-              className="group relative overflow-hidden rounded-3xl bg-[#0c140f]/5 backdrop-blur-2xl transition-all duration-300 min-h-[300px] sm:min-h-[340px] h-full flex flex-col justify-end p-6 sm:p-8 shadow-[0_12px_40px_rgba(0,0,0,0.35)] hover:shadow-[0_16px_48px_rgba(0,0,0,0.55)] block"
+              className="group relative overflow-hidden rounded-3xl border border-white/15 bg-[#0c140f]/5 backdrop-blur-2xl transition-all duration-300 min-h-[300px] sm:min-h-[340px] h-full flex flex-col justify-end p-6 sm:p-8 shadow-[0_12px_40px_rgba(0,0,0,0.35)] hover:shadow-[0_16px_48px_rgba(0,0,0,0.55)] block"
             >
               <img
                 src="/assets/vps.png"
@@ -75,7 +75,7 @@ export const BentoGrid = () => {
           <ScrollReveal animation="fade-up" delay={160} className="h-full">
             <Link
               to="/dedicated"
-              className="group relative overflow-hidden rounded-3xl bg-[#0c140f]/5 backdrop-blur-2xl transition-all duration-300 min-h-[260px] sm:min-h-[290px] h-full flex flex-col justify-end p-6 sm:p-8 shadow-[0_12px_40px_rgba(0,0,0,0.35)] hover:shadow-[0_16px_48px_rgba(0,0,0,0.55)] block"
+              className="group relative overflow-hidden rounded-3xl border border-white/15 bg-[#0c140f]/5 backdrop-blur-2xl transition-all duration-300 min-h-[260px] sm:min-h-[290px] h-full flex flex-col justify-end p-6 sm:p-8 shadow-[0_12px_40px_rgba(0,0,0,0.35)] hover:shadow-[0_16px_48px_rgba(0,0,0,0.55)] block"
             >
               <img
                 src="/assets/dedicated.webp"
@@ -105,7 +105,7 @@ export const BentoGrid = () => {
           <ScrollReveal animation="fade-up" delay={220} className="h-full">
             <Link
               to="/web"
-              className="group relative overflow-hidden rounded-3xl bg-[#0c140f]/5 backdrop-blur-2xl transition-all duration-300 min-h-[260px] sm:min-h-[290px] h-full flex flex-col justify-end p-6 sm:p-8 shadow-[0_12px_40px_rgba(0,0,0,0.35)] hover:shadow-[0_16px_48px_rgba(0,0,0,0.55)] block"
+              className="group relative overflow-hidden rounded-3xl border border-white/15 bg-[#0c140f]/5 backdrop-blur-2xl transition-all duration-300 min-h-[260px] sm:min-h-[290px] h-full flex flex-col justify-end p-6 sm:p-8 shadow-[0_12px_40px_rgba(0,0,0,0.35)] hover:shadow-[0_16px_48px_rgba(0,0,0,0.55)] block"
             >
               <img
                 src="/assets/webhosting.png"
@@ -135,7 +135,7 @@ export const BentoGrid = () => {
           <ScrollReveal animation="fade-up" delay={280} className="h-full">
             <Link
               to="/bots"
-              className="group relative overflow-hidden rounded-3xl bg-[#0c140f]/5 backdrop-blur-2xl transition-all duration-300 min-h-[260px] sm:min-h-[290px] h-full flex flex-col justify-end p-6 sm:p-8 shadow-[0_12px_40px_rgba(0,0,0,0.35)] hover:shadow-[0_16px_48px_rgba(0,0,0,0.55)] block"
+              className="group relative overflow-hidden rounded-3xl border border-white/15 bg-[#0c140f]/5 backdrop-blur-2xl transition-all duration-300 min-h-[260px] sm:min-h-[290px] h-full flex flex-col justify-end p-6 sm:p-8 shadow-[0_12px_40px_rgba(0,0,0,0.35)] hover:shadow-[0_16px_48px_rgba(0,0,0,0.55)] block"
             >
               {/* Discord Logo watermark background */}
               <div className="absolute inset-0 bg-gradient-to-br from-[#161B26]/10 via-[#101418]/5 to-[#0A0D0E]/5" />
@@ -155,7 +155,7 @@ export const BentoGrid = () => {
                   </p>
                 </div>
 
-                <div className="w-10 h-10 rounded-2xl bg-black/60 backdrop-blur-2xl flex items-center justify-center text-white group-hover:bg-white group-hover:text-black transition-all shadow-lg flex-shrink-0">
+                <div className="border border-white/15 w-10 h-10 rounded-2xl bg-black/60 backdrop-blur-2xl flex items-center justify-center text-white group-hover:bg-white group-hover:text-black transition-all shadow-lg flex-shrink-0">
                   <ArrowUpRight className="w-5 h-5" />
                 </div>
               </div>

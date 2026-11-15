@@ -20,7 +20,7 @@ export const CookieBanner = () => {
   if (!visible) return null;
 
   return (
-    <div className="fixed bottom-5 left-5 z-40 max-w-sm p-4 rounded-2xl bg-[#0c140f]/5 backdrop-blur-2xl shadow-2xl text-white animate-slide-up">
+    <div className="fixed bottom-5 left-5 z-40 max-w-sm p-4 rounded-2xl border border-white/15 bg-[#0c140f]/5 backdrop-blur-2xl shadow-2xl text-white animate-slide-up">
       <div className="flex items-start gap-3 mb-3">
         <div className="p-2 rounded-xl bg-white/5 text-white">
           <Cookie className="w-5 h-5 text-[#C5F36A]" />

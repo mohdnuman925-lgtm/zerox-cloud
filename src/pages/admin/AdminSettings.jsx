@@ -98,7 +98,7 @@ export const AdminSettings = () => {
         </div>
       )}
 
-      <form onSubmit={handleSave} className="p-8 rounded-3xl  backdrop-blur-2xl space-y-6 shadow-xl">
+      <form onSubmit={handleSave} className="bg-[#0c140f]/5 border border-white/15 p-8 rounded-3xl backdrop-blur-2xl space-y-6 shadow-xl">
         {/* Pterodactyl Panel Adapter */}
         <div className="space-y-4">
           <div className="flex items-center gap-2">
@@ -123,7 +123,7 @@ export const AdminSettings = () => {
         </div>
 
         {/* Currency & Financials */}
-        <div className="space-y-4 pt-4 -t">
+        <div className="space-y-4 pt-4 border-t border-white/10">
           <div className="flex items-center gap-2">
             <CreditCard className="w-4 h-4 text-emerald-400" />
             <h3 className="text-sm font-bold text-white">Default Currency &amp; Tax</h3>
@@ -155,7 +155,7 @@ export const AdminSettings = () => {
         </div>
 
         {/* Maintenance Mode */}
-        <div className="pt-4 -t">
+        <div className="pt-4 border-t border-white/10">
           <label className="flex items-center gap-3 cursor-pointer">
             <input
               type="checkbox"

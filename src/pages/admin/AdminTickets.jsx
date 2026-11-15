@@ -109,7 +109,7 @@ export const AdminTickets = () => {
                 onClick={() => handleSelectTicket(t)}
                 className={`p-4 rounded-2xl  cursor-pointer transition ${
                   isSelected
-                    ? 'bg-[#18241B] -[#C5F36A] shadow-lg'
+                    ? 'bg-[#18241B] border border-[#C5F36A] shadow-lg'
                     : ' backdrop-blur-2xl  hover:'
                 }`}
               >
@@ -139,8 +139,8 @@ export const AdminTickets = () => {
         {/* Conversation & Reply Thread */}
         <div className="lg:col-span-7">
           {activeTicket ? (
-            <div className="rounded-3xl  backdrop-blur-2xl overflow-hidden flex flex-col h-[580px] shadow-2xl">
-              <div className="p-4  backdrop-blur-2xl -b flex items-center justify-between">
+            <div className="bg-[#0c140f]/5 border border-white/15 rounded-3xl backdrop-blur-2xl overflow-hidden flex flex-col h-[580px] shadow-2xl">
+              <div className="p-4 backdrop-blur-2xl border-b border-white/10 flex items-center justify-between">
                 <div>
                   <h3 className="text-sm font-bold text-white">{activeTicket.subject}</h3>
                   <p className="text-xs text-neutral-400 font-mono">
@@ -181,7 +181,7 @@ export const AdminTickets = () => {
                           </span>
                         )}
                         {!m.is_internal && m.sender_role !== 'customer' && (
-                          <span className="px-1.5 py-0.5 rounded text-[9px] bg-[#C5F36A] text-black font-extrabold uppercase">
+                          <span className="px-1.5 py-0.5 rounded text-[9px] bgborder border-[#C5F36A] text-black font-extrabold uppercase">
                             STAFF
                           </span>
                         )}
@@ -196,7 +196,7 @@ export const AdminTickets = () => {
               </div>
 
               {/* Reply Box */}
-              <form onSubmit={handleSendReply} className="p-4  backdrop-blur-2xl -t space-y-3">
+              <form onSubmit={handleSendReply} className="p-4 backdrop-blur-2xl border-t border-white/10 space-y-3">
                 <textarea
                   rows={3}
                   value={replyText}
@@ -205,7 +205,7 @@ export const AdminTickets = () => {
                   className={`w-full  rounded-xl px-3 py-2 text-xs text-white focus:outline-none ${
                     isInternal
                       ? 'bg-amber-950/20  focus:-amber-400'
-                      : 'bg-black/40  focus:-[#C5F36A]'
+                      : 'bg-black/40  focus:border border-[#C5F36A]'
                   }`}
                 />
 
@@ -225,7 +225,7 @@ export const AdminTickets = () => {
                     className={`px-4 py-2 rounded-xl font-bold text-xs transition flex items-center gap-1.5 ${
                       isInternal
                         ? 'bg-amber-500 text-black hover:bg-amber-400'
-                        : 'bg-white text-black hover:bg-[#C5F36A]'
+                        : 'bg-white text-black hover:bgborder border-[#C5F36A]'
                     }`}
                   >
                     <Send className="w-3.5 h-3.5" />
@@ -235,7 +235,7 @@ export const AdminTickets = () => {
               </form>
             </div>
           ) : (
-            <div className="rounded-3xl  backdrop-blur-2xl p-12 text-center text-neutral-400">
+            <div className="bg-[#0c140f]/5 border border-white/15 rounded-3xl backdrop-blur-2xl p-12 text-center text-neutral-400">
               Select a ticket from the left to view the thread and respond.
             </div>
           )}

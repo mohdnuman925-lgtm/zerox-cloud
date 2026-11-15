@@ -105,7 +105,7 @@ export const CheckoutPage = () => {
   if (orderSuccess) {
     return (
       <div className="py-20 relative z-10 max-w-2xl mx-auto px-4 text-center">
-        <div className="p-8 sm:p-12 rounded-3xl  backdrop-blur-2xl shadow-2xl text-white space-y-6">
+        <div className="bg-[#0c140f]/5 border border-white/15 p-8 sm:p-12 rounded-3xl backdrop-blur-2xl shadow-2xl text-white space-y-6">
           <div className="w-16 h-16 rounded-full bg-[#C5F36A]/20 flex items-center justify-center text-[#C5F36A] mx-auto animate-bounce">
             <CheckCircle className="w-8 h-8" />
           </div>
@@ -131,7 +131,7 @@ export const CheckoutPage = () => {
                 {Number(orderSuccess.order.gst_amount || (orderSuccess.order.total_amount - (orderSuccess.order.total_amount / 1.18))).toFixed(2)}
               </span>
             </div>
-            <div className="flex justify-between text-white font-bold pt-2 -t">
+            <div className="flex justify-between text-white font-bold pt-2 border-t border-white/10">
               <span>Total Paid</span>
               <span className="font-mono text-[#C5F36A]">
                 {orderSuccess.order.currency === 'USD' ? '$' : '₹'}
@@ -139,7 +139,7 @@ export const CheckoutPage = () => {
               </span>
             </div>
             {orderSuccess.order.gstin && (
-              <div className="pt-1 text-[11px] text-neutral-400 -t">
+              <div className="pt-1 text-[11px] text-neutral-400 border-t border-white/10">
                 GSTIN: <span className="font-mono text-white">{orderSuccess.order.gstin}</span>
               </div>
             )}
@@ -207,7 +207,7 @@ export const CheckoutPage = () => {
           {/* Left: Customer & Payment selection */}
           <div className="lg:col-span-7 space-y-6">
             {/* Account Info */}
-            <div className="p-6 rounded-3xl bg-[#0e1611]/5 backdrop-blur-2xl shadow-[0_12px_40px_rgba(0,0,0,0.35)] space-y-4">
+            <div className="p-6 rounded-3xl border border-white/15 bg-[#0e1611]/5 backdrop-blur-2xl shadow-[0_12px_40px_rgba(0,0,0,0.35)] space-y-4">
               <h3 className="text-sm font-bold text-white flex items-center gap-2">
                 <span className="w-5 h-5 rounded-full bg-white/10 flex items-center justify-center text-xs">1</span>
                 Customer Account
@@ -253,7 +253,7 @@ export const CheckoutPage = () => {
             </div>
 
             {/* Payment Method Selector */}
-            <div className="p-6 rounded-3xl bg-[#0e1611]/5 backdrop-blur-2xl shadow-[0_12px_40px_rgba(0,0,0,0.35)] space-y-4">
+            <div className="p-6 rounded-3xl border border-white/15 bg-[#0e1611]/5 backdrop-blur-2xl shadow-[0_12px_40px_rgba(0,0,0,0.35)] space-y-4">
               <h3 className="text-sm font-bold text-white flex items-center gap-2">
                 <span className="w-5 h-5 rounded-full bg-white/10 flex items-center justify-center text-xs">2</span>
                 Payment Method
@@ -286,7 +286,7 @@ export const CheckoutPage = () => {
                     onClick={() => setPaymentMethod(pm.id)}
                     className={`w-full p-4 rounded-2xl  text-left flex items-center justify-between transition-all backdrop-blur-2xl ${
                       paymentMethod === pm.id
-                        ? 'bg-white/20 -[#C5F36A] text-white shadow-[0_4px_24px_rgba(197,243,106,0.15)]'
+                        ? 'bg-white/20 border border-[#C5F36A] text-white shadow-[0_4px_24px_rgba(197,243,106,0.15)]'
                         : 'bg-black/35  text-neutral-300 hover:bg-white/5'
                     }`}
                   >
@@ -320,7 +320,7 @@ export const CheckoutPage = () => {
 
           {/* Right: Order Summary */}
           <div className="lg:col-span-5">
-            <div className="p-6 rounded-3xl bg-[#0e1611]/5 backdrop-blur-2xl shadow-[0_16px_48px_rgba(0,0,0,0.45)] space-y-6 sticky top-24">
+            <div className="p-6 rounded-3xl border border-white/15 bg-[#0e1611]/5 backdrop-blur-2xl shadow-[0_16px_48px_rgba(0,0,0,0.45)] space-y-6 sticky top-24">
               <h3 className="text-base font-bold text-white">Order Summary</h3>
 
               {/* Items List */}
@@ -389,7 +389,7 @@ export const CheckoutPage = () => {
               {couponError && <p className="text-[11px] text-red-400">{couponError}</p>}
 
               {/* Breakdown with GST */}
-              <div className="space-y-2 text-xs text-neutral-400 -t pt-4">
+              <div className="space-y-2 text-xs text-neutral-400 border-t border-white/10 pt-4">
                 <div className="flex justify-between">
                   <span>Subtotal</span>
                   <span className="font-mono text-white">{symbol}{subtotal.toFixed(2)}</span>
@@ -413,7 +413,7 @@ export const CheckoutPage = () => {
                   </span>
                   <span className="font-mono text-white">+{symbol}{gstAmount.toFixed(2)}</span>
                 </div>
-                <div className="flex justify-between text-base font-bold text-white -t pt-3">
+                <div className="flex justify-between text-base font-bold text-white border-t border-white/10 pt-3">
                   <div>
                     <span>Total Due</span>
                     <span className="block text-[10px] font-normal text-neutral-400 font-sans">

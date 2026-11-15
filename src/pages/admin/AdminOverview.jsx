@@ -36,7 +36,7 @@ export const AdminOverview = () => {
   if (loading || !metrics) {
     return (
       <div className="py-20 text-center text-neutral-400">
-        <div className="w-8 h-8 -2 -[#C5F36A] -t-transparent rounded-full animate-spin mx-auto mb-3" />
+        <div className="w-8 h-8 border-2 border-[#C5F36A] border-t-transparent rounded-full animate-spin mx-auto mb-3" />
         Loading real database metrics...
       </div>
     );
@@ -59,7 +59,7 @@ export const AdminOverview = () => {
       {/* Primary Metrics Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         {/* Total Customers */}
-        <div className="p-6 rounded-3xl  backdrop-blur-2xl shadow-xl space-y-3">
+        <div className="bg-[#0c140f]/5 border border-white/15 p-6 rounded-3xl backdrop-blur-2xl shadow-xl space-y-3">
           <div className="flex items-center justify-between">
             <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-neutral-400">
               Registered Customers
@@ -75,7 +75,7 @@ export const AdminOverview = () => {
         </div>
 
         {/* Total Revenue */}
-        <div className="p-6 rounded-3xl  backdrop-blur-2xl shadow-xl space-y-3">
+        <div className="bg-[#0c140f]/5 border border-white/15 p-6 rounded-3xl backdrop-blur-2xl shadow-xl space-y-3">
           <div className="flex items-center justify-between">
             <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-neutral-400">
               Total Revenue
@@ -91,7 +91,7 @@ export const AdminOverview = () => {
         </div>
 
         {/* Active Servers */}
-        <div className="p-6 rounded-3xl  backdrop-blur-2xl shadow-xl space-y-3">
+        <div className="bg-[#0c140f]/5 border border-white/15 p-6 rounded-3xl backdrop-blur-2xl shadow-xl space-y-3">
           <div className="flex items-center justify-between">
             <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-neutral-400">
               Active Servers
@@ -107,7 +107,7 @@ export const AdminOverview = () => {
         </div>
 
         {/* Open Support Tickets */}
-        <div className="p-6 rounded-3xl  backdrop-blur-2xl shadow-xl space-y-3">
+        <div className="bg-[#0c140f]/5 border border-white/15 p-6 rounded-3xl backdrop-blur-2xl shadow-xl space-y-3">
           <div className="flex items-center justify-between">
             <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-neutral-400">
               Support Desk
@@ -125,7 +125,7 @@ export const AdminOverview = () => {
 
       {/* Orders & System Health Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className="p-6 rounded-3xl  backdrop-blur-2xl space-y-4 shadow-xl">
+        <div className="bg-[#0c140f]/5 border border-white/15 p-6 rounded-3xl backdrop-blur-2xl space-y-4 shadow-xl">
           <h3 className="text-sm font-bold text-white flex items-center gap-2">
             <ShoppingBag className="w-4 h-4 text-[#C5F36A]" />
             Order Statistics
@@ -146,7 +146,7 @@ export const AdminOverview = () => {
           </div>
         </div>
 
-        <div className="p-6 rounded-3xl  backdrop-blur-2xl space-y-4 shadow-xl">
+        <div className="bg-[#0c140f]/5 border border-white/15 p-6 rounded-3xl backdrop-blur-2xl space-y-4 shadow-xl">
           <h3 className="text-sm font-bold text-white flex items-center gap-2">
             <Activity className="w-4 h-4 text-emerald-400" />
             Infrastructure Gateway

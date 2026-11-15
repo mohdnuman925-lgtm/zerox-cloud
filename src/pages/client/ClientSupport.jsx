@@ -148,13 +148,13 @@ export const ClientSupport = () => {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Search tickets..."
-          className="w-full  backdrop-blur-2xl rounded-xl pl-10 pr-4 py-2 text-xs text-white placeholder-neutral-500 focus:outline-none"
+          className="w-full backdrop-blur-2xl rounded-xl pl-10 pr-4 py-2 text-xs text-white placeholder-neutral-500 focus:outline-none"
         />
       </div>
 
       {/* Tickets List / Empty State */}
       {filtered.length === 0 ? (
-        <div className="py-20 rounded-3xl  backdrop-blur-2xl text-center flex flex-col items-center justify-center p-8 space-y-2 text-neutral-400 shadow-xl">
+        <div className="bg-[#0c140f]/5 border border-white/15 py-20 rounded-3xl backdrop-blur-2xl text-center flex flex-col items-center justify-center p-8 space-y-2 text-neutral-400 shadow-xl">
           <LifeBuoy className="w-8 h-8 text-neutral-600 mb-2" />
           <h3 className="text-base font-bold text-white">No tickets yet</h3>
           <p className="text-xs text-neutral-500">
@@ -173,7 +173,7 @@ export const ClientSupport = () => {
             <div
               key={t.id}
               onClick={() => handleOpenThread(t)}
-              className="p-5 rounded-2xl  backdrop-blur-2xl transition duration-200 cursor-pointer flex items-center justify-between gap-4 group shadow-md"
+              className="bg-[#0c140f]/5 border border-white/15 p-5 rounded-2xl backdrop-blur-2xl transition duration-200 cursor-pointer flex items-center justify-between gap-4 group shadow-md"
             >
               <div className="flex items-center gap-4">
                 <div className="p-3 rounded-xl bg-white/5 text-[#C5F36A] group-hover:bg-[#C5F36A]/10 transition">
@@ -216,9 +216,9 @@ export const ClientSupport = () => {
       {/* Ticket Conversation Thread Modal */}
       {activeTicket && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fade-in">
-          <div className="w-full max-w-2xl rounded-3xl  backdrop-blur-2xl shadow-2xl overflow-hidden flex flex-col h-[560px]">
+          <div className="bg-[#0c140f]/5 border border-white/15 w-full max-w-2xl rounded-3xl backdrop-blur-2xl shadow-2xl overflow-hidden flex flex-col h-[560px]">
             {/* Header */}
-            <div className="p-4  backdrop-blur-2xl -b flex items-center justify-between">
+            <div className="p-4 backdrop-blur-2xl border-b border-white/10 flex items-center justify-between">
               <div>
                 <span className="text-[10px] font-mono text-[#C5F36A] uppercase font-bold">
                   {activeTicket.ticket_number} • {activeTicket.department}
@@ -266,7 +266,7 @@ export const ClientSupport = () => {
             </div>
 
             {/* Reply Input */}
-            <form onSubmit={handleSendReply} className="p-3  backdrop-blur-2xl -t flex gap-2">
+            <form onSubmit={handleSendReply} className="p-3 backdrop-blur-2xl border-t border-white/10 flex gap-2">
               <input
                 type="text"
                 value={replyInput}
@@ -289,7 +289,7 @@ export const ClientSupport = () => {
       {/* New Ticket Modal */}
       {newModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fade-in">
-          <div className="w-full max-w-lg p-6 rounded-3xl  backdrop-blur-2xl shadow-2xl text-white space-y-4">
+          <div className="bg-[#0c140f]/5 border border-white/15 w-full max-w-lg p-6 rounded-3xl backdrop-blur-2xl shadow-2xl text-white space-y-4">
             <div className="flex items-center justify-between">
               <h3 className="text-base font-bold text-white">Open Support Ticket</h3>
               <button

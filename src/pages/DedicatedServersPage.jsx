@@ -42,7 +42,7 @@ export const DedicatedServersPage = () => {
             return (
               <div
                 key={plan.id}
-                className="p-8 rounded-3xl bg-[#0c140f]/5 backdrop-blur-2xl transition duration-300 flex flex-col justify-between shadow-[0_16px_48px_rgba(0,0,0,0.35)] hover:-translate-y-1"
+                className="p-8 rounded-3xl border border-white/15 bg-[#0c140f]/5 backdrop-blur-2xl transition duration-300 flex flex-col justify-between shadow-[0_16px_48px_rgba(0,0,0,0.35)] hover:-translate-y-1"
               >
                 <div>
                   <div className="flex items-center justify-between mb-4">

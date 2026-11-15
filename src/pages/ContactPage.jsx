@@ -32,7 +32,7 @@ export const ContactPage = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div className="space-y-6">
-            <div className="p-6 rounded-3xl  backdrop-blur-2xl space-y-4 shadow-xl">
+            <div className="bg-[#0c140f]/5 border border-white/15 p-6 rounded-3xl backdrop-blur-2xl space-y-4 shadow-xl">
               <h3 className="text-base font-bold text-white">Direct Contacts</h3>
 
               <div className="space-y-3 text-xs text-neutral-300">
@@ -52,7 +52,7 @@ export const ContactPage = () => {
             </div>
           </div>
 
-          <form onSubmit={handleSubmit} className="p-6 rounded-3xl  backdrop-blur-2xl space-y-4 shadow-xl text-xs">
+          <form onSubmit={handleSubmit} className="bg-[#0c140f]/5 border border-white/15 p-6 rounded-3xl backdrop-blur-2xl space-y-4 shadow-xl text-xs">
             {sent && (
               <div className="p-3 rounded-xl bg-emerald-500/20 text-emerald-300 flex items-center gap-2">
                 <CheckCircle className="w-4 h-4" />

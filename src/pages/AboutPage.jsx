@@ -18,7 +18,7 @@ export const AboutPage = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="p-6 rounded-3xl  backdrop-blur-2xl space-y-3">
+          <div className="bg-[#0c140f]/5 border border-white/15 p-6 rounded-3xl backdrop-blur-2xl space-y-3">
             <Zap className="w-6 h-6 text-[#C5F36A]" />
             <h3 className="text-lg font-bold text-white">Sub-15ms Local Edge</h3>
             <p className="text-xs text-neutral-400 leading-relaxed">
@@ -26,7 +26,7 @@ export const AboutPage = () => {
             </p>
           </div>
 
-          <div className="p-6 rounded-3xl  backdrop-blur-2xl space-y-3">
+          <div className="bg-[#0c140f]/5 border border-white/15 p-6 rounded-3xl backdrop-blur-2xl space-y-3">
             <Cpu className="w-6 h-6 text-cyan-400" />
             <h3 className="text-lg font-bold text-white">High Single-Core Speeds</h3>
             <p className="text-xs text-neutral-400 leading-relaxed">
@@ -34,7 +34,7 @@ export const AboutPage = () => {
             </p>
           </div>
 
-          <div className="p-6 rounded-3xl  backdrop-blur-2xl space-y-3">
+          <div className="bg-[#0c140f]/5 border border-white/15 p-6 rounded-3xl backdrop-blur-2xl space-y-3">
             <ShieldCheck className="w-6 h-6 text-emerald-400" />
             <h3 className="text-lg font-bold text-white">Active DDoS Scrubbing</h3>
             <p className="text-xs text-neutral-400 leading-relaxed">

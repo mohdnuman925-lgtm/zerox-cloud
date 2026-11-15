@@ -56,7 +56,7 @@ export const FAQSection = () => {
                 animation="fade-up"
                 delay={i * 60}
               >
-                <div className="rounded-2xl bg-[#0c140f]/5 backdrop-blur-2xl shadow-lg overflow-hidden transition-all duration-200">
+                <div className="rounded-2xl border border-white/15 bg-[#0c140f]/5 backdrop-blur-2xl shadow-lg overflow-hidden transition-all duration-200">
                   <button
                     onClick={() => setOpenIndex(isOpen ? -1 : i)}
                     className="w-full p-5 text-left flex items-center justify-between gap-4 font-bold text-sm sm:text-base text-white hover:text-[#C5F36A] transition"

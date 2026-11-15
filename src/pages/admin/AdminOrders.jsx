@@ -50,10 +50,10 @@ export const AdminOrders = () => {
         </button>
       </div>
 
-      <div className="rounded-3xl  backdrop-blur-2xl overflow-hidden shadow-xl">
+      <div className="bg-[#0c140f]/5 border border-white/15 rounded-3xl backdrop-blur-2xl overflow-hidden shadow-xl">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-black/30 -b text-neutral-400 font-mono text-[10px] uppercase">
+            <thead className="bg-black/30 border-b border-white/10 text-neutral-400 font-mono text-[10px] uppercase">
               <tr>
                 <th className="p-4 pl-6">ORDER NUMBER</th>
                 <th className="p-4">CUSTOMER</th>

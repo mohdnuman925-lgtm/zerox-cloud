@@ -5,7 +5,7 @@ import { BrandLogo } from './BrandLogo';
 
 export const Footer = () => {
   return (
-    <footer className="relative bg-[#060807] -t text-neutral-400 text-xs">
+    <footer className="relative bg-[#060807] border-t border-white/10 text-neutral-400 text-xs">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
           {/* Brand Info */}
@@ -121,7 +121,7 @@ export const Footer = () => {
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-12 pt-8 -t flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-neutral-500">
+        <div className="mt-12 pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-neutral-500">
           <p>© {new Date().getFullYear()} ZEROX CLOUD. All rights reserved.</p>
           <div className="flex items-center gap-4">
             <button

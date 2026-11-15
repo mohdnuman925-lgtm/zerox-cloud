@@ -495,7 +495,7 @@ export const GlobalInfrastructure = () => {
                   <button
                     key={loc.id}
                     onClick={() => handleFocusLocation(loc)}
-                    className={`p-4 rounded-2xl bg-[#0c140f]/5 backdrop-blur-2xl transition duration-200 flex items-center justify-between shadow-lg text-left w-full hover:-translate-y-0.5 ${
+                    className={`p-4 rounded-2xl border border-white/15 bg-[#0c140f]/5 backdrop-blur-2xl transition duration-200 flex items-center justify-between shadow-lg text-left w-full hover:-translate-y-0.5 ${
                       isSelected ? 'ring-1 ring-[#C5F36A] shadow-[0_0_25px_rgba(197,243,106,0.2)]' : ''
                     }`}
                   >

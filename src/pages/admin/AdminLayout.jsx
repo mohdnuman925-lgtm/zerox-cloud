@@ -28,7 +28,7 @@ export const AdminLayout = () => {
   if (!user || (!isAdmin && !isStaff)) {
     return (
       <div className="min-h-screen flex items-center justify-center p-6 bg-[#080B0A] text-white">
-        <div className="max-w-md w-full p-8 rounded-3xl  backdrop-blur-2xl text-center space-y-4 shadow-2xl">
+        <div className="bg-[#0c140f]/5 border border-white/15 max-w-md w-full p-8 rounded-3xl backdrop-blur-2xl text-center space-y-4 shadow-2xl">
           <ShieldAlert className="w-12 h-12 text-red-500 mx-auto" />
           <h2 className="text-2xl font-bold text-white">Access Denied</h2>
           <p className="text-xs text-neutral-400">
@@ -95,7 +95,7 @@ export const AdminLayout = () => {
   return (
     <div className="min-h-screen flex bg-[#060807] text-white">
       {/* Admin Sidebar */}
-      <aside className="w-64 bg-[#0B0F0C] -r flex flex-col justify-between p-4 flex-shrink-0 z-20">
+      <aside className="w-64 bg-[#0B0F0C] border-r border-white/10 flex flex-col justify-between p-4 flex-shrink-0 z-20">
         <div className="space-y-6">
           {/* Header */}
           <Link to="/" className="flex items-center gap-2.5 px-2">
@@ -136,7 +136,7 @@ export const AdminLayout = () => {
         </div>
 
         {/* Sidebar Footer */}
-        <div className="space-y-3 pt-4 -t">
+        <div className="space-y-3 pt-4 border-t border-white/10">
           <Link
             to="/client/overview"
             className="flex items-center gap-2 px-3 py-2 rounded-xl text-xs text-neutral-400 hover:text-white hover:bg-white/5 transition"
@@ -168,7 +168,7 @@ export const AdminLayout = () => {
 
       {/* Admin Content Area */}
       <div className="flex-1 flex flex-col min-w-0 overflow-y-auto">
-        <header className="h-14 -b bg-[#0B0F0C]/60 backdrop-blur-2xl px-6 flex items-center justify-between">
+        <header className="h-14 border-b border-white/10 bg-[#0B0F0C]/60 backdrop-blur-2xl px-6 flex items-center justify-between">
           <div className="flex items-center gap-2 text-xs text-neutral-400">
             <ShieldCheck className="w-4 h-4 text-[#C5F36A]" />
             <span>Server Role: <strong className={`uppercase font-mono px-2 py-0.5 rounded text-[10px] ${getRoleBadgeStyle(user.role)}`}>{user.role}</strong></span>

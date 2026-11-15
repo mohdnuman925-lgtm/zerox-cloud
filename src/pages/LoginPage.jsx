@@ -64,7 +64,7 @@ export const LoginPage = () => {
   return (
     <div className="min-h-[calc(100vh-64px)] grid grid-cols-1 lg:grid-cols-2 relative z-10">
       {/* Left Pane: Selling points & Dark Charcoal */}
-      <div className="hidden lg:flex flex-col justify-between p-12 bg-[#060807] -r text-white">
+      <div className="hidden lg:flex flex-col justify-between p-12 bg-[#060807] border-r border-white/10 text-white">
         {/* Brand matching video frame 036 */}
         <div>
           <BrandLogo size="md" />
@@ -111,7 +111,7 @@ export const LoginPage = () => {
 
       {/* Right Pane: Login Form with Atmospheric Background */}
       <div className="flex items-center justify-center p-6 sm:p-12 relative">
-        <div className="w-full max-w-md p-8 sm:p-10 rounded-3xl bg-[#0c140f]/5 backdrop-blur-xl shadow-2xl text-white space-y-6">
+        <div className="w-full max-w-md p-8 sm:p-10 rounded-3xl border border-white/15 bg-[#0c140f]/5 backdrop-blur-xl shadow-2xl text-white space-y-6">
           <div className="text-left">
             <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight">Welcome back</h1>
             <p className="text-xs sm:text-sm text-neutral-400 mt-1">

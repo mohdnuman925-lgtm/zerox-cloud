@@ -211,7 +211,7 @@ export const GameComingSoon = ({ game = 'rust', onSelectMinecraft }) => {
       {/* Hero Coming Soon Card */}
       <ScrollReveal animation="fade-up">
         <div
-          className={`relative rounded-3xl overflow-hidden  bg-[#0c140f]/5 backdrop-blur-2xl ${config.accentGlow} p-6 sm:p-10 shadow-[0_16px_48px_rgba(0,0,0,0.35)]`}
+          className={`relative rounded-3xl border border-white/15 overflow-hidden  bg-[#0c140f]/5 backdrop-blur-2xl ${config.accentGlow} p-6 sm:p-10 shadow-[0_16px_48px_rgba(0,0,0,0.35)]`}
         >
           {/* Background image & gradient overlay */}
           <div
@@ -241,7 +241,7 @@ export const GameComingSoon = ({ game = 'rust', onSelectMinecraft }) => {
             {/* Title & Tagline with Game Logo */}
             <div className="max-w-3xl space-y-3">
               <div className="flex items-center gap-3.5 sm:gap-4">
-                <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-black/60 p-2 sm:p-2.5 flex items-center justify-center backdrop-blur-2xl shadow-2xl shrink-0">
+                <div className="border border-white/15 w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-black/60 p-2 sm:p-2.5 flex items-center justify-center backdrop-blur-2xl shadow-2xl shrink-0">
                   <GameLogo game={gameKey} className="w-full h-full" />
                 </div>
                 <div>
@@ -264,7 +264,7 @@ export const GameComingSoon = ({ game = 'rust', onSelectMinecraft }) => {
               {config.specNodes.map((spec, idx) => (
                 <div
                   key={idx}
-                  className="p-3.5 rounded-2xl bg-black/40 backdrop-blur-2xl space-y-1"
+                  className="border border-white/15 p-3.5 rounded-2xl bg-black/40 backdrop-blur-2xl space-y-1"
                 >
                   <span className="text-[10px] font-mono uppercase tracking-widest text-neutral-400 block">
                     {spec.label}
@@ -277,8 +277,8 @@ export const GameComingSoon = ({ game = 'rust', onSelectMinecraft }) => {
             </div>
 
             {/* Interactive Early Access & Notification Box */}
-            <div className="pt-4 -t">
-              <div className="p-5 sm:p-6 rounded-2xl bg-gradient-to-r from-black/60 to-black/30 max-w-2xl backdrop-blur-2xl space-y-4">
+            <div className="pt-4 border-t border-white/10">
+              <div className="border border-white/15 p-5 sm:p-6 rounded-2xl bg-gradient-to-r from-black/60 to-black/30 max-w-2xl backdrop-blur-2xl space-y-4">
                 <div className="flex items-center gap-2.5">
                   <Bell className={`w-5 h-5 ${config.accent}`} />
                   <div>
@@ -365,7 +365,7 @@ export const GameComingSoon = ({ game = 'rust', onSelectMinecraft }) => {
             const Icon = feat.icon;
             return (
               <ScrollReveal key={idx} animation="fade-up" delay={idx * 60}>
-                <div className="p-5 rounded-2xl bg-[#0c140f]/5 transition-all duration-300 backdrop-blur-xl h-full flex flex-col justify-between group space-y-3 shadow-[0_8px_24px_rgba(0,0,0,0.3)]">
+                <div className="p-5 rounded-2xl border border-white/15 bg-[#0c140f]/5 transition-all duration-300 backdrop-blur-xl h-full flex flex-col justify-between group space-y-3 shadow-[0_8px_24px_rgba(0,0,0,0.3)]">
                   <div className="space-y-3">
                     <div
                       className={`w-10 h-10 rounded-xl ${config.accentBg}  ${config.accentBorder} flex items-center justify-center transition group-hover:scale-110`}
@@ -404,7 +404,7 @@ export const GameComingSoon = ({ game = 'rust', onSelectMinecraft }) => {
           {config.plannedTiers.map((tier, idx) => (
             <ScrollReveal key={idx} animation="fade-up" delay={idx * 80}>
               <div
-                className={`p-6 rounded-3xl bg-[#0c140f]/5  backdrop-blur-2xl flex flex-col justify-between space-y-5 transition-all shadow-[0_12px_36px_rgba(0,0,0,0.35)] ${
+                className={`p-6 rounded-3xl border border-white/15 bg-[#0c140f]/5  backdrop-blur-2xl flex flex-col justify-between space-y-5 transition-all shadow-[0_12px_36px_rgba(0,0,0,0.35)] ${
                   tier.popular
                     ? ' '
                     : ' hover:'
@@ -432,7 +432,7 @@ export const GameComingSoon = ({ game = 'rust', onSelectMinecraft }) => {
                   </div>
                 </div>
 
-                <div className="pt-4 -t space-y-3">
+                <div className="pt-4 border-t border-white/10 space-y-3">
                   <div>
                     <span className="text-[10px] uppercase font-mono text-neutral-500 block">
                       Target Launch Pricing

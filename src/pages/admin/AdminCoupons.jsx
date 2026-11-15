@@ -139,9 +139,9 @@ export const AdminCoupons = () => {
         </div>
       )}
 
-      <div className="rounded-3xl  backdrop-blur-2xl overflow-hidden shadow-xl">
+      <div className="bg-[#0c140f]/5 border border-white/15 rounded-3xl backdrop-blur-2xl overflow-hidden shadow-xl">
         <table className="w-full text-left text-xs">
-          <thead className="bg-black/30 -b text-neutral-400 font-mono text-[10px] uppercase">
+          <thead className="bg-black/30 border-b border-white/10 text-neutral-400 font-mono text-[10px] uppercase">
             <tr>
               <th className="p-4 pl-6">COUPON CODE</th>
               <th className="p-4">DISCOUNT</th>
@@ -185,7 +185,7 @@ export const AdminCoupons = () => {
 
       {modalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fade-in">
-          <div className="w-full max-w-md p-6 rounded-3xl  backdrop-blur-2xl shadow-2xl text-white space-y-4">
+          <div className="bg-[#0c140f]/5 border border-white/15 w-full max-w-md p-6 rounded-3xl backdrop-blur-2xl shadow-2xl text-white space-y-4">
             <div className="flex items-center justify-between">
               <h3 className="text-base font-bold text-white">Create New Coupon</h3>
               <button onClick={() => setModalOpen(false)} className="text-neutral-400 hover:text-white">

@@ -98,9 +98,9 @@ export const AdminContent = () => {
         </div>
       )}
 
-      <form onSubmit={handleSubmit} className="p-8 rounded-3xl  backdrop-blur-2xl space-y-6 shadow-xl">
+      <form onSubmit={handleSubmit} className="bg-[#0c140f]/5 border border-white/15 p-8 rounded-3xl backdrop-blur-2xl space-y-6 shadow-xl">
         <div className="space-y-4">
-          <h3 className="text-sm font-bold text-white -b pb-2">
+          <h3 className="text-sm font-bold text-white border-b border-white/10 pb-2">
             Hero Section Copy
           </h3>
 
@@ -141,8 +141,8 @@ export const AdminContent = () => {
           </div>
         </div>
 
-        <div className="space-y-4 pt-4 -t">
-          <h3 className="text-sm font-bold text-white -b pb-2">
+        <div className="space-y-4 pt-4 border-t border-white/10">
+          <h3 className="text-sm font-bold text-white border-b border-white/10 pb-2">
             Welcome Discount Modal
           </h3>
 
@@ -185,8 +185,8 @@ export const AdminContent = () => {
           </div>
         </div>
 
-        <div className="space-y-4 pt-4 -t">
-          <h3 className="text-sm font-bold text-white -b pb-2">
+        <div className="space-y-4 pt-4 border-t border-white/10">
+          <h3 className="text-sm font-bold text-white border-b border-white/10 pb-2">
             Community &amp; Contact
           </h3>
 

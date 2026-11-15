@@ -303,7 +303,7 @@ export const AdminNodes = () => {
       {/* Fleet Summary Cards */}
       {summary && (
         <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          <div className="p-5 rounded-3xl  backdrop-blur-2xl shadow-xl space-y-1">
+          <div className="bg-[#0c140f]/5 border border-white/15 p-5 rounded-3xl backdrop-blur-2xl shadow-xl space-y-1">
             <span className="text-[11px] font-mono text-neutral-400 uppercase tracking-wider block">
               TOTAL FLEET NODES
             </span>
@@ -318,7 +318,7 @@ export const AdminNodes = () => {
             </p>
           </div>
 
-          <div className="p-5 rounded-3xl  backdrop-blur-2xl shadow-xl space-y-1">
+          <div className="bg-[#0c140f]/5 border border-white/15 p-5 rounded-3xl backdrop-blur-2xl shadow-xl space-y-1">
             <span className="text-[11px] font-mono text-neutral-400 uppercase tracking-wider block">
               FLEET RAM ALLOCATION
             </span>
@@ -336,7 +336,7 @@ export const AdminNodes = () => {
             </div>
           </div>
 
-          <div className="p-5 rounded-3xl  backdrop-blur-2xl shadow-xl space-y-1">
+          <div className="bg-[#0c140f]/5 border border-white/15 p-5 rounded-3xl backdrop-blur-2xl shadow-xl space-y-1">
             <span className="text-[11px] font-mono text-neutral-400 uppercase tracking-wider block">
               NVMe STORAGE POOL
             </span>
@@ -354,7 +354,7 @@ export const AdminNodes = () => {
             </div>
           </div>
 
-          <div className="p-5 rounded-3xl  backdrop-blur-2xl shadow-xl space-y-1">
+          <div className="bg-[#0c140f]/5 border border-white/15 p-5 rounded-3xl backdrop-blur-2xl shadow-xl space-y-1">
             <span className="text-[11px] font-mono text-neutral-400 uppercase tracking-wider block">
               ACTIVE INSTANCES
             </span>
@@ -374,7 +374,7 @@ export const AdminNodes = () => {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search by node name, FQDN domain, IP address, or location..."
-            className="w-full px-4 py-2.5 rounded-xl  backdrop-blur-2xl text-xs text-white placeholder-neutral-500 focus:outline-none transition"
+            className="w-full px-4 py-2.5 rounded-xl backdrop-blur-2xl text-xs text-white placeholder-neutral-500 focus:outline-none transition"
           />
         </div>
 
@@ -415,11 +415,11 @@ export const AdminNodes = () => {
       {/* Nodes Cards Grid */}
       {loading ? (
         <div className="py-20 text-center text-neutral-400 space-y-3">
-          <div className="w-8 h-8 -2 -[#C5F36A] -t-transparent rounded-full animate-spin mx-auto" />
+          <div className="w-8 h-8 border-2 border-[#C5F36A] border-t-transparent rounded-full animate-spin mx-auto" />
           <p className="text-xs">Inspecting daemon endpoints and fleet allocations...</p>
         </div>
       ) : filteredNodes.length === 0 ? (
-        <div className="p-16 rounded-3xl  backdrop-blur-2xl text-center space-y-4 shadow-2xl">
+        <div className="bg-[#0c140f]/5 border border-white/15 p-16 rounded-3xl backdrop-blur-2xl text-center space-y-4 shadow-2xl">
           <div className="w-16 h-16 rounded-2xl bg-white/5 flex items-center justify-center mx-auto text-neutral-400">
             <Server className="w-8 h-8 text-[#C5F36A]" />
           </div>
@@ -458,7 +458,7 @@ export const AdminNodes = () => {
             return (
               <div
                 key={node.id}
-                className={`p-6 rounded-3xl  backdrop-blur-2xl  transition-all duration-200 flex flex-col justify-between shadow-xl space-y-6 ${
+                className={`border border-white/15 p-6 rounded-3xl  backdrop-blur-2xl  transition-all duration-200 flex flex-col justify-between shadow-xl space-y-6 ${
                   isMaintenance
                     ? ' bg-[#161510]'
                     : ' hover:'
@@ -560,7 +560,7 @@ export const AdminNodes = () => {
                 </div>
 
                 {/* Resource Limits & Usage Bars */}
-                <div className="space-y-3.5 pt-2 -t">
+                <div className="space-y-3.5 pt-2 border-t border-white/10">
                   {/* Memory Usage */}
                   <div className="space-y-1.5">
                     <div className="flex items-center justify-between text-xs">
@@ -640,7 +640,7 @@ export const AdminNodes = () => {
                 </div>
 
                 {/* Card Action Footer */}
-                <div className="pt-4 -t flex items-center justify-between gap-3 text-xs">
+                <div className="pt-4 border-t border-white/10 flex items-center justify-between gap-3 text-xs">
                   <button
                     onClick={() => handleViewServers(node)}
                     className="flex items-center gap-1.5 text-xs font-semibold text-neutral-300 hover:text-white transition"
@@ -665,8 +665,8 @@ export const AdminNodes = () => {
       {/* CREATE & EDIT NODE MODAL */}
       {modalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-2xl overflow-y-auto">
-          <div className="w-full max-w-2xl my-8 p-6 sm:p-8 rounded-3xl  backdrop-blur-2xl shadow-2xl text-white space-y-6">
-            <div className="flex items-center justify-between pb-4 -b">
+          <div className="bg-[#0c140f]/5 border border-white/15 w-full max-w-2xl my-8 p-6 sm:p-8 rounded-3xl backdrop-blur-2xl shadow-2xl text-white space-y-6">
+            <div className="flex items-center justify-between pb-4 border-b border-white/10">
               <div className="flex items-center gap-2.5">
                 <div className="w-9 h-9 rounded-xl bg-[#C5F36A]/10 flex items-center justify-center text-[#C5F36A]">
                   <Server className="w-5 h-5" />
@@ -770,7 +770,7 @@ export const AdminNodes = () => {
               </div>
 
               {/* Section 2: Daemon & Port Settings */}
-              <div className="space-y-3 pt-3 -t">
+              <div className="space-y-3 pt-3 border-t border-white/10">
                 <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-cyan-400">
                   2. DAEMON (WINGS) &amp; PORTS
                 </h4>
@@ -867,7 +867,7 @@ export const AdminNodes = () => {
               </div>
 
               {/* Section 3: Resource Limits & Overcommit */}
-              <div className="space-y-3 pt-3 -t">
+              <div className="space-y-3 pt-3 border-t border-white/10">
                 <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-purple-400">
                   3. MEMORY &amp; DISK LIMITS
                 </h4>
@@ -938,7 +938,7 @@ export const AdminNodes = () => {
               </div>
 
               {/* Section 4: Maintenance & Notes */}
-              <div className="space-y-3 pt-3 -t">
+              <div className="space-y-3 pt-3 border-t border-white/10">
                 <div className="flex items-center gap-3 p-3 rounded-2xl bg-black/30">
                   <input
                     type="checkbox"
@@ -974,7 +974,7 @@ export const AdminNodes = () => {
               </div>
 
               {/* Action Buttons */}
-              <div className="pt-4 -t flex items-center justify-end gap-3">
+              <div className="pt-4 border-t border-white/10 flex items-center justify-end gap-3">
                 <button
                   type="button"
                   onClick={() => setModalOpen(false)}
@@ -998,8 +998,8 @@ export const AdminNodes = () => {
       {/* VIEW DEPLOYED INSTANCES MODAL */}
       {serversModalNode && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-2xl">
-          <div className="w-full max-w-3xl max-h-[85vh] flex flex-col p-6 rounded-3xl  backdrop-blur-2xl shadow-2xl text-white">
-            <div className="flex items-center justify-between pb-4 -b">
+          <div className="bg-[#0c140f]/5 border border-white/15 w-full max-w-3xl max-h-[85vh] flex flex-col p-6 rounded-3xl backdrop-blur-2xl shadow-2xl text-white">
+            <div className="flex items-center justify-between pb-4 border-b border-white/10">
               <div>
                 <h3 className="text-base font-bold text-white flex items-center gap-2">
                   <Layers className="w-4 h-4 text-[#C5F36A]" />
@@ -1029,7 +1029,7 @@ export const AdminNodes = () => {
               ) : (
                 <div className="overflow-x-auto">
                   <table className="w-full text-left text-xs">
-                    <thead className="bg-black/40 text-neutral-400 font-mono text-[10px] uppercase -b">
+                    <thead className="bg-black/40 text-neutral-400 font-mono text-[10px] uppercase border-b border-white/10">
                       <tr>
                         <th className="p-3 pl-4">SERVICE ID</th>
                         <th className="p-3">SERVER NAME</th>
@@ -1060,7 +1060,7 @@ export const AdminNodes = () => {
               )}
             </div>
 
-            <div className="pt-4 -t flex justify-end">
+            <div className="pt-4 border-t border-white/10 flex justify-end">
               <button
                 onClick={() => setServersModalNode(null)}
                 className="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/15 text-white font-medium text-xs transition"

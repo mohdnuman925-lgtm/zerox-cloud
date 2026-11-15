@@ -90,7 +90,7 @@ export const ClientOverview = () => {
         {/* Card 1: Active Servers */}
         <div
           onClick={() => navigate('/client/servers')}
-          className="p-6 rounded-3xl  backdrop-blur-2xl transition duration-200 cursor-pointer group shadow-xl flex flex-col justify-between min-h-[160px]"
+          className="bg-[#0c140f]/5 border border-white/15 p-6 rounded-3xl backdrop-blur-2xl transition duration-200 cursor-pointer group shadow-xl flex flex-col justify-between min-h-[160px]"
         >
           <div className="flex items-start justify-between">
             <div className="p-3 rounded-2xl bg-white/5 text-white group-hover:text-[#C5F36A] group- transition">
@@ -115,7 +115,7 @@ export const ClientOverview = () => {
         {/* Card 2: Open Tickets */}
         <div
           onClick={() => navigate('/client/support')}
-          className="p-6 rounded-3xl  backdrop-blur-2xl transition duration-200 cursor-pointer group shadow-xl flex flex-col justify-between min-h-[160px]"
+          className="bg-[#0c140f]/5 border border-white/15 p-6 rounded-3xl backdrop-blur-2xl transition duration-200 cursor-pointer group shadow-xl flex flex-col justify-between min-h-[160px]"
         >
           <div className="flex items-start justify-between">
             <div className="p-3 rounded-2xl bg-white/5 text-white group-hover:text-[#C5F36A] group- transition">
@@ -140,7 +140,7 @@ export const ClientOverview = () => {
         {/* Card 3: Total Spent */}
         <div
           onClick={() => navigate('/client/billing')}
-          className="p-6 rounded-3xl  backdrop-blur-2xl transition duration-200 cursor-pointer group shadow-xl flex flex-col justify-between min-h-[160px]"
+          className="bg-[#0c140f]/5 border border-white/15 p-6 rounded-3xl backdrop-blur-2xl transition duration-200 cursor-pointer group shadow-xl flex flex-col justify-between min-h-[160px]"
         >
           <div className="flex items-start justify-between">
             <div className="p-3 rounded-2xl bg-white/5 text-white group-hover:text-[#C5F36A] group- transition">

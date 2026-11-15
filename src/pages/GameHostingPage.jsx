@@ -142,7 +142,7 @@ export const GameHostingPage = () => {
             <div className="flex flex-wrap gap-3">
               <button
                 onClick={() => setSelectedLocation('India (Noida & Mumbai)')}
-                className="flex items-center gap-2.5 px-5 py-2.5 rounded-2xl  backdrop-blur-2xl text-xs sm:text-sm font-semibold text-white shadow-[0_8px_30px_rgba(0,0,0,0.35)] backdrop-blur-2xl transition"
+                className="bg-[#0c140f]/5 border border-white/15 flex items-center gap-2.5 px-5 py-2.5 rounded-2xl backdrop-blur-2xl text-xs sm:text-sm font-semibold text-white shadow-[0_8px_30px_rgba(0,0,0,0.35)] backdrop-blur-2xl transition"
               >
                 <img src="/assets/india.png" alt="India" className="w-5 h-3.5 object-cover rounded-sm shadow" />
                 <span>India (Noida &amp; Mumbai)</span>
@@ -160,7 +160,7 @@ export const GameHostingPage = () => {
             </div>
 
             {/* Processor box container */}
-            <div className="p-4 sm:p-5 rounded-2xl bg-[#0e1611]/5 backdrop-blur-2xl shadow-[0_8px_32px_rgba(0,0,0,0.35)] space-y-3">
+            <div className="p-4 sm:p-5 rounded-2xl border border-white/15 bg-[#0e1611]/5 backdrop-blur-2xl shadow-[0_8px_32px_rgba(0,0,0,0.35)] space-y-3">
               <span className="text-[11px] font-mono font-bold tracking-wider text-neutral-400 block">
                 • SELECT YOUR PROCESSOR
               </span>
@@ -231,7 +231,7 @@ export const GameHostingPage = () => {
               <button
                 type="button"
                 onClick={() => handleGameSelect('minecraft')}
-                className={`flex items-center gap-3 px-5 py-3 rounded-2xl  text-xs sm:text-sm font-semibold transition-all shadow-[0_8px_30px_rgba(0,0,0,0.35)] backdrop-blur-2xl ${
+                className={`border border-white/15 flex items-center gap-3 px-5 py-3 rounded-2xl  text-xs sm:text-sm font-semibold transition-all shadow-[0_8px_30px_rgba(0,0,0,0.35)] backdrop-blur-2xl ${
                   selectedGame === 'minecraft'
                     ? 'bg-[#0e1812]/15   text-white shadow-[0_0_25px_-5px_rgba(197,243,106,0.3)]'
                     : 'bg-[#0c120e]/5  text-neutral-400 hover:text-white hover:bg-white/5'
@@ -255,7 +255,7 @@ export const GameHostingPage = () => {
               <button
                 type="button"
                 onClick={() => handleGameSelect('rust')}
-                className={`flex items-center gap-3 px-5 py-3 rounded-2xl  text-xs sm:text-sm font-semibold transition-all shadow-[0_8px_30px_rgba(0,0,0,0.35)] backdrop-blur-2xl ${
+                className={`border border-white/15 flex items-center gap-3 px-5 py-3 rounded-2xl  text-xs sm:text-sm font-semibold transition-all shadow-[0_8px_30px_rgba(0,0,0,0.35)] backdrop-blur-2xl ${
                   selectedGame === 'rust'
                     ? 'bg-[#18110b]/15   text-white shadow-[0_0_25px_-5px_rgba(249,115,22,0.3)]'
                     : 'bg-[#0c120e]/5  text-neutral-400 hover:text-white hover:bg-white/5'
@@ -279,7 +279,7 @@ export const GameHostingPage = () => {
               <button
                 type="button"
                 onClick={() => handleGameSelect('cs2')}
-                className={`flex items-center gap-3 px-5 py-3 rounded-2xl  text-xs sm:text-sm font-semibold transition-all shadow-[0_8px_30px_rgba(0,0,0,0.35)] backdrop-blur-2xl ${
+                className={`border border-white/15 flex items-center gap-3 px-5 py-3 rounded-2xl  text-xs sm:text-sm font-semibold transition-all shadow-[0_8px_30px_rgba(0,0,0,0.35)] backdrop-blur-2xl ${
                   selectedGame === 'cs2'
                     ? 'bg-[#0b1419]/15   text-white shadow-[0_0_25px_-5px_rgba(56,189,248,0.3)]'
                     : 'bg-[#0c120e]/5  text-neutral-400 hover:text-white hover:bg-white/5'
@@ -360,7 +360,7 @@ export const GameHostingPage = () => {
                 </div>
 
                 {/* Featured Minecraft Plans Showcase Banner */}
-                <div className="p-4 sm:p-5 rounded-3xl bg-gradient-to-r from-emerald-950/10 via-[#0e1611]/5 to-black/5 backdrop-blur-2xl flex flex-col sm:flex-row items-center gap-5 shadow-[0_16px_40px_rgba(0,0,0,0.35)]">
+                <div className="border border-white/15 p-4 sm:p-5 rounded-3xl bg-gradient-to-r from-emerald-950/10 via-[#0e1611]/5 to-black/5 backdrop-blur-2xl flex flex-col sm:flex-row items-center gap-5 shadow-[0_16px_40px_rgba(0,0,0,0.35)]">
                   <div className="w-24 h-32 sm:w-28 sm:h-36 rounded-2xl overflow-hidden shadow-xl shrink-0">
                     <img
                       src={minecraftPlanImage}
@@ -388,7 +388,7 @@ export const GameHostingPage = () => {
 
                 {loading ? (
                   <div className="py-20 text-center text-neutral-400">
-                    <div className="w-8 h-8 -2 -[#C5F36A] -t-transparent rounded-full animate-spin mx-auto mb-3" />
+                    <div className="w-8 h-8 border-2 border-[#C5F36A] border-t-transparent rounded-full animate-spin mx-auto mb-3" />
                     Loading packages...
                   </div>
                 ) : (
@@ -405,7 +405,7 @@ export const GameHostingPage = () => {
                           className="h-full"
                         >
                         <div
-                          className="relative rounded-3xl bg-[#0b130e]/5 backdrop-blur-2xl transition-all duration-300 flex flex-col justify-between overflow-hidden shadow-[0_12px_36px_rgba(0,0,0,0.35)] hover:shadow-[0_16px_48px_rgba(0,0,0,0.55),0_0_25px_rgba(197,243,106,0.15)] hover:-translate-y-1 h-full"
+                          className="relative rounded-3xl border border-white/15 bg-[#0b130e]/5 backdrop-blur-2xl transition-all duration-300 flex flex-col justify-between overflow-hidden shadow-[0_12px_36px_rgba(0,0,0,0.35)] hover:shadow-[0_16px_48px_rgba(0,0,0,0.55),0_0_25px_rgba(197,243,106,0.15)] hover:-translate-y-1 h-full"
                         >
                           {/* Top Card Graphic Banner Header */}
                           <div className="h-48 relative overflow-hidden bg-black/40 rounded-t-3xl flex flex-col justify-between group">

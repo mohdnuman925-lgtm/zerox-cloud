@@ -57,9 +57,9 @@ export const CartDrawer = () => {
       />
 
       <div className="fixed inset-y-0 right-0 max-w-full flex pl-10">
-        <div className="w-screen max-w-md bg-[#0b130e]/5 backdrop-blur-2xl -l shadow-2xl flex flex-col text-white">
+        <div className="w-screen max-w-md bg-[#0b130e]/5 backdrop-blur-2xl border-l border-white/10 shadow-2xl flex flex-col text-white">
           {/* Header */}
-          <div className="p-5 -b backdrop-blur-xl flex items-center justify-between">
+          <div className="p-5 border-b border-white/10 backdrop-blur-xl flex items-center justify-between">
             <div className="flex items-center gap-2.5">
               <ShoppingCart className="w-5 h-5 text-[#C5F36A]" />
               <h3 className="text-lg font-bold">Your Order Cart</h3>
@@ -100,7 +100,7 @@ export const CartDrawer = () => {
                 return (
                   <div
                     key={item.key}
-                    className="p-4 rounded-2xl bg-white/[0.04] backdrop-blur-2xl flex flex-col gap-2 relative group transition"
+                    className="border border-white/15 p-4 rounded-2xl bg-white/[0.04] backdrop-blur-2xl flex flex-col gap-2 relative group transition"
                   >
                     <div className="flex items-start justify-between gap-3">
                       <div className="flex items-start gap-3">
@@ -135,7 +135,7 @@ export const CartDrawer = () => {
                       </button>
                     </div>
 
-                    <div className="flex items-center justify-between pt-2 -t mt-1">
+                    <div className="flex items-center justify-between pt-2 border-t border-white/10 mt-1">
                       {/* Quantity Controls */}
                       <div className="flex items-center gap-2 bg-black/40 px-2 py-1 rounded-lg">
                         <button
@@ -170,7 +170,7 @@ export const CartDrawer = () => {
 
           {/* Footer & Checkout Breakdown */}
           {items.length > 0 && (
-            <div className="p-5 bg-[#0e1611]/5 backdrop-blur-2xl -t space-y-4">
+            <div className="p-5 bg-[#0e1611]/5 backdrop-blur-2xl border-t border-white/10 space-y-4">
               {/* Coupon Form */}
               {coupon ? (
                 <div className="flex items-center justify-between p-2.5 px-3 rounded-xl bg-[#C5F36A]/10 text-xs">
@@ -234,7 +234,7 @@ export const CartDrawer = () => {
                     +{symbol}{gstAmount.toFixed(2)}
                   </span>
                 </div>
-                <div className="flex justify-between text-base font-bold text-white pt-2 -t">
+                <div className="flex justify-between text-base font-bold text-white pt-2 border-t border-white/10">
                   <span>Total Due Today</span>
                   <span className="font-mono text-[#C5F36A]">
                     {symbol}{total.toFixed(2)}

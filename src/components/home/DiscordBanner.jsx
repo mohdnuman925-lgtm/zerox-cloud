@@ -9,7 +9,7 @@ export const DiscordBanner = () => {
         <ScrollReveal
           animation="zoom-in"
           duration={800}
-          className="relative overflow-hidden rounded-3xl  backdrop-blur-2xl p-8 sm:p-12 flex flex-col md:flex-row items-center justify-between gap-8 backdrop-blur-2xl shadow-2xl"
+          className="bg-[#0c140f]/5 border border-white/15 relative overflow-hidden rounded-3xl backdrop-blur-2xl p-8 sm:p-12 flex flex-col md:flex-row items-center justify-between gap-8 backdrop-blur-2xl shadow-2xl"
         >
           <div className="space-y-4 max-w-xl text-center md:text-left relative z-10">
             <span className="text-xs font-mono font-bold uppercase tracking-wider text-neutral-400">

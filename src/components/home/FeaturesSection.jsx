@@ -63,7 +63,7 @@ export const FeaturesSection = () => {
                 delay={index * 80}
                 className="h-full"
               >
-                <div className="p-8 rounded-3xl bg-[#0c140f]/5 backdrop-blur-2xl transition-all duration-300 group shadow-xl flex flex-col justify-between h-full hover:-translate-y-1">
+                <div className="p-8 rounded-3xl border border-white/15 bg-[#0c140f]/5 backdrop-blur-2xl transition-all duration-300 group shadow-xl flex flex-col justify-between h-full hover:-translate-y-1">
                   <div>
                     <div className="w-11 h-11 rounded-2xl bg-white/5 flex items-center justify-center text-white mb-6 group-hover:bg-white group-hover:text-black transition">
                       <Icon className="w-5 h-5" />

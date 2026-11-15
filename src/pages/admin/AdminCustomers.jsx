@@ -196,7 +196,7 @@ export const AdminCustomers = () => {
           {isSuperAdmin && (
             <Link
               to="/admin/roles"
-              className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-[#C5F36A]/10 hover:bg-[#C5F36A]/20 text-xs text-[#C5F36A] font-bold transition"
+              className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bgborder border-[#C5F36A]/10 hover:bgborder border-[#C5F36A]/20 text-xs textborder border-[#C5F36A] font-bold transition"
             >
               <ShieldCheck className="w-4 h-4" />
               Manage Roles & Permissions
@@ -242,7 +242,7 @@ export const AdminCustomers = () => {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search by name or email..."
-            className="w-full  backdrop-blur-2xl rounded-xl pl-10 pr-4 py-2 text-xs text-white placeholder-neutral-500 focus:outline-none"
+            className="w-full backdrop-blur-2xl rounded-xl pl-10 pr-4 py-2 text-xs text-white placeholder-neutral-500 focus:outline-none"
           />
         </div>
 
@@ -267,7 +267,7 @@ export const AdminCustomers = () => {
                 onClick={() => setRoleFilter(r.id)}
                 className={`px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition flex items-center gap-1.5 ${
                   isSelected
-                    ? 'bg-[#C5F36A] text-black font-extrabold'
+                    ? 'bgborder border-[#C5F36A] text-black font-extrabold'
                     : 'bg-white/5 text-neutral-400 hover:text-white hover:bg-white/10'
                 }`}
               >
@@ -282,10 +282,10 @@ export const AdminCustomers = () => {
       </div>
 
       {/* Customers Table */}
-      <div className="rounded-3xl  backdrop-blur-2xl overflow-hidden shadow-xl">
+      <div className="bg-[#0c140f]/5 border border-white/15 rounded-3xl backdrop-blur-2xl overflow-hidden shadow-xl">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-black/30 -b text-neutral-400 font-mono text-[10px] uppercase">
+            <thead className="bg-black/30 border-b border-white/10 text-neutral-400 font-mono text-[10px] uppercase">
               <tr>
                 <th className="p-4 pl-6">USER & EMAIL</th>
                 <th className="p-4">ROLE & PRIVILEGES</th>
@@ -314,7 +314,7 @@ export const AdminCustomers = () => {
                           <p className="font-bold text-white flex items-center gap-1.5">
                             {c.name}
                             {isCurrentSuperAdmin && (
-                              <span className="text-[9px] font-mono text-[#C5F36A] bg-[#C5F36A]/10 px-1.5 py-0.2 rounded">
+                              <span className="text-[9px] font-mono textborder border-[#C5F36A] bgborder border-[#C5F36A]/10 px-1.5 py-0.2 rounded">
                                 (You)
                               </span>
                             )}
@@ -405,11 +405,11 @@ export const AdminCustomers = () => {
       {/* Modal: Edit User Role */}
       {roleModalUser && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fade-in">
-          <div className=" backdrop-blur-2xl rounded-3xl max-w-lg w-full p-6 sm:p-8 space-y-6 shadow-2xl relative">
+          <div className="bg-[#0c140f]/5 border border-white/15 backdrop-blur-2xl rounded-3xl max-w-lg w-full p-6 sm:p-8 space-y-6 shadow-2xl relative">
             {/* Header */}
-            <div className="flex items-center justify-between pb-4 -b">
+            <div className="flex items-center justify-between pb-4 border-b border-white/10">
               <div className="flex items-center gap-3">
-                <div className="p-2.5 rounded-2xl bg-[#C5F36A]/10 text-[#C5F36A]">
+                <div className="p-2.5 rounded-2xl bgborder border-[#C5F36A]/10 textborder border-[#C5F36A]">
                   <ShieldCheck className="w-6 h-6" />
                 </div>
                 <div>
@@ -456,14 +456,14 @@ export const AdminCustomers = () => {
                       onClick={() => setSelectedRole(r.id)}
                       className={`p-3.5 rounded-2xl  cursor-pointer transition flex items-start justify-between gap-3 ${
                         isSelected
-                          ? 'bg-[#C5F36A]/15 -[#C5F36A] text-white shadow-md'
+                          ? 'bgborder border-[#C5F36A]/15 border border-[#C5F36A] text-white shadow-md'
                           : 'bg-black/30  text-neutral-400 hover:'
                       }`}
                     >
                       <div className="space-y-1">
                         <div className="flex items-center gap-2">
                           {getRoleIcon(r.id)}
-                          <span className={`font-extrabold text-xs ${isSelected ? 'text-[#C5F36A]' : 'text-white'}`}>
+                          <span className={`font-extrabold text-xs ${isSelected ? 'textborder border-[#C5F36A]' : 'text-white'}`}>
                             {r.name}
                           </span>
                           <span className={`text-[9px] font-mono px-2 py-0.5 rounded-full font-bold uppercase ${getRoleBadgeStyle(r.id)}`}>
@@ -478,7 +478,7 @@ export const AdminCustomers = () => {
                       <div
                         className={`w-4 h-4 rounded-full mt-1 flex items-center justify-center flex-shrink-0  transition ${
                           isSelected
-                            ? 'bg-[#C5F36A] -[#C5F36A] text-black font-bold'
+                            ? 'bgborder border-[#C5F36A] border border-[#C5F36A] text-black font-bold'
                             : ''
                         }`}
                       >
@@ -490,7 +490,7 @@ export const AdminCustomers = () => {
               </div>
 
               {/* Submit Buttons */}
-              <div className="flex items-center justify-end gap-3 pt-4 -t">
+              <div className="flex items-center justify-end gap-3 pt-4 border-t border-white/10">
                 <button
                   type="button"
                   onClick={() => setRoleModalUser(null)}
@@ -501,7 +501,7 @@ export const AdminCustomers = () => {
                 <button
                   type="submit"
                   disabled={roleUpdating || selectedRole === roleModalUser.role}
-                  className="flex items-center gap-2 px-6 py-2.5 rounded-xl bg-[#C5F36A] hover:bg-[#b2e057] text-black font-extrabold text-xs shadow-lg shadow-[#C5F36A]/20 transition disabled:opacity-50"
+                  className="flex items-center gap-2 px-6 py-2.5 rounded-xl bgborder border-[#C5F36A] hover:bg-[#b2e057] text-black font-extrabold text-xs shadow-lg shadowborder border-[#C5F36A]/20 transition disabled:opacity-50"
                 >
                   {roleUpdating && <RefreshCw className="w-3.5 h-3.5 animate-spin" />}
                   Confirm Role Change

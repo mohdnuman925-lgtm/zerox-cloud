@@ -121,7 +121,7 @@ export const ClientServers = () => {
       </div>
 
       {/* Pterodactyl Panel Information Banner */}
-      <div className="p-4 rounded-2xl  backdrop-blur-2xl flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+      <div className="bg-[#0c140f]/5 border border-white/15 p-4 rounded-2xl backdrop-blur-2xl flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         <div className="flex items-center gap-3">
           <div className="p-2.5 rounded-xl bg-white/5 text-[#C5F36A] shrink-0">
             <Terminal className="w-4 h-4" />
@@ -158,7 +158,7 @@ export const ClientServers = () => {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search by server name, game, IP or node..."
-            className="w-full  backdrop-blur-2xl rounded-xl pl-10 pr-4 py-2 text-xs text-white placeholder-neutral-500 focus:outline-none"
+            className="w-full backdrop-blur-2xl rounded-xl pl-10 pr-4 py-2 text-xs text-white placeholder-neutral-500 focus:outline-none"
           />
         </div>
         <button
@@ -172,7 +172,7 @@ export const ClientServers = () => {
 
       {/* Services List / Empty State */}
       {filtered.length === 0 ? (
-        <div className="py-20 rounded-3xl  backdrop-blur-2xl text-center flex flex-col items-center justify-center p-8 space-y-3 shadow-xl">
+        <div className="bg-[#0c140f]/5 border border-white/15 py-20 rounded-3xl backdrop-blur-2xl text-center flex flex-col items-center justify-center p-8 space-y-3 shadow-xl">
           <div className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center text-neutral-500">
             <Server className="w-6 h-6" />
           </div>
@@ -196,10 +196,10 @@ export const ClientServers = () => {
             return (
               <div
                 key={srv.id}
-                className="p-6 rounded-3xl  backdrop-blur-2xl transition space-y-5 shadow-xl"
+                className="bg-[#0c140f]/5 border border-white/15 p-6 rounded-3xl backdrop-blur-2xl transition space-y-5 shadow-xl"
               >
                 {/* Top Info Bar */}
-                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 -b pb-4">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-white/10 pb-4">
                   <div className="flex items-center gap-3.5">
                     <div className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center text-[#C5F36A] flex-shrink-0">
                       <Server className="w-6 h-6" />
@@ -327,7 +327,7 @@ export const ClientServers = () => {
                 </div>
 
                 {/* Bottom Helper Bar */}
-                <div className="pt-3 -t flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-[11px] text-neutral-400">
+                <div className="pt-3 border-t border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-[11px] text-neutral-400">
                   <p>
                     <span>Server control &amp; terminal:</span> Use the <a href="https://panel.zeroxcloud.site" target="_blank" rel="noopener noreferrer" className="text-white underline hover:text-[#C5F36A]">Pterodactyl Panel</a> to start, stop, restart, upload mods, and view console logs.
                   </p>

@@ -27,7 +27,7 @@ export const ClientSettings = () => {
       </div>
 
       {/* Profile Details */}
-      <div className="p-6 rounded-3xl  backdrop-blur-2xl space-y-4 shadow-xl">
+      <div className="bg-[#0c140f]/5 border border-white/15 p-6 rounded-3xl backdrop-blur-2xl space-y-4 shadow-xl">
         <div className="flex items-center gap-3">
           <div className="p-2.5 rounded-xl bg-white/5 text-[#C5F36A]">
             <User className="w-5 h-5" />
@@ -63,7 +63,7 @@ export const ClientSettings = () => {
       </div>
 
       {/* Pterodactyl Panel Password */}
-      <div className="p-6 rounded-3xl  backdrop-blur-2xl flex items-center justify-between gap-4 shadow-xl">
+      <div className="bg-[#0c140f]/5 border border-white/15 p-6 rounded-3xl backdrop-blur-2xl flex items-center justify-between gap-4 shadow-xl">
         <div className="flex items-center gap-3">
           <div className="p-2.5 rounded-xl bg-white/5 text-[#C5F36A]">
             <Key className="w-5 h-5" />
@@ -84,7 +84,7 @@ export const ClientSettings = () => {
       </div>
 
       {/* Notifications */}
-      <div className="p-6 rounded-3xl  backdrop-blur-2xl space-y-4 shadow-xl">
+      <div className="bg-[#0c140f]/5 border border-white/15 p-6 rounded-3xl backdrop-blur-2xl space-y-4 shadow-xl">
         <div className="flex items-center gap-3">
           <div className="p-2.5 rounded-xl bg-white/5 text-[#C5F36A]">
             <Bell className="w-5 h-5" />

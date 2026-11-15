@@ -336,7 +336,7 @@ export const AdminProducts = () => {
           <button
             key={stat.id}
             onClick={() => setSelectedCategory(stat.id)}
-            className={`p-3.5 rounded-2xl text-left  transition-all backdrop-blur-xl ${
+            className={`border border-white/15 p-3.5 rounded-2xl text-left  transition-all backdrop-blur-xl ${
               selectedCategory === stat.id
                 ? 'bg-white/10  shadow-lg '
                 : ' backdrop-blur-2xl  hover:bg-white/5'
@@ -353,7 +353,7 @@ export const AdminProducts = () => {
       </div>
 
       {/* Filter and Search Bar */}
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-3 p-3 rounded-2xl bg-[#0e1611]/5 backdrop-blur-2xl">
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-3 p-3 rounded-2xl border border-white/15 bg-[#0e1611]/5 backdrop-blur-2xl">
         {/* Category Pills */}
         <div className="flex flex-wrap items-center gap-1.5 w-full sm:w-auto">
           {CATEGORIES.map((cat) => (
@@ -418,8 +418,8 @@ export const AdminProducts = () => {
       )}
 
       {/* Plans List Table */}
-      <div className="rounded-3xl bg-[#0e1611]/5 backdrop-blur-2xl shadow-[0_12px_40px_rgba(0,0,0,0.35)] overflow-hidden">
-        <div className="p-4 -b flex items-center justify-between text-xs text-neutral-400">
+      <div className="rounded-3xl border border-white/15 bg-[#0e1611]/5 backdrop-blur-2xl shadow-[0_12px_40px_rgba(0,0,0,0.35)] overflow-hidden">
+        <div className="p-4 border-b border-white/10 flex items-center justify-between text-xs text-neutral-400">
           <span>
             Showing <strong className="text-white">{filteredPlans.length}</strong> of{' '}
             <strong className="text-white">{plans.length}</strong> plans
@@ -428,7 +428,7 @@ export const AdminProducts = () => {
 
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-black/30 -b text-neutral-400 font-mono text-[10px] uppercase">
+            <thead className="bg-black/30 border-b border-white/10 text-neutral-400 font-mono text-[10px] uppercase">
               <tr>
                 <th className="p-4 pl-6">PLAN NAME</th>
                 <th className="p-4">CATEGORY</th>
@@ -562,8 +562,8 @@ export const AdminProducts = () => {
       {/* Plan Create/Edit Modal */}
       {modalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fade-in">
-          <div className="w-full max-w-xl p-6 rounded-3xl bg-[#0e1611]/5 backdrop-blur-2xl shadow-2xl text-white space-y-4 max-h-[92vh] overflow-y-auto">
-            <div className="flex items-center justify-between -b pb-3">
+          <div className="w-full max-w-xl p-6 rounded-3xl border border-white/15 bg-[#0e1611]/5 backdrop-blur-2xl shadow-2xl text-white space-y-4 max-h-[92vh] overflow-y-auto">
+            <div className="flex items-center justify-between border-b border-white/10 pb-3">
               <h3 className="text-base font-bold text-white flex items-center gap-2">
                 <Sparkles className="w-4 h-4 text-[#C5F36A]" />
                 {editPlan ? `Edit Plan: ${editPlan.name}` : 'Create New Hosting Plan'}
@@ -823,7 +823,7 @@ export const AdminProducts = () => {
                 </label>
               </div>
 
-              <div className="flex gap-2 pt-3 -t">
+              <div className="flex gap-2 pt-3 border-t border-white/10">
                 <button
                   type="submit"
                   disabled={submitting}

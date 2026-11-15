@@ -59,7 +59,7 @@ export const RegisterPage = () => {
   return (
     <div className="min-h-[calc(100vh-64px)] grid grid-cols-1 lg:grid-cols-2 relative z-10">
       {/* Left Pane */}
-      <div className="hidden lg:flex flex-col justify-between p-12 bg-[#060807] -r text-white">
+      <div className="hidden lg:flex flex-col justify-between p-12 bg-[#060807] border-r border-white/10 text-white">
         {/* Brand matching video frame 040 */}
         <div>
           <BrandLogo size="md" />
@@ -105,7 +105,7 @@ export const RegisterPage = () => {
 
       {/* Right Pane: Register Form */}
       <div className="flex items-center justify-center p-6 sm:p-12 relative">
-        <div className="w-full max-w-md p-8 sm:p-10 rounded-3xl bg-[#0c140f]/5 backdrop-blur-xl shadow-2xl text-white space-y-6">
+        <div className="w-full max-w-md p-8 sm:p-10 rounded-3xl border border-white/15 bg-[#0c140f]/5 backdrop-blur-xl shadow-2xl text-white space-y-6">
           <div className="text-left">
             <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight">Create your account</h1>
             <p className="text-xs sm:text-sm text-neutral-400 mt-1">
@@ -215,7 +215,7 @@ export const RegisterPage = () => {
             >
               {loading ? (
                 <>
-                  <div className="w-3.5 h-3.5 -2 -black -t-transparent rounded-full animate-spin" />
+                  <div className="w-3.5 h-3.5 border-2 border-black border-t-transparent rounded-full animate-spin" />
                   Creating account...
                 </>
               ) : (
