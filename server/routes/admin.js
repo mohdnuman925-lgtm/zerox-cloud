@@ -24,10 +24,19 @@ export const requireAdmin = (req, res, next) => {
 };
 
 export const requireSuperAdmin = (req, res, next) => {
-  if (!req.user || req.user.role !== 'super_admin') {
-    return res.status(403).json({ error: 'Access denied: Super Admin authorization required' });
+  if (!req.user) {
+    return res.status(401).json({ error: 'Authentication required' });
   }
-  next();
+  const db = getDB();
+  const userRole = req.user.role;
+  if (userRole === 'super_admin' || userRole === 'founder') {
+    return next();
+  }
+  const roleObj = (db.roles || []).find((r) => r.id === userRole);
+  if (roleObj && roleObj.permissions && (roleObj.permissions.includes('all') || roleObj.permissions.includes('manage_roles'))) {
+    return next();
+  }
+  return res.status(403).json({ error: 'Access denied: Super Admin or Founder authorization required' });
 };
 
 router.use(authenticateToken);

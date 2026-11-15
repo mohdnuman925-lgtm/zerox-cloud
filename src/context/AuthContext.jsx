@@ -105,8 +105,8 @@ export const AuthProvider = ({ children }) => {
     return data;
   };
 
-  const isSuperAdmin = user && user.role === 'super_admin';
-  const isFounder = user && (user.role === 'founder' || user.role === 'super_admin');
+  const isSuperAdmin = Boolean(user && (user.role === 'super_admin' || user.role === 'founder'));
+  const isFounder = Boolean(user && (user.role === 'founder' || user.role === 'super_admin'));
   const isAdmin = user && ['super_admin', 'founder', 'admin'].includes(user.role);
   const isStaff = user && ['super_admin', 'founder', 'admin', 'moderator', 'ticket_staff'].includes(user.role);
 

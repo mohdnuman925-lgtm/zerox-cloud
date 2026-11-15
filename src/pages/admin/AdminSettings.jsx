@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../context/AuthContext';
-import { Settings, Shield, Server, CreditCard, CheckCircle, Save } from 'lucide-react';
+import { Settings, Shield, Server, CreditCard, CheckCircle, Save, AlertTriangle, RefreshCw, X } from 'lucide-react';
 
 export const AdminSettings = () => {
   const { token } = useAuth();
   const [settings, setSettings] = useState(null);
   const [loading, setLoading] = useState(true);
   const [saved, setSaved] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState('');
 
   useEffect(() => {
     fetch('/api/admin/content', {
@@ -14,11 +16,15 @@ export const AdminSettings = () => {
     })
       .then((r) => r.json())
       .then((d) => setSettings(d.settings || {}))
+      .catch(() => setError('Failed to load system settings'))
       .finally(() => setLoading(false));
   }, [token]);
 
   const handleSave = async (e) => {
     e.preventDefault();
+    setSaved(false);
+    setError('');
+    setSaving(true);
     try {
       const res = await fetch('/api/admin/content', {
         method: 'PUT',
@@ -28,12 +34,17 @@ export const AdminSettings = () => {
         },
         body: JSON.stringify(settings)
       });
-      if (res.ok) {
-        setSaved(true);
-        setTimeout(() => setSaved(false), 2000);
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.error || 'Failed to update system settings');
       }
+      setSaved(true);
+      setTimeout(() => setSaved(false), 3000);
     } catch (err) {
       console.error(err);
+      setError(err.message || 'Error saving settings');
+    } finally {
+      setSaving(false);
     }
   };
 
@@ -57,11 +68,35 @@ export const AdminSettings = () => {
         </div>
 
         {saved && (
-          <span className="text-xs text-emerald-400 flex items-center gap-1">
+          <span className="text-xs text-[#C5F36A] flex items-center gap-1 font-bold">
             <CheckCircle className="w-4 h-4" /> System settings updated
           </span>
         )}
       </div>
+
+      {error && (
+        <div className="p-3.5 rounded-2xl bg-red-500/10 border border-red-500/30 text-red-400 text-xs flex items-center justify-between shadow-lg">
+          <span className="flex items-center gap-2">
+            <AlertTriangle className="w-4 h-4 shrink-0" />
+            {error}
+          </span>
+          <button onClick={() => setError('')} className="hover:text-white">
+            <X className="w-4 h-4" />
+          </button>
+        </div>
+      )}
+
+      {saved && (
+        <div className="p-3.5 rounded-2xl bg-[#C5F36A]/10 border border-[#C5F36A]/30 text-[#C5F36A] text-xs flex items-center justify-between shadow-lg">
+          <span className="flex items-center gap-2">
+            <CheckCircle className="w-4 h-4 shrink-0" />
+            System settings updated successfully!
+          </span>
+          <button onClick={() => setSaved(false)} className="hover:text-white">
+            <X className="w-4 h-4" />
+          </button>
+        </div>
+      )}
 
       <form onSubmit={handleSave} className="p-8 rounded-3xl bg-[#121814] border border-white/10 space-y-6 shadow-xl">
         {/* Pterodactyl Panel Adapter */}
@@ -138,10 +173,20 @@ export const AdminSettings = () => {
         <div className="pt-2">
           <button
             type="submit"
-            className="px-6 py-3 rounded-xl bg-white text-black font-bold text-xs hover:bg-[#C5F36A] transition flex items-center gap-2 shadow-lg"
+            disabled={saving}
+            className="px-6 py-3 rounded-xl bg-white text-black font-bold text-xs hover:bg-[#C5F36A] transition flex items-center gap-2 shadow-lg disabled:opacity-50"
           >
-            <Save className="w-4 h-4" />
-            Save System Settings
+            {saving ? (
+              <>
+                <RefreshCw className="w-4 h-4 animate-spin" />
+                Saving Settings...
+              </>
+            ) : (
+              <>
+                <Save className="w-4 h-4" />
+                Save System Settings
+              </>
+            )}
           </button>
         </div>
       </form>

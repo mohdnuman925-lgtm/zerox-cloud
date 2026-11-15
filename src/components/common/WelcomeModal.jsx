@@ -4,19 +4,41 @@ import { Sparkles, Copy, Check, X } from 'lucide-react';
 export const WelcomeModal = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [siteSettings, setSiteSettings] = useState(null);
 
   useEffect(() => {
-    const hasSeen = sessionStorage.getItem('zx_welcome_seen');
-    if (!hasSeen) {
-      const timer = setTimeout(() => {
-        setIsOpen(true);
-      }, 1200);
-      return () => clearTimeout(timer);
-    }
+    fetch('/api/products/settings')
+      .then((r) => r.json())
+      .then((d) => {
+        const s = d.settings || {};
+        setSiteSettings(s);
+        if (s.welcome_modal_enabled === false) {
+          return;
+        }
+        const hasSeen = sessionStorage.getItem('zx_welcome_seen');
+        if (!hasSeen) {
+          const timer = setTimeout(() => {
+            setIsOpen(true);
+          }, 1200);
+          return () => clearTimeout(timer);
+        }
+      })
+      .catch(() => {
+        const hasSeen = sessionStorage.getItem('zx_welcome_seen');
+        if (!hasSeen) {
+          const timer = setTimeout(() => {
+            setIsOpen(true);
+          }, 1200);
+          return () => clearTimeout(timer);
+        }
+      });
   }, []);
 
+  const couponCode = siteSettings?.welcome_coupon_code || 'ZEROXCLOUD';
+  const discountPercent = siteSettings?.welcome_discount_percent || 10;
+
   const handleCopy = () => {
-    navigator.clipboard.writeText('ZEROXCLOUD');
+    navigator.clipboard.writeText(couponCode);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
@@ -51,7 +73,7 @@ export const WelcomeModal = () => {
         </h3>
 
         <div className="my-3 text-4xl font-extrabold tracking-tight text-white">
-          10% OFF
+          {discountPercent}% OFF
         </div>
 
         <p className="text-sm text-neutral-400 mb-1">
@@ -64,7 +86,7 @@ export const WelcomeModal = () => {
         {/* Coupon Box */}
         <div className="flex items-center justify-between p-3 px-4 rounded-xl bg-black/40 border border-white/10 mb-4">
           <span className="font-mono font-bold tracking-wider text-base text-white">
-            ZEROXCLOUD
+            {couponCode}
           </span>
           <button
             onClick={handleCopy}

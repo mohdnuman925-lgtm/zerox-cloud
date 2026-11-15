@@ -17,7 +17,15 @@ import { scrollTo } from '../../hooks/useLenis';
 export const Hero = () => {
   const [activeTab, setActiveTab] = useState('games');
   const [scrollY, setScrollY] = useState(0);
+  const [siteSettings, setSiteSettings] = useState(null);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    fetch('/api/products/settings')
+      .then((r) => r.json())
+      .then((d) => setSiteSettings(d.settings || null))
+      .catch(() => {});
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -78,17 +86,19 @@ export const Hero = () => {
         {/* Systems Operational Badge */}
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs font-mono font-medium text-neutral-300 mb-8 backdrop-blur-md">
           <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-          <span className="tracking-wider uppercase">ALL SYSTEMS OPERATIONAL</span>
+          <span className="tracking-wider uppercase">
+            {siteSettings?.announcement_text || 'ALL SYSTEMS OPERATIONAL'}
+          </span>
         </div>
 
         {/* Big Bold Headline */}
         <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white max-w-4xl mx-auto leading-[1.08]">
-          Global cloud &amp; game server hosting.
+          {siteSettings?.hero_title || 'Global cloud & game server hosting.'}
         </h1>
 
         {/* Subtitle */}
         <p className="mt-6 text-sm sm:text-base text-neutral-300 max-w-2xl mx-auto leading-relaxed">
-          Experience lightning-fast performance, unbeatable reliability, and 24/7 support for all your favorite games.
+          {siteSettings?.hero_subtitle || 'Experience lightning-fast performance, unbeatable reliability, and 24/7 support for all your favorite games.'}
         </p>
 
         {/* Segmented Category Tabs */}

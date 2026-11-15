@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../context/AuthContext';
-import { FileCode, CheckCircle, Save } from 'lucide-react';
+import { FileCode, CheckCircle, Save, AlertTriangle, RefreshCw, X } from 'lucide-react';
 
 export const AdminContent = () => {
   const { token } = useAuth();
   const [settings, setSettings] = useState(null);
   const [loading, setLoading] = useState(true);
   const [saved, setSaved] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState('');
 
   useEffect(() => {
     fetch('/api/admin/content', {
@@ -14,12 +16,15 @@ export const AdminContent = () => {
     })
       .then((r) => r.json())
       .then((d) => setSettings(d.settings || {}))
+      .catch((err) => setError('Failed to load website content settings'))
       .finally(() => setLoading(false));
   }, [token]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSaved(false);
+    setError('');
+    setSaving(true);
     try {
       const res = await fetch('/api/admin/content', {
         method: 'PUT',
@@ -29,12 +34,17 @@ export const AdminContent = () => {
         },
         body: JSON.stringify(settings)
       });
-      if (res.ok) {
-        setSaved(true);
-        setTimeout(() => setSaved(false), 2500);
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.error || 'Failed to update website content');
       }
+      setSaved(true);
+      setTimeout(() => setSaved(false), 3500);
     } catch (err) {
       console.error(err);
+      setError(err.message || 'Error saving changes');
+    } finally {
+      setSaving(false);
     }
   };
 
@@ -58,11 +68,35 @@ export const AdminContent = () => {
         </div>
 
         {saved && (
-          <span className="text-xs text-emerald-400 flex items-center gap-1">
+          <span className="text-xs text-[#C5F36A] flex items-center gap-1 font-bold">
             <CheckCircle className="w-4 h-4" /> Changes saved to database
           </span>
         )}
       </div>
+
+      {error && (
+        <div className="p-3.5 rounded-2xl bg-red-500/10 border border-red-500/30 text-red-400 text-xs flex items-center justify-between shadow-lg">
+          <span className="flex items-center gap-2">
+            <AlertTriangle className="w-4 h-4 shrink-0" />
+            {error}
+          </span>
+          <button onClick={() => setError('')} className="hover:text-white">
+            <X className="w-4 h-4" />
+          </button>
+        </div>
+      )}
+
+      {saved && (
+        <div className="p-3.5 rounded-2xl bg-[#C5F36A]/10 border border-[#C5F36A]/30 text-[#C5F36A] text-xs flex items-center justify-between shadow-lg">
+          <span className="flex items-center gap-2">
+            <CheckCircle className="w-4 h-4 shrink-0" />
+            Content updated and live across the public store!
+          </span>
+          <button onClick={() => setSaved(false)} className="hover:text-white">
+            <X className="w-4 h-4" />
+          </button>
+        </div>
+      )}
 
       <form onSubmit={handleSubmit} className="p-8 rounded-3xl bg-[#121814] border border-white/10 space-y-6 shadow-xl">
         <div className="space-y-4">
@@ -185,10 +219,20 @@ export const AdminContent = () => {
         <div className="pt-4">
           <button
             type="submit"
-            className="px-6 py-3 rounded-xl bg-white text-black font-bold text-xs hover:bg-[#C5F36A] transition flex items-center gap-2 shadow-lg"
+            disabled={saving}
+            className="px-6 py-3 rounded-xl bg-white text-black font-bold text-xs hover:bg-[#C5F36A] transition flex items-center gap-2 shadow-lg disabled:opacity-50"
           >
-            <Save className="w-4 h-4" />
-            Save Website Changes
+            {saving ? (
+              <>
+                <RefreshCw className="w-4 h-4 animate-spin" />
+                Saving Changes...
+              </>
+            ) : (
+              <>
+                <Save className="w-4 h-4" />
+                Save Website Changes
+              </>
+            )}
           </button>
         </div>
       </form>

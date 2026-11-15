@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../context/AuthContext';
-import { Tag, Plus, Trash2, CheckCircle, X } from 'lucide-react';
+import { Tag, Plus, Trash2, CheckCircle, X, AlertTriangle, RefreshCw } from 'lucide-react';
 
 export const AdminCoupons = () => {
   const { token } = useAuth();
@@ -10,6 +10,9 @@ export const AdminCoupons = () => {
   const [discount, setDiscount] = useState(15);
   const [description, setDescription] = useState('');
   const [maxUses, setMaxUses] = useState(500);
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
+  const [submitting, setSubmitting] = useState(false);
 
   const fetchCoupons = async () => {
     try {
@@ -20,6 +23,7 @@ export const AdminCoupons = () => {
       setCoupons(data.coupons || []);
     } catch (err) {
       console.error(err);
+      setError('Failed to fetch coupons');
     }
   };
 
@@ -29,6 +33,8 @@ export const AdminCoupons = () => {
 
   const handleCreate = async (e) => {
     e.preventDefault();
+    setSubmitting(true);
+    setError('');
     try {
       const res = await fetch('/api/admin/coupons', {
         method: 'POST',
@@ -37,33 +43,48 @@ export const AdminCoupons = () => {
           Authorization: `Bearer ${token}`
         },
         body: JSON.stringify({
-          code,
+          code: code.trim().toUpperCase(),
           discount_percent: discount,
-          description,
+          description: description.trim(),
           max_uses: maxUses
         })
       });
-      if (res.ok) {
-        setModalOpen(false);
-        setCode('');
-        setDescription('');
-        await fetchCoupons();
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.error || 'Failed to create coupon');
       }
-    } catch (err) {
-      console.error(err);
-    }
-  };
 
-  const handleDelete = async (id) => {
-    if (!confirm('Delete this coupon?')) return;
-    try {
-      await fetch(`/api/admin/coupons/${id}`, {
-        method: 'DELETE',
-        headers: { Authorization: `Bearer ${token}` }
-      });
+      setModalOpen(false);
+      setCode('');
+      setDescription('');
+      setSuccess(`Coupon ${code.toUpperCase()} created successfully!`);
+      setTimeout(() => setSuccess(''), 3500);
       await fetchCoupons();
     } catch (err) {
       console.error(err);
+      setError(err.message || 'Error creating coupon');
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  const handleDelete = async (id, couponCode) => {
+    if (!confirm(`Delete coupon "${couponCode || id}"?`)) return;
+    setError('');
+    try {
+      const res = await fetch(`/api/admin/coupons/${id}`, {
+        method: 'DELETE',
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Failed to delete coupon');
+
+      setSuccess('Coupon deleted successfully.');
+      setTimeout(() => setSuccess(''), 3000);
+      await fetchCoupons();
+    } catch (err) {
+      console.error(err);
+      setError(err.message || 'Error deleting coupon');
     }
   };
 
@@ -83,13 +104,40 @@ export const AdminCoupons = () => {
         </div>
 
         <button
-          onClick={() => setModalOpen(true)}
+          onClick={() => {
+            setError('');
+            setModalOpen(true);
+          }}
           className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-white text-black font-bold text-xs hover:bg-[#C5F36A] transition shadow-lg"
         >
           <Plus className="w-4 h-4" />
           Create Coupon
         </button>
       </div>
+
+      {error && (
+        <div className="p-3.5 rounded-2xl bg-red-500/10 border border-red-500/30 text-red-400 text-xs flex items-center justify-between shadow-lg">
+          <span className="flex items-center gap-2">
+            <AlertTriangle className="w-4 h-4 shrink-0" />
+            {error}
+          </span>
+          <button onClick={() => setError('')} className="hover:text-white">
+            <X className="w-4 h-4" />
+          </button>
+        </div>
+      )}
+
+      {success && (
+        <div className="p-3.5 rounded-2xl bg-[#C5F36A]/10 border border-[#C5F36A]/30 text-[#C5F36A] text-xs flex items-center justify-between shadow-lg">
+          <span className="flex items-center gap-2">
+            <CheckCircle className="w-4 h-4 shrink-0" />
+            {success}
+          </span>
+          <button onClick={() => setSuccess('')} className="hover:text-white">
+            <X className="w-4 h-4" />
+          </button>
+        </div>
+      )}
 
       <div className="rounded-3xl bg-[#121814] border border-white/10 overflow-hidden shadow-xl">
         <table className="w-full text-left text-xs">
@@ -145,6 +193,13 @@ export const AdminCoupons = () => {
               </button>
             </div>
 
+            {error && (
+              <div className="p-3 rounded-xl bg-red-500/15 border border-red-500/30 text-red-400 text-xs flex items-center gap-2">
+                <AlertTriangle className="w-4 h-4 shrink-0" />
+                <span>{error}</span>
+              </div>
+            )}
+
             <form onSubmit={handleCreate} className="space-y-4 text-xs">
               <div>
                 <label className="block text-[11px] font-mono text-neutral-400 mb-1">COUPON CODE</label>
@@ -197,14 +252,23 @@ export const AdminCoupons = () => {
               <div className="flex gap-2 pt-2">
                 <button
                   type="submit"
-                  className="flex-1 py-2.5 rounded-xl bg-white text-black font-bold text-xs hover:bg-[#C5F36A] transition"
+                  disabled={submitting}
+                  className="flex-1 py-2.5 rounded-xl bg-white text-black font-bold text-xs hover:bg-[#C5F36A] transition disabled:opacity-50 flex items-center justify-center gap-2"
                 >
-                  Create
+                  {submitting ? (
+                    <>
+                      <RefreshCw className="w-3.5 h-3.5 animate-spin" />
+                      Creating...
+                    </>
+                  ) : (
+                    'Create Coupon'
+                  )}
                 </button>
                 <button
                   type="button"
+                  disabled={submitting}
                   onClick={() => setModalOpen(false)}
-                  className="px-4 py-2.5 rounded-xl bg-white/10 text-white text-xs hover:bg-white/15 transition"
+                  className="px-4 py-2.5 rounded-xl bg-white/10 text-white text-xs hover:bg-white/15 transition disabled:opacity-50"
                 >
                   Cancel
                 </button>

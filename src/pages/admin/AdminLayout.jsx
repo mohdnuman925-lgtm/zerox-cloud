@@ -69,7 +69,7 @@ export const AdminLayout = () => {
   ];
 
   const adminNav = allNav.filter((item) => {
-    if (user.role === 'super_admin') return true;
+    if (user.role === 'super_admin' || user.role === 'founder') return true;
     if (item.superAdminOnly) return false;
     if (item.minRoles && !item.minRoles.includes(user.role)) return false;
     return true;

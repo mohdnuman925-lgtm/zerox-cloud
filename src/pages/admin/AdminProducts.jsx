@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../context/AuthContext';
-import { Layers, Plus, Edit2, Trash2, CheckCircle, X, RefreshCw } from 'lucide-react';
+import { Layers, Plus, Edit2, Trash2, CheckCircle, X, RefreshCw, AlertTriangle } from 'lucide-react';
 
 export const AdminProducts = () => {
   const { token } = useAuth();
@@ -8,6 +8,9 @@ export const AdminProducts = () => {
   const [loading, setLoading] = useState(true);
   const [editPlan, setEditPlan] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
+  const [submitting, setSubmitting] = useState(false);
 
   // Form state
   const [formData, setFormData] = useState({
@@ -22,7 +25,8 @@ export const AdminProducts = () => {
     storage: '30 GB NVMe',
     location: 'India (Noida & Mumbai)',
     tag: 'GAMES',
-    badge: ''
+    badge: '',
+    image: '/assets/minecraft-plan-card.jpg'
   });
 
   const fetchPlans = async () => {
@@ -35,6 +39,7 @@ export const AdminProducts = () => {
       setPlans(data.plans || []);
     } catch (err) {
       console.error(err);
+      setError('Failed to load plans from server');
     } finally {
       setLoading(false);
     }
@@ -46,6 +51,7 @@ export const AdminProducts = () => {
 
   const handleOpenCreate = () => {
     setEditPlan(null);
+    setError('');
     setFormData({
       name: '',
       category: 'games',
@@ -58,17 +64,19 @@ export const AdminProducts = () => {
       storage: '30 GB NVMe',
       location: 'India (Noida & Mumbai)',
       tag: 'GAMES',
-      badge: ''
+      badge: '',
+      image: '/assets/minecraft-plan-card.jpg'
     });
     setModalOpen(true);
   };
 
   const handleOpenEdit = (plan) => {
     setEditPlan(plan);
+    setError('');
     setFormData({
       name: plan.name,
       category: plan.category,
-      game_slug: plan.game_slug || '',
+      game_slug: plan.game_slug || (plan.category === 'games' ? 'minecraft' : ''),
       processor: plan.processor || 'intel',
       price_inr: plan.price_inr,
       price_usd: plan.price_usd,
@@ -77,16 +85,26 @@ export const AdminProducts = () => {
       storage: plan.storage,
       location: plan.location,
       tag: plan.tag || '',
-      badge: plan.badge || ''
+      badge: plan.badge || '',
+      image: plan.image || (plan.game_slug === 'minecraft' ? '/assets/minecraft-plan-card.jpg' : '')
     });
     setModalOpen(true);
   };
 
   const handleSave = async (e) => {
     e.preventDefault();
+    setSubmitting(true);
+    setError('');
     try {
       const url = editPlan ? `/api/admin/plans/${editPlan.id}` : '/api/admin/plans';
       const method = editPlan ? 'PUT' : 'POST';
+
+      const payload = {
+        ...formData,
+        price_inr: parseFloat(formData.price_inr) || 0,
+        price_usd: parseFloat(formData.price_usd) || 0,
+        game_slug: formData.category === 'games' ? formData.game_slug : null
+      };
 
       const res = await fetch(url, {
         method,
@@ -94,28 +112,41 @@ export const AdminProducts = () => {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`
         },
-        body: JSON.stringify(formData)
+        body: JSON.stringify(payload)
       });
 
-      if (res.ok) {
-        setModalOpen(false);
-        await fetchPlans();
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.error || 'Failed to save plan');
       }
+
+      setSuccess(`Plan "${formData.name}" saved successfully!`);
+      setTimeout(() => setSuccess(''), 4000);
+      setModalOpen(false);
+      await fetchPlans();
     } catch (err) {
-      console.error(err);
+      setError(err.message || 'Error saving plan');
+    } finally {
+      setSubmitting(false);
     }
   };
 
   const handleDelete = async (planId) => {
     if (!confirm('Are you sure you want to delete this plan?')) return;
+    setError('');
     try {
       const res = await fetch(`/api/admin/plans/${planId}`, {
         method: 'DELETE',
         headers: { Authorization: `Bearer ${token}` }
       });
-      if (res.ok) await fetchPlans();
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Failed to delete plan');
+
+      setSuccess('Plan deleted successfully.');
+      setTimeout(() => setSuccess(''), 3000);
+      await fetchPlans();
     } catch (err) {
-      console.error(err);
+      setError(err.message || 'Failed to delete plan');
     }
   };
 
@@ -134,14 +165,48 @@ export const AdminProducts = () => {
           </p>
         </div>
 
-        <button
-          onClick={handleOpenCreate}
-          className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-white text-black font-bold text-xs hover:bg-[#C5F36A] transition shadow-lg"
-        >
-          <Plus className="w-4 h-4" />
-          Create New Plan
-        </button>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={fetchPlans}
+            className="p-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-white transition border border-white/10"
+            title="Refresh Plans"
+          >
+            <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
+          </button>
+          <button
+            onClick={handleOpenCreate}
+            className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-white text-black font-bold text-xs hover:bg-[#C5F36A] transition shadow-lg"
+          >
+            <Plus className="w-4 h-4" />
+            Create New Plan
+          </button>
+        </div>
       </div>
+
+      {/* Status Alerts */}
+      {error && (
+        <div className="p-3.5 rounded-2xl bg-red-500/10 border border-red-500/30 text-red-400 text-xs flex items-center justify-between shadow-lg">
+          <span className="flex items-center gap-2">
+            <AlertTriangle className="w-4 h-4 shrink-0" />
+            {error}
+          </span>
+          <button onClick={() => setError('')} className="hover:text-white">
+            <X className="w-4 h-4" />
+          </button>
+        </div>
+      )}
+
+      {success && (
+        <div className="p-3.5 rounded-2xl bg-[#C5F36A]/10 border border-[#C5F36A]/30 text-[#C5F36A] text-xs flex items-center justify-between shadow-lg">
+          <span className="flex items-center gap-2">
+            <CheckCircle className="w-4 h-4 shrink-0" />
+            {success}
+          </span>
+          <button onClick={() => setSuccess('')} className="hover:text-white">
+            <X className="w-4 h-4" />
+          </button>
+        </div>
+      )}
 
       {/* Plans List Table */}
       <div className="rounded-3xl bg-[#121814] border border-white/10 overflow-hidden shadow-xl">
@@ -151,6 +216,7 @@ export const AdminProducts = () => {
               <tr>
                 <th className="p-4 pl-6">PLAN NAME</th>
                 <th className="p-4">CATEGORY</th>
+                <th className="p-4">PROCESSOR</th>
                 <th className="p-4">RAM / CPU</th>
                 <th className="p-4">STORAGE</th>
                 <th className="p-4">PRICE (INR)</th>
@@ -177,11 +243,19 @@ export const AdminProducts = () => {
                             {p.badge}
                           </span>
                         )}
+                        {p.game_slug && (
+                          <span className="ml-1 text-[10px] font-mono text-neutral-400">
+                            ({p.game_slug})
+                          </span>
+                        )}
                       </div>
                     </div>
                   </td>
                   <td className="p-4 font-mono uppercase text-[11px] text-neutral-400">
                     {p.category}
+                  </td>
+                  <td className="p-4 font-mono uppercase text-[11px] text-neutral-400">
+                    {p.processor || 'standard'}
                   </td>
                   <td className="p-4 font-mono text-[11px]">
                     {p.ram} • {p.cpu}
@@ -231,6 +305,13 @@ export const AdminProducts = () => {
               </button>
             </div>
 
+            {error && (
+              <div className="p-3 rounded-xl bg-red-500/15 border border-red-500/30 text-red-400 text-xs flex items-center gap-2">
+                <AlertTriangle className="w-4 h-4 shrink-0" />
+                <span>{error}</span>
+              </div>
+            )}
+
             <form onSubmit={handleSave} className="space-y-4 text-xs">
               <div>
                 <label className="block text-[11px] font-mono text-neutral-400 mb-1">PLAN NAME</label>
@@ -259,8 +340,42 @@ export const AdminProducts = () => {
                     <option value="discord-bots">Discord Bots</option>
                   </select>
                 </div>
+
+                {formData.category === 'games' ? (
+                  <div>
+                    <label className="block text-[11px] font-mono text-neutral-400 mb-1">GAME</label>
+                    <select
+                      value={formData.game_slug}
+                      onChange={(e) => {
+                        const g = e.target.value;
+                        let img = formData.image;
+                        if (g === 'minecraft') img = '/assets/minecraft-plan-card.jpg';
+                        setFormData({ ...formData, game_slug: g, image: img });
+                      }}
+                      className="w-full bg-black/40 border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#C5F36A]"
+                    >
+                      <option value="minecraft">Minecraft</option>
+                      <option value="rust">Rust</option>
+                      <option value="cs2">Counter-Strike 2</option>
+                    </select>
+                  </div>
+                ) : (
+                  <div>
+                    <label className="block text-[11px] font-mono text-neutral-400 mb-1">TAG</label>
+                    <input
+                      type="text"
+                      value={formData.tag}
+                      onChange={(e) => setFormData({ ...formData, tag: e.target.value })}
+                      placeholder="e.g. CLOUD, VPS"
+                      className="w-full bg-black/40 border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#C5F36A]"
+                    />
+                  </div>
+                )}
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-[11px] font-mono text-neutral-400 mb-1">PROCESSOR</label>
+                  <label className="block text-[11px] font-mono text-neutral-400 mb-1">PROCESSOR / TIER</label>
                   <select
                     value={formData.processor}
                     onChange={(e) => setFormData({ ...formData, processor: e.target.value })}
@@ -269,7 +384,18 @@ export const AdminProducts = () => {
                     <option value="intel">Intel Xeon</option>
                     <option value="amd">AMD EPYC</option>
                     <option value="ryzen">AMD Ryzen</option>
+                    <option value="offer">Special Offer</option>
                   </select>
+                </div>
+                <div>
+                  <label className="block text-[11px] font-mono text-neutral-400 mb-1">BADGE (OPTIONAL)</label>
+                  <input
+                    type="text"
+                    value={formData.badge}
+                    onChange={(e) => setFormData({ ...formData, badge: e.target.value })}
+                    placeholder="e.g. MOST SOLD, CHEAPEST"
+                    className="w-full bg-black/40 border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#C5F36A]"
+                  />
                 </div>
               </div>
 
@@ -281,7 +407,7 @@ export const AdminProducts = () => {
                     step="0.01"
                     required
                     value={formData.price_inr}
-                    onChange={(e) => setFormData({ ...formData, price_inr: parseFloat(e.target.value) })}
+                    onChange={(e) => setFormData({ ...formData, price_inr: e.target.value })}
                     className="w-full bg-black/40 border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#C5F36A]"
                   />
                 </div>
@@ -292,7 +418,7 @@ export const AdminProducts = () => {
                     step="0.01"
                     required
                     value={formData.price_usd}
-                    onChange={(e) => setFormData({ ...formData, price_usd: parseFloat(e.target.value) })}
+                    onChange={(e) => setFormData({ ...formData, price_usd: e.target.value })}
                     className="w-full bg-black/40 border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#C5F36A]"
                   />
                 </div>
@@ -328,39 +454,38 @@ export const AdminProducts = () => {
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-3">
-                <div>
-                  <label className="block text-[11px] font-mono text-neutral-400 mb-1">BADGE</label>
-                  <input
-                    type="text"
-                    value={formData.badge}
-                    onChange={(e) => setFormData({ ...formData, badge: e.target.value })}
-                    placeholder="e.g. MOST SOLD"
-                    className="w-full bg-black/40 border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#C5F36A]"
-                  />
-                </div>
-                <div>
-                  <label className="block text-[11px] font-mono text-neutral-400 mb-1">LOCATION</label>
-                  <input
-                    type="text"
-                    value={formData.location}
-                    onChange={(e) => setFormData({ ...formData, location: e.target.value })}
-                    className="w-full bg-black/40 border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#C5F36A]"
-                  />
-                </div>
+              <div>
+                <label className="block text-[11px] font-mono text-neutral-400 mb-1">LOCATION</label>
+                <input
+                  type="text"
+                  value={formData.location}
+                  onChange={(e) => setFormData({ ...formData, location: e.target.value })}
+                  className="w-full bg-black/40 border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#C5F36A]"
+                />
               </div>
 
               <div className="flex gap-2 pt-3">
                 <button
                   type="submit"
-                  className="flex-1 py-2.5 rounded-xl bg-white text-black font-bold text-xs hover:bg-[#C5F36A] transition"
+                  disabled={submitting}
+                  className="flex-1 py-2.5 rounded-xl bg-white text-black font-bold text-xs hover:bg-[#C5F36A] transition disabled:opacity-50 flex items-center justify-center gap-2"
                 >
-                  {editPlan ? 'Save Changes' : 'Create Plan'}
+                  {submitting ? (
+                    <>
+                      <RefreshCw className="w-3.5 h-3.5 animate-spin" />
+                      Saving...
+                    </>
+                  ) : editPlan ? (
+                    'Save Changes'
+                  ) : (
+                    'Create Plan'
+                  )}
                 </button>
                 <button
                   type="button"
                   onClick={() => setModalOpen(false)}
-                  className="px-4 py-2.5 rounded-xl bg-white/10 text-white text-xs hover:bg-white/15 transition"
+                  disabled={submitting}
+                  className="px-4 py-2.5 rounded-xl bg-white/10 text-white text-xs hover:bg-white/15 transition disabled:opacity-50"
                 >
                   Cancel
                 </button>
@@ -372,4 +497,5 @@ export const AdminProducts = () => {
     </div>
   );
 };
+
 

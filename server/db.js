@@ -6,7 +6,7 @@ import bcrypt from 'bcryptjs';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const isServerless = Boolean(process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME || process.env.LAMBDA_TASK_ROOT);
+const isServerless = Boolean(process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME || process.env.LAMBDA_TASK_ROOT || process.env.IS_SERVERLESS);
 const SEED_FILE = path.join(__dirname, 'data', 'db.json');
 const RUNTIME_DB_FILE = isServerless ? path.join('/tmp', 'zerox_db.json') : SEED_FILE;
 
@@ -34,7 +34,7 @@ const getInitialData = () => {
         name: 'Mohd Numan',
         email: 'mohdnuman925@gmail.com',
         password_hash: userPasswordHash,
-        role: 'customer',
+        role: 'super_admin',
         panel_password: 'Ptero_User_2026!',
         status: 'active',
         created_at: new Date('2026-11-14T07:15:00Z').toISOString(),
