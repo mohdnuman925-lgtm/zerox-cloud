@@ -41,7 +41,7 @@ export const PricingPage = () => {
           </p>
 
           {/* Filter Pills */}
-          <div className="mt-8 inline-flex flex-wrap items-center justify-center p-1.5 rounded-2xl bg-[#0e1611]/5 border border-white/15 backdrop-blur-2xl shadow-[0_8px_32px_rgba(0,0,0,0.35),inset_0_1px_1px_rgba(255,255,255,0.12)] gap-1">
+          <div className="mt-8 inline-flex flex-wrap items-center justify-center p-1.5 rounded-2xl bg-[#0e1611]/5 backdrop-blur-2xl shadow-[0_8px_32px_rgba(0,0,0,0.35)] gap-1">
             {[
               { id: 'all', label: 'All Packages' },
               { id: 'games', label: 'Game Servers' },
@@ -80,7 +80,7 @@ export const PricingPage = () => {
                   className="h-full"
                 >
                 <div
-                  className="p-6 rounded-3xl bg-[#0b130e]/5 backdrop-blur-2xl border border-white/15 hover:border-[#C5F36A]/45 transition duration-300 flex flex-col justify-between shadow-[0_12px_36px_rgba(0,0,0,0.35),inset_0_1px_1px_rgba(255,255,255,0.14)] hover:shadow-[0_16px_48px_rgba(0,0,0,0.55),0_0_25px_rgba(197,243,106,0.15),inset_0_1px_1px_rgba(255,255,255,0.22)] h-full hover:-translate-y-1 overflow-hidden"
+                  className="p-6 rounded-3xl bg-[#0b130e]/5 backdrop-blur-2xl transition duration-300 flex flex-col justify-between shadow-[0_12px_36px_rgba(0,0,0,0.35)] hover:shadow-[0_16px_48px_rgba(0,0,0,0.55),0_0_25px_rgba(197,243,106,0.15)] h-full hover:-translate-y-1 overflow-hidden"
                 >
                   <div>
                     {(plan.game_slug === 'minecraft' || plan.category === 'games') && (
@@ -114,7 +114,7 @@ export const PricingPage = () => {
                       <span className="text-xs text-neutral-400">/mo</span>
                     </div>
 
-                    <div className="my-5 space-y-1.5 py-3 border-y border-white/10 text-xs">
+                    <div className="my-5 space-y-1.5 py-3 -y text-xs">
                       <div className="flex justify-between">
                         <span className="text-neutral-500">RAM</span>
                         <span className="font-bold text-white font-mono">{plan.ram}</span>
@@ -152,7 +152,7 @@ export const PricingPage = () => {
                     </button>
                     <button
                       onClick={() => addToCart(plan)}
-                      className="p-3 rounded-xl bg-white/10 hover:bg-white/20 text-white transition border border-white/10"
+                      className="p-3 rounded-xl bg-white/10 hover:bg-white/20 text-white transition"
                       title="Add to cart"
                     >
                       <ShoppingCart className="w-4 h-4" />

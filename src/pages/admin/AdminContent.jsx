@@ -75,7 +75,7 @@ export const AdminContent = () => {
       </div>
 
       {error && (
-        <div className="p-3.5 rounded-2xl bg-red-500/10 border border-red-500/30 text-red-400 text-xs flex items-center justify-between shadow-lg">
+        <div className="p-3.5 rounded-2xl bg-red-500/10 text-red-400 text-xs flex items-center justify-between shadow-lg">
           <span className="flex items-center gap-2">
             <AlertTriangle className="w-4 h-4 shrink-0" />
             {error}
@@ -87,7 +87,7 @@ export const AdminContent = () => {
       )}
 
       {saved && (
-        <div className="p-3.5 rounded-2xl bg-[#C5F36A]/10 border border-[#C5F36A]/30 text-[#C5F36A] text-xs flex items-center justify-between shadow-lg">
+        <div className="p-3.5 rounded-2xl bg-[#C5F36A]/10 text-[#C5F36A] text-xs flex items-center justify-between shadow-lg">
           <span className="flex items-center gap-2">
             <CheckCircle className="w-4 h-4 shrink-0" />
             Content updated and live across the public store!
@@ -98,9 +98,9 @@ export const AdminContent = () => {
         </div>
       )}
 
-      <form onSubmit={handleSubmit} className="p-8 rounded-3xl bg-[#121814] border border-white/10 space-y-6 shadow-xl">
+      <form onSubmit={handleSubmit} className="p-8 rounded-3xl  backdrop-blur-2xl space-y-6 shadow-xl">
         <div className="space-y-4">
-          <h3 className="text-sm font-bold text-white border-b border-white/10 pb-2">
+          <h3 className="text-sm font-bold text-white -b pb-2">
             Hero Section Copy
           </h3>
 
@@ -112,7 +112,7 @@ export const AdminContent = () => {
               type="text"
               value={settings.announcement_text || ''}
               onChange={(e) => setSettings({ ...settings, announcement_text: e.target.value })}
-              className="w-full bg-black/40 border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#C5F36A]"
+              className="w-full bg-black/40 rounded-xl px-3 py-2 text-xs text-white focus:outline-none"
             />
           </div>
 
@@ -124,7 +124,7 @@ export const AdminContent = () => {
               type="text"
               value={settings.hero_title || ''}
               onChange={(e) => setSettings({ ...settings, hero_title: e.target.value })}
-              className="w-full bg-black/40 border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#C5F36A]"
+              className="w-full bg-black/40 rounded-xl px-3 py-2 text-xs text-white focus:outline-none"
             />
           </div>
 
@@ -136,13 +136,13 @@ export const AdminContent = () => {
               rows={2}
               value={settings.hero_subtitle || ''}
               onChange={(e) => setSettings({ ...settings, hero_subtitle: e.target.value })}
-              className="w-full bg-black/40 border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#C5F36A]"
+              className="w-full bg-black/40 rounded-xl px-3 py-2 text-xs text-white focus:outline-none"
             />
           </div>
         </div>
 
-        <div className="space-y-4 pt-4 border-t border-white/10">
-          <h3 className="text-sm font-bold text-white border-b border-white/10 pb-2">
+        <div className="space-y-4 pt-4 -t">
+          <h3 className="text-sm font-bold text-white -b pb-2">
             Welcome Discount Modal
           </h3>
 
@@ -168,7 +168,7 @@ export const AdminContent = () => {
                 type="number"
                 value={settings.welcome_discount_percent || 10}
                 onChange={(e) => setSettings({ ...settings, welcome_discount_percent: parseInt(e.target.value) })}
-                className="w-full bg-black/40 border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#C5F36A]"
+                className="w-full bg-black/40 rounded-xl px-3 py-2 text-xs text-white focus:outline-none"
               />
             </div>
             <div>
@@ -179,14 +179,14 @@ export const AdminContent = () => {
                 type="text"
                 value={settings.welcome_coupon_code || 'ZEROXCLOUD'}
                 onChange={(e) => setSettings({ ...settings, welcome_coupon_code: e.target.value.toUpperCase() })}
-                className="w-full bg-black/40 border border-white/10 rounded-xl px-3 py-2 text-xs text-white uppercase focus:outline-none focus:border-[#C5F36A]"
+                className="w-full bg-black/40 rounded-xl px-3 py-2 text-xs text-white uppercase focus:outline-none"
               />
             </div>
           </div>
         </div>
 
-        <div className="space-y-4 pt-4 border-t border-white/10">
-          <h3 className="text-sm font-bold text-white border-b border-white/10 pb-2">
+        <div className="space-y-4 pt-4 -t">
+          <h3 className="text-sm font-bold text-white -b pb-2">
             Community &amp; Contact
           </h3>
 
@@ -199,7 +199,7 @@ export const AdminContent = () => {
                 type="text"
                 value={settings.discord_url || ''}
                 onChange={(e) => setSettings({ ...settings, discord_url: e.target.value })}
-                className="w-full bg-black/40 border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#C5F36A]"
+                className="w-full bg-black/40 rounded-xl px-3 py-2 text-xs text-white focus:outline-none"
               />
             </div>
             <div>
@@ -210,7 +210,7 @@ export const AdminContent = () => {
                 type="email"
                 value={settings.contact_email || ''}
                 onChange={(e) => setSettings({ ...settings, contact_email: e.target.value })}
-                className="w-full bg-black/40 border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#C5F36A]"
+                className="w-full bg-black/40 rounded-xl px-3 py-2 text-xs text-white focus:outline-none"
               />
             </div>
           </div>

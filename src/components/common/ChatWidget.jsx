@@ -37,9 +37,9 @@ export const ChatWidget = () => {
   return (
     <div className="fixed bottom-5 right-5 z-40">
       {isOpen ? (
-        <div className="w-80 sm:w-96 rounded-2xl bg-[#121814] border border-white/15 shadow-2xl overflow-hidden flex flex-col h-[450px] animate-scale-up">
+        <div className="w-80 sm:w-96 rounded-2xl  backdrop-blur-2xl shadow-2xl overflow-hidden flex flex-col h-[450px] animate-scale-up">
           {/* Header */}
-          <div className="flex items-center justify-between p-4 bg-[#17201a] border-b border-white/10">
+          <div className="flex items-center justify-between p-4 bg-[#17201a] -b">
             <div className="flex items-center gap-2.5">
               <div className="relative">
                 <div className="w-8 h-8 rounded-full bg-[#C5F36A] flex items-center justify-center text-black font-bold text-xs">
@@ -77,7 +77,7 @@ export const ChatWidget = () => {
                   className={`p-3 rounded-2xl max-w-[80%] text-xs leading-relaxed ${
                     m.sender === 'user'
                       ? 'bg-[#C5F36A] text-black font-medium rounded-tr-none'
-                      : 'bg-white/5 border border-white/10 text-neutral-200 rounded-tl-none'
+                      : 'bg-white/5  text-neutral-200 rounded-tl-none'
                   }`}
                 >
                   {m.text}
@@ -87,13 +87,13 @@ export const ChatWidget = () => {
           </div>
 
           {/* Input Box */}
-          <form onSubmit={handleSend} className="p-3 bg-[#151c17] border-t border-white/10 flex items-center gap-2">
+          <form onSubmit={handleSend} className="p-3  backdrop-blur-2xl -t flex items-center gap-2">
             <input
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Ask anything about hosting..."
-              className="flex-1 bg-black/40 border border-white/10 rounded-xl px-3 py-2 text-xs text-white placeholder-neutral-500 focus:outline-none focus:border-[#C5F36A]"
+              className="flex-1 bg-black/40 rounded-xl px-3 py-2 text-xs text-white placeholder-neutral-500 focus:outline-none"
             />
             <button
               type="submit"

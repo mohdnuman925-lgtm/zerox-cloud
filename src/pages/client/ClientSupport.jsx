@@ -148,13 +148,13 @@ export const ClientSupport = () => {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Search tickets..."
-          className="w-full bg-[#121814] border border-white/10 rounded-xl pl-10 pr-4 py-2 text-xs text-white placeholder-neutral-500 focus:outline-none focus:border-[#C5F36A]"
+          className="w-full  backdrop-blur-2xl rounded-xl pl-10 pr-4 py-2 text-xs text-white placeholder-neutral-500 focus:outline-none"
         />
       </div>
 
       {/* Tickets List / Empty State */}
       {filtered.length === 0 ? (
-        <div className="py-20 rounded-3xl bg-[#121814]/70 border border-white/10 text-center flex flex-col items-center justify-center p-8 space-y-2 text-neutral-400 shadow-xl">
+        <div className="py-20 rounded-3xl  backdrop-blur-2xl text-center flex flex-col items-center justify-center p-8 space-y-2 text-neutral-400 shadow-xl">
           <LifeBuoy className="w-8 h-8 text-neutral-600 mb-2" />
           <h3 className="text-base font-bold text-white">No tickets yet</h3>
           <p className="text-xs text-neutral-500">
@@ -173,10 +173,10 @@ export const ClientSupport = () => {
             <div
               key={t.id}
               onClick={() => handleOpenThread(t)}
-              className="p-5 rounded-2xl bg-[#121814] border border-white/10 hover:border-[#C5F36A]/40 transition duration-200 cursor-pointer flex items-center justify-between gap-4 group shadow-md"
+              className="p-5 rounded-2xl  backdrop-blur-2xl transition duration-200 cursor-pointer flex items-center justify-between gap-4 group shadow-md"
             >
               <div className="flex items-center gap-4">
-                <div className="p-3 rounded-xl bg-white/5 border border-white/10 text-[#C5F36A] group-hover:bg-[#C5F36A]/10 transition">
+                <div className="p-3 rounded-xl bg-white/5 text-[#C5F36A] group-hover:bg-[#C5F36A]/10 transition">
                   <MessageSquare className="w-4 h-4" />
                 </div>
                 <div>
@@ -200,9 +200,9 @@ export const ClientSupport = () => {
               <span
                 className={`px-2.5 py-1 rounded-lg text-[10px] font-mono font-bold uppercase ${
                   t.status === 'open'
-                    ? 'bg-amber-500/20 text-amber-400 border border-amber-500/30'
+                    ? 'bg-amber-500/20 text-amber-400  '
                     : t.status === 'answered'
-                    ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
+                    ? 'bg-emerald-500/20 text-emerald-400  '
                     : 'bg-neutral-800 text-neutral-400'
                 }`}
               >
@@ -216,9 +216,9 @@ export const ClientSupport = () => {
       {/* Ticket Conversation Thread Modal */}
       {activeTicket && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fade-in">
-          <div className="w-full max-w-2xl rounded-3xl bg-[#121814] border border-white/15 shadow-2xl overflow-hidden flex flex-col h-[560px]">
+          <div className="w-full max-w-2xl rounded-3xl  backdrop-blur-2xl shadow-2xl overflow-hidden flex flex-col h-[560px]">
             {/* Header */}
-            <div className="p-4 bg-[#151C17] border-b border-white/10 flex items-center justify-between">
+            <div className="p-4  backdrop-blur-2xl -b flex items-center justify-between">
               <div>
                 <span className="text-[10px] font-mono text-[#C5F36A] uppercase font-bold">
                   {activeTicket.ticket_number} • {activeTicket.department}
@@ -242,8 +242,8 @@ export const ClientSupport = () => {
                     key={msg.id}
                     className={`p-4 rounded-2xl ${
                       isStaff
-                        ? 'bg-[#18241B] border border-[#C5F36A]/30 text-neutral-200'
-                        : 'bg-black/40 border border-white/10 text-neutral-300'
+                        ? 'bg-[#18241B]  text-neutral-200'
+                        : 'bg-black/40  text-neutral-300'
                     }`}
                   >
                     <div className="flex items-center justify-between mb-2">
@@ -266,13 +266,13 @@ export const ClientSupport = () => {
             </div>
 
             {/* Reply Input */}
-            <form onSubmit={handleSendReply} className="p-3 bg-[#151C17] border-t border-white/10 flex gap-2">
+            <form onSubmit={handleSendReply} className="p-3  backdrop-blur-2xl -t flex gap-2">
               <input
                 type="text"
                 value={replyInput}
                 onChange={(e) => setReplyInput(e.target.value)}
                 placeholder="Type your response to staff..."
-                className="flex-1 bg-black/40 border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#C5F36A]"
+                className="flex-1 bg-black/40 rounded-xl px-3 py-2 text-xs text-white focus:outline-none"
               />
               <button
                 type="submit"
@@ -289,7 +289,7 @@ export const ClientSupport = () => {
       {/* New Ticket Modal */}
       {newModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fade-in">
-          <div className="w-full max-w-lg p-6 rounded-3xl bg-[#121814] border border-white/15 shadow-2xl text-white space-y-4">
+          <div className="w-full max-w-lg p-6 rounded-3xl  backdrop-blur-2xl shadow-2xl text-white space-y-4">
             <div className="flex items-center justify-between">
               <h3 className="text-base font-bold text-white">Open Support Ticket</h3>
               <button
@@ -311,7 +311,7 @@ export const ClientSupport = () => {
                   <select
                     value={department}
                     onChange={(e) => setDepartment(e.target.value)}
-                    className="w-full bg-black/40 border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#C5F36A]"
+                    className="w-full bg-black/40 rounded-xl px-3 py-2 text-xs text-white focus:outline-none"
                   >
                     <option value="Game Server Support">Game Server Support</option>
                     <option value="Cloud / VPS Support">Cloud / VPS Support</option>
@@ -326,7 +326,7 @@ export const ClientSupport = () => {
                   <select
                     value={priority}
                     onChange={(e) => setPriority(e.target.value)}
-                    className="w-full bg-black/40 border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#C5F36A]"
+                    className="w-full bg-black/40 rounded-xl px-3 py-2 text-xs text-white focus:outline-none"
                   >
                     <option value="low">Low</option>
                     <option value="medium">Medium</option>
@@ -346,7 +346,7 @@ export const ClientSupport = () => {
                   value={subject}
                   onChange={(e) => setSubject(e.target.value)}
                   placeholder="e.g. Modpack crashes on boot"
-                  className="w-full bg-black/40 border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#C5F36A]"
+                  className="w-full bg-black/40 rounded-xl px-3 py-2 text-xs text-white focus:outline-none"
                 />
               </div>
 
@@ -360,7 +360,7 @@ export const ClientSupport = () => {
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   placeholder="Please describe what you are trying to do and any error messages..."
-                  className="w-full bg-black/40 border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#C5F36A]"
+                  className="w-full bg-black/40 rounded-xl px-3 py-2 text-xs text-white focus:outline-none"
                 />
               </div>
 

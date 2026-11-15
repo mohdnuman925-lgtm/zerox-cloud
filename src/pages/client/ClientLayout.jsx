@@ -30,7 +30,7 @@ export const ClientLayout = () => {
   if (loading) {
     return (
       <div className="min-h-screen bg-[#080B0A] flex items-center justify-center">
-        <div className="w-8 h-8 border-2 border-[#C5F36A] border-t-transparent rounded-full animate-spin" />
+        <div className="w-8 h-8 -2 -[#C5F36A] -t-transparent rounded-full animate-spin" />
       </div>
     );
   }
@@ -76,7 +76,7 @@ export const ClientLayout = () => {
   return (
     <div className="min-h-screen flex bg-[#080B0A] text-white">
       {/* Sidebar matching video frame 042 */}
-      <aside className="w-64 bg-[#0A0E0B] border-r border-white/10 flex flex-col justify-between p-4 flex-shrink-0 z-20">
+      <aside className="w-64 bg-[#0A0E0B] -r flex flex-col justify-between p-4 flex-shrink-0 z-20">
         <div className="space-y-6">
           {/* Brand matching video frame 042 */}
           <div className="px-2">
@@ -97,7 +97,7 @@ export const ClientLayout = () => {
                   to={item.path}
                   className={`flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold transition ${
                     isActive
-                      ? 'bg-white/15 text-white font-bold shadow-md border border-white/10'
+                      ? 'bg-white/15 text-white font-bold shadow-md '
                       : 'text-neutral-400 hover:text-white hover:bg-white/5'
                   }`}
                 >
@@ -110,7 +110,7 @@ export const ClientLayout = () => {
         </div>
 
         {/* Sidebar Footer */}
-        <div className="space-y-3 pt-4 border-t border-white/10">
+        <div className="space-y-3 pt-4 -t">
           <Link
             to="/"
             className="flex items-center gap-2 px-3 py-2 rounded-xl text-xs text-neutral-400 hover:text-white hover:bg-white/5 transition"
@@ -120,7 +120,7 @@ export const ClientLayout = () => {
           </Link>
 
           {/* User profile capsule */}
-          <div className="flex items-center justify-between p-2 rounded-2xl bg-white/5 border border-white/5">
+          <div className="flex items-center justify-between p-2 rounded-2xl bg-white/5">
             <div className="flex items-center gap-2.5 overflow-hidden">
               <div className="w-8 h-8 rounded-xl bg-[#C5F36A] text-black font-extrabold text-xs flex items-center justify-center flex-shrink-0">
                 {initials}
@@ -154,7 +154,7 @@ export const ClientLayout = () => {
       {/* Panel Password Sync Modal */}
       {panelModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm animate-fade-in">
-          <div className="w-full max-w-md p-6 rounded-3xl bg-[#121814] border border-white/15 shadow-2xl text-white space-y-4">
+          <div className="w-full max-w-md p-6 rounded-3xl  backdrop-blur-2xl shadow-2xl text-white space-y-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <Key className="w-5 h-5 text-[#C5F36A]" />
@@ -196,7 +196,7 @@ export const ClientLayout = () => {
                   value={newPassword}
                   onChange={(e) => setNewPassword(e.target.value)}
                   placeholder="Minimum 6 characters"
-                  className="w-full bg-black/40 border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#C5F36A]"
+                  className="w-full bg-black/40 rounded-xl px-3 py-2 text-xs text-white focus:outline-none"
                 />
               </div>
 

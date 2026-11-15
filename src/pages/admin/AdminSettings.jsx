@@ -75,7 +75,7 @@ export const AdminSettings = () => {
       </div>
 
       {error && (
-        <div className="p-3.5 rounded-2xl bg-red-500/10 border border-red-500/30 text-red-400 text-xs flex items-center justify-between shadow-lg">
+        <div className="p-3.5 rounded-2xl bg-red-500/10 text-red-400 text-xs flex items-center justify-between shadow-lg">
           <span className="flex items-center gap-2">
             <AlertTriangle className="w-4 h-4 shrink-0" />
             {error}
@@ -87,7 +87,7 @@ export const AdminSettings = () => {
       )}
 
       {saved && (
-        <div className="p-3.5 rounded-2xl bg-[#C5F36A]/10 border border-[#C5F36A]/30 text-[#C5F36A] text-xs flex items-center justify-between shadow-lg">
+        <div className="p-3.5 rounded-2xl bg-[#C5F36A]/10 text-[#C5F36A] text-xs flex items-center justify-between shadow-lg">
           <span className="flex items-center gap-2">
             <CheckCircle className="w-4 h-4 shrink-0" />
             System settings updated successfully!
@@ -98,7 +98,7 @@ export const AdminSettings = () => {
         </div>
       )}
 
-      <form onSubmit={handleSave} className="p-8 rounded-3xl bg-[#121814] border border-white/10 space-y-6 shadow-xl">
+      <form onSubmit={handleSave} className="p-8 rounded-3xl  backdrop-blur-2xl space-y-6 shadow-xl">
         {/* Pterodactyl Panel Adapter */}
         <div className="space-y-4">
           <div className="flex items-center gap-2">
@@ -114,7 +114,7 @@ export const AdminSettings = () => {
               type="text"
               value={settings.pterodactyl_panel_url || ''}
               onChange={(e) => setSettings({ ...settings, pterodactyl_panel_url: e.target.value })}
-              className="w-full bg-black/40 border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#C5F36A]"
+              className="w-full bg-black/40 rounded-xl px-3 py-2 text-xs text-white focus:outline-none"
             />
           </div>
           <p className="text-[11px] text-neutral-500">
@@ -123,7 +123,7 @@ export const AdminSettings = () => {
         </div>
 
         {/* Currency & Financials */}
-        <div className="space-y-4 pt-4 border-t border-white/10">
+        <div className="space-y-4 pt-4 -t">
           <div className="flex items-center gap-2">
             <CreditCard className="w-4 h-4 text-emerald-400" />
             <h3 className="text-sm font-bold text-white">Default Currency &amp; Tax</h3>
@@ -135,7 +135,7 @@ export const AdminSettings = () => {
               <select
                 value={settings.currency_default || 'INR'}
                 onChange={(e) => setSettings({ ...settings, currency_default: e.target.value })}
-                className="w-full bg-black/40 border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#C5F36A]"
+                className="w-full bg-black/40 rounded-xl px-3 py-2 text-xs text-white focus:outline-none"
               >
                 <option value="INR">INR (₹)</option>
                 <option value="USD">USD ($)</option>
@@ -148,14 +148,14 @@ export const AdminSettings = () => {
                 step="0.1"
                 value={settings.tax_rate ?? 0.0}
                 onChange={(e) => setSettings({ ...settings, tax_rate: parseFloat(e.target.value) })}
-                className="w-full bg-black/40 border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#C5F36A]"
+                className="w-full bg-black/40 rounded-xl px-3 py-2 text-xs text-white focus:outline-none"
               />
             </div>
           </div>
         </div>
 
         {/* Maintenance Mode */}
-        <div className="pt-4 border-t border-white/10">
+        <div className="pt-4 -t">
           <label className="flex items-center gap-3 cursor-pointer">
             <input
               type="checkbox"

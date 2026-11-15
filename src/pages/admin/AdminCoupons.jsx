@@ -116,7 +116,7 @@ export const AdminCoupons = () => {
       </div>
 
       {error && (
-        <div className="p-3.5 rounded-2xl bg-red-500/10 border border-red-500/30 text-red-400 text-xs flex items-center justify-between shadow-lg">
+        <div className="p-3.5 rounded-2xl bg-red-500/10 text-red-400 text-xs flex items-center justify-between shadow-lg">
           <span className="flex items-center gap-2">
             <AlertTriangle className="w-4 h-4 shrink-0" />
             {error}
@@ -128,7 +128,7 @@ export const AdminCoupons = () => {
       )}
 
       {success && (
-        <div className="p-3.5 rounded-2xl bg-[#C5F36A]/10 border border-[#C5F36A]/30 text-[#C5F36A] text-xs flex items-center justify-between shadow-lg">
+        <div className="p-3.5 rounded-2xl bg-[#C5F36A]/10 text-[#C5F36A] text-xs flex items-center justify-between shadow-lg">
           <span className="flex items-center gap-2">
             <CheckCircle className="w-4 h-4 shrink-0" />
             {success}
@@ -139,9 +139,9 @@ export const AdminCoupons = () => {
         </div>
       )}
 
-      <div className="rounded-3xl bg-[#121814] border border-white/10 overflow-hidden shadow-xl">
+      <div className="rounded-3xl  backdrop-blur-2xl overflow-hidden shadow-xl">
         <table className="w-full text-left text-xs">
-          <thead className="bg-black/30 border-b border-white/10 text-neutral-400 font-mono text-[10px] uppercase">
+          <thead className="bg-black/30 -b text-neutral-400 font-mono text-[10px] uppercase">
             <tr>
               <th className="p-4 pl-6">COUPON CODE</th>
               <th className="p-4">DISCOUNT</th>
@@ -185,7 +185,7 @@ export const AdminCoupons = () => {
 
       {modalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fade-in">
-          <div className="w-full max-w-md p-6 rounded-3xl bg-[#121814] border border-white/15 shadow-2xl text-white space-y-4">
+          <div className="w-full max-w-md p-6 rounded-3xl  backdrop-blur-2xl shadow-2xl text-white space-y-4">
             <div className="flex items-center justify-between">
               <h3 className="text-base font-bold text-white">Create New Coupon</h3>
               <button onClick={() => setModalOpen(false)} className="text-neutral-400 hover:text-white">
@@ -194,7 +194,7 @@ export const AdminCoupons = () => {
             </div>
 
             {error && (
-              <div className="p-3 rounded-xl bg-red-500/15 border border-red-500/30 text-red-400 text-xs flex items-center gap-2">
+              <div className="p-3 rounded-xl bg-red-500/15 text-red-400 text-xs flex items-center gap-2">
                 <AlertTriangle className="w-4 h-4 shrink-0" />
                 <span>{error}</span>
               </div>
@@ -209,7 +209,7 @@ export const AdminCoupons = () => {
                   value={code}
                   onChange={(e) => setCode(e.target.value.toUpperCase())}
                   placeholder="e.g. SUMMER25"
-                  className="w-full bg-black/40 border border-white/10 rounded-xl px-3 py-2 text-xs text-white uppercase focus:outline-none focus:border-[#C5F36A]"
+                  className="w-full bg-black/40 rounded-xl px-3 py-2 text-xs text-white uppercase focus:outline-none"
                 />
               </div>
 
@@ -223,7 +223,7 @@ export const AdminCoupons = () => {
                     required
                     value={discount}
                     onChange={(e) => setDiscount(e.target.value)}
-                    className="w-full bg-black/40 border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#C5F36A]"
+                    className="w-full bg-black/40 rounded-xl px-3 py-2 text-xs text-white focus:outline-none"
                   />
                 </div>
                 <div>
@@ -233,7 +233,7 @@ export const AdminCoupons = () => {
                     min="1"
                     value={maxUses}
                     onChange={(e) => setMaxUses(e.target.value)}
-                    className="w-full bg-black/40 border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#C5F36A]"
+                    className="w-full bg-black/40 rounded-xl px-3 py-2 text-xs text-white focus:outline-none"
                   />
                 </div>
               </div>
@@ -245,7 +245,7 @@ export const AdminCoupons = () => {
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                   placeholder="e.g. Summer special discount"
-                  className="w-full bg-black/40 border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#C5F36A]"
+                  className="w-full bg-black/40 rounded-xl px-3 py-2 text-xs text-white focus:outline-none"
                 />
               </div>
 

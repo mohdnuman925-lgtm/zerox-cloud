@@ -271,7 +271,7 @@ export const AdminNodes = () => {
         <div className="flex items-center gap-3">
           <button
             onClick={fetchNodes}
-            className="flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-xs font-medium text-neutral-300 hover:text-white border border-white/10 transition"
+            className="flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-xs font-medium text-neutral-300 hover:text-white transition"
           >
             <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} />
             Refresh
@@ -288,13 +288,13 @@ export const AdminNodes = () => {
 
       {/* Alerts */}
       {success && (
-        <div className="p-4 rounded-2xl bg-emerald-500/20 border border-emerald-500/30 text-emerald-300 text-xs flex items-center gap-2.5">
+        <div className="p-4 rounded-2xl bg-emerald-500/20 text-emerald-300 text-xs flex items-center gap-2.5">
           <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-400" />
           <span>{success}</span>
         </div>
       )}
       {error && (
-        <div className="p-4 rounded-2xl bg-red-500/20 border border-red-500/30 text-red-300 text-xs flex items-center gap-2.5">
+        <div className="p-4 rounded-2xl bg-red-500/20 text-red-300 text-xs flex items-center gap-2.5">
           <AlertCircle className="w-4 h-4 shrink-0 text-red-400" />
           <span>{error}</span>
         </div>
@@ -303,7 +303,7 @@ export const AdminNodes = () => {
       {/* Fleet Summary Cards */}
       {summary && (
         <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          <div className="p-5 rounded-3xl bg-[#121814] border border-white/10 shadow-xl space-y-1">
+          <div className="p-5 rounded-3xl  backdrop-blur-2xl shadow-xl space-y-1">
             <span className="text-[11px] font-mono text-neutral-400 uppercase tracking-wider block">
               TOTAL FLEET NODES
             </span>
@@ -318,7 +318,7 @@ export const AdminNodes = () => {
             </p>
           </div>
 
-          <div className="p-5 rounded-3xl bg-[#121814] border border-white/10 shadow-xl space-y-1">
+          <div className="p-5 rounded-3xl  backdrop-blur-2xl shadow-xl space-y-1">
             <span className="text-[11px] font-mono text-neutral-400 uppercase tracking-wider block">
               FLEET RAM ALLOCATION
             </span>
@@ -336,7 +336,7 @@ export const AdminNodes = () => {
             </div>
           </div>
 
-          <div className="p-5 rounded-3xl bg-[#121814] border border-white/10 shadow-xl space-y-1">
+          <div className="p-5 rounded-3xl  backdrop-blur-2xl shadow-xl space-y-1">
             <span className="text-[11px] font-mono text-neutral-400 uppercase tracking-wider block">
               NVMe STORAGE POOL
             </span>
@@ -354,7 +354,7 @@ export const AdminNodes = () => {
             </div>
           </div>
 
-          <div className="p-5 rounded-3xl bg-[#121814] border border-white/10 shadow-xl space-y-1">
+          <div className="p-5 rounded-3xl  backdrop-blur-2xl shadow-xl space-y-1">
             <span className="text-[11px] font-mono text-neutral-400 uppercase tracking-wider block">
               ACTIVE INSTANCES
             </span>
@@ -374,7 +374,7 @@ export const AdminNodes = () => {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search by node name, FQDN domain, IP address, or location..."
-            className="w-full px-4 py-2.5 rounded-xl bg-[#121814] border border-white/10 text-xs text-white placeholder-neutral-500 focus:outline-none focus:border-[#C5F36A] transition"
+            className="w-full px-4 py-2.5 rounded-xl  backdrop-blur-2xl text-xs text-white placeholder-neutral-500 focus:outline-none transition"
           />
         </div>
 
@@ -415,12 +415,12 @@ export const AdminNodes = () => {
       {/* Nodes Cards Grid */}
       {loading ? (
         <div className="py-20 text-center text-neutral-400 space-y-3">
-          <div className="w-8 h-8 border-2 border-[#C5F36A] border-t-transparent rounded-full animate-spin mx-auto" />
+          <div className="w-8 h-8 -2 -[#C5F36A] -t-transparent rounded-full animate-spin mx-auto" />
           <p className="text-xs">Inspecting daemon endpoints and fleet allocations...</p>
         </div>
       ) : filteredNodes.length === 0 ? (
-        <div className="p-16 rounded-3xl bg-[#121814] border border-white/10 text-center space-y-4 shadow-2xl">
-          <div className="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center mx-auto text-neutral-400">
+        <div className="p-16 rounded-3xl  backdrop-blur-2xl text-center space-y-4 shadow-2xl">
+          <div className="w-16 h-16 rounded-2xl bg-white/5 flex items-center justify-center mx-auto text-neutral-400">
             <Server className="w-8 h-8 text-[#C5F36A]" />
           </div>
           <div className="space-y-1">
@@ -458,10 +458,10 @@ export const AdminNodes = () => {
             return (
               <div
                 key={node.id}
-                className={`p-6 rounded-3xl bg-[#121814] border transition-all duration-200 flex flex-col justify-between shadow-xl space-y-6 ${
+                className={`p-6 rounded-3xl  backdrop-blur-2xl  transition-all duration-200 flex flex-col justify-between shadow-xl space-y-6 ${
                   isMaintenance
-                    ? 'border-amber-500/40 bg-[#161510]'
-                    : 'border-white/10 hover:border-white/20'
+                    ? ' bg-[#161510]'
+                    : ' hover:'
                 }`}
               >
                 {/* Node Card Header */}
@@ -471,10 +471,10 @@ export const AdminNodes = () => {
                       <div className="flex items-center gap-2">
                         <h3 className="text-lg font-bold text-white tracking-tight">{node.name}</h3>
                         <span
-                          className={`px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider border ${
+                          className={`px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider  ${
                             isMaintenance
-                              ? 'bg-amber-500/20 text-amber-300 border-amber-500/30'
-                              : 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30'
+                              ? 'bg-amber-500/20 text-amber-300 '
+                              : 'bg-emerald-500/20 text-emerald-300 '
                           }`}
                         >
                           {isMaintenance ? 'Maintenance' : 'Online'}
@@ -492,7 +492,7 @@ export const AdminNodes = () => {
                     <div className="flex items-center gap-1.5">
                       <button
                         onClick={() => handleOpenEditModal(node)}
-                        className="p-2 rounded-xl bg-white/5 hover:bg-white/10 text-neutral-300 hover:text-white transition border border-white/5"
+                        className="p-2 rounded-xl bg-white/5 hover:bg-white/10 text-neutral-300 hover:text-white transition"
                         title="Edit Node details and limits"
                         aria-label="Edit Node"
                       >
@@ -500,10 +500,10 @@ export const AdminNodes = () => {
                       </button>
                       <button
                         onClick={() => handleToggleMaintenance(node)}
-                        className={`p-2 rounded-xl transition border ${
+                        className={`p-2 rounded-xl transition  ${
                           isMaintenance
-                            ? 'bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border-amber-500/30'
-                            : 'bg-white/5 hover:bg-white/10 text-neutral-300 hover:text-white border-white/5'
+                            ? 'bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 '
+                            : 'bg-white/5 hover:bg-white/10 text-neutral-300 hover:text-white '
                         }`}
                         title={isMaintenance ? 'Disable Maintenance Mode' : 'Enable Maintenance Mode'}
                         aria-label="Toggle Maintenance"
@@ -512,7 +512,7 @@ export const AdminNodes = () => {
                       </button>
                       <button
                         onClick={() => handleDeleteNode(node)}
-                        className="p-2 rounded-xl bg-red-500/10 hover:bg-red-500/20 text-red-400 transition border border-red-500/20"
+                        className="p-2 rounded-xl bg-red-500/10 hover:bg-red-500/20 text-red-400 transition"
                         title="Delete Node"
                         aria-label="Delete Node"
                       >
@@ -523,7 +523,7 @@ export const AdminNodes = () => {
 
                   {/* FQDN & IP Address Bar */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
-                    <div className="p-2.5 rounded-xl bg-black/40 border border-white/5 flex items-center justify-between text-xs">
+                    <div className="p-2.5 rounded-xl bg-black/40 flex items-center justify-between text-xs">
                       <div>
                         <span className="text-[10px] font-mono text-neutral-500 uppercase block">FQDN / DOMAIN</span>
                         <span className="font-mono text-white text-[11px] font-medium">{node.fqdn}</span>
@@ -537,7 +537,7 @@ export const AdminNodes = () => {
                       </button>
                     </div>
 
-                    <div className="p-2.5 rounded-xl bg-black/40 border border-white/5 flex items-center justify-between text-xs">
+                    <div className="p-2.5 rounded-xl bg-black/40 flex items-center justify-between text-xs">
                       <div>
                         <span className="text-[10px] font-mono text-neutral-500 uppercase block">PRIMARY IP ADDRESS</span>
                         <span className="font-mono text-white text-[11px] font-medium">{node.ip_address}</span>
@@ -560,7 +560,7 @@ export const AdminNodes = () => {
                 </div>
 
                 {/* Resource Limits & Usage Bars */}
-                <div className="space-y-3.5 pt-2 border-t border-white/5">
+                <div className="space-y-3.5 pt-2 -t">
                   {/* Memory Usage */}
                   <div className="space-y-1.5">
                     <div className="flex items-center justify-between text-xs">
@@ -577,7 +577,7 @@ export const AdminNodes = () => {
                         <span className="font-bold text-white">{memoryAllocatedGb} GB</span> / {memoryTotalGb} GB ({node.memory_usage_pct}%)
                       </span>
                     </div>
-                    <div className="w-full h-2 rounded-full bg-black/50 border border-white/5 overflow-hidden">
+                    <div className="w-full h-2 rounded-full bg-black/50 overflow-hidden">
                       <div
                         className={`h-full rounded-full transition-all duration-500 ${
                           node.memory_usage_pct > 85 ? 'bg-red-500' : node.memory_usage_pct > 65 ? 'bg-amber-400' : 'bg-[#C5F36A]'
@@ -603,7 +603,7 @@ export const AdminNodes = () => {
                         <span className="font-bold text-white">{diskAllocatedGb} GB</span> / {diskTotalGb} GB ({node.disk_usage_pct}%)
                       </span>
                     </div>
-                    <div className="w-full h-2 rounded-full bg-black/50 border border-white/5 overflow-hidden">
+                    <div className="w-full h-2 rounded-full bg-black/50 overflow-hidden">
                       <div
                         className="h-full bg-cyan-400 rounded-full transition-all duration-500"
                         style={{ width: `${node.disk_usage_pct}%` }}
@@ -613,7 +613,7 @@ export const AdminNodes = () => {
 
                   {/* Servers & Port Allocations */}
                   <div className="grid grid-cols-2 gap-3 pt-1 text-xs">
-                    <div className="p-3 rounded-2xl bg-black/30 border border-white/5 space-y-1">
+                    <div className="p-3 rounded-2xl bg-black/30 space-y-1">
                       <span className="text-[10px] font-mono text-neutral-500 uppercase block">INSTANCE CAPACITY</span>
                       <div className="font-mono font-bold text-white flex items-baseline gap-1">
                         <span>{node.allocated_servers_count}</span>
@@ -627,7 +627,7 @@ export const AdminNodes = () => {
                       </div>
                     </div>
 
-                    <div className="p-3 rounded-2xl bg-black/30 border border-white/5 space-y-1">
+                    <div className="p-3 rounded-2xl bg-black/30 space-y-1">
                       <span className="text-[10px] font-mono text-neutral-500 uppercase block">ALLOCATION PORTS</span>
                       <div className="font-mono font-bold text-white text-[11px] truncate">
                         {node.port_range_start} - {node.port_range_end}
@@ -640,7 +640,7 @@ export const AdminNodes = () => {
                 </div>
 
                 {/* Card Action Footer */}
-                <div className="pt-4 border-t border-white/5 flex items-center justify-between gap-3 text-xs">
+                <div className="pt-4 -t flex items-center justify-between gap-3 text-xs">
                   <button
                     onClick={() => handleViewServers(node)}
                     className="flex items-center gap-1.5 text-xs font-semibold text-neutral-300 hover:text-white transition"
@@ -664,11 +664,11 @@ export const AdminNodes = () => {
 
       {/* CREATE & EDIT NODE MODAL */}
       {modalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md overflow-y-auto">
-          <div className="w-full max-w-2xl my-8 p-6 sm:p-8 rounded-3xl bg-[#121814] border border-white/15 shadow-2xl text-white space-y-6">
-            <div className="flex items-center justify-between pb-4 border-b border-white/10">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-2xl overflow-y-auto">
+          <div className="w-full max-w-2xl my-8 p-6 sm:p-8 rounded-3xl  backdrop-blur-2xl shadow-2xl text-white space-y-6">
+            <div className="flex items-center justify-between pb-4 -b">
               <div className="flex items-center gap-2.5">
-                <div className="w-9 h-9 rounded-xl bg-[#C5F36A]/10 border border-[#C5F36A]/20 flex items-center justify-center text-[#C5F36A]">
+                <div className="w-9 h-9 rounded-xl bg-[#C5F36A]/10 flex items-center justify-center text-[#C5F36A]">
                   <Server className="w-5 h-5" />
                 </div>
                 <div>
@@ -706,7 +706,7 @@ export const AdminNodes = () => {
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       placeholder="e.g. Delhi Node 02 (Noida DC)"
-                      className="w-full px-3.5 py-2 rounded-xl bg-black/40 border border-white/10 text-xs text-white focus:outline-none focus:border-[#C5F36A]"
+                      className="w-full px-3.5 py-2 rounded-xl bg-black/40 text-xs text-white focus:outline-none"
                     />
                   </div>
 
@@ -720,7 +720,7 @@ export const AdminNodes = () => {
                       value={formData.fqdn}
                       onChange={(e) => setFormData({ ...formData, fqdn: e.target.value })}
                       placeholder="e.g. delhi-node-02.zeroxcloud.site"
-                      className="w-full px-3.5 py-2 rounded-xl bg-black/40 border border-white/10 text-xs text-white focus:outline-none focus:border-[#C5F36A] font-mono"
+                      className="w-full px-3.5 py-2 rounded-xl bg-black/40 text-xs text-white focus:outline-none font-mono"
                     />
                   </div>
                 </div>
@@ -736,7 +736,7 @@ export const AdminNodes = () => {
                       value={formData.ip_address}
                       onChange={(e) => setFormData({ ...formData, ip_address: e.target.value })}
                       placeholder="e.g. 103.174.102.50"
-                      className="w-full px-3.5 py-2 rounded-xl bg-black/40 border border-white/10 text-xs text-white focus:outline-none focus:border-[#C5F36A] font-mono"
+                      className="w-full px-3.5 py-2 rounded-xl bg-black/40 text-xs text-white focus:outline-none font-mono"
                     />
                   </div>
 
@@ -749,7 +749,7 @@ export const AdminNodes = () => {
                       value={formData.location}
                       onChange={(e) => setFormData({ ...formData, location: e.target.value })}
                       placeholder="e.g. Noida, India"
-                      className="w-full px-3.5 py-2 rounded-xl bg-black/40 border border-white/10 text-xs text-white focus:outline-none focus:border-[#C5F36A]"
+                      className="w-full px-3.5 py-2 rounded-xl bg-black/40 text-xs text-white focus:outline-none"
                     />
                   </div>
 
@@ -763,14 +763,14 @@ export const AdminNodes = () => {
                       value={formData.country_code}
                       onChange={(e) => setFormData({ ...formData, country_code: e.target.value.toUpperCase() })}
                       placeholder="e.g. IN"
-                      className="w-full px-3.5 py-2 rounded-xl bg-black/40 border border-white/10 text-xs text-white focus:outline-none focus:border-[#C5F36A] font-mono uppercase"
+                      className="w-full px-3.5 py-2 rounded-xl bg-black/40 text-xs text-white focus:outline-none font-mono uppercase"
                     />
                   </div>
                 </div>
               </div>
 
               {/* Section 2: Daemon & Port Settings */}
-              <div className="space-y-3 pt-3 border-t border-white/10">
+              <div className="space-y-3 pt-3 -t">
                 <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-cyan-400">
                   2. DAEMON (WINGS) &amp; PORTS
                 </h4>
@@ -783,7 +783,7 @@ export const AdminNodes = () => {
                     <select
                       value={formData.scheme}
                       onChange={(e) => setFormData({ ...formData, scheme: e.target.value })}
-                      className="w-full px-3.5 py-2 rounded-xl bg-black/40 border border-white/10 text-xs text-white focus:outline-none focus:border-[#C5F36A]"
+                      className="w-full px-3.5 py-2 rounded-xl bg-black/40 text-xs text-white focus:outline-none"
                     >
                       <option value="https">HTTPS (SSL)</option>
                       <option value="http">HTTP</option>
@@ -798,7 +798,7 @@ export const AdminNodes = () => {
                       type="number"
                       value={formData.daemon_port}
                       onChange={(e) => setFormData({ ...formData, daemon_port: parseInt(e.target.value, 10) })}
-                      className="w-full px-3.5 py-2 rounded-xl bg-black/40 border border-white/10 text-xs text-white font-mono focus:outline-none focus:border-[#C5F36A]"
+                      className="w-full px-3.5 py-2 rounded-xl bg-black/40 text-xs text-white font-mono focus:outline-none"
                     />
                   </div>
 
@@ -810,7 +810,7 @@ export const AdminNodes = () => {
                       type="number"
                       value={formData.daemon_sftp}
                       onChange={(e) => setFormData({ ...formData, daemon_sftp: parseInt(e.target.value, 10) })}
-                      className="w-full px-3.5 py-2 rounded-xl bg-black/40 border border-white/10 text-xs text-white font-mono focus:outline-none focus:border-[#C5F36A]"
+                      className="w-full px-3.5 py-2 rounded-xl bg-black/40 text-xs text-white font-mono focus:outline-none"
                     />
                   </div>
 
@@ -822,7 +822,7 @@ export const AdminNodes = () => {
                       type="number"
                       value={formData.cpu_cores}
                       onChange={(e) => setFormData({ ...formData, cpu_cores: parseInt(e.target.value, 10) })}
-                      className="w-full px-3.5 py-2 rounded-xl bg-black/40 border border-white/10 text-xs text-white font-mono focus:outline-none focus:border-[#C5F36A]"
+                      className="w-full px-3.5 py-2 rounded-xl bg-black/40 text-xs text-white font-mono focus:outline-none"
                     />
                   </div>
                 </div>
@@ -836,7 +836,7 @@ export const AdminNodes = () => {
                       type="number"
                       value={formData.port_range_start}
                       onChange={(e) => setFormData({ ...formData, port_range_start: parseInt(e.target.value, 10) })}
-                      className="w-full px-3.5 py-2 rounded-xl bg-black/40 border border-white/10 text-xs text-white font-mono focus:outline-none focus:border-[#C5F36A]"
+                      className="w-full px-3.5 py-2 rounded-xl bg-black/40 text-xs text-white font-mono focus:outline-none"
                     />
                   </div>
 
@@ -848,7 +848,7 @@ export const AdminNodes = () => {
                       type="number"
                       value={formData.port_range_end}
                       onChange={(e) => setFormData({ ...formData, port_range_end: parseInt(e.target.value, 10) })}
-                      className="w-full px-3.5 py-2 rounded-xl bg-black/40 border border-white/10 text-xs text-white font-mono focus:outline-none focus:border-[#C5F36A]"
+                      className="w-full px-3.5 py-2 rounded-xl bg-black/40 text-xs text-white font-mono focus:outline-none"
                     />
                   </div>
 
@@ -860,20 +860,20 @@ export const AdminNodes = () => {
                       type="number"
                       value={formData.max_servers}
                       onChange={(e) => setFormData({ ...formData, max_servers: parseInt(e.target.value, 10) })}
-                      className="w-full px-3.5 py-2 rounded-xl bg-black/40 border border-white/10 text-xs text-white font-mono focus:outline-none focus:border-[#C5F36A]"
+                      className="w-full px-3.5 py-2 rounded-xl bg-black/40 text-xs text-white font-mono focus:outline-none"
                     />
                   </div>
                 </div>
               </div>
 
               {/* Section 3: Resource Limits & Overcommit */}
-              <div className="space-y-3 pt-3 border-t border-white/10">
+              <div className="space-y-3 pt-3 -t">
                 <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-purple-400">
                   3. MEMORY &amp; DISK LIMITS
                 </h4>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div className="p-3.5 rounded-2xl bg-black/30 border border-white/5 space-y-2">
+                  <div className="p-3.5 rounded-2xl bg-black/30 space-y-2">
                     <label className="block text-[11px] font-mono text-neutral-400">
                       TOTAL MEMORY LIMIT (MB) *
                     </label>
@@ -883,7 +883,7 @@ export const AdminNodes = () => {
                         required
                         value={formData.memory_limit_mb}
                         onChange={(e) => setFormData({ ...formData, memory_limit_mb: parseInt(e.target.value, 10) || 0 })}
-                        className="flex-1 px-3.5 py-2 rounded-xl bg-black/50 border border-white/10 text-xs text-white font-mono focus:outline-none focus:border-[#C5F36A]"
+                        className="flex-1 px-3.5 py-2 rounded-xl bg-black/50 text-xs text-white font-mono focus:outline-none"
                       />
                       <span className="text-xs font-mono text-neutral-400">
                         = {(formData.memory_limit_mb / 1024).toFixed(0)} GB
@@ -899,12 +899,12 @@ export const AdminNodes = () => {
                         value={formData.memory_overcommit_pct}
                         onChange={(e) => setFormData({ ...formData, memory_overcommit_pct: parseInt(e.target.value, 10) || 0 })}
                         placeholder="0"
-                        className="w-full px-3 py-1.5 rounded-xl bg-black/50 border border-white/10 text-xs text-white font-mono focus:outline-none focus:border-[#C5F36A]"
+                        className="w-full px-3 py-1.5 rounded-xl bg-black/50 text-xs text-white font-mono focus:outline-none"
                       />
                     </div>
                   </div>
 
-                  <div className="p-3.5 rounded-2xl bg-black/30 border border-white/5 space-y-2">
+                  <div className="p-3.5 rounded-2xl bg-black/30 space-y-2">
                     <label className="block text-[11px] font-mono text-neutral-400">
                       TOTAL DISK LIMIT (MB) *
                     </label>
@@ -914,7 +914,7 @@ export const AdminNodes = () => {
                         required
                         value={formData.disk_limit_mb}
                         onChange={(e) => setFormData({ ...formData, disk_limit_mb: parseInt(e.target.value, 10) || 0 })}
-                        className="flex-1 px-3.5 py-2 rounded-xl bg-black/50 border border-white/10 text-xs text-white font-mono focus:outline-none focus:border-[#C5F36A]"
+                        className="flex-1 px-3.5 py-2 rounded-xl bg-black/50 text-xs text-white font-mono focus:outline-none"
                       />
                       <span className="text-xs font-mono text-neutral-400">
                         = {(formData.disk_limit_mb / 1024).toFixed(0)} GB
@@ -930,7 +930,7 @@ export const AdminNodes = () => {
                         value={formData.disk_overcommit_pct}
                         onChange={(e) => setFormData({ ...formData, disk_overcommit_pct: parseInt(e.target.value, 10) || 0 })}
                         placeholder="0"
-                        className="w-full px-3 py-1.5 rounded-xl bg-black/50 border border-white/10 text-xs text-white font-mono focus:outline-none focus:border-[#C5F36A]"
+                        className="w-full px-3 py-1.5 rounded-xl bg-black/50 text-xs text-white font-mono focus:outline-none"
                       />
                     </div>
                   </div>
@@ -938,8 +938,8 @@ export const AdminNodes = () => {
               </div>
 
               {/* Section 4: Maintenance & Notes */}
-              <div className="space-y-3 pt-3 border-t border-white/10">
-                <div className="flex items-center gap-3 p-3 rounded-2xl bg-black/30 border border-white/5">
+              <div className="space-y-3 pt-3 -t">
+                <div className="flex items-center gap-3 p-3 rounded-2xl bg-black/30">
                   <input
                     type="checkbox"
                     id="maintenance_mode"
@@ -951,7 +951,7 @@ export const AdminNodes = () => {
                         status: e.target.checked ? 'maintenance' : 'online'
                       })
                     }
-                    className="w-4 h-4 rounded text-[#C5F36A] focus:ring-0 bg-black/50 border-white/20"
+                    className="w-4 h-4 rounded text-[#C5F36A] focus:ring-0 bg-black/50"
                   />
                   <label htmlFor="maintenance_mode" className="text-xs text-neutral-300 cursor-pointer">
                     <span className="font-bold text-white block">Under Maintenance</span>
@@ -968,13 +968,13 @@ export const AdminNodes = () => {
                     value={formData.description}
                     onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                     placeholder="e.g. AMD EPYC 7C13 64-Core, 3.2 Tbps Anti-DDoS, 10Gbps Uplink"
-                    className="w-full px-3.5 py-2 rounded-xl bg-black/40 border border-white/10 text-xs text-white focus:outline-none focus:border-[#C5F36A]"
+                    className="w-full px-3.5 py-2 rounded-xl bg-black/40 text-xs text-white focus:outline-none"
                   />
                 </div>
               </div>
 
               {/* Action Buttons */}
-              <div className="pt-4 border-t border-white/10 flex items-center justify-end gap-3">
+              <div className="pt-4 -t flex items-center justify-end gap-3">
                 <button
                   type="button"
                   onClick={() => setModalOpen(false)}
@@ -997,9 +997,9 @@ export const AdminNodes = () => {
 
       {/* VIEW DEPLOYED INSTANCES MODAL */}
       {serversModalNode && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
-          <div className="w-full max-w-3xl max-h-[85vh] flex flex-col p-6 rounded-3xl bg-[#121814] border border-white/15 shadow-2xl text-white">
-            <div className="flex items-center justify-between pb-4 border-b border-white/10">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-2xl">
+          <div className="w-full max-w-3xl max-h-[85vh] flex flex-col p-6 rounded-3xl  backdrop-blur-2xl shadow-2xl text-white">
+            <div className="flex items-center justify-between pb-4 -b">
               <div>
                 <h3 className="text-base font-bold text-white flex items-center gap-2">
                   <Layers className="w-4 h-4 text-[#C5F36A]" />
@@ -1029,7 +1029,7 @@ export const AdminNodes = () => {
               ) : (
                 <div className="overflow-x-auto">
                   <table className="w-full text-left text-xs">
-                    <thead className="bg-black/40 text-neutral-400 font-mono text-[10px] uppercase border-b border-white/10">
+                    <thead className="bg-black/40 text-neutral-400 font-mono text-[10px] uppercase -b">
                       <tr>
                         <th className="p-3 pl-4">SERVICE ID</th>
                         <th className="p-3">SERVER NAME</th>
@@ -1048,7 +1048,7 @@ export const AdminNodes = () => {
                           <td className="p-3 font-mono text-[#C5F36A]">{srv.port}</td>
                           <td className="p-3 font-mono">{srv.ram_max || 4} GB</td>
                           <td className="p-3 pr-4 text-right">
-                            <span className="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                            <span className="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-emerald-500/20 text-emerald-400">
                               {srv.status}
                             </span>
                           </td>
@@ -1060,7 +1060,7 @@ export const AdminNodes = () => {
               )}
             </div>
 
-            <div className="pt-4 border-t border-white/10 flex justify-end">
+            <div className="pt-4 -t flex justify-end">
               <button
                 onClick={() => setServersModalNode(null)}
                 className="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/15 text-white font-medium text-xs transition"

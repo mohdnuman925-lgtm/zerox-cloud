@@ -46,9 +46,9 @@ export const Navbar = ({ onOpenSearch }) => {
     <header className="sticky top-0 z-40 w-full px-3 sm:px-6 lg:px-8 pt-3 sm:pt-4 transition-all duration-300 pointer-events-none">
       <div className="max-w-7xl mx-auto pointer-events-auto">
         <div
-          className={`rounded-full border border-white/15 bg-[#0e1611]/5 backdrop-blur-2xl px-4 sm:px-6 h-14 flex items-center justify-between gap-3 sm:gap-4 transition-all duration-300 shadow-[0_8px_32px_rgba(0,0,0,0.35),inset_0_1px_1px_rgba(255,255,255,0.14)] ${
+          className={`rounded-full bg-[#0e1611]/5 backdrop-blur-2xl px-4 sm:px-6 h-14 flex items-center justify-between gap-3 sm:gap-4 transition-all duration-300 shadow-[0_8px_32px_rgba(0,0,0,0.35)] ${
             isScrolled
-              ? 'border-white/25 bg-[#0e1611]/10 shadow-[0_12px_40px_rgba(0,0,0,0.55),inset_0_1px_1px_rgba(255,255,255,0.2)]'
+              ? 'bg-[#0e1611]/10 shadow-[0_12px_40px_rgba(0,0,0,0.55)]'
               : ''
           }`}
         >
@@ -74,13 +74,13 @@ export const Navbar = ({ onOpenSearch }) => {
               </button>
 
               {gamesOpen && (
-                <div className="absolute top-full left-0 mt-3 w-72 p-2 rounded-2xl bg-[#0e1611]/90 backdrop-blur-2xl border border-white/15 shadow-2xl space-y-1 animate-fade-in z-50">
+                <div className="absolute top-full left-0 mt-3 w-72 p-2 rounded-2xl bg-[#0e1611]/5 backdrop-blur-2xl shadow-2xl space-y-1 animate-fade-in z-50">
                   <Link
                     to="/games?game=minecraft"
                     className="flex items-center justify-between p-2.5 rounded-xl hover:bg-white/10 text-neutral-200 hover:text-white transition group"
                   >
                     <div className="flex items-center gap-3">
-                      <div className="w-6 h-6 rounded-lg bg-emerald-950/80 border border-emerald-500/30 p-1 flex items-center justify-center shrink-0">
+                      <div className="w-6 h-6 rounded-lg bg-emerald-950/80 p-1 flex items-center justify-center shrink-0">
                         <GameLogo game="minecraft" className="w-full h-full" />
                       </div>
                       <div>
@@ -88,7 +88,7 @@ export const Navbar = ({ onOpenSearch }) => {
                         <p className="text-[10px] text-neutral-400">Paper, Purpur, Forge, Bedrock</p>
                       </div>
                     </div>
-                    <span className="px-1.5 py-0.5 rounded text-[9px] font-mono font-bold uppercase tracking-wider bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                    <span className="px-1.5 py-0.5 rounded text-[9px] font-mono font-bold uppercase tracking-wider bg-emerald-500/20 text-emerald-400">
                       LIVE
                     </span>
                   </Link>
@@ -97,7 +97,7 @@ export const Navbar = ({ onOpenSearch }) => {
                     className="flex items-center justify-between p-2.5 rounded-xl hover:bg-white/10 text-neutral-200 hover:text-white transition group"
                   >
                     <div className="flex items-center gap-3">
-                      <div className="w-6 h-6 rounded-lg bg-orange-950/80 border border-orange-500/30 p-1 flex items-center justify-center shrink-0">
+                      <div className="w-6 h-6 rounded-lg bg-orange-950/80 p-1 flex items-center justify-center shrink-0">
                         <GameLogo game="rust" className="w-full h-full" />
                       </div>
                       <div>
@@ -105,7 +105,7 @@ export const Navbar = ({ onOpenSearch }) => {
                         <p className="text-[10px] text-neutral-400">Oxide / uMod high-tick</p>
                       </div>
                     </div>
-                    <span className="px-1.5 py-0.5 rounded text-[9px] font-mono font-bold uppercase tracking-wider bg-orange-500/20 text-orange-400 border border-orange-500/30">
+                    <span className="px-1.5 py-0.5 rounded text-[9px] font-mono font-bold uppercase tracking-wider bg-orange-500/20 text-orange-400">
                       SOON
                     </span>
                   </Link>
@@ -114,7 +114,7 @@ export const Navbar = ({ onOpenSearch }) => {
                     className="flex items-center justify-between p-2.5 rounded-xl hover:bg-white/10 text-neutral-200 hover:text-white transition group"
                   >
                     <div className="flex items-center gap-3">
-                      <div className="w-6 h-6 rounded-lg bg-sky-950/80 border border-sky-500/30 p-1 flex items-center justify-center shrink-0">
+                      <div className="w-6 h-6 rounded-lg bg-sky-950/80 p-1 flex items-center justify-center shrink-0">
                         <GameLogo game="cs2" className="w-full h-full" />
                       </div>
                       <div>
@@ -122,7 +122,7 @@ export const Navbar = ({ onOpenSearch }) => {
                         <p className="text-[10px] text-neutral-400">128-tick tournament nodes</p>
                       </div>
                     </div>
-                    <span className="px-1.5 py-0.5 rounded text-[9px] font-mono font-bold uppercase tracking-wider bg-sky-500/20 text-sky-400 border border-sky-500/30">
+                    <span className="px-1.5 py-0.5 rounded text-[9px] font-mono font-bold uppercase tracking-wider bg-sky-500/20 text-sky-400">
                       SOON
                     </span>
                   </Link>
@@ -186,7 +186,7 @@ export const Navbar = ({ onOpenSearch }) => {
                 <ChevronDown className="w-3.5 h-3.5 text-neutral-400" />
               </button>
               {legalOpen && (
-                <div className="absolute top-full left-0 mt-3 w-48 p-2 rounded-2xl bg-[#0e1611]/90 backdrop-blur-2xl border border-white/15 shadow-2xl space-y-1 animate-fade-in z-50">
+                <div className="absolute top-full left-0 mt-3 w-48 p-2 rounded-2xl bg-[#0e1611]/5 backdrop-blur-2xl shadow-2xl space-y-1 animate-fade-in z-50">
                   <Link
                     to="/terms"
                     className="block p-2 rounded-xl text-xs text-neutral-200 hover:text-white hover:bg-white/10 transition"
@@ -223,12 +223,12 @@ export const Navbar = ({ onOpenSearch }) => {
             {/* Search Pill */}
             <button
               onClick={() => onOpenSearch(true)}
-              className="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/[0.04] hover:bg-white/[0.08] text-neutral-400 hover:text-white transition border border-white/10 text-xs shadow-sm"
+              className="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/[0.04] hover:bg-white/[0.08] text-neutral-400 hover:text-white transition text-xs shadow-sm"
               title="Search (Ctrl + K)"
             >
               <Search className="w-3.5 h-3.5 text-neutral-400" />
               <span>Search</span>
-              <kbd className="px-1.5 py-0.5 rounded bg-black/40 text-[10px] font-mono text-neutral-400 border border-white/10">
+              <kbd className="px-1.5 py-0.5 rounded bg-black/40 text-[10px] font-mono text-neutral-400">
                 ⌘K
               </kbd>
             </button>
@@ -236,7 +236,7 @@ export const Navbar = ({ onOpenSearch }) => {
             {/* Currency / Region Flag Pill */}
             <button
               onClick={handleCurrencyToggle}
-              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-full bg-white/[0.04] hover:bg-white/[0.08] text-xs font-semibold text-white transition border border-white/10 shadow-sm"
+              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-full bg-white/[0.04] hover:bg-white/[0.08] text-xs font-semibold text-white transition shadow-sm"
               title={`Currency: ${currency} (Click to toggle)`}
             >
               <span className="w-4 h-4 rounded-full overflow-hidden flex items-center justify-center text-sm shadow-sm select-none">
@@ -323,9 +323,9 @@ export const Navbar = ({ onOpenSearch }) => {
           </div>
         </div>
 
-        {/* Mobile Dropdown Drawer with Matching 95% Transparency */}
+        {/* Mobile Dropdown Drawer with Matching 95% Transparency and No Outline */}
         {mobileMenuOpen && (
-          <div className="lg:hidden mt-2 p-4 rounded-3xl bg-[#0e1611]/85 backdrop-blur-2xl border border-white/15 shadow-2xl space-y-2 text-sm animate-fade-in text-white">
+          <div className="lg:hidden mt-2 p-4 rounded-3xl bg-[#0e1611]/5 backdrop-blur-2xl shadow-2xl space-y-2 text-sm animate-fade-in text-white">
             <div>
               <Link
                 to="/games"
@@ -334,7 +334,7 @@ export const Navbar = ({ onOpenSearch }) => {
               >
                 Game Servers
               </Link>
-              <div className="pl-3 pb-1 space-y-1 border-l border-white/10 ml-2">
+              <div className="pl-3 pb-1 space-y-1 -l ml-2">
                 <Link
                   to="/games?game=minecraft"
                   onClick={() => setMobileMenuOpen(false)}
@@ -434,7 +434,7 @@ export const Navbar = ({ onOpenSearch }) => {
               Privacy Policy
             </Link>
 
-            <div className="pt-2 border-t border-white/10 flex items-center justify-between">
+            <div className="pt-2 -t flex items-center justify-between">
               <span className="text-xs text-neutral-400">Currency</span>
               <button
                 onClick={handleCurrencyToggle}
@@ -444,14 +444,14 @@ export const Navbar = ({ onOpenSearch }) => {
               </button>
             </div>
 
-            <div className="pt-2 border-t border-white/10 flex items-center justify-between">
+            <div className="pt-2 -t flex items-center justify-between">
               <span className="text-xs text-neutral-400">Clicking Sound</span>
               <button
                 onClick={toggleSound}
                 className={`text-xs font-bold px-2.5 py-1 rounded-full flex items-center gap-1.5 transition ${
                   soundEnabled
-                    ? 'bg-[#C5F36A]/20 text-[#C5F36A] border border-[#C5F36A]/30'
-                    : 'bg-white/10 text-neutral-400 border border-white/10'
+                    ? 'bg-[#C5F36A]/20 text-[#C5F36A] '
+                    : 'bg-white/10 text-neutral-400 '
                 }`}
               >
                 {soundEnabled ? (

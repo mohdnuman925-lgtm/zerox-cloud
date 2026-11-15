@@ -27,9 +27,9 @@ export const ClientSettings = () => {
       </div>
 
       {/* Profile Details */}
-      <div className="p-6 rounded-3xl bg-[#121814] border border-white/10 space-y-4 shadow-xl">
+      <div className="p-6 rounded-3xl  backdrop-blur-2xl space-y-4 shadow-xl">
         <div className="flex items-center gap-3">
-          <div className="p-2.5 rounded-xl bg-white/5 border border-white/10 text-[#C5F36A]">
+          <div className="p-2.5 rounded-xl bg-white/5 text-[#C5F36A]">
             <User className="w-5 h-5" />
           </div>
           <div>
@@ -39,21 +39,21 @@ export const ClientSettings = () => {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs pt-2">
-          <div className="p-3.5 rounded-xl bg-black/40 border border-white/5">
+          <div className="p-3.5 rounded-xl bg-black/40">
             <span className="text-[10px] uppercase font-mono text-neutral-500 block">Full Name</span>
             <span className="text-sm font-bold text-white mt-0.5 block">{user?.name}</span>
           </div>
-          <div className="p-3.5 rounded-xl bg-black/40 border border-white/5">
+          <div className="p-3.5 rounded-xl bg-black/40">
             <span className="text-[10px] uppercase font-mono text-neutral-500 block">Email Address</span>
             <span className="text-sm font-bold text-white mt-0.5 block">{user?.email}</span>
           </div>
-          <div className="p-3.5 rounded-xl bg-black/40 border border-white/5">
+          <div className="p-3.5 rounded-xl bg-black/40">
             <span className="text-[10px] uppercase font-mono text-neutral-500 block">Account Role</span>
             <span className="text-xs font-mono font-bold text-[#C5F36A] uppercase mt-0.5 block">
               {user?.role}
             </span>
           </div>
-          <div className="p-3.5 rounded-xl bg-black/40 border border-white/5">
+          <div className="p-3.5 rounded-xl bg-black/40">
             <span className="text-[10px] uppercase font-mono text-neutral-500 block">Member Since</span>
             <span className="text-xs font-mono text-neutral-300 mt-0.5 block">
               {new Date(user?.created_at || Date.now()).toLocaleDateString()}
@@ -63,9 +63,9 @@ export const ClientSettings = () => {
       </div>
 
       {/* Pterodactyl Panel Password */}
-      <div className="p-6 rounded-3xl bg-[#121814] border border-white/10 flex items-center justify-between gap-4 shadow-xl">
+      <div className="p-6 rounded-3xl  backdrop-blur-2xl flex items-center justify-between gap-4 shadow-xl">
         <div className="flex items-center gap-3">
-          <div className="p-2.5 rounded-xl bg-white/5 border border-white/10 text-[#C5F36A]">
+          <div className="p-2.5 rounded-xl bg-white/5 text-[#C5F36A]">
             <Key className="w-5 h-5" />
           </div>
           <div>
@@ -84,9 +84,9 @@ export const ClientSettings = () => {
       </div>
 
       {/* Notifications */}
-      <div className="p-6 rounded-3xl bg-[#121814] border border-white/10 space-y-4 shadow-xl">
+      <div className="p-6 rounded-3xl  backdrop-blur-2xl space-y-4 shadow-xl">
         <div className="flex items-center gap-3">
-          <div className="p-2.5 rounded-xl bg-white/5 border border-white/10 text-[#C5F36A]">
+          <div className="p-2.5 rounded-xl bg-white/5 text-[#C5F36A]">
             <Bell className="w-5 h-5" />
           </div>
           <div>
@@ -96,7 +96,7 @@ export const ClientSettings = () => {
         </div>
 
         <div className="space-y-3 pt-2 text-xs">
-          <label className="flex items-center justify-between p-3.5 rounded-xl bg-black/40 border border-white/5 cursor-pointer">
+          <label className="flex items-center justify-between p-3.5 rounded-xl bg-black/40 cursor-pointer">
             <div>
               <p className="font-bold text-white">Email Server Alerts &amp; Invoices</p>
               <p className="text-neutral-400 text-[11px]">Receive renewal reminders and payment receipts via email</p>
@@ -109,7 +109,7 @@ export const ClientSettings = () => {
             />
           </label>
 
-          <label className="flex items-center justify-between p-3.5 rounded-xl bg-black/40 border border-white/5 cursor-pointer">
+          <label className="flex items-center justify-between p-3.5 rounded-xl bg-black/40 cursor-pointer">
             <div>
               <p className="font-bold text-white">Discord Webhook Notifications</p>
               <p className="text-neutral-400 text-[11px]">Send ticket updates to your linked Discord handle</p>

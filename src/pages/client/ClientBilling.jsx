@@ -45,8 +45,8 @@ export const ClientBilling = () => {
       </div>
 
       {/* Next renewal card matching video frame 045 */}
-      <div className="p-6 rounded-3xl bg-[#121814] border border-white/10 flex items-center gap-4 shadow-xl">
-        <div className="p-3 rounded-2xl bg-white/5 border border-white/10 text-[#C5F36A]">
+      <div className="p-6 rounded-3xl  backdrop-blur-2xl flex items-center gap-4 shadow-xl">
+        <div className="p-3 rounded-2xl bg-white/5 text-[#C5F36A]">
           <Calendar className="w-6 h-6" />
         </div>
         <div>
@@ -60,8 +60,8 @@ export const ClientBilling = () => {
       </div>
 
       {/* Recent transactions card & table matching video frame 045 */}
-      <div className="rounded-3xl bg-[#121814] border border-white/10 overflow-hidden shadow-xl">
-        <div className="p-5 border-b border-white/10 flex items-center justify-between">
+      <div className="rounded-3xl  backdrop-blur-2xl overflow-hidden shadow-xl">
+        <div className="p-5 -b flex items-center justify-between">
           <div className="flex items-center gap-2">
             <CreditCard className="w-4 h-4 text-[#C5F36A]" />
             <h3 className="text-sm font-bold text-white">Recent transactions</h3>
@@ -78,7 +78,7 @@ export const ClientBilling = () => {
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
-              <thead className="bg-black/30 border-b border-white/10 text-neutral-400 font-mono text-[10px] uppercase">
+              <thead className="bg-black/30 -b text-neutral-400 font-mono text-[10px] uppercase">
                 <tr>
                   <th className="p-4 pl-6">DATE</th>
                   <th className="p-4">INVOICE</th>
@@ -104,7 +104,7 @@ export const ClientBilling = () => {
                       {inv.currency === 'USD' ? '$' : '₹'}{Number(inv.total).toFixed(2)}
                     </td>
                     <td className="p-4">
-                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-emerald-500/20 text-emerald-400">
                         <CheckCircle className="w-3 h-3" />
                         {inv.status}
                       </span>

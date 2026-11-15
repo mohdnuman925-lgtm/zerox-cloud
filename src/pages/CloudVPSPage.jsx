@@ -56,7 +56,7 @@ export const CloudVPSPage = () => {
         {/* Configuration selectors */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
           {/* OS Selector */}
-          <div className="p-6 rounded-3xl bg-[#0e1611]/5 border border-white/15 backdrop-blur-2xl shadow-[0_8px_32px_rgba(0,0,0,0.35),inset_0_1px_1px_rgba(255,255,255,0.14)] space-y-3">
+          <div className="p-6 rounded-3xl bg-[#0e1611]/5 backdrop-blur-2xl shadow-[0_8px_32px_rgba(0,0,0,0.35)] space-y-3">
             <h3 className="text-xs font-mono font-bold uppercase text-neutral-400">
               01 • Select Operating System
             </h3>
@@ -65,10 +65,10 @@ export const CloudVPSPage = () => {
                 <button
                   key={os}
                   onClick={() => setSelectedOS(os)}
-                  className={`p-3 rounded-xl text-xs font-bold text-left border transition-all backdrop-blur-md ${
+                  className={`p-3 rounded-xl text-xs font-bold text-left transition-all backdrop-blur-2xl ${
                     selectedOS === os
-                      ? 'bg-white text-black border-white shadow-lg'
-                      : 'bg-black/30 border-white/10 text-neutral-300 hover:text-white hover:border-white/20 hover:bg-white/5'
+                      ? 'bg-white text-black shadow-lg'
+                      : ' backdrop-blur-2xl text-neutral-300 hover:text-white hover:bg-white/10'
                   }`}
                 >
                   {os}
@@ -78,7 +78,7 @@ export const CloudVPSPage = () => {
           </div>
 
           {/* Region Selector */}
-          <div className="p-6 rounded-3xl bg-[#0e1611]/5 border border-white/15 backdrop-blur-2xl shadow-[0_8px_32px_rgba(0,0,0,0.35),inset_0_1px_1px_rgba(255,255,255,0.14)] space-y-3">
+          <div className="p-6 rounded-3xl bg-[#0e1611]/5 backdrop-blur-2xl shadow-[0_8px_32px_rgba(0,0,0,0.35)] space-y-3">
             <h3 className="text-xs font-mono font-bold uppercase text-neutral-400">
               02 • Select Datacenter Region
             </h3>
@@ -91,10 +91,10 @@ export const CloudVPSPage = () => {
                 <button
                   key={reg.name}
                   onClick={() => setSelectedLocation(reg.name)}
-                  className={`p-3 rounded-xl text-xs font-bold text-left border transition-all backdrop-blur-md flex items-center justify-between ${
+                  className={`p-3 rounded-xl text-xs font-bold text-left transition-all backdrop-blur-2xl flex items-center justify-between ${
                     selectedLocation === reg.name
-                      ? 'bg-white text-black border-white shadow-lg'
-                      : 'bg-black/30 border-white/10 text-neutral-300 hover:text-white hover:border-white/20 hover:bg-white/5'
+                      ? 'bg-white text-black shadow-lg'
+                      : ' backdrop-blur-2xl text-neutral-300 hover:text-white hover:bg-white/10'
                   }`}
                 >
                   <span>{reg.name}</span>
@@ -114,13 +114,11 @@ export const CloudVPSPage = () => {
             return (
               <div
                 key={plan.id}
-                className={`p-8 rounded-3xl bg-[#0c140f]/5 border backdrop-blur-2xl flex flex-col justify-between transition-all duration-300 shadow-[0_12px_40px_rgba(0,0,0,0.35),inset_0_1px_1px_rgba(255,255,255,0.14)] ${
-                  isRec ? 'border-cyan-400/80 ring-1 ring-cyan-400/30' : 'border-white/15 hover:border-white/35 hover:-translate-y-1'
-                }`}
+                className="p-8 rounded-3xl bg-[#0c140f]/5 backdrop-blur-2xl flex flex-col justify-between transition-all duration-300 shadow-[0_12px_40px_rgba(0,0,0,0.35)] hover:-translate-y-1"
               >
                 <div>
                   <div className="flex items-center justify-between mb-4">
-                    <span className="px-2.5 py-1 rounded-md text-[10px] font-mono font-bold bg-white/10 text-cyan-400 border border-white/10">
+                    <span className="px-2.5 py-1 rounded-md text-[10px] font-mono font-bold bg-white/10 text-cyan-400">
                       {plan.tag}
                     </span>
                     {plan.badge && (
@@ -138,7 +136,7 @@ export const CloudVPSPage = () => {
                     <span className="text-xs text-neutral-400">/month</span>
                   </div>
 
-                  <div className="my-6 space-y-2 py-4 border-y border-white/10 text-xs">
+                  <div className="my-6 space-y-2 py-4 -y text-xs">
                     <div className="flex justify-between text-neutral-300">
                       <span className="text-neutral-500">vCPU</span>
                       <span className="font-bold font-mono text-white">{plan.cpu}</span>
@@ -177,7 +175,7 @@ export const CloudVPSPage = () => {
                   </button>
                   <button
                     onClick={() => handleOrder(plan, false)}
-                    className="p-3 rounded-xl bg-white/10 hover:bg-white/20 text-white transition border border-white/10"
+                    className="p-3 rounded-xl bg-white/10 hover:bg-white/20 text-white transition"
                     title="Add to cart"
                   >
                     <ShoppingCart className="w-4 h-4" />

@@ -304,22 +304,22 @@ export const AdminRoles = () => {
 
       {/* Metrics Row */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-        <div className="p-5 rounded-2xl bg-[#121814] border border-white/10">
+        <div className="p-5 rounded-2xl bg-[#0c140f]/5 backdrop-blur-2xl shadow-xl">
           <p className="text-[10px] font-mono text-neutral-400 uppercase font-bold tracking-wider">Total Defined Roles</p>
           <p className="text-2xl font-black text-white mt-1">{roles.length}</p>
           <span className="text-[10px] text-neutral-500 mt-0.5 block">Configured in system</span>
         </div>
-        <div className="p-5 rounded-2xl bg-[#121814] border border-white/10">
+        <div className="p-5 rounded-2xl bg-[#0c140f]/5 backdrop-blur-2xl shadow-xl">
           <p className="text-[10px] font-mono text-neutral-400 uppercase font-bold tracking-wider">Active Staff Members</p>
           <p className="text-2xl font-black text-[#C5F36A] mt-1">{staffCount}</p>
           <span className="text-[10px] text-neutral-500 mt-0.5 block">Elevated user accounts</span>
         </div>
-        <div className="p-5 rounded-2xl bg-[#121814] border border-white/10">
+        <div className="p-5 rounded-2xl bg-[#0c140f]/5 backdrop-blur-2xl shadow-xl">
           <p className="text-[10px] font-mono text-neutral-400 uppercase font-bold tracking-wider">Founders & Super Admins</p>
           <p className="text-2xl font-black text-pink-400 mt-1">{superAdminCount + founderCount}</p>
           <span className="text-[10px] text-neutral-500 mt-0.5 block">{founderCount} Founders, {superAdminCount} Super Admin</span>
         </div>
-        <div className="p-5 rounded-2xl bg-[#121814] border border-white/10">
+        <div className="p-5 rounded-2xl bg-[#0c140f]/5 backdrop-blur-2xl shadow-xl">
           <p className="text-[10px] font-mono text-neutral-400 uppercase font-bold tracking-wider">Ticket Staff Agents</p>
           <p className="text-2xl font-black text-sky-400 mt-1">{ticketStaffCount}</p>
           <span className="text-[10px] text-neutral-500 mt-0.5 block">Support desk operators</span>
@@ -349,7 +349,7 @@ export const AdminRoles = () => {
             return (
               <div
                 key={role.id}
-                className="rounded-3xl bg-[#121814] border border-white/10 p-6 flex flex-col justify-between hover:border-white/20 transition-all duration-200 shadow-xl relative group"
+                className="rounded-3xl bg-[#0c140f]/5 backdrop-blur-2xl p-6 flex flex-col justify-between transition-all duration-200 shadow-xl relative group"
               >
                 <div className="space-y-4">
                   {/* Top Bar */}
@@ -477,7 +477,7 @@ export const AdminRoles = () => {
       {/* Modal: Create / Edit Role */}
       {modalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fade-in">
-          <div className="bg-[#121814] border border-white/15 rounded-3xl max-w-xl w-full p-6 sm:p-8 space-y-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+          <div className="bg-[#0c140f]/5 backdrop-blur-2xl rounded-3xl max-w-xl w-full p-6 sm:p-8 space-y-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
             {/* Modal Header */}
             <div className="flex items-center justify-between pb-4 border-b border-white/10">
               <div className="flex items-center gap-3">
@@ -667,7 +667,7 @@ export const AdminRoles = () => {
       {/* Modal: Delete Confirmation */}
       {deleteConfirmRole && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fade-in">
-          <div className="bg-[#121814] border border-red-500/30 rounded-3xl max-w-md w-full p-6 space-y-4 shadow-2xl">
+          <div className="bg-[#0c140f]/5 backdrop-blur-2xl rounded-3xl max-w-md w-full p-6 space-y-4 shadow-2xl">
             <div className="flex items-center gap-3 text-red-400">
               <div className="p-2.5 rounded-2xl bg-red-500/10 border border-red-500/20">
                 <AlertTriangle className="w-6 h-6" />

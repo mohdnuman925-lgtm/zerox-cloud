@@ -51,8 +51,8 @@ export const WelcomeModal = () => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-md animate-fade-in">
-      <div className="relative w-full max-w-md p-7 rounded-3xl bg-[#0c140f]/35 backdrop-blur-2xl border border-white/20 shadow-[0_20px_60px_rgba(0,0,0,0.7),inset_0_1px_1px_rgba(255,255,255,0.2)] text-center text-white">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-2xl animate-fade-in">
+      <div className="relative w-full max-w-md p-7 rounded-3xl bg-[#0c140f]/35 backdrop-blur-2xl shadow-[0_20px_60px_rgba(0,0,0,0.7)] text-center text-white">
         {/* Close X */}
         <button
           onClick={handleClose}
@@ -63,7 +63,7 @@ export const WelcomeModal = () => {
         </button>
 
         {/* Badge */}
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider bg-white/10 text-white/90 mb-4 border border-white/10">
+        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider bg-white/10 text-white/90 mb-4">
           <Sparkles className="w-3.5 h-3.5 text-[#C5F36A]" />
           Welcome Offer
         </div>
@@ -84,7 +84,7 @@ export const WelcomeModal = () => {
         </span>
 
         {/* Coupon Box */}
-        <div className="flex items-center justify-between p-3 px-4 rounded-xl bg-black/40 border border-white/10 mb-4">
+        <div className="flex items-center justify-between p-3 px-4 rounded-xl bg-black/40 mb-4">
           <span className="font-mono font-bold tracking-wider text-base text-white">
             {couponCode}
           </span>

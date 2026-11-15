@@ -23,7 +23,7 @@ export const BrandLogo = ({
   const content = (
     <div className={`flex items-center gap-2.5 flex-shrink-0 group ${className}`}>
       {/* Geometric ZC Vector Icon */}
-      <div className="relative flex items-center justify-center p-1 rounded-lg bg-white/[0.04] border border-white/10 group-hover:border-[#C5F36A]/50 transition shadow-sm">
+      <div className="relative flex items-center justify-center p-1 rounded-lg bg-white/[0.04] group- transition shadow-sm">
         <svg
           viewBox="0 0 300 180"
           className={`${dimensions.zcSize} overflow-visible`}

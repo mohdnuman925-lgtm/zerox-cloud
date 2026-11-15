@@ -36,9 +36,9 @@ export const GameComingSoon = ({ game = 'rust', onSelectMinecraft }) => {
         name: 'Rust',
         accent: 'text-orange-400',
         accentBg: 'bg-orange-500/10',
-        accentBorder: 'border-orange-500/30',
+        accentBorder: '',
         accentGlow: 'shadow-[0_0_50px_-12px_rgba(249,115,22,0.3)]',
-        badgeColor: 'bg-orange-500/20 text-orange-400 border-orange-500/40',
+        badgeColor: 'bg-orange-500/20 text-orange-400 ',
         tagline: 'High-Performance Hardcore Survival Hosting',
         heroImage: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?w=1200&auto=format&fit=crop&q=80',
         description:
@@ -107,9 +107,9 @@ export const GameComingSoon = ({ game = 'rust', onSelectMinecraft }) => {
         name: 'Counter-Strike 2',
         accent: 'text-sky-400',
         accentBg: 'bg-sky-500/10',
-        accentBorder: 'border-sky-500/30',
+        accentBorder: '',
         accentGlow: 'shadow-[0_0_50px_-12px_rgba(56,189,248,0.3)]',
-        badgeColor: 'bg-sky-500/20 text-sky-400 border-sky-500/40',
+        badgeColor: 'bg-sky-500/20 text-sky-400 ',
         tagline: 'Tournament-Grade Esports Sub-Tick Hosting',
         heroImage: 'https://images.unsplash.com/photo-1511512578047-dfb367046420?w=1200&auto=format&fit=crop&q=80',
         description:
@@ -211,7 +211,7 @@ export const GameComingSoon = ({ game = 'rust', onSelectMinecraft }) => {
       {/* Hero Coming Soon Card */}
       <ScrollReveal animation="fade-up">
         <div
-          className={`relative rounded-3xl overflow-hidden border border-white/20 bg-[#0c140f]/5 backdrop-blur-2xl ${config.accentGlow} p-6 sm:p-10 shadow-[0_16px_48px_rgba(0,0,0,0.35),inset_0_1px_1px_rgba(255,255,255,0.15)]`}
+          className={`relative rounded-3xl overflow-hidden  bg-[#0c140f]/5 backdrop-blur-2xl ${config.accentGlow} p-6 sm:p-10 shadow-[0_16px_48px_rgba(0,0,0,0.35)]`}
         >
           {/* Background image & gradient overlay */}
           <div
@@ -226,14 +226,14 @@ export const GameComingSoon = ({ game = 'rust', onSelectMinecraft }) => {
             {/* Status Pills */}
             <div className="flex flex-wrap items-center gap-3">
               <span
-                className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono font-bold uppercase tracking-wider border ${config.badgeColor} backdrop-blur-md`}
+                className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono font-bold uppercase tracking-wider  ${config.badgeColor} backdrop-blur-2xl`}
               >
                 <span className="w-2 h-2 rounded-full bg-current animate-ping" />
                 <span className="w-2 h-2 rounded-full bg-current -ml-4" />
                 UNDER ACTIVE CONFIGURATION • LAUNCHING SOON
               </span>
 
-              <span className="px-3 py-1.5 rounded-full text-xs font-mono text-neutral-400 bg-black/40 border border-white/10 backdrop-blur-md">
+              <span className="px-3 py-1.5 rounded-full text-xs font-mono text-neutral-400 bg-black/40 backdrop-blur-2xl">
                 PLANS COMING SOON
               </span>
             </div>
@@ -241,7 +241,7 @@ export const GameComingSoon = ({ game = 'rust', onSelectMinecraft }) => {
             {/* Title & Tagline with Game Logo */}
             <div className="max-w-3xl space-y-3">
               <div className="flex items-center gap-3.5 sm:gap-4">
-                <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-black/60 border border-white/20 p-2 sm:p-2.5 flex items-center justify-center backdrop-blur-md shadow-2xl shrink-0">
+                <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-black/60 p-2 sm:p-2.5 flex items-center justify-center backdrop-blur-2xl shadow-2xl shrink-0">
                   <GameLogo game={gameKey} className="w-full h-full" />
                 </div>
                 <div>
@@ -264,7 +264,7 @@ export const GameComingSoon = ({ game = 'rust', onSelectMinecraft }) => {
               {config.specNodes.map((spec, idx) => (
                 <div
                   key={idx}
-                  className="p-3.5 rounded-2xl bg-black/40 border border-white/10 backdrop-blur-md space-y-1"
+                  className="p-3.5 rounded-2xl bg-black/40 backdrop-blur-2xl space-y-1"
                 >
                   <span className="text-[10px] font-mono uppercase tracking-widest text-neutral-400 block">
                     {spec.label}
@@ -277,8 +277,8 @@ export const GameComingSoon = ({ game = 'rust', onSelectMinecraft }) => {
             </div>
 
             {/* Interactive Early Access & Notification Box */}
-            <div className="pt-4 border-t border-white/10">
-              <div className="p-5 sm:p-6 rounded-2xl bg-gradient-to-r from-black/60 to-black/30 border border-white/15 max-w-2xl backdrop-blur-md space-y-4">
+            <div className="pt-4 -t">
+              <div className="p-5 sm:p-6 rounded-2xl bg-gradient-to-r from-black/60 to-black/30 max-w-2xl backdrop-blur-2xl space-y-4">
                 <div className="flex items-center gap-2.5">
                   <Bell className={`w-5 h-5 ${config.accent}`} />
                   <div>
@@ -292,7 +292,7 @@ export const GameComingSoon = ({ game = 'rust', onSelectMinecraft }) => {
                 </div>
 
                 {subscribed ? (
-                  <div className="flex items-center gap-3 p-3.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs sm:text-sm font-medium">
+                  <div className="flex items-center gap-3 p-3.5 rounded-xl bg-emerald-500/10 text-emerald-400 text-xs sm:text-sm font-medium">
                     <CheckCircle2 className="w-5 h-5 flex-shrink-0" />
                     <span>
                       You&apos;re registered! We will ping you the moment {config.name} plans and nodes are deployed.
@@ -305,7 +305,7 @@ export const GameComingSoon = ({ game = 'rust', onSelectMinecraft }) => {
                       value={contact}
                       onChange={(e) => setContact(e.target.value)}
                       placeholder="e.g. yourname@gmail.com or Discord#0000"
-                      className="flex-1 px-4 py-2.5 rounded-xl bg-white/5 border border-white/15 text-white placeholder-neutral-500 text-xs focus:outline-none focus:border-[#C5F36A] transition"
+                      className="flex-1 px-4 py-2.5 rounded-xl bg-white/5 text-white placeholder-neutral-500 text-xs focus:outline-none transition"
                       required
                     />
                     <button
@@ -341,7 +341,7 @@ export const GameComingSoon = ({ game = 'rust', onSelectMinecraft }) => {
                 <button
                   type="button"
                   onClick={onSelectMinecraft}
-                  className="px-5 py-2.5 rounded-xl bg-white/10 hover:bg-white/15 border border-white/15 text-white text-xs font-bold flex items-center gap-2 transition active:scale-95"
+                  className="px-5 py-2.5 rounded-xl bg-white/10 hover:bg-white/15 text-white text-xs font-bold flex items-center gap-2 transition active:scale-95"
                 >
                   <GameLogo game="minecraft" className="w-4 h-4" />
                   <span>Browse Live Minecraft Plans Instead</span>
@@ -365,10 +365,10 @@ export const GameComingSoon = ({ game = 'rust', onSelectMinecraft }) => {
             const Icon = feat.icon;
             return (
               <ScrollReveal key={idx} animation="fade-up" delay={idx * 60}>
-                <div className="p-5 rounded-2xl bg-[#0c140f]/5 border border-white/12 hover:border-white/25 transition-all duration-300 backdrop-blur-xl h-full flex flex-col justify-between group space-y-3 shadow-[0_8px_24px_rgba(0,0,0,0.3),inset_0_1px_1px_rgba(255,255,255,0.1)]">
+                <div className="p-5 rounded-2xl bg-[#0c140f]/5 transition-all duration-300 backdrop-blur-xl h-full flex flex-col justify-between group space-y-3 shadow-[0_8px_24px_rgba(0,0,0,0.3)]">
                   <div className="space-y-3">
                     <div
-                      className={`w-10 h-10 rounded-xl ${config.accentBg} border ${config.accentBorder} flex items-center justify-center transition group-hover:scale-110`}
+                      className={`w-10 h-10 rounded-xl ${config.accentBg}  ${config.accentBorder} flex items-center justify-center transition group-hover:scale-110`}
                     >
                       <Icon className={`w-5 h-5 ${config.accent}`} />
                     </div>
@@ -404,15 +404,15 @@ export const GameComingSoon = ({ game = 'rust', onSelectMinecraft }) => {
           {config.plannedTiers.map((tier, idx) => (
             <ScrollReveal key={idx} animation="fade-up" delay={idx * 80}>
               <div
-                className={`p-6 rounded-3xl bg-[#0c140f]/5 border backdrop-blur-2xl flex flex-col justify-between space-y-5 transition-all shadow-[0_12px_36px_rgba(0,0,0,0.35),inset_0_1px_1px_rgba(255,255,255,0.14)] ${
+                className={`p-6 rounded-3xl bg-[#0c140f]/5  backdrop-blur-2xl flex flex-col justify-between space-y-5 transition-all shadow-[0_12px_36px_rgba(0,0,0,0.35)] ${
                   tier.popular
-                    ? 'border-white/35 ring-1 ring-white/20'
-                    : 'border-white/15 hover:border-white/25'
+                    ? ' '
+                    : ' hover:'
                 }`}
               >
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
-                    <span className="px-2.5 py-0.5 rounded text-[10px] font-mono font-bold uppercase tracking-wider bg-white/10 text-neutral-300 border border-white/10">
+                    <span className="px-2.5 py-0.5 rounded text-[10px] font-mono font-bold uppercase tracking-wider bg-white/10 text-neutral-300">
                       {tier.slots}
                     </span>
                     {tier.popular && (
@@ -432,7 +432,7 @@ export const GameComingSoon = ({ game = 'rust', onSelectMinecraft }) => {
                   </div>
                 </div>
 
-                <div className="pt-4 border-t border-white/10 space-y-3">
+                <div className="pt-4 -t space-y-3">
                   <div>
                     <span className="text-[10px] uppercase font-mono text-neutral-500 block">
                       Target Launch Pricing
@@ -450,7 +450,7 @@ export const GameComingSoon = ({ game = 'rust', onSelectMinecraft }) => {
                         input.focus();
                       }
                     }}
-                    className="w-full py-2.5 rounded-xl bg-white/10 hover:bg-white/15 border border-white/15 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition active:scale-95"
+                    className="w-full py-2.5 rounded-xl bg-white/10 hover:bg-white/15 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition active:scale-95"
                   >
                     <Bell className="w-3.5 h-3.5 text-[#C5F36A]" />
                     <span>Get Notified at Launch</span>

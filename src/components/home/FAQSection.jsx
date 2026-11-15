@@ -33,7 +33,7 @@ export const FAQSection = () => {
   ];
 
   return (
-    <section className="py-20 relative z-10 border-t border-white/5">
+    <section className="py-20 relative z-10">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <ScrollReveal animation="fade-up" className="text-center mb-12">
           <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#C5F36A]">
@@ -56,7 +56,7 @@ export const FAQSection = () => {
                 animation="fade-up"
                 delay={i * 60}
               >
-                <div className="rounded-2xl bg-[#121814]/80 border border-white/10 overflow-hidden transition-all duration-200">
+                <div className="rounded-2xl bg-[#0c140f]/5 backdrop-blur-2xl shadow-lg overflow-hidden transition-all duration-200">
                   <button
                     onClick={() => setOpenIndex(isOpen ? -1 : i)}
                     className="w-full p-5 text-left flex items-center justify-between gap-4 font-bold text-sm sm:text-base text-white hover:text-[#C5F36A] transition"
@@ -68,7 +68,7 @@ export const FAQSection = () => {
                 </button>
 
                 {isOpen && (
-                  <div className="px-5 pb-5 pt-1 text-xs sm:text-sm text-neutral-300 leading-relaxed border-t border-white/5 animate-fade-in">
+                  <div className="px-5 pb-5 pt-1 text-xs sm:text-sm text-neutral-300 leading-relaxed animate-fade-in">
                     {faq.a}
                   </div>
                 )}

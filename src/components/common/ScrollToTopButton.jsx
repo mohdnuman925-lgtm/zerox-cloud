@@ -47,7 +47,7 @@ export const ScrollToTopButton = () => {
         onClick={handleClick}
         aria-label="Scroll to top"
         title="Scroll to top"
-        className="relative group w-12 h-12 rounded-full bg-[#121814]/90 backdrop-blur-md border border-white/15 hover:border-[#C5F36A]/50 flex items-center justify-center text-white hover:text-[#C5F36A] shadow-2xl transition-all duration-300 hover:scale-105 active:scale-95"
+        className="relative group w-12 h-12 rounded-full bg-[#0c140f]/5 backdrop-blur-2xl flex items-center justify-center text-white hover:text-[#C5F36A] shadow-2xl transition-all duration-300 hover:scale-105 active:scale-95"
       >
         {/* SVG Circular Progress Track */}
         <svg

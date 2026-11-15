@@ -102,7 +102,7 @@ export const GlobalInfrastructure = () => {
                   animation="fade-up"
                   delay={idx * 70}
                 >
-                  <div className="p-4 rounded-2xl bg-[#121814]/85 border border-white/10 hover:border-white/20 transition duration-200 flex items-center justify-between shadow-lg hover:-translate-y-0.5">
+                  <div className="p-4 rounded-2xl bg-[#0c140f]/5 backdrop-blur-2xl transition duration-200 flex items-center justify-between shadow-lg hover:-translate-y-0.5">
                     <div className="flex items-center gap-3">
                       <img
                         src={loc.flag}
@@ -114,7 +114,7 @@ export const GlobalInfrastructure = () => {
                         <p className="text-[11px] text-neutral-400">{loc.country}</p>
                       </div>
                     </div>
-                    <span className="px-2.5 py-1 rounded-lg text-xs font-mono font-bold bg-white/10 text-white border border-white/5">
+                    <span className="px-2.5 py-1 rounded-lg text-xs font-mono font-bold bg-white/10 text-white">
                       {loc.ping}
                     </span>
                   </div>

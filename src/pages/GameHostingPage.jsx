@@ -142,7 +142,7 @@ export const GameHostingPage = () => {
             <div className="flex flex-wrap gap-3">
               <button
                 onClick={() => setSelectedLocation('India (Noida & Mumbai)')}
-                className="flex items-center gap-2.5 px-5 py-2.5 rounded-2xl bg-[#0e1611]/5 border border-white/20 text-xs sm:text-sm font-semibold text-white shadow-[0_8px_30px_rgba(0,0,0,0.35),inset_0_1px_1px_rgba(255,255,255,0.15)] backdrop-blur-2xl hover:border-white/35 transition"
+                className="flex items-center gap-2.5 px-5 py-2.5 rounded-2xl  backdrop-blur-2xl text-xs sm:text-sm font-semibold text-white shadow-[0_8px_30px_rgba(0,0,0,0.35)] backdrop-blur-2xl transition"
               >
                 <img src="/assets/india.png" alt="India" className="w-5 h-3.5 object-cover rounded-sm shadow" />
                 <span>India (Noida &amp; Mumbai)</span>
@@ -160,7 +160,7 @@ export const GameHostingPage = () => {
             </div>
 
             {/* Processor box container */}
-            <div className="p-4 sm:p-5 rounded-2xl bg-[#0e1611]/5 border border-white/15 backdrop-blur-2xl shadow-[0_8px_32px_rgba(0,0,0,0.35),inset_0_1px_1px_rgba(255,255,255,0.14)] space-y-3">
+            <div className="p-4 sm:p-5 rounded-2xl bg-[#0e1611]/5 backdrop-blur-2xl shadow-[0_8px_32px_rgba(0,0,0,0.35)] space-y-3">
               <span className="text-[11px] font-mono font-bold tracking-wider text-neutral-400 block">
                 • SELECT YOUR PROCESSOR
               </span>
@@ -168,10 +168,10 @@ export const GameHostingPage = () => {
               <div className="flex flex-wrap gap-3">
                 <button
                   onClick={() => setSelectedProcessor('intel')}
-                  className={`flex items-center gap-2 px-4 py-2.5 rounded-xl border text-xs sm:text-sm font-semibold transition-all backdrop-blur-md ${
+                  className={`flex items-center gap-2 px-4 py-2.5 rounded-xl  text-xs sm:text-sm font-semibold transition-all backdrop-blur-2xl ${
                     selectedProcessor === 'intel'
-                      ? 'bg-white/20 border-white/40 text-white shadow-[0_4px_20px_rgba(255,255,255,0.1),inset_0_1px_0_rgba(255,255,255,0.2)]'
-                      : 'bg-black/30 border-white/10 text-neutral-400 hover:text-white hover:border-white/25 hover:bg-white/5'
+                      ? 'bg-white/20  text-white shadow-[0_4px_20px_rgba(255,255,255,0.1)]'
+                      : 'bg-black/30  text-neutral-400 hover:text-white hover:bg-white/5'
                   }`}
                 >
                   <Cpu className="w-4 h-4 text-cyan-400" />
@@ -180,10 +180,10 @@ export const GameHostingPage = () => {
 
                 <button
                   onClick={() => setSelectedProcessor('amd')}
-                  className={`flex items-center gap-2 px-4 py-2.5 rounded-xl border text-xs sm:text-sm font-semibold transition-all backdrop-blur-md ${
+                  className={`flex items-center gap-2 px-4 py-2.5 rounded-xl  text-xs sm:text-sm font-semibold transition-all backdrop-blur-2xl ${
                     selectedProcessor === 'amd'
-                      ? 'bg-white/20 border-white/40 text-white shadow-[0_4px_20px_rgba(255,255,255,0.1),inset_0_1px_0_rgba(255,255,255,0.2)]'
-                      : 'bg-black/30 border-white/10 text-neutral-400 hover:text-white hover:border-white/25 hover:bg-white/5'
+                      ? 'bg-white/20  text-white shadow-[0_4px_20px_rgba(255,255,255,0.1)]'
+                      : 'bg-black/30  text-neutral-400 hover:text-white hover:bg-white/5'
                   }`}
                 >
                   <Zap className="w-4 h-4 text-orange-400" />
@@ -192,10 +192,10 @@ export const GameHostingPage = () => {
 
                 <button
                   onClick={() => setSelectedProcessor('ryzen')}
-                  className={`flex items-center gap-2 px-4 py-2.5 rounded-xl border text-xs sm:text-sm font-semibold transition-all backdrop-blur-md ${
+                  className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all backdrop-blur-2xl ${
                     selectedProcessor === 'ryzen'
-                      ? 'bg-rose-500/20 border-rose-500/40 text-rose-300 shadow-[0_4px_20px_rgba(244,63,94,0.15),inset_0_1px_0_rgba(255,255,255,0.2)]'
-                      : 'bg-black/30 border-white/10 text-neutral-400 hover:text-white hover:border-white/25 hover:bg-white/5'
+                      ? 'bg-rose-500/20 text-rose-300 shadow-[0_4px_20px_rgba(244,63,94,0.15)]'
+                      : 'bg-black/30 text-neutral-400 hover:text-white hover:bg-white/5'
                   }`}
                 >
                   <Flame className="w-4 h-4 text-rose-400" />
@@ -204,10 +204,10 @@ export const GameHostingPage = () => {
 
                 <button
                   onClick={() => setSelectedProcessor('offer')}
-                  className={`flex items-center gap-2 px-4 py-2.5 rounded-xl border text-xs sm:text-sm font-semibold transition-all backdrop-blur-md ${
+                  className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all backdrop-blur-2xl ${
                     selectedProcessor === 'offer'
-                      ? 'bg-[#C5F36A]/20 border-[#C5F36A]/40 text-[#C5F36A] shadow-[0_4px_20px_rgba(197,243,106,0.15),inset_0_1px_0_rgba(255,255,255,0.2)]'
-                      : 'bg-black/30 border-white/10 text-neutral-400 hover:text-white hover:border-white/25 hover:bg-white/5'
+                      ? 'bg-[#C5F36A]/20 text-[#C5F36A] shadow-[0_4px_20px_rgba(197,243,106,0.15)]'
+                      : 'bg-black/30 text-neutral-400 hover:text-white hover:bg-white/5'
                   }`}
                 >
                   <Gift className="w-4 h-4 text-[#C5F36A]" />
@@ -231,19 +231,19 @@ export const GameHostingPage = () => {
               <button
                 type="button"
                 onClick={() => handleGameSelect('minecraft')}
-                className={`flex items-center gap-3 px-5 py-3 rounded-2xl border text-xs sm:text-sm font-semibold transition-all shadow-[0_8px_30px_rgba(0,0,0,0.35),inset_0_1px_1px_rgba(255,255,255,0.15)] backdrop-blur-2xl ${
+                className={`flex items-center gap-3 px-5 py-3 rounded-2xl  text-xs sm:text-sm font-semibold transition-all shadow-[0_8px_30px_rgba(0,0,0,0.35)] backdrop-blur-2xl ${
                   selectedGame === 'minecraft'
-                    ? 'bg-[#0e1812]/15 border-white/35 ring-1 ring-[#C5F36A]/50 text-white shadow-[0_0_25px_-5px_rgba(197,243,106,0.3)]'
-                    : 'bg-[#0c120e]/5 border-white/10 text-neutral-400 hover:text-white hover:border-white/20 hover:bg-white/5'
+                    ? 'bg-[#0e1812]/15   text-white shadow-[0_0_25px_-5px_rgba(197,243,106,0.3)]'
+                    : 'bg-[#0c120e]/5  text-neutral-400 hover:text-white hover:bg-white/5'
                 }`}
               >
-                <div className="w-10 h-10 rounded-xl overflow-hidden border border-emerald-500/40 bg-emerald-950/80 p-1.5 flex items-center justify-center shrink-0 shadow-md">
+                <div className="w-10 h-10 rounded-xl overflow-hidden bg-emerald-950/80 p-1.5 flex items-center justify-center shrink-0 shadow-md">
                   <GameLogo game="minecraft" className="w-full h-full" />
                 </div>
                 <div className="text-left">
                   <div className="flex items-center gap-2">
                     <span className="font-bold text-white">Minecraft</span>
-                    <span className="text-[9px] uppercase font-bold tracking-wider px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                    <span className="text-[9px] uppercase font-bold tracking-wider px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-400">
                       LIVE
                     </span>
                   </div>
@@ -255,19 +255,19 @@ export const GameHostingPage = () => {
               <button
                 type="button"
                 onClick={() => handleGameSelect('rust')}
-                className={`flex items-center gap-3 px-5 py-3 rounded-2xl border text-xs sm:text-sm font-semibold transition-all shadow-[0_8px_30px_rgba(0,0,0,0.35),inset_0_1px_1px_rgba(255,255,255,0.15)] backdrop-blur-2xl ${
+                className={`flex items-center gap-3 px-5 py-3 rounded-2xl  text-xs sm:text-sm font-semibold transition-all shadow-[0_8px_30px_rgba(0,0,0,0.35)] backdrop-blur-2xl ${
                   selectedGame === 'rust'
-                    ? 'bg-[#18110b]/15 border-orange-500/50 ring-1 ring-orange-500/50 text-white shadow-[0_0_25px_-5px_rgba(249,115,22,0.3)]'
-                    : 'bg-[#0c120e]/5 border-white/10 text-neutral-400 hover:text-white hover:border-white/20 hover:bg-white/5'
+                    ? 'bg-[#18110b]/15   text-white shadow-[0_0_25px_-5px_rgba(249,115,22,0.3)]'
+                    : 'bg-[#0c120e]/5  text-neutral-400 hover:text-white hover:bg-white/5'
                 }`}
               >
-                <div className="w-10 h-10 rounded-xl overflow-hidden border border-orange-500/40 bg-orange-950/80 p-1.5 flex items-center justify-center shrink-0 shadow-md">
+                <div className="w-10 h-10 rounded-xl overflow-hidden bg-orange-950/80 p-1.5 flex items-center justify-center shrink-0 shadow-md">
                   <GameLogo game="rust" className="w-full h-full" />
                 </div>
                 <div className="text-left">
                   <div className="flex items-center gap-2">
                     <span className="font-bold text-white">Rust</span>
-                    <span className="text-[9px] uppercase font-bold tracking-wider px-1.5 py-0.5 rounded bg-orange-500/20 text-orange-400 border border-orange-500/30">
+                    <span className="text-[9px] uppercase font-bold tracking-wider px-1.5 py-0.5 rounded bg-orange-500/20 text-orange-400">
                       SOON
                     </span>
                   </div>
@@ -279,19 +279,19 @@ export const GameHostingPage = () => {
               <button
                 type="button"
                 onClick={() => handleGameSelect('cs2')}
-                className={`flex items-center gap-3 px-5 py-3 rounded-2xl border text-xs sm:text-sm font-semibold transition-all shadow-[0_8px_30px_rgba(0,0,0,0.35),inset_0_1px_1px_rgba(255,255,255,0.15)] backdrop-blur-2xl ${
+                className={`flex items-center gap-3 px-5 py-3 rounded-2xl  text-xs sm:text-sm font-semibold transition-all shadow-[0_8px_30px_rgba(0,0,0,0.35)] backdrop-blur-2xl ${
                   selectedGame === 'cs2'
-                    ? 'bg-[#0b1419]/15 border-sky-500/50 ring-1 ring-sky-500/50 text-white shadow-[0_0_25px_-5px_rgba(56,189,248,0.3)]'
-                    : 'bg-[#0c120e]/5 border-white/10 text-neutral-400 hover:text-white hover:border-white/20 hover:bg-white/5'
+                    ? 'bg-[#0b1419]/15   text-white shadow-[0_0_25px_-5px_rgba(56,189,248,0.3)]'
+                    : 'bg-[#0c120e]/5  text-neutral-400 hover:text-white hover:bg-white/5'
                 }`}
               >
-                <div className="w-10 h-10 rounded-xl overflow-hidden border border-sky-500/40 bg-sky-950/80 p-1.5 flex items-center justify-center shrink-0 shadow-md">
+                <div className="w-10 h-10 rounded-xl overflow-hidden bg-sky-950/80 p-1.5 flex items-center justify-center shrink-0 shadow-md">
                   <GameLogo game="cs2" className="w-full h-full" />
                 </div>
                 <div className="text-left">
                   <div className="flex items-center gap-2">
                     <span className="font-bold text-white">Counter-Strike 2</span>
-                    <span className="text-[9px] uppercase font-bold tracking-wider px-1.5 py-0.5 rounded bg-sky-500/20 text-sky-400 border border-sky-500/30">
+                    <span className="text-[9px] uppercase font-bold tracking-wider px-1.5 py-0.5 rounded bg-sky-500/20 text-sky-400">
                       SOON
                     </span>
                   </div>
@@ -332,10 +332,10 @@ export const GameHostingPage = () => {
                       <button
                         key={inst}
                         onClick={() => setSelectedSoftware(inst)}
-                        className={`px-4 py-2 rounded-xl text-xs font-semibold border transition-all backdrop-blur-md ${
+                        className={`px-4 py-2 rounded-xl text-xs font-semibold  transition-all backdrop-blur-2xl ${
                           isSelected
-                            ? 'bg-white/20 text-white border-white/40 shadow-[0_4px_16px_rgba(255,255,255,0.1),inset_0_1px_0_rgba(255,255,255,0.2)]'
-                            : 'bg-[#0c140f]/5 border-white/10 text-neutral-400 hover:text-white hover:border-white/25 hover:bg-white/5'
+                            ? 'bg-white/20 text-white  shadow-[0_4px_16px_rgba(255,255,255,0.1)]'
+                            : ' backdrop-blur-2xl  text-neutral-400 hover:text-white hover:bg-white/5'
                         }`}
                       >
                         {inst}
@@ -360,8 +360,8 @@ export const GameHostingPage = () => {
                 </div>
 
                 {/* Featured Minecraft Plans Showcase Banner */}
-                <div className="p-4 sm:p-5 rounded-3xl bg-gradient-to-r from-emerald-950/10 via-[#0e1611]/5 to-black/5 border border-emerald-500/30 backdrop-blur-2xl flex flex-col sm:flex-row items-center gap-5 shadow-[0_16px_40px_rgba(0,0,0,0.35),inset_0_1px_1px_rgba(255,255,255,0.15)]">
-                  <div className="w-24 h-32 sm:w-28 sm:h-36 rounded-2xl overflow-hidden border border-white/20 shadow-xl shrink-0">
+                <div className="p-4 sm:p-5 rounded-3xl bg-gradient-to-r from-emerald-950/10 via-[#0e1611]/5 to-black/5 backdrop-blur-2xl flex flex-col sm:flex-row items-center gap-5 shadow-[0_16px_40px_rgba(0,0,0,0.35)]">
+                  <div className="w-24 h-32 sm:w-28 sm:h-36 rounded-2xl overflow-hidden shadow-xl shrink-0">
                     <img
                       src={minecraftPlanImage}
                       alt="Minecraft Server Plans"
@@ -370,7 +370,7 @@ export const GameHostingPage = () => {
                   </div>
                   <div className="space-y-1.5 text-center sm:text-left flex-1">
                     <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2">
-                      <span className="px-2.5 py-0.5 rounded text-[10px] font-mono font-bold uppercase tracking-wider bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                      <span className="px-2.5 py-0.5 rounded text-[10px] font-mono font-bold uppercase tracking-wider bg-emerald-500/20 text-emerald-400">
                         OFFICIAL MINECRAFT HOSTING
                       </span>
                       <span className="text-xs font-mono text-neutral-400">
@@ -388,7 +388,7 @@ export const GameHostingPage = () => {
 
                 {loading ? (
                   <div className="py-20 text-center text-neutral-400">
-                    <div className="w-8 h-8 border-2 border-[#C5F36A] border-t-transparent rounded-full animate-spin mx-auto mb-3" />
+                    <div className="w-8 h-8 -2 -[#C5F36A] -t-transparent rounded-full animate-spin mx-auto mb-3" />
                     Loading packages...
                   </div>
                 ) : (
@@ -405,11 +405,7 @@ export const GameHostingPage = () => {
                           className="h-full"
                         >
                         <div
-                          className={`relative rounded-3xl bg-[#0b130e]/5 backdrop-blur-2xl border transition-all duration-300 flex flex-col justify-between overflow-hidden shadow-[0_12px_36px_rgba(0,0,0,0.35),inset_0_1px_1px_rgba(255,255,255,0.14)] hover:shadow-[0_16px_48px_rgba(0,0,0,0.55),0_0_25px_rgba(197,243,106,0.15),inset_0_1px_1px_rgba(255,255,255,0.22)] hover:border-[#C5F36A]/45 hover:-translate-y-1 h-full ${
-                            isFeatured
-                              ? 'border-white/35 ring-1 ring-white/20'
-                              : 'border-white/15 hover:border-white/30'
-                          }`}
+                          className="relative rounded-3xl bg-[#0b130e]/5 backdrop-blur-2xl transition-all duration-300 flex flex-col justify-between overflow-hidden shadow-[0_12px_36px_rgba(0,0,0,0.35)] hover:shadow-[0_16px_48px_rgba(0,0,0,0.55),0_0_25px_rgba(197,243,106,0.15)] hover:-translate-y-1 h-full"
                         >
                           {/* Top Card Graphic Banner Header */}
                           <div className="h-48 relative overflow-hidden bg-black/40 rounded-t-3xl flex flex-col justify-between group">
@@ -423,11 +419,11 @@ export const GameHostingPage = () => {
                             <div className="absolute inset-0 bg-gradient-to-t from-[#0b130e]/30 via-transparent to-transparent pointer-events-none" />
 
                             <div className="relative z-10 flex flex-wrap items-center gap-1.5 p-3">
-                              <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase tracking-wider bg-black/80 text-white backdrop-blur-md border border-white/15">
+                              <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase tracking-wider bg-black/80 text-white backdrop-blur-2xl">
                                 {plan.tag || 'GAMES'}
                               </span>
                               {plan.badge && (
-                                <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase tracking-wider bg-black/80 text-[#C5F36A] backdrop-blur-md border border-[#C5F36A]/40">
+                                <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase tracking-wider bg-black/80 text-[#C5F36A] backdrop-blur-2xl">
                                   {plan.badge}
                                 </span>
                               )}
@@ -466,8 +462,8 @@ export const GameHostingPage = () => {
                             </div>
 
                             {/* Resource Grid: RAM, CPU, SSD */}
-                            <div className="grid grid-cols-3 gap-2 py-3 border-y border-white/10 text-center">
-                              <div className="p-2 rounded-xl bg-black/10 backdrop-blur-sm border border-white/10 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]">
+                            <div className="grid grid-cols-3 gap-2 py-3 -y text-center">
+                              <div className="p-2 rounded-xl bg-black/10 backdrop-blur-sm">
                                 <span className="text-[10px] uppercase font-mono text-neutral-400 block">
                                   RAM
                                 </span>
@@ -475,7 +471,7 @@ export const GameHostingPage = () => {
                                   {plan.ram}
                                 </span>
                               </div>
-                              <div className="p-2 rounded-xl bg-black/10 backdrop-blur-sm border border-white/10 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]">
+                              <div className="p-2 rounded-xl bg-black/10 backdrop-blur-sm">
                                 <span className="text-[10px] uppercase font-mono text-neutral-400 block">
                                   CPU
                                 </span>
@@ -483,7 +479,7 @@ export const GameHostingPage = () => {
                                   {plan.cpu}
                                 </span>
                               </div>
-                              <div className="p-2 rounded-xl bg-black/10 backdrop-blur-sm border border-white/10 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]">
+                              <div className="p-2 rounded-xl bg-black/10 backdrop-blur-sm">
                                 <span className="text-[10px] uppercase font-mono text-neutral-400 block">
                                   SSD
                                 </span>
@@ -518,7 +514,7 @@ export const GameHostingPage = () => {
                               </button>
                               <button
                                 onClick={() => handleAddToCart(plan)}
-                                className="p-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white transition border border-white/10"
+                                className="p-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white transition"
                                 title="Add to cart"
                                 aria-label="Add to cart"
                               >

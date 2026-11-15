@@ -300,7 +300,7 @@ export const AdminProducts = () => {
           <button
             onClick={handleSeedPlans}
             disabled={seeding}
-            className="flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-purple-500/10 hover:bg-purple-500/20 text-purple-300 font-bold text-xs border border-purple-500/30 transition shadow-lg disabled:opacity-50"
+            className="flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-purple-500/10 hover:bg-purple-500/20 text-purple-300 font-bold text-xs transition shadow-lg disabled:opacity-50"
             title="Seed / Reset all 37 standard plans"
           >
             <Database className={`w-4 h-4 ${seeding ? 'animate-spin' : ''}`} />
@@ -308,7 +308,7 @@ export const AdminProducts = () => {
           </button>
           <button
             onClick={fetchPlans}
-            className="p-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-white transition border border-white/10"
+            className="p-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-white transition"
             title="Refresh Plans"
           >
             <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
@@ -336,10 +336,10 @@ export const AdminProducts = () => {
           <button
             key={stat.id}
             onClick={() => setSelectedCategory(stat.id)}
-            className={`p-3.5 rounded-2xl text-left border transition-all backdrop-blur-xl ${
+            className={`p-3.5 rounded-2xl text-left  transition-all backdrop-blur-xl ${
               selectedCategory === stat.id
-                ? 'bg-white/10 border-white/30 shadow-lg ring-1 ring-white/20'
-                : 'bg-[#0e1611]/5 border-white/10 hover:border-white/20 hover:bg-white/5'
+                ? 'bg-white/10  shadow-lg '
+                : ' backdrop-blur-2xl  hover:bg-white/5'
             }`}
           >
             <div className="text-[10px] font-mono uppercase tracking-wider text-neutral-400">
@@ -353,7 +353,7 @@ export const AdminProducts = () => {
       </div>
 
       {/* Filter and Search Bar */}
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-3 p-3 rounded-2xl bg-[#0e1611]/5 border border-white/15 backdrop-blur-2xl">
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-3 p-3 rounded-2xl bg-[#0e1611]/5 backdrop-blur-2xl">
         {/* Category Pills */}
         <div className="flex flex-wrap items-center gap-1.5 w-full sm:w-auto">
           {CATEGORIES.map((cat) => (
@@ -379,7 +379,7 @@ export const AdminProducts = () => {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search plans by name, ram, cpu..."
-            className="w-full bg-black/40 border border-white/10 rounded-xl pl-8 pr-3 py-1.5 text-xs text-white placeholder-neutral-500 focus:outline-none focus:border-[#C5F36A]"
+            className="w-full bg-black/40 rounded-xl pl-8 pr-3 py-1.5 text-xs text-white placeholder-neutral-500 focus:outline-none"
           />
           {searchQuery && (
             <button
@@ -394,7 +394,7 @@ export const AdminProducts = () => {
 
       {/* Status Alerts */}
       {error && (
-        <div className="p-3.5 rounded-2xl bg-red-500/10 border border-red-500/30 text-red-400 text-xs flex items-center justify-between shadow-lg">
+        <div className="p-3.5 rounded-2xl bg-red-500/10 text-red-400 text-xs flex items-center justify-between shadow-lg">
           <span className="flex items-center gap-2">
             <AlertTriangle className="w-4 h-4 shrink-0" />
             {error}
@@ -406,7 +406,7 @@ export const AdminProducts = () => {
       )}
 
       {success && (
-        <div className="p-3.5 rounded-2xl bg-[#C5F36A]/10 border border-[#C5F36A]/30 text-[#C5F36A] text-xs flex items-center justify-between shadow-lg">
+        <div className="p-3.5 rounded-2xl bg-[#C5F36A]/10 text-[#C5F36A] text-xs flex items-center justify-between shadow-lg">
           <span className="flex items-center gap-2">
             <CheckCircle className="w-4 h-4 shrink-0" />
             {success}
@@ -418,8 +418,8 @@ export const AdminProducts = () => {
       )}
 
       {/* Plans List Table */}
-      <div className="rounded-3xl bg-[#0e1611]/5 border border-white/15 backdrop-blur-2xl shadow-[0_12px_40px_rgba(0,0,0,0.35),inset_0_1px_1px_rgba(255,255,255,0.14)] overflow-hidden">
-        <div className="p-4 border-b border-white/10 flex items-center justify-between text-xs text-neutral-400">
+      <div className="rounded-3xl bg-[#0e1611]/5 backdrop-blur-2xl shadow-[0_12px_40px_rgba(0,0,0,0.35)] overflow-hidden">
+        <div className="p-4 -b flex items-center justify-between text-xs text-neutral-400">
           <span>
             Showing <strong className="text-white">{filteredPlans.length}</strong> of{' '}
             <strong className="text-white">{plans.length}</strong> plans
@@ -428,7 +428,7 @@ export const AdminProducts = () => {
 
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-black/30 border-b border-white/10 text-neutral-400 font-mono text-[10px] uppercase">
+            <thead className="bg-black/30 -b text-neutral-400 font-mono text-[10px] uppercase">
               <tr>
                 <th className="p-4 pl-6">PLAN NAME</th>
                 <th className="p-4">CATEGORY</th>
@@ -457,7 +457,7 @@ export const AdminProducts = () => {
                           <img
                             src={p.image || '/assets/minecraft-plan-card.jpg'}
                             alt={p.name}
-                            className="w-9 h-9 rounded-xl object-cover object-top border border-white/10 shrink-0 shadow-md"
+                            className="w-9 h-9 rounded-xl object-cover object-top shrink-0 shadow-md"
                           />
                         )}
                         <div>
@@ -469,7 +469,7 @@ export const AdminProducts = () => {
                               </span>
                             )}
                             {p.save_badge && (
-                              <span className="px-1.5 py-0.2 rounded text-[9px] font-bold bg-purple-500/20 text-purple-300 border border-purple-500/30">
+                              <span className="px-1.5 py-0.2 rounded text-[9px] font-bold bg-purple-500/20 text-purple-300">
                                 {p.save_badge}
                               </span>
                             )}
@@ -483,7 +483,7 @@ export const AdminProducts = () => {
                       </div>
                     </td>
                     <td className="p-4 font-mono uppercase text-[11px] text-neutral-400">
-                      <span className="px-2 py-0.5 rounded bg-white/5 border border-white/10 text-neutral-300">
+                      <span className="px-2 py-0.5 rounded bg-white/5 text-neutral-300">
                         {p.category}
                       </span>
                     </td>
@@ -522,10 +522,10 @@ export const AdminProducts = () => {
                     <td className="p-4">
                       <button
                         onClick={() => handleToggleStatus(p)}
-                        className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold border transition ${
+                        className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold  transition ${
                           p.enabled
-                            ? 'bg-emerald-500/15 border-emerald-500/30 text-emerald-400 hover:bg-emerald-500/25'
-                            : 'bg-red-500/15 border-red-500/30 text-red-400 hover:bg-red-500/25'
+                            ? 'bg-emerald-500/15  text-emerald-400 hover:bg-emerald-500/25'
+                            : 'bg-red-500/15  text-red-400 hover:bg-red-500/25'
                         }`}
                         title="Click to toggle active status"
                       >
@@ -562,8 +562,8 @@ export const AdminProducts = () => {
       {/* Plan Create/Edit Modal */}
       {modalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fade-in">
-          <div className="w-full max-w-xl p-6 rounded-3xl bg-[#0e1611]/95 border border-white/20 backdrop-blur-2xl shadow-2xl text-white space-y-4 max-h-[92vh] overflow-y-auto">
-            <div className="flex items-center justify-between border-b border-white/10 pb-3">
+          <div className="w-full max-w-xl p-6 rounded-3xl bg-[#0e1611]/5 backdrop-blur-2xl shadow-2xl text-white space-y-4 max-h-[92vh] overflow-y-auto">
+            <div className="flex items-center justify-between -b pb-3">
               <h3 className="text-base font-bold text-white flex items-center gap-2">
                 <Sparkles className="w-4 h-4 text-[#C5F36A]" />
                 {editPlan ? `Edit Plan: ${editPlan.name}` : 'Create New Hosting Plan'}
@@ -574,7 +574,7 @@ export const AdminProducts = () => {
             </div>
 
             {error && (
-              <div className="p-3 rounded-xl bg-red-500/15 border border-red-500/30 text-red-400 text-xs flex items-center gap-2">
+              <div className="p-3 rounded-xl bg-red-500/15 text-red-400 text-xs flex items-center gap-2">
                 <AlertTriangle className="w-4 h-4 shrink-0" />
                 <span>{error}</span>
               </div>
@@ -590,7 +590,7 @@ export const AdminProducts = () => {
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     placeholder="e.g. NETHERITE EXTREME"
-                    className="w-full bg-black/40 border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#C5F36A]"
+                    className="w-full bg-black/40 rounded-xl px-3 py-2 text-xs text-white focus:outline-none"
                   />
                 </div>
                 <div>
@@ -598,7 +598,7 @@ export const AdminProducts = () => {
                   <select
                     value={formData.category}
                     onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                    className="w-full bg-black/40 border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#C5F36A]"
+                    className="w-full bg-black/40 rounded-xl px-3 py-2 text-xs text-white focus:outline-none"
                   >
                     <option value="games">Game Servers</option>
                     <option value="cloud">Cloud / VPS</option>
@@ -621,7 +621,7 @@ export const AdminProducts = () => {
                         if (g === 'minecraft') img = '/assets/minecraft-plan-card.jpg';
                         setFormData({ ...formData, game_slug: g, image: img });
                       }}
-                      className="w-full bg-black/40 border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#C5F36A]"
+                      className="w-full bg-black/40 rounded-xl px-3 py-2 text-xs text-white focus:outline-none"
                     >
                       <option value="minecraft">Minecraft</option>
                       <option value="rust">Rust</option>
@@ -636,7 +636,7 @@ export const AdminProducts = () => {
                       value={formData.tag}
                       onChange={(e) => setFormData({ ...formData, tag: e.target.value })}
                       placeholder="e.g. CLOUD, VPS, DEDICATED"
-                      className="w-full bg-black/40 border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#C5F36A]"
+                      className="w-full bg-black/40 rounded-xl px-3 py-2 text-xs text-white focus:outline-none"
                     />
                   </div>
                 )}
@@ -646,7 +646,7 @@ export const AdminProducts = () => {
                   <select
                     value={formData.processor}
                     onChange={(e) => setFormData({ ...formData, processor: e.target.value })}
-                    className="w-full bg-black/40 border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#C5F36A]"
+                    className="w-full bg-black/40 rounded-xl px-3 py-2 text-xs text-white focus:outline-none"
                   >
                     <option value="intel">Intel Xeon</option>
                     <option value="amd">AMD EPYC</option>
@@ -666,7 +666,7 @@ export const AdminProducts = () => {
                     required
                     value={formData.price_inr}
                     onChange={(e) => setFormData({ ...formData, price_inr: e.target.value })}
-                    className="w-full bg-black/40 border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#C5F36A]"
+                    className="w-full bg-black/40 rounded-xl px-3 py-2 text-xs text-white focus:outline-none"
                   />
                 </div>
                 <div>
@@ -677,7 +677,7 @@ export const AdminProducts = () => {
                     required
                     value={formData.price_usd}
                     onChange={(e) => setFormData({ ...formData, price_usd: e.target.value })}
-                    className="w-full bg-black/40 border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#C5F36A]"
+                    className="w-full bg-black/40 rounded-xl px-3 py-2 text-xs text-white focus:outline-none"
                   />
                 </div>
                 <div>
@@ -688,7 +688,7 @@ export const AdminProducts = () => {
                     value={formData.original_price_inr}
                     onChange={(e) => setFormData({ ...formData, original_price_inr: e.target.value })}
                     placeholder="e.g. 199"
-                    className="w-full bg-black/40 border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#C5F36A]"
+                    className="w-full bg-black/40 rounded-xl px-3 py-2 text-xs text-white focus:outline-none"
                   />
                 </div>
               </div>
@@ -701,7 +701,7 @@ export const AdminProducts = () => {
                     value={formData.ram}
                     onChange={(e) => setFormData({ ...formData, ram: e.target.value })}
                     placeholder="e.g. 16 GB DDR5"
-                    className="w-full bg-black/40 border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#C5F36A]"
+                    className="w-full bg-black/40 rounded-xl px-3 py-2 text-xs text-white focus:outline-none"
                   />
                 </div>
                 <div>
@@ -711,7 +711,7 @@ export const AdminProducts = () => {
                     value={formData.cpu}
                     onChange={(e) => setFormData({ ...formData, cpu: e.target.value })}
                     placeholder="e.g. 400% CPU (4 Cores)"
-                    className="w-full bg-black/40 border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#C5F36A]"
+                    className="w-full bg-black/40 rounded-xl px-3 py-2 text-xs text-white focus:outline-none"
                   />
                 </div>
                 <div>
@@ -721,7 +721,7 @@ export const AdminProducts = () => {
                     value={formData.storage}
                     onChange={(e) => setFormData({ ...formData, storage: e.target.value })}
                     placeholder="e.g. 100 GB NVMe"
-                    className="w-full bg-black/40 border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#C5F36A]"
+                    className="w-full bg-black/40 rounded-xl px-3 py-2 text-xs text-white focus:outline-none"
                   />
                 </div>
               </div>
@@ -734,7 +734,7 @@ export const AdminProducts = () => {
                     value={formData.bandwidth}
                     onChange={(e) => setFormData({ ...formData, bandwidth: e.target.value })}
                     placeholder="e.g. Unlimited or 1 Gbps"
-                    className="w-full bg-black/40 border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#C5F36A]"
+                    className="w-full bg-black/40 rounded-xl px-3 py-2 text-xs text-white focus:outline-none"
                   />
                 </div>
                 <div>
@@ -744,7 +744,7 @@ export const AdminProducts = () => {
                     value={formData.location}
                     onChange={(e) => setFormData({ ...formData, location: e.target.value })}
                     placeholder="India (Noida & Mumbai)"
-                    className="w-full bg-black/40 border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#C5F36A]"
+                    className="w-full bg-black/40 rounded-xl px-3 py-2 text-xs text-white focus:outline-none"
                   />
                 </div>
               </div>
@@ -757,7 +757,7 @@ export const AdminProducts = () => {
                     value={formData.badge}
                     onChange={(e) => setFormData({ ...formData, badge: e.target.value })}
                     placeholder="e.g. MOST POPULAR, BEST VALUE"
-                    className="w-full bg-black/40 border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#C5F36A]"
+                    className="w-full bg-black/40 rounded-xl px-3 py-2 text-xs text-white focus:outline-none"
                   />
                 </div>
                 <div>
@@ -767,7 +767,7 @@ export const AdminProducts = () => {
                     value={formData.save_badge}
                     onChange={(e) => setFormData({ ...formData, save_badge: e.target.value })}
                     placeholder="e.g. Save 30%"
-                    className="w-full bg-black/40 border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#C5F36A]"
+                    className="w-full bg-black/40 rounded-xl px-3 py-2 text-xs text-white focus:outline-none"
                   />
                 </div>
               </div>
@@ -780,7 +780,7 @@ export const AdminProducts = () => {
                     value={formData.image}
                     onChange={(e) => setFormData({ ...formData, image: e.target.value })}
                     placeholder="/assets/minecraft-plan-card.jpg"
-                    className="w-full bg-black/40 border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#C5F36A]"
+                    className="w-full bg-black/40 rounded-xl px-3 py-2 text-xs text-white focus:outline-none"
                   />
                 </div>
                 <div>
@@ -788,7 +788,7 @@ export const AdminProducts = () => {
                   <select
                     value={formData.stock_status}
                     onChange={(e) => setFormData({ ...formData, stock_status: e.target.value })}
-                    className="w-full bg-black/40 border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#C5F36A]"
+                    className="w-full bg-black/40 rounded-xl px-3 py-2 text-xs text-white focus:outline-none"
                   >
                     <option value="in_stock">In Stock</option>
                     <option value="low_stock">Low Stock</option>
@@ -806,7 +806,7 @@ export const AdminProducts = () => {
                   value={formData.featuresText}
                   onChange={(e) => setFormData({ ...formData, featuresText: e.target.value })}
                   placeholder="Instant deployment&#10;DDoS protection&#10;Full panel access"
-                  className="w-full bg-black/40 border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#C5F36A] font-mono"
+                  className="w-full bg-black/40 rounded-xl px-3 py-2 text-xs text-white focus:outline-none font-mono"
                 />
               </div>
 
@@ -816,14 +816,14 @@ export const AdminProducts = () => {
                   id="enabledCheck"
                   checked={formData.enabled}
                   onChange={(e) => setFormData({ ...formData, enabled: e.target.checked })}
-                  className="rounded border-white/20 bg-black text-[#C5F36A] focus:ring-[#C5F36A]"
+                  className="rounded bg-black text-[#C5F36A] focus:ring-[#C5F36A]"
                 />
                 <label htmlFor="enabledCheck" className="text-xs text-neutral-300 font-semibold cursor-pointer">
                   Plan is Active (visible in store and public catalog)
                 </label>
               </div>
 
-              <div className="flex gap-2 pt-3 border-t border-white/10">
+              <div className="flex gap-2 pt-3 -t">
                 <button
                   type="submit"
                   disabled={submitting}

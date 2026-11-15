@@ -57,9 +57,9 @@ export const CartDrawer = () => {
       />
 
       <div className="fixed inset-y-0 right-0 max-w-full flex pl-10">
-        <div className="w-screen max-w-md bg-[#0b130e]/40 backdrop-blur-2xl border-l border-white/15 shadow-2xl flex flex-col text-white">
+        <div className="w-screen max-w-md bg-[#0b130e]/5 backdrop-blur-2xl -l shadow-2xl flex flex-col text-white">
           {/* Header */}
-          <div className="p-5 border-b border-white/10 backdrop-blur-xl flex items-center justify-between">
+          <div className="p-5 -b backdrop-blur-xl flex items-center justify-between">
             <div className="flex items-center gap-2.5">
               <ShoppingCart className="w-5 h-5 text-[#C5F36A]" />
               <h3 className="text-lg font-bold">Your Order Cart</h3>
@@ -100,7 +100,7 @@ export const CartDrawer = () => {
                 return (
                   <div
                     key={item.key}
-                    className="p-4 rounded-2xl bg-white/[0.04] backdrop-blur-md border border-white/10 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] flex flex-col gap-2 relative group hover:border-white/20 transition"
+                    className="p-4 rounded-2xl bg-white/[0.04] backdrop-blur-2xl flex flex-col gap-2 relative group transition"
                   >
                     <div className="flex items-start justify-between gap-3">
                       <div className="flex items-start gap-3">
@@ -108,7 +108,7 @@ export const CartDrawer = () => {
                           <img
                             src={item.image}
                             alt={item.plan_name}
-                            className="w-12 h-12 rounded-xl object-cover object-top border border-white/10 shrink-0 shadow-md"
+                            className="w-12 h-12 rounded-xl object-cover object-top shrink-0 shadow-md"
                           />
                         )}
                         <div>
@@ -135,9 +135,9 @@ export const CartDrawer = () => {
                       </button>
                     </div>
 
-                    <div className="flex items-center justify-between pt-2 border-t border-white/5 mt-1">
+                    <div className="flex items-center justify-between pt-2 -t mt-1">
                       {/* Quantity Controls */}
-                      <div className="flex items-center gap-2 bg-black/40 px-2 py-1 rounded-lg border border-white/10">
+                      <div className="flex items-center gap-2 bg-black/40 px-2 py-1 rounded-lg">
                         <button
                           onClick={() => updateQuantity(item.key, -1)}
                           className="text-neutral-400 hover:text-white"
@@ -170,10 +170,10 @@ export const CartDrawer = () => {
 
           {/* Footer & Checkout Breakdown */}
           {items.length > 0 && (
-            <div className="p-5 bg-[#080d0a]/80 backdrop-blur-2xl border-t border-white/15 space-y-4">
+            <div className="p-5 bg-[#0e1611]/5 backdrop-blur-2xl -t space-y-4">
               {/* Coupon Form */}
               {coupon ? (
-                <div className="flex items-center justify-between p-2.5 px-3 rounded-xl bg-[#C5F36A]/10 border border-[#C5F36A]/30 text-xs">
+                <div className="flex items-center justify-between p-2.5 px-3 rounded-xl bg-[#C5F36A]/10 text-xs">
                   <div className="flex items-center gap-2 text-[#C5F36A] font-medium">
                     <Tag className="w-3.5 h-3.5" />
                     <span>Coupon {coupon.code} (-{coupon.discount_percent}%)</span>
@@ -192,7 +192,7 @@ export const CartDrawer = () => {
                     value={couponInput}
                     onChange={(e) => setCouponInput(e.target.value)}
                     placeholder="Coupon code (e.g. ZEROXCLOUD)"
-                    className="flex-1 bg-black/40 border border-white/10 rounded-xl px-3 py-2 text-xs text-white uppercase placeholder-neutral-500 focus:outline-none focus:border-[#C5F36A]"
+                    className="flex-1 bg-black/40 rounded-xl px-3 py-2 text-xs text-white uppercase placeholder-neutral-500 focus:outline-none"
                   />
                   <button
                     type="submit"
@@ -234,7 +234,7 @@ export const CartDrawer = () => {
                     +{symbol}{gstAmount.toFixed(2)}
                   </span>
                 </div>
-                <div className="flex justify-between text-base font-bold text-white pt-2 border-t border-white/10">
+                <div className="flex justify-between text-base font-bold text-white pt-2 -t">
                   <span>Total Due Today</span>
                   <span className="font-mono text-[#C5F36A]">
                     {symbol}{total.toFixed(2)}

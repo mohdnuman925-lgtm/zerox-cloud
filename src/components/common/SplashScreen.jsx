@@ -204,7 +204,7 @@ export const SplashScreen = ({ onFinish, forceShow = false }) => {
           sessionStorage.setItem('zerox_splash_shown', 'true');
           if (onFinish) onFinish();
         }}
-        className="absolute bottom-6 right-6 text-[10px] uppercase font-mono tracking-widest text-neutral-500 hover:text-white transition px-3 py-1.5 rounded-lg border border-white/5 hover:border-white/20 bg-white/[0.02]"
+        className="absolute bottom-6 right-6 text-[10px] uppercase font-mono tracking-widest text-neutral-500 hover:text-white transition px-3 py-1.5 rounded-lg bg-white/[0.02]"
       >
         Skip [ESC]
       </button>

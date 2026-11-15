@@ -91,7 +91,7 @@ export const AdminTickets = () => {
 
         <button
           onClick={fetchTickets}
-          className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white/5 hover:bg-white/10 text-xs text-neutral-300 hover:text-white border border-white/10 transition"
+          className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white/5 hover:bg-white/10 text-xs text-neutral-300 hover:text-white transition"
         >
           <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} />
           Refresh
@@ -107,10 +107,10 @@ export const AdminTickets = () => {
               <div
                 key={t.id}
                 onClick={() => handleSelectTicket(t)}
-                className={`p-4 rounded-2xl border cursor-pointer transition ${
+                className={`p-4 rounded-2xl  cursor-pointer transition ${
                   isSelected
-                    ? 'bg-[#18241B] border-[#C5F36A] shadow-lg'
-                    : 'bg-[#121814] border-white/10 hover:border-white/20'
+                    ? 'bg-[#18241B] -[#C5F36A] shadow-lg'
+                    : ' backdrop-blur-2xl  hover:'
                 }`}
               >
                 <div className="flex items-center justify-between">
@@ -139,8 +139,8 @@ export const AdminTickets = () => {
         {/* Conversation & Reply Thread */}
         <div className="lg:col-span-7">
           {activeTicket ? (
-            <div className="rounded-3xl bg-[#121814] border border-white/10 overflow-hidden flex flex-col h-[580px] shadow-2xl">
-              <div className="p-4 bg-[#151C17] border-b border-white/10 flex items-center justify-between">
+            <div className="rounded-3xl  backdrop-blur-2xl overflow-hidden flex flex-col h-[580px] shadow-2xl">
+              <div className="p-4  backdrop-blur-2xl -b flex items-center justify-between">
                 <div>
                   <h3 className="text-sm font-bold text-white">{activeTicket.subject}</h3>
                   <p className="text-xs text-neutral-400 font-mono">
@@ -150,7 +150,7 @@ export const AdminTickets = () => {
                 <select
                   value={statusVal}
                   onChange={(e) => setStatusVal(e.target.value)}
-                  className="bg-black/50 border border-white/10 rounded-xl px-2.5 py-1 text-xs text-white"
+                  className="bg-black/50 rounded-xl px-2.5 py-1 text-xs text-white"
                 >
                   <option value="open">Open</option>
                   <option value="in_progress">In Progress</option>
@@ -166,10 +166,10 @@ export const AdminTickets = () => {
                     key={m.id}
                     className={`p-4 rounded-2xl ${
                       m.is_internal
-                        ? 'bg-amber-500/10 border border-amber-500/30 text-amber-200'
+                        ? 'bg-amber-500/10   text-amber-200'
                         : m.sender_role !== 'customer'
-                        ? 'bg-[#18241B] border border-[#C5F36A]/30 text-neutral-200'
-                        : 'bg-black/40 border border-white/10 text-neutral-300'
+                        ? 'bg-[#18241B]  text-neutral-200'
+                        : 'bg-black/40  text-neutral-300'
                     }`}
                   >
                     <div className="flex items-center justify-between mb-1">
@@ -196,16 +196,16 @@ export const AdminTickets = () => {
               </div>
 
               {/* Reply Box */}
-              <form onSubmit={handleSendReply} className="p-4 bg-[#151C17] border-t border-white/10 space-y-3">
+              <form onSubmit={handleSendReply} className="p-4  backdrop-blur-2xl -t space-y-3">
                 <textarea
                   rows={3}
                   value={replyText}
                   onChange={(e) => setReplyText(e.target.value)}
                   placeholder={isInternal ? 'Type private internal note for other staff...' : 'Type response to customer...'}
-                  className={`w-full border rounded-xl px-3 py-2 text-xs text-white focus:outline-none ${
+                  className={`w-full  rounded-xl px-3 py-2 text-xs text-white focus:outline-none ${
                     isInternal
-                      ? 'bg-amber-950/20 border-amber-500/40 focus:border-amber-400'
-                      : 'bg-black/40 border-white/10 focus:border-[#C5F36A]'
+                      ? 'bg-amber-950/20  focus:-amber-400'
+                      : 'bg-black/40  focus:-[#C5F36A]'
                   }`}
                 />
 
@@ -235,7 +235,7 @@ export const AdminTickets = () => {
               </form>
             </div>
           ) : (
-            <div className="rounded-3xl bg-[#121814] border border-white/10 p-12 text-center text-neutral-400">
+            <div className="rounded-3xl  backdrop-blur-2xl p-12 text-center text-neutral-400">
               Select a ticket from the left to view the thread and respond.
             </div>
           )}

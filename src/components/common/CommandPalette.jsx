@@ -65,9 +65,9 @@ export const CommandPalette = ({ isOpen, onClose }) => {
 
   return (
     <div className="fixed inset-0 z-50 flex items-start justify-center pt-24 p-4 bg-black/75 backdrop-blur-sm animate-fade-in">
-      <div className="w-full max-w-xl rounded-2xl bg-[#121814] border border-white/15 shadow-2xl overflow-hidden">
+      <div className="w-full max-w-xl rounded-2xl  backdrop-blur-2xl shadow-2xl overflow-hidden">
         {/* Search Input Bar */}
-        <div className="flex items-center px-4 py-3.5 border-b border-white/10 gap-3">
+        <div className="flex items-center px-4 py-3.5 -b gap-3">
           <Search className="w-5 h-5 text-neutral-400" />
           <input
             type="text"
@@ -97,7 +97,7 @@ export const CommandPalette = ({ isOpen, onClose }) => {
                   className="w-full flex items-center justify-between p-3 rounded-xl hover:bg-white/10 text-left transition group"
                 >
                   <div className="flex items-center gap-3">
-                    <div className="p-1.5 rounded-lg bg-white/5 border border-white/10 text-neutral-300 group-hover:text-[#C5F36A] group-hover:border-[#C5F36A]/30 transition w-8 h-8 flex items-center justify-center shrink-0">
+                    <div className="p-1.5 rounded-lg bg-white/5 text-neutral-300 group-hover:text-[#C5F36A] group- transition w-8 h-8 flex items-center justify-center shrink-0">
                       {item.game ? (
                         <GameLogo game={item.game} className="w-5 h-5" />
                       ) : (

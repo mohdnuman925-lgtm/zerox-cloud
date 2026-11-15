@@ -42,11 +42,11 @@ export const DedicatedServersPage = () => {
             return (
               <div
                 key={plan.id}
-                className="p-8 rounded-3xl bg-[#0c140f]/5 backdrop-blur-2xl border border-white/15 hover:border-emerald-400/50 transition duration-300 flex flex-col justify-between shadow-[0_16px_48px_rgba(0,0,0,0.35),inset_0_1px_1px_rgba(255,255,255,0.14)] hover:-translate-y-1"
+                className="p-8 rounded-3xl bg-[#0c140f]/5 backdrop-blur-2xl transition duration-300 flex flex-col justify-between shadow-[0_16px_48px_rgba(0,0,0,0.35)] hover:-translate-y-1"
               >
                 <div>
                   <div className="flex items-center justify-between mb-4">
-                    <span className="px-2.5 py-1 rounded-md text-[10px] font-mono font-bold bg-white/10 text-emerald-400 border border-white/10">
+                    <span className="px-2.5 py-1 rounded-md text-[10px] font-mono font-bold bg-white/10 text-emerald-400">
                       {plan.tag}
                     </span>
                     {plan.badge && (
@@ -65,7 +65,7 @@ export const DedicatedServersPage = () => {
                     <span className="text-xs text-neutral-400">/month</span>
                   </div>
 
-                  <div className="my-6 space-y-2 py-4 border-y border-white/10 text-xs">
+                  <div className="my-6 space-y-2 py-4 -y text-xs">
                     <div className="flex justify-between">
                       <span className="text-neutral-500">Processor</span>
                       <span className="font-bold text-white">{plan.cpu}</span>
@@ -108,7 +108,7 @@ export const DedicatedServersPage = () => {
                   </button>
                   <button
                     onClick={() => handleOrder(plan, false)}
-                    className="p-3.5 rounded-xl bg-white/10 hover:bg-white/20 text-white transition border border-white/10"
+                    className="p-3.5 rounded-xl bg-white/10 hover:bg-white/20 text-white transition"
                     title="Add to cart"
                   >
                     <ShoppingCart className="w-4 h-4" />

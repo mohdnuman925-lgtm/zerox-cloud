@@ -32,7 +32,7 @@ export const ContactPage = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div className="space-y-6">
-            <div className="p-6 rounded-3xl bg-[#121814] border border-white/10 space-y-4 shadow-xl">
+            <div className="p-6 rounded-3xl  backdrop-blur-2xl space-y-4 shadow-xl">
               <h3 className="text-base font-bold text-white">Direct Contacts</h3>
 
               <div className="space-y-3 text-xs text-neutral-300">
@@ -52,7 +52,7 @@ export const ContactPage = () => {
             </div>
           </div>
 
-          <form onSubmit={handleSubmit} className="p-6 rounded-3xl bg-[#121814] border border-white/10 space-y-4 shadow-xl text-xs">
+          <form onSubmit={handleSubmit} className="p-6 rounded-3xl  backdrop-blur-2xl space-y-4 shadow-xl text-xs">
             {sent && (
               <div className="p-3 rounded-xl bg-emerald-500/20 text-emerald-300 flex items-center gap-2">
                 <CheckCircle className="w-4 h-4" />
@@ -68,7 +68,7 @@ export const ContactPage = () => {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Your name"
-                className="w-full bg-black/40 border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#C5F36A]"
+                className="w-full bg-black/40 rounded-xl px-3 py-2 text-xs text-white focus:outline-none"
               />
             </div>
 
@@ -80,7 +80,7 @@ export const ContactPage = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="you@domain.com"
-                className="w-full bg-black/40 border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#C5F36A]"
+                className="w-full bg-black/40 rounded-xl px-3 py-2 text-xs text-white focus:outline-none"
               />
             </div>
 
@@ -92,7 +92,7 @@ export const ContactPage = () => {
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
                 placeholder="Tell us about your project..."
-                className="w-full bg-black/40 border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#C5F36A]"
+                className="w-full bg-black/40 rounded-xl px-3 py-2 text-xs text-white focus:outline-none"
               />
             </div>
 

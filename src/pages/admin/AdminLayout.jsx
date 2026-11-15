@@ -28,7 +28,7 @@ export const AdminLayout = () => {
   if (!user || (!isAdmin && !isStaff)) {
     return (
       <div className="min-h-screen flex items-center justify-center p-6 bg-[#080B0A] text-white">
-        <div className="max-w-md w-full p-8 rounded-3xl bg-[#121814] border border-red-500/30 text-center space-y-4 shadow-2xl">
+        <div className="max-w-md w-full p-8 rounded-3xl  backdrop-blur-2xl text-center space-y-4 shadow-2xl">
           <ShieldAlert className="w-12 h-12 text-red-500 mx-auto" />
           <h2 className="text-2xl font-bold text-white">Access Denied</h2>
           <p className="text-xs text-neutral-400">
@@ -78,24 +78,24 @@ export const AdminLayout = () => {
   const getRoleBadgeStyle = (role) => {
     switch (role) {
       case 'super_admin':
-        return 'bg-pink-500/20 text-pink-400 border border-pink-500/40';
+        return 'bg-pink-500/20 text-pink-400  -pink-500/40';
       case 'founder':
-        return 'bg-amber-500/20 text-amber-400 border border-amber-500/40';
+        return 'bg-amber-500/20 text-amber-400  ';
       case 'admin':
-        return 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/40';
+        return 'bg-emerald-500/20 text-emerald-400  ';
       case 'ticket_staff':
-        return 'bg-sky-500/20 text-sky-400 border border-sky-500/40';
+        return 'bg-sky-500/20 text-sky-400  ';
       case 'moderator':
-        return 'bg-indigo-500/20 text-indigo-400 border border-indigo-500/40';
+        return 'bg-indigo-500/20 text-indigo-400  ';
       default:
-        return 'bg-[#C5F36A]/20 text-[#C5F36A] border border-[#C5F36A]/40';
+        return 'bg-[#C5F36A]/20 text-[#C5F36A] ';
     }
   };
 
   return (
     <div className="min-h-screen flex bg-[#060807] text-white">
       {/* Admin Sidebar */}
-      <aside className="w-64 bg-[#0B0F0C] border-r border-white/10 flex flex-col justify-between p-4 flex-shrink-0 z-20">
+      <aside className="w-64 bg-[#0B0F0C] -r flex flex-col justify-between p-4 flex-shrink-0 z-20">
         <div className="space-y-6">
           {/* Header */}
           <Link to="/" className="flex items-center gap-2.5 px-2">
@@ -136,7 +136,7 @@ export const AdminLayout = () => {
         </div>
 
         {/* Sidebar Footer */}
-        <div className="space-y-3 pt-4 border-t border-white/10">
+        <div className="space-y-3 pt-4 -t">
           <Link
             to="/client/overview"
             className="flex items-center gap-2 px-3 py-2 rounded-xl text-xs text-neutral-400 hover:text-white hover:bg-white/5 transition"
@@ -145,7 +145,7 @@ export const AdminLayout = () => {
             Client Area
           </Link>
 
-          <div className="flex items-center justify-between p-2.5 rounded-2xl bg-white/5 border border-white/5">
+          <div className="flex items-center justify-between p-2.5 rounded-2xl bg-white/5">
             <div className="truncate">
               <p className="text-xs font-bold text-white truncate">{user.name}</p>
               <span className={`inline-block px-2 py-0.5 rounded text-[9px] font-mono uppercase font-bold tracking-wider mt-0.5 ${getRoleBadgeStyle(user.role)}`}>
@@ -168,7 +168,7 @@ export const AdminLayout = () => {
 
       {/* Admin Content Area */}
       <div className="flex-1 flex flex-col min-w-0 overflow-y-auto">
-        <header className="h-14 border-b border-white/10 bg-[#0B0F0C]/60 backdrop-blur-md px-6 flex items-center justify-between">
+        <header className="h-14 -b bg-[#0B0F0C]/60 backdrop-blur-2xl px-6 flex items-center justify-between">
           <div className="flex items-center gap-2 text-xs text-neutral-400">
             <ShieldCheck className="w-4 h-4 text-[#C5F36A]" />
             <span>Server Role: <strong className={`uppercase font-mono px-2 py-0.5 rounded text-[10px] ${getRoleBadgeStyle(user.role)}`}>{user.role}</strong></span>

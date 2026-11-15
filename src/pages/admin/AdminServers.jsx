@@ -365,7 +365,7 @@ export const AdminServers = () => {
               setDeleteAllModalOpen(true);
             }}
             disabled={totalServers === 0 || actionLoading}
-            className="flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-red-500/15 hover:bg-red-500/25 text-red-400 border border-red-500/30 text-xs font-bold transition shadow disabled:opacity-40 disabled:cursor-not-allowed"
+            className="flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-red-500/15 hover:bg-red-500/25 text-red-400 text-xs font-bold transition shadow disabled:opacity-40 disabled:cursor-not-allowed"
             title="Permanently delete all servers across the fleet at once"
           >
             <Trash2 className="w-3.5 h-3.5" />
@@ -373,7 +373,7 @@ export const AdminServers = () => {
           </button>
           <button
             onClick={fetchServersAndNodes}
-            className="flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-xs text-neutral-300 hover:text-white border border-white/10 transition"
+            className="flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-xs text-neutral-300 hover:text-white transition"
           >
             <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} />
             Refresh
@@ -383,13 +383,13 @@ export const AdminServers = () => {
 
       {/* Alerts */}
       {success && (
-        <div className="p-4 rounded-2xl bg-emerald-500/20 border border-emerald-500/30 text-emerald-300 text-xs flex items-center gap-2.5">
+        <div className="p-4 rounded-2xl bg-emerald-500/20 text-emerald-300 text-xs flex items-center gap-2.5">
           <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-400" />
           <span>{success}</span>
         </div>
       )}
       {error && (
-        <div className="p-4 rounded-2xl bg-red-500/20 border border-red-500/30 text-red-300 text-xs flex items-center gap-2.5">
+        <div className="p-4 rounded-2xl bg-red-500/20 text-red-300 text-xs flex items-center gap-2.5">
           <AlertCircle className="w-4 h-4 shrink-0 text-red-400" />
           <span>{error}</span>
         </div>
@@ -397,7 +397,7 @@ export const AdminServers = () => {
 
       {/* Fleet Stats Overview */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-        <div className="p-5 rounded-3xl bg-[#121814] border border-white/10 shadow-xl space-y-1">
+        <div className="p-5 rounded-3xl  backdrop-blur-2xl shadow-xl space-y-1">
           <span className="text-[11px] font-mono text-neutral-400 uppercase tracking-wider block">
             TOTAL SERVERS
           </span>
@@ -407,7 +407,7 @@ export const AdminServers = () => {
           <p className="text-[11px] text-neutral-500">Fleet customer instances</p>
         </div>
 
-        <div className="p-5 rounded-3xl bg-[#121814] border border-white/10 shadow-xl space-y-1">
+        <div className="p-5 rounded-3xl  backdrop-blur-2xl shadow-xl space-y-1">
           <span className="text-[11px] font-mono text-neutral-400 uppercase tracking-wider block">
             ACTIVE ONLINE
           </span>
@@ -417,7 +417,7 @@ export const AdminServers = () => {
           <p className="text-[11px] text-neutral-500">Currently running</p>
         </div>
 
-        <div className="p-5 rounded-3xl bg-[#121814] border border-white/10 shadow-xl space-y-1">
+        <div className="p-5 rounded-3xl  backdrop-blur-2xl shadow-xl space-y-1">
           <span className="text-[11px] font-mono text-neutral-400 uppercase tracking-wider block">
             SUSPENDED
           </span>
@@ -427,7 +427,7 @@ export const AdminServers = () => {
           <p className="text-[11px] text-neutral-500">Overdue or locked</p>
         </div>
 
-        <div className="p-5 rounded-3xl bg-[#121814] border border-white/10 shadow-xl space-y-1">
+        <div className="p-5 rounded-3xl  backdrop-blur-2xl shadow-xl space-y-1">
           <span className="text-[11px] font-mono text-neutral-400 uppercase tracking-wider block">
             ALLOCATED RAM
           </span>
@@ -447,7 +447,7 @@ export const AdminServers = () => {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search by server name, ID, customer email, node FQDN, or IP..."
-            className="w-full px-4 py-2.5 rounded-xl bg-[#121814] border border-white/10 text-xs text-white placeholder-neutral-500 focus:outline-none focus:border-[#C5F36A] transition"
+            className="w-full px-4 py-2.5 rounded-xl  backdrop-blur-2xl text-xs text-white placeholder-neutral-500 focus:outline-none transition"
           />
         </div>
 
@@ -470,7 +470,7 @@ export const AdminServers = () => {
 
       {/* Bulk Selection Bar */}
       {selectedIds.length > 0 && (
-        <div className="p-3.5 px-5 rounded-2xl bg-red-950/40 border border-red-500/30 backdrop-blur-md flex flex-wrap items-center justify-between gap-3 shadow-xl animate-fade-in">
+        <div className="p-3.5 px-5 rounded-2xl bg-red-950/40 backdrop-blur-2xl flex flex-wrap items-center justify-between gap-3 shadow-xl animate-fade-in">
           <div className="flex items-center gap-2">
             <span className="w-2.5 h-2.5 rounded-full bg-red-400 animate-pulse" />
             <span className="text-xs font-bold text-white">
@@ -510,8 +510,8 @@ export const AdminServers = () => {
       )}
 
       {/* Services Table */}
-      <div className="rounded-3xl bg-[#121814] border border-white/10 overflow-hidden shadow-xl">
-        <div className="p-4 border-b border-white/10 flex items-center justify-between">
+      <div className="rounded-3xl  backdrop-blur-2xl overflow-hidden shadow-xl">
+        <div className="p-4 -b flex items-center justify-between">
           <h3 className="text-sm font-bold text-white flex items-center gap-2">
             <Server className="w-4 h-4 text-[#C5F36A]" />
             Customer Server Fleet ({filteredServices.length})
@@ -523,14 +523,14 @@ export const AdminServers = () => {
 
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-black/40 border-b border-white/10 text-neutral-400 font-mono text-[10px] uppercase">
+            <thead className="bg-black/40 -b text-neutral-400 font-mono text-[10px] uppercase">
               <tr>
                 <th className="p-4 pl-6 w-12 text-center">
                   <input
                     type="checkbox"
                     checked={filteredServices.length > 0 && selectedIds.length === filteredServices.length}
                     onChange={toggleSelectAll}
-                    className="w-4 h-4 rounded bg-white/10 border-white/20 text-[#C5F36A] focus:ring-0 cursor-pointer accent-[#C5F36A]"
+                    className="w-4 h-4 rounded bg-white/10 text-[#C5F36A] focus:ring-0 cursor-pointer accent-[#C5F36A]"
                     title="Select all visible servers"
                   />
                 </th>
@@ -548,7 +548,7 @@ export const AdminServers = () => {
               {loading ? (
                 <tr>
                   <td colSpan={9} className="p-12 text-center text-neutral-400">
-                    <div className="w-7 h-7 border-2 border-[#C5F36A] border-t-transparent rounded-full animate-spin mx-auto mb-2" />
+                    <div className="w-7 h-7 -2 -[#C5F36A] -t-transparent rounded-full animate-spin mx-auto mb-2" />
                     Loading instances...
                   </td>
                 </tr>
@@ -570,7 +570,7 @@ export const AdminServers = () => {
                           type="checkbox"
                           checked={selectedIds.includes(s.id)}
                           onChange={() => toggleSelectOne(s.id)}
-                          className="w-4 h-4 rounded bg-white/10 border-white/20 text-[#C5F36A] focus:ring-0 cursor-pointer accent-[#C5F36A]"
+                          className="w-4 h-4 rounded bg-white/10 text-[#C5F36A] focus:ring-0 cursor-pointer accent-[#C5F36A]"
                         />
                       </td>
                       <td className="p-4 font-mono font-bold text-white whitespace-nowrap">
@@ -615,12 +615,12 @@ export const AdminServers = () => {
 
                       <td className="p-4 whitespace-nowrap">
                         <span
-                          className={`px-2.5 py-0.5 rounded text-[10px] font-bold uppercase border ${
+                          className={`px-2.5 py-0.5 rounded text-[10px] font-bold uppercase  ${
                             s.status === 'active'
-                              ? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30'
+                              ? 'bg-emerald-500/20 text-emerald-400 '
                               : isSuspended
-                              ? 'bg-amber-500/20 text-amber-300 border-amber-500/30'
-                              : 'bg-neutral-500/20 text-neutral-400 border-neutral-500/30'
+                              ? 'bg-amber-500/20 text-amber-300 '
+                              : 'bg-neutral-500/20 text-neutral-400 -neutral-500/30'
                           }`}
                         >
                           {s.status}
@@ -679,24 +679,24 @@ export const AdminServers = () => {
 
       {/* COMPREHENSIVE MANAGE SERVER MODAL */}
       {manageServer && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md overflow-y-auto">
-          <div className="w-full max-w-2xl my-8 p-6 sm:p-8 rounded-3xl bg-[#121814] border border-white/15 shadow-2xl text-white space-y-6">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-2xl overflow-y-auto">
+          <div className="w-full max-w-2xl my-8 p-6 sm:p-8 rounded-3xl  backdrop-blur-2xl shadow-2xl text-white space-y-6">
             {/* Modal Header */}
-            <div className="flex items-start justify-between pb-4 border-b border-white/10">
+            <div className="flex items-start justify-between pb-4 -b">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-[#C5F36A]">
+                <div className="w-10 h-10 rounded-2xl bg-white/5 flex items-center justify-center text-[#C5F36A]">
                   <Server className="w-5 h-5" />
                 </div>
                 <div>
                   <div className="flex items-center gap-2">
                     <h3 className="text-lg font-bold text-white">{manageServer.name}</h3>
                     <span
-                      className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase border ${
+                      className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase  ${
                         manageServer.status === 'active'
-                          ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30'
+                          ? 'bg-emerald-500/20 text-emerald-300 '
                           : manageServer.status === 'suspended'
-                          ? 'bg-amber-500/20 text-amber-300 border-amber-500/30'
-                          : 'bg-neutral-500/20 text-neutral-400 border-neutral-500/30'
+                          ? 'bg-amber-500/20 text-amber-300 '
+                          : 'bg-neutral-500/20 text-neutral-400 -neutral-500/30'
                       }`}
                     >
                       {manageServer.status}
@@ -717,7 +717,7 @@ export const AdminServers = () => {
             </div>
 
             {/* Modal Navigation Tabs */}
-            <div className="flex items-center gap-2 border-b border-white/10 pb-3">
+            <div className="flex items-center gap-2 -b pb-3">
               {[
                 { id: 'controls', label: 'Power & Controls', icon: Zap },
                 { id: 'edit', label: 'Edit Configuration', icon: Sliders },
@@ -755,7 +755,7 @@ export const AdminServers = () => {
                     <button
                       onClick={() => handlePowerAction(manageServer, 'start')}
                       disabled={actionLoading}
-                      className="p-3 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 hover:bg-emerald-500/20 text-emerald-300 font-bold text-xs flex flex-col items-center justify-center gap-1.5 transition active:scale-95"
+                      className="p-3 rounded-2xl bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-300 font-bold text-xs flex flex-col items-center justify-center gap-1.5 transition active:scale-95"
                     >
                       <Play className="w-4 h-4 fill-current text-emerald-400" />
                       Start Server
@@ -763,7 +763,7 @@ export const AdminServers = () => {
                     <button
                       onClick={() => handlePowerAction(manageServer, 'restart')}
                       disabled={actionLoading}
-                      className="p-3 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 hover:bg-cyan-500/20 text-cyan-300 font-bold text-xs flex flex-col items-center justify-center gap-1.5 transition active:scale-95"
+                      className="p-3 rounded-2xl bg-cyan-500/10 -cyan-500/20 hover:bg-cyan-500/20 text-cyan-300 font-bold text-xs flex flex-col items-center justify-center gap-1.5 transition active:scale-95"
                     >
                       <RotateCcw className="w-4 h-4 text-cyan-400" />
                       Restart Server
@@ -771,7 +771,7 @@ export const AdminServers = () => {
                     <button
                       onClick={() => handlePowerAction(manageServer, 'stop')}
                       disabled={actionLoading}
-                      className="p-3 rounded-2xl bg-amber-500/10 border border-amber-500/20 hover:bg-amber-500/20 text-amber-300 font-bold text-xs flex flex-col items-center justify-center gap-1.5 transition active:scale-95"
+                      className="p-3 rounded-2xl bg-amber-500/10 hover:bg-amber-500/20 text-amber-300 font-bold text-xs flex flex-col items-center justify-center gap-1.5 transition active:scale-95"
                     >
                       <Square className="w-4 h-4 fill-current text-amber-400" />
                       Stop Server
@@ -779,7 +779,7 @@ export const AdminServers = () => {
                     <button
                       onClick={() => handlePowerAction(manageServer, 'kill')}
                       disabled={actionLoading}
-                      className="p-3 rounded-2xl bg-red-500/10 border border-red-500/20 hover:bg-red-500/20 text-red-300 font-bold text-xs flex flex-col items-center justify-center gap-1.5 transition active:scale-95"
+                      className="p-3 rounded-2xl bg-red-500/10 hover:bg-red-500/20 text-red-300 font-bold text-xs flex flex-col items-center justify-center gap-1.5 transition active:scale-95"
                     >
                       <Power className="w-4 h-4 text-red-400" />
                       Force Kill
@@ -788,7 +788,7 @@ export const AdminServers = () => {
                 </div>
 
                 {/* Resource Allocations Overview */}
-                <div className="grid grid-cols-3 gap-3 p-4 rounded-2xl bg-black/40 border border-white/5 text-xs">
+                <div className="grid grid-cols-3 gap-3 p-4 rounded-2xl bg-black/40 text-xs">
                   <div>
                     <span className="text-[10px] font-mono text-neutral-500 uppercase block">MEMORY POOL</span>
                     <span className="font-mono font-bold text-white text-sm">{manageServer.ram_max || 4} GB</span>
@@ -809,7 +809,7 @@ export const AdminServers = () => {
                 </div>
 
                 {/* Ownership & Panel Link Bar */}
-                <div className="p-4 rounded-2xl bg-black/30 border border-white/5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs">
+                <div className="p-4 rounded-2xl bg-black/30 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs">
                   <div>
                     <span className="text-[10px] font-mono text-neutral-400 uppercase block">CUSTOMER OWNER</span>
                     <span className="font-mono font-bold text-white">{manageServer.user_email}</span>
@@ -818,7 +818,7 @@ export const AdminServers = () => {
                     href="https://panel.zeroxcloud.site"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white/10 hover:bg-white/15 text-white font-semibold text-xs border border-white/10 transition"
+                    className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white/10 hover:bg-white/15 text-white font-semibold text-xs transition"
                   >
                     Open in Game Panel
                     <ExternalLink className="w-3.5 h-3.5 text-neutral-400" />
@@ -840,7 +840,7 @@ export const AdminServers = () => {
                       required
                       value={editForm.name}
                       onChange={(e) => setEditForm({ ...editForm, name: e.target.value })}
-                      className="w-full px-3.5 py-2 rounded-xl bg-black/40 border border-white/10 text-xs text-white focus:outline-none focus:border-[#C5F36A]"
+                      className="w-full px-3.5 py-2 rounded-xl bg-black/40 text-xs text-white focus:outline-none"
                     />
                   </div>
 
@@ -853,7 +853,7 @@ export const AdminServers = () => {
                       value={editForm.node}
                       onChange={(e) => setEditForm({ ...editForm, node: e.target.value })}
                       placeholder="delhi-node-01.zeroxcloud.site"
-                      className="w-full px-3.5 py-2 rounded-xl bg-black/40 border border-white/10 text-xs text-white font-mono focus:outline-none focus:border-[#C5F36A]"
+                      className="w-full px-3.5 py-2 rounded-xl bg-black/40 text-xs text-white font-mono focus:outline-none"
                     />
                   </div>
                 </div>
@@ -867,7 +867,7 @@ export const AdminServers = () => {
                       type="text"
                       value={editForm.ip_address}
                       onChange={(e) => setEditForm({ ...editForm, ip_address: e.target.value })}
-                      className="w-full px-3.5 py-2 rounded-xl bg-black/40 border border-white/10 text-xs text-white font-mono focus:outline-none focus:border-[#C5F36A]"
+                      className="w-full px-3.5 py-2 rounded-xl bg-black/40 text-xs text-white font-mono focus:outline-none"
                     />
                   </div>
 
@@ -879,7 +879,7 @@ export const AdminServers = () => {
                       type="number"
                       value={editForm.port}
                       onChange={(e) => setEditForm({ ...editForm, port: parseInt(e.target.value, 10) })}
-                      className="w-full px-3.5 py-2 rounded-xl bg-black/40 border border-white/10 text-xs text-white font-mono focus:outline-none focus:border-[#C5F36A]"
+                      className="w-full px-3.5 py-2 rounded-xl bg-black/40 text-xs text-white font-mono focus:outline-none"
                     />
                   </div>
                 </div>
@@ -894,7 +894,7 @@ export const AdminServers = () => {
                       step="0.5"
                       value={editForm.ram_max}
                       onChange={(e) => setEditForm({ ...editForm, ram_max: parseFloat(e.target.value) })}
-                      className="w-full px-3.5 py-2 rounded-xl bg-black/40 border border-white/10 text-xs text-white font-mono focus:outline-none focus:border-[#C5F36A]"
+                      className="w-full px-3.5 py-2 rounded-xl bg-black/40 text-xs text-white font-mono focus:outline-none"
                     />
                   </div>
 
@@ -907,7 +907,7 @@ export const AdminServers = () => {
                       step="1"
                       value={editForm.disk_max}
                       onChange={(e) => setEditForm({ ...editForm, disk_max: parseFloat(e.target.value) })}
-                      className="w-full px-3.5 py-2 rounded-xl bg-black/40 border border-white/10 text-xs text-white font-mono focus:outline-none focus:border-[#C5F36A]"
+                      className="w-full px-3.5 py-2 rounded-xl bg-black/40 text-xs text-white font-mono focus:outline-none"
                     />
                   </div>
 
@@ -918,7 +918,7 @@ export const AdminServers = () => {
                     <select
                       value={editForm.status}
                       onChange={(e) => setEditForm({ ...editForm, status: e.target.value })}
-                      className="w-full px-3.5 py-2 rounded-xl bg-black/40 border border-white/10 text-xs text-white focus:outline-none focus:border-[#C5F36A]"
+                      className="w-full px-3.5 py-2 rounded-xl bg-black/40 text-xs text-white focus:outline-none"
                     >
                       <option value="active">Active</option>
                       <option value="stopped">Stopped</option>
@@ -936,7 +936,7 @@ export const AdminServers = () => {
                       type="date"
                       value={editForm.renewal_date}
                       onChange={(e) => setEditForm({ ...editForm, renewal_date: e.target.value })}
-                      className="w-full px-3.5 py-2 rounded-xl bg-black/40 border border-white/10 text-xs text-white font-mono focus:outline-none focus:border-[#C5F36A]"
+                      className="w-full px-3.5 py-2 rounded-xl bg-black/40 text-xs text-white font-mono focus:outline-none"
                     />
                   </div>
 
@@ -949,12 +949,12 @@ export const AdminServers = () => {
                       value={editForm.user_email}
                       onChange={(e) => setEditForm({ ...editForm, user_email: e.target.value })}
                       placeholder="customer@domain.com"
-                      className="w-full px-3.5 py-2 rounded-xl bg-black/40 border border-white/10 text-xs text-white font-mono focus:outline-none focus:border-[#C5F36A]"
+                      className="w-full px-3.5 py-2 rounded-xl bg-black/40 text-xs text-white font-mono focus:outline-none"
                     />
                   </div>
                 </div>
 
-                <div className="pt-3 border-t border-white/10 flex justify-end">
+                <div className="pt-3 -t flex justify-end">
                   <button
                     type="submit"
                     disabled={actionLoading}
@@ -977,7 +977,7 @@ export const AdminServers = () => {
                   </span>
                 </div>
 
-                <div className="p-4 rounded-2xl bg-black/80 border border-white/10 font-mono text-xs text-neutral-300 space-y-1.5 h-64 overflow-y-auto">
+                <div className="p-4 rounded-2xl bg-black/80 font-mono text-xs text-neutral-300 space-y-1.5 h-64 overflow-y-auto">
                   <p className="text-neutral-500">[ZEROX-DAEMON] Connecting to Docker container {manageServer.provider_identifier}...</p>
                   <p className="text-neutral-400">[SYSTEM] Server IP allocated: {manageServer.ip_address}:{manageServer.port}</p>
                   <p className="text-emerald-400">[PTERODACTYL] Node {manageServer.node} responded (HTTP 200 OK)</p>
@@ -993,7 +993,7 @@ export const AdminServers = () => {
             {/* TAB 4: DANGER ZONE */}
             {activeTab === 'danger' && (
               <div className="space-y-4">
-                <div className="p-4 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-between gap-4">
+                <div className="p-4 rounded-2xl bg-amber-500/10 flex items-center justify-between gap-4">
                   <div>
                     <h4 className="text-sm font-bold text-amber-300">
                       {manageServer.status === 'suspended' ? 'Unsuspend Server' : 'Suspend Server'}
@@ -1017,7 +1017,7 @@ export const AdminServers = () => {
                   </button>
                 </div>
 
-                <div className="p-4 rounded-2xl bg-red-500/10 border border-red-500/20 flex items-center justify-between gap-4">
+                <div className="p-4 rounded-2xl bg-red-500/10 flex items-center justify-between gap-4">
                   <div>
                     <h4 className="text-sm font-bold text-red-400">Permanently Terminate Server</h4>
                     <p className="text-xs text-neutral-400 mt-0.5">
@@ -1036,7 +1036,7 @@ export const AdminServers = () => {
             )}
 
             {/* Modal Bottom Close */}
-            <div className="pt-3 border-t border-white/10 flex justify-end">
+            <div className="pt-3 -t flex justify-end">
               <button
                 onClick={() => setManageServer(null)}
                 className="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/15 text-white font-medium text-xs transition"
@@ -1050,10 +1050,10 @@ export const AdminServers = () => {
 
       {/* CONFIRMATION MODAL: DELETE ALL SERVERS AT ONCE */}
       {deleteAllModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md animate-fade-in">
-          <div className="w-full max-w-lg p-6 sm:p-8 rounded-3xl bg-[#121814] border border-red-500/40 shadow-2xl text-white space-y-6">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-2xl animate-fade-in">
+          <div className="w-full max-w-lg p-6 sm:p-8 rounded-3xl  backdrop-blur-2xl shadow-2xl text-white space-y-6">
             <div className="flex items-start gap-4">
-              <div className="w-12 h-12 rounded-2xl bg-red-500/15 border border-red-500/30 flex items-center justify-center text-red-400 shrink-0 shadow-lg">
+              <div className="w-12 h-12 rounded-2xl bg-red-500/15 flex items-center justify-center text-red-400 shrink-0 shadow-lg">
                 <AlertTriangle className="w-6 h-6" />
               </div>
               <div>
@@ -1072,7 +1072,7 @@ export const AdminServers = () => {
             </p>
 
             {/* Impact Metric Box */}
-            <div className="grid grid-cols-3 gap-2.5 p-4 rounded-2xl bg-black/50 border border-white/10 text-center">
+            <div className="grid grid-cols-3 gap-2.5 p-4 rounded-2xl bg-black/50 text-center">
               <div>
                 <span className="text-[10px] font-mono text-neutral-400 uppercase block">SERVERS</span>
                 <span className="text-lg font-extrabold text-red-400 font-mono">{totalServers}</span>
@@ -1097,12 +1097,12 @@ export const AdminServers = () => {
                 value={deleteConfirmText}
                 onChange={(e) => setDeleteConfirmText(e.target.value.toUpperCase())}
                 placeholder="Type DELETE ALL"
-                className="w-full bg-black/60 border border-red-500/30 focus:border-red-500 rounded-xl px-4 py-2.5 text-xs text-white placeholder-neutral-500 uppercase font-mono tracking-wider focus:outline-none transition"
+                className="w-full bg-black/60 focus:-red-500 rounded-xl px-4 py-2.5 text-xs text-white placeholder-neutral-500 uppercase font-mono tracking-wider focus:outline-none transition"
               />
             </div>
 
             {/* Modal Actions */}
-            <div className="pt-2 border-t border-white/10 flex items-center justify-end gap-3">
+            <div className="pt-2 -t flex items-center justify-end gap-3">
               <button
                 type="button"
                 onClick={() => {
@@ -1130,10 +1130,10 @@ export const AdminServers = () => {
 
       {/* CONFIRMATION MODAL: BULK DELETE SELECTED SERVERS */}
       {bulkDeleteModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md animate-fade-in">
-          <div className="w-full max-w-lg p-6 sm:p-8 rounded-3xl bg-[#121814] border border-red-500/30 shadow-2xl text-white space-y-6">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-2xl animate-fade-in">
+          <div className="w-full max-w-lg p-6 sm:p-8 rounded-3xl  backdrop-blur-2xl shadow-2xl text-white space-y-6">
             <div className="flex items-start gap-4">
-              <div className="w-12 h-12 rounded-2xl bg-red-500/15 border border-red-500/30 flex items-center justify-center text-red-400 shrink-0 shadow-lg">
+              <div className="w-12 h-12 rounded-2xl bg-red-500/15 flex items-center justify-center text-red-400 shrink-0 shadow-lg">
                 <Trash2 className="w-6 h-6" />
               </div>
               <div>
@@ -1150,7 +1150,7 @@ export const AdminServers = () => {
               Are you sure you want to permanently delete the <span className="font-bold text-white font-mono">{selectedIds.length}</span> selected server(s)? This will release their allocated ports and remove all associated data.
             </p>
 
-            <div className="max-h-40 overflow-y-auto space-y-1.5 p-3 rounded-2xl bg-black/40 border border-white/5 divide-y divide-white/5 text-xs">
+            <div className="max-h-40 overflow-y-auto space-y-1.5 p-3 rounded-2xl bg-black/40 divide-y divide-white/5 text-xs">
               {data.services
                 .filter((s) => selectedIds.includes(s.id))
                 .map((srv) => (
@@ -1165,7 +1165,7 @@ export const AdminServers = () => {
             </div>
 
             {/* Modal Actions */}
-            <div className="pt-2 border-t border-white/10 flex items-center justify-end gap-3">
+            <div className="pt-2 -t flex items-center justify-end gap-3">
               <button
                 type="button"
                 onClick={() => setBulkDeleteModalOpen(false)}
@@ -1189,8 +1189,8 @@ export const AdminServers = () => {
       )}
 
       {/* Provisioning Jobs Monitor */}
-      <div className="rounded-3xl bg-[#121814] border border-white/10 overflow-hidden shadow-xl">
-        <div className="p-4 border-b border-white/10 flex items-center justify-between">
+      <div className="rounded-3xl  backdrop-blur-2xl overflow-hidden shadow-xl">
+        <div className="p-4 -b flex items-center justify-between">
           <h3 className="text-sm font-bold text-white flex items-center gap-2">
             <Activity className="w-4 h-4 text-cyan-400" />
             Provisioning Job Queue Logs
@@ -1202,7 +1202,7 @@ export const AdminServers = () => {
 
         <div className="p-4 space-y-2">
           {data.provisioning_jobs.map((job) => (
-            <div key={job.id} className="p-3 rounded-xl bg-black/40 border border-white/5 text-xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
+            <div key={job.id} className="p-3 rounded-xl bg-black/40 text-xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
               <div>
                 <span className="font-mono text-[#C5F36A] font-bold uppercase text-[10px]">
                   JOB #{job.id} • {job.status}

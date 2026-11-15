@@ -120,7 +120,7 @@ export const Hero = () => {
     <section className="relative pt-8 pb-20 overflow-hidden z-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
         {/* Systems Operational Badge */}
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#0e1611]/60 border border-white/15 text-xs font-mono font-medium text-neutral-300 mb-8 backdrop-blur-xl shadow-[0_4px_16px_rgba(0,0,0,0.35),inset_0_1px_0_rgba(255,255,255,0.15)]">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full  backdrop-blur-2xl text-xs font-mono font-medium text-neutral-300 mb-8 backdrop-blur-xl shadow-[0_4px_16px_rgba(0,0,0,0.35)]">
           <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
           <span className="tracking-wider uppercase">
             {siteSettings?.announcement_text || 'ALL SYSTEMS OPERATIONAL'}
@@ -138,7 +138,7 @@ export const Hero = () => {
         </p>
 
         {/* Segmented Category Tabs */}
-        <div className="mt-10 inline-flex flex-wrap items-center justify-center p-1.5 rounded-2xl bg-[#0e1611]/5 border border-white/15 backdrop-blur-2xl gap-1 shadow-[0_8px_32px_rgba(0,0,0,0.35),inset_0_1px_1px_rgba(255,255,255,0.14)]">
+        <div className="mt-10 inline-flex flex-wrap items-center justify-center p-1.5 rounded-2xl bg-[#0e1611]/5 backdrop-blur-2xl gap-1 shadow-[0_8px_32px_rgba(0,0,0,0.35)]">
           {tabs.map((tab) => {
             const Icon = tab.icon;
             const isActive = activeTab === tab.id;
@@ -160,7 +160,7 @@ export const Hero = () => {
         </div>
 
         {/* Active Tab Glass Callout Box */}
-        <div className="mt-6 max-w-3xl mx-auto p-4 sm:p-5 rounded-2xl bg-[#0e1611]/5 border border-white/15 backdrop-blur-2xl flex flex-col sm:flex-row items-center justify-between gap-4 text-left shadow-[0_12px_36px_rgba(0,0,0,0.35),inset_0_1px_1px_rgba(255,255,255,0.14)]">
+        <div className="mt-6 max-w-3xl mx-auto p-4 sm:p-5 rounded-2xl bg-[#0e1611]/5 backdrop-blur-2xl flex flex-col sm:flex-row items-center justify-between gap-4 text-left shadow-[0_12px_36px_rgba(0,0,0,0.35)]">
           <p className="text-xs sm:text-sm text-neutral-200 leading-relaxed font-normal">
             {currentTab.desc}
           </p>
@@ -215,7 +215,7 @@ export const Hero = () => {
             >
               {/* Floating SLA Badges with 3D Parallax Depth */}
               <div
-                className="hidden sm:flex absolute -top-3 left-6 z-30 items-center gap-2 px-3.5 py-1.5 rounded-full bg-black/85 border border-white/20 text-xs font-semibold text-white backdrop-blur-xl shadow-2xl transition-transform"
+                className="hidden sm:flex absolute -top-3 left-6 z-30 items-center gap-2 px-3.5 py-1.5 rounded-full  backdrop-blur-2xl text-xs font-semibold text-white backdrop-blur-xl shadow-2xl transition-transform"
                 style={{
                   transform: 'translateZ(38px)'
                 }}
@@ -225,7 +225,7 @@ export const Hero = () => {
               </div>
 
               <div
-                className="hidden sm:flex absolute -top-3 right-6 z-30 items-center gap-2 px-3.5 py-1.5 rounded-full bg-black/85 border border-white/20 text-xs font-semibold text-white backdrop-blur-xl shadow-2xl transition-transform"
+                className="hidden sm:flex absolute -top-3 right-6 z-30 items-center gap-2 px-3.5 py-1.5 rounded-full  backdrop-blur-2xl text-xs font-semibold text-white backdrop-blur-xl shadow-2xl transition-transform"
                 style={{
                   transform: 'translateZ(38px)'
                 }}
@@ -235,15 +235,15 @@ export const Hero = () => {
               </div>
 
               {/* Browser Window Frame */}
-              <div className="relative rounded-3xl bg-[#090f0b]/80 border border-white/20 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.8),inset_0_1px_1px_rgba(255,255,255,0.18)] overflow-hidden text-left backdrop-blur-2xl">
+              <div className="relative rounded-3xl  backdrop-blur-2xl shadow-[0_25px_60px_-15px_rgba(0,0,0,0.8)] overflow-hidden text-left backdrop-blur-2xl">
                 {/* Browser Top Bar */}
-                <div className="px-5 py-3.5 bg-[#0e1611]/90 border-b border-white/10 backdrop-blur-xl flex items-center justify-between">
+                <div className="px-5 py-3.5 bg-[#0e1611]/5 backdrop-blur-xl flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <span className="w-3 h-3 rounded-full bg-[#EF4444] inline-block opacity-90 shadow-sm" />
                     <span className="w-3 h-3 rounded-full bg-[#EAB308] inline-block opacity-90 shadow-sm" />
                     <span className="w-3 h-3 rounded-full bg-[#10B981] inline-block opacity-90 shadow-sm" />
                   </div>
-                  <div className="px-4 py-1 rounded-lg bg-black/60 text-[11px] font-mono text-neutral-300 border border-white/10">
+                  <div className="px-4 py-1 rounded-lg bg-[#0e1611]/5 backdrop-blur-2xl text-[11px] font-mono text-neutral-300">
                     {displayPanelUrl} / server / live-console
                   </div>
                   <div className="w-12" />
@@ -280,7 +280,7 @@ export const Hero = () => {
                   href={panelUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2.5 px-4 sm:px-5 py-2 rounded-full bg-black/90 hover:bg-neutral-900 border border-white/25 hover:border-[#C5F36A]/50 text-xs font-semibold text-white shadow-[0_10px_30px_rgba(0,0,0,0.8)] backdrop-blur-xl transition-all duration-200 active:scale-95 group"
+                  className="flex items-center gap-2.5 px-4 sm:px-5 py-2 rounded-full  backdrop-blur-2xl hover:bg-[#0e1611]/10 text-xs font-semibold text-white shadow-[0_10px_30px_rgba(0,0,0,0.8)] backdrop-blur-xl transition-all duration-200 active:scale-95 group"
                 >
                   <Gamepad2 className="w-4 h-4 text-white group-hover:text-[#C5F36A] transition-colors" />
                   <span className="tracking-wide">Game Panel: {displayPanelUrl}</span>
@@ -301,7 +301,7 @@ export const Hero = () => {
             <span className="text-[10px] font-mono tracking-widest uppercase text-neutral-400 group-hover:text-[#C5F36A] transition-colors">
               Scroll to explore
             </span>
-            <div className="w-5 h-8 rounded-full border border-white/20 group-hover:border-[#C5F36A]/60 flex items-start justify-center p-1 transition-colors">
+            <div className="w-5 h-8 rounded-full group- flex items-start justify-center p-1 transition-colors">
               <span className="w-1.5 h-1.5 rounded-full bg-[#C5F36A] animate-scroll-wheel" />
             </div>
           </button>
