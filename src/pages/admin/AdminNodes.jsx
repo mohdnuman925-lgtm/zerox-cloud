@@ -419,12 +419,31 @@ export const AdminNodes = () => {
           <p className="text-xs">Inspecting daemon endpoints and fleet allocations...</p>
         </div>
       ) : filteredNodes.length === 0 ? (
-        <div className="p-12 rounded-3xl bg-[#121814] border border-white/10 text-center space-y-3">
-          <Server className="w-10 h-10 text-neutral-500 mx-auto" />
-          <h3 className="text-base font-bold text-white">No nodes match your filter</h3>
-          <p className="text-xs text-neutral-400 max-w-sm mx-auto">
-            Try adjusting your search criteria or deploy a new node into the cluster.
-          </p>
+        <div className="p-16 rounded-3xl bg-[#121814] border border-white/10 text-center space-y-4 shadow-2xl">
+          <div className="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center mx-auto text-neutral-400">
+            <Server className="w-8 h-8 text-[#C5F36A]" />
+          </div>
+          <div className="space-y-1">
+            <h3 className="text-lg font-bold text-white">
+              {nodes.length === 0 ? 'No Infrastructure Nodes Deployed' : 'No nodes match your filter'}
+            </h3>
+            <p className="text-xs text-neutral-400 max-w-md mx-auto leading-relaxed">
+              {nodes.length === 0
+                ? 'Your fleet currently has zero active nodes. Connect a Pterodactyl daemon (Wings) node to begin allocating IP addresses, RAM limits, and provisioning game servers.'
+                : 'Try adjusting your search query or status filter to locate nodes.'}
+            </p>
+          </div>
+          {nodes.length === 0 && (
+            <div className="pt-2">
+              <button
+                onClick={handleOpenCreateModal}
+                className="inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-[#C5F36A] text-black font-extrabold text-xs hover:bg-[#d4f788] transition shadow-xl shadow-[#C5F36A]/10 active:scale-95"
+              >
+                <Plus className="w-4 h-4 stroke-[3]" />
+                Deploy Your First Node
+              </button>
+            </div>
+          )}
         </div>
       ) : (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">

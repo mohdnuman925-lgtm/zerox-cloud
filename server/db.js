@@ -547,85 +547,12 @@ const getInitialData = () => {
   };
 };
 
-export const getDefaultNodes = () => [
-  {
-    id: 'node-delhi-01',
-    name: 'Delhi Node 01 (Noida Edge DC)',
-    fqdn: 'delhi-node-01.zeroxcloud.site',
-    ip_address: '103.174.102.45',
-    location: 'Noida, India',
-    country_code: 'IN',
-    daemon_port: 8080,
-    daemon_sftp: 2022,
-    scheme: 'https',
-    status: 'online',
-    maintenance_mode: false,
-    memory_limit_mb: 131072, // 128 GB
-    memory_overcommit_pct: 10,
-    disk_limit_mb: 2097152, // 2 TB NVMe
-    disk_overcommit_pct: 15,
-    cpu_cores: 64,
-    port_range_start: 25565,
-    port_range_end: 25999,
-    max_servers: 60,
-    description: 'AMD EPYC 7C13 64-Core High-Frequency, 3.2 Tbps Anti-DDoS, 10Gbps Uplink',
-    created_at: new Date('2026-01-01T00:00:00Z').toISOString(),
-    updated_at: new Date('2026-11-15T00:00:00Z').toISOString()
-  },
-  {
-    id: 'node-mumbai-01',
-    name: 'Mumbai Node 01 (Equinix MB1)',
-    fqdn: 'mumbai-node-01.zeroxcloud.site',
-    ip_address: '103.174.103.88',
-    location: 'Mumbai, India',
-    country_code: 'IN',
-    daemon_port: 8080,
-    daemon_sftp: 2022,
-    scheme: 'https',
-    status: 'online',
-    maintenance_mode: false,
-    memory_limit_mb: 65536, // 64 GB
-    memory_overcommit_pct: 0,
-    disk_limit_mb: 1048576, // 1 TB NVMe
-    disk_overcommit_pct: 10,
-    cpu_cores: 32,
-    port_range_start: 25500,
-    port_range_end: 25800,
-    max_servers: 40,
-    description: 'Intel Xeon Gold 6338, Tier-IV Carrier Neutral Datacenter',
-    created_at: new Date('2026-02-15T00:00:00Z').toISOString(),
-    updated_at: new Date('2026-11-15T00:00:00Z').toISOString()
-  },
-  {
-    id: 'node-sg-01',
-    name: 'Singapore Node 01 (Telstra SG)',
-    fqdn: 'sg-node-01.zeroxcloud.site',
-    ip_address: '139.99.124.19',
-    location: 'Singapore, Asia',
-    country_code: 'SG',
-    daemon_port: 8080,
-    daemon_sftp: 2022,
-    scheme: 'https',
-    status: 'online',
-    maintenance_mode: false,
-    memory_limit_mb: 65536, // 64 GB
-    memory_overcommit_pct: 5,
-    disk_limit_mb: 1048576, // 1 TB
-    disk_overcommit_pct: 10,
-    cpu_cores: 32,
-    port_range_start: 25565,
-    port_range_end: 25750,
-    max_servers: 35,
-    description: 'AMD Ryzen 9 7950X, Sub-45ms routing to South-East Asia',
-    created_at: new Date('2026-03-01T00:00:00Z').toISOString(),
-    updated_at: new Date('2026-11-15T00:00:00Z').toISOString()
-  }
-];
+export const getDefaultNodes = () => [];
 
 export const getDB = () => {
   if (memoryDB) {
-    if (!memoryDB.nodes || !Array.isArray(memoryDB.nodes) || memoryDB.nodes.length === 0) {
-      memoryDB.nodes = getDefaultNodes();
+    if (!memoryDB.nodes || !Array.isArray(memoryDB.nodes)) {
+      memoryDB.nodes = [];
     }
     return memoryDB;
   }
@@ -634,8 +561,8 @@ export const getDB = () => {
     if (fs.existsSync(RUNTIME_DB_FILE)) {
       const raw = fs.readFileSync(RUNTIME_DB_FILE, 'utf-8');
       memoryDB = JSON.parse(raw);
-      if (!memoryDB.nodes || !Array.isArray(memoryDB.nodes) || memoryDB.nodes.length === 0) {
-        memoryDB.nodes = getDefaultNodes();
+      if (!memoryDB.nodes || !Array.isArray(memoryDB.nodes)) {
+        memoryDB.nodes = [];
       }
       return memoryDB;
     }
@@ -644,8 +571,8 @@ export const getDB = () => {
     if (SEED_FILE !== RUNTIME_DB_FILE && fs.existsSync(SEED_FILE)) {
       const raw = fs.readFileSync(SEED_FILE, 'utf-8');
       memoryDB = JSON.parse(raw);
-      if (!memoryDB.nodes || !Array.isArray(memoryDB.nodes) || memoryDB.nodes.length === 0) {
-        memoryDB.nodes = getDefaultNodes();
+      if (!memoryDB.nodes || !Array.isArray(memoryDB.nodes)) {
+        memoryDB.nodes = [];
       }
       try {
         fs.mkdirSync(path.dirname(RUNTIME_DB_FILE), { recursive: true });
