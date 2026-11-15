@@ -211,7 +211,7 @@ export const GameComingSoon = ({ game = 'rust', onSelectMinecraft }) => {
       {/* Hero Coming Soon Card */}
       <ScrollReveal animation="fade-up">
         <div
-          className={`relative rounded-3xl overflow-hidden border border-white/20 bg-[#0c140f]/25 backdrop-blur-2xl ${config.accentGlow} p-6 sm:p-10 shadow-[0_16px_48px_rgba(0,0,0,0.55),inset_0_1px_1px_rgba(255,255,255,0.15)]`}
+          className={`relative rounded-3xl overflow-hidden border border-white/20 bg-[#0c140f]/5 backdrop-blur-2xl ${config.accentGlow} p-6 sm:p-10 shadow-[0_16px_48px_rgba(0,0,0,0.35),inset_0_1px_1px_rgba(255,255,255,0.15)]`}
         >
           {/* Background image & gradient overlay */}
           <div
@@ -365,7 +365,7 @@ export const GameComingSoon = ({ game = 'rust', onSelectMinecraft }) => {
             const Icon = feat.icon;
             return (
               <ScrollReveal key={idx} animation="fade-up" delay={idx * 60}>
-                <div className="p-5 rounded-2xl bg-[#0c140f]/25 border border-white/12 hover:border-white/25 transition-all duration-300 backdrop-blur-xl h-full flex flex-col justify-between group space-y-3 shadow-[0_8px_24px_rgba(0,0,0,0.4),inset_0_1px_1px_rgba(255,255,255,0.1)]">
+                <div className="p-5 rounded-2xl bg-[#0c140f]/5 border border-white/12 hover:border-white/25 transition-all duration-300 backdrop-blur-xl h-full flex flex-col justify-between group space-y-3 shadow-[0_8px_24px_rgba(0,0,0,0.3),inset_0_1px_1px_rgba(255,255,255,0.1)]">
                   <div className="space-y-3">
                     <div
                       className={`w-10 h-10 rounded-xl ${config.accentBg} border ${config.accentBorder} flex items-center justify-center transition group-hover:scale-110`}
@@ -404,7 +404,7 @@ export const GameComingSoon = ({ game = 'rust', onSelectMinecraft }) => {
           {config.plannedTiers.map((tier, idx) => (
             <ScrollReveal key={idx} animation="fade-up" delay={idx * 80}>
               <div
-                className={`p-6 rounded-3xl bg-[#0c140f]/25 border backdrop-blur-2xl flex flex-col justify-between space-y-5 transition-all shadow-[0_12px_36px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.14)] ${
+                className={`p-6 rounded-3xl bg-[#0c140f]/5 border backdrop-blur-2xl flex flex-col justify-between space-y-5 transition-all shadow-[0_12px_36px_rgba(0,0,0,0.35),inset_0_1px_1px_rgba(255,255,255,0.14)] ${
                   tier.popular
                     ? 'border-white/35 ring-1 ring-white/20'
                     : 'border-white/15 hover:border-white/25'

@@ -56,7 +56,7 @@ export const CloudVPSPage = () => {
         {/* Configuration selectors */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
           {/* OS Selector */}
-          <div className="p-6 rounded-3xl bg-[#0e1611]/25 border border-white/15 backdrop-blur-2xl shadow-[0_8px_32px_rgba(0,0,0,0.4),inset_0_1px_1px_rgba(255,255,255,0.14)] space-y-3">
+          <div className="p-6 rounded-3xl bg-[#0e1611]/5 border border-white/15 backdrop-blur-2xl shadow-[0_8px_32px_rgba(0,0,0,0.35),inset_0_1px_1px_rgba(255,255,255,0.14)] space-y-3">
             <h3 className="text-xs font-mono font-bold uppercase text-neutral-400">
               01 • Select Operating System
             </h3>
@@ -78,7 +78,7 @@ export const CloudVPSPage = () => {
           </div>
 
           {/* Region Selector */}
-          <div className="p-6 rounded-3xl bg-[#0e1611]/25 border border-white/15 backdrop-blur-2xl shadow-[0_8px_32px_rgba(0,0,0,0.4),inset_0_1px_1px_rgba(255,255,255,0.14)] space-y-3">
+          <div className="p-6 rounded-3xl bg-[#0e1611]/5 border border-white/15 backdrop-blur-2xl shadow-[0_8px_32px_rgba(0,0,0,0.35),inset_0_1px_1px_rgba(255,255,255,0.14)] space-y-3">
             <h3 className="text-xs font-mono font-bold uppercase text-neutral-400">
               02 • Select Datacenter Region
             </h3>
@@ -114,7 +114,7 @@ export const CloudVPSPage = () => {
             return (
               <div
                 key={plan.id}
-                className={`p-8 rounded-3xl bg-[#0c140f]/25 border backdrop-blur-2xl flex flex-col justify-between transition-all duration-300 shadow-[0_12px_40px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.14)] ${
+                className={`p-8 rounded-3xl bg-[#0c140f]/5 border backdrop-blur-2xl flex flex-col justify-between transition-all duration-300 shadow-[0_12px_40px_rgba(0,0,0,0.35),inset_0_1px_1px_rgba(255,255,255,0.14)] ${
                   isRec ? 'border-cyan-400/80 ring-1 ring-cyan-400/30' : 'border-white/15 hover:border-white/35 hover:-translate-y-1'
                 }`}
               >
