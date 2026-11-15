@@ -413,7 +413,7 @@ const getInitialData = () => {
             game_slug: 'minecraft',
             instance_type: 'Forge Minecraft',
             location: 'India (Noida & Mumbai)',
-            price: 80.00,
+            price: 8.00,
             quantity: 1
           }
         ],

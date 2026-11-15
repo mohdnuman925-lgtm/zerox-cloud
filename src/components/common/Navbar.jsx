@@ -69,36 +69,51 @@ export const Navbar = ({ onOpenSearch }) => {
             </Link>
 
             {gamesOpen && (
-              <div className="absolute top-full left-0 w-64 p-2 rounded-2xl bg-[#121814] border border-white/15 shadow-2xl space-y-1 animate-fade-in">
+              <div className="absolute top-full left-0 w-72 p-2 rounded-2xl bg-[#121814] border border-white/15 shadow-2xl space-y-1 animate-fade-in">
                 <Link
                   to="/games?game=minecraft"
-                  className="flex items-center gap-3 p-2.5 rounded-xl hover:bg-white/10 text-neutral-200 hover:text-white transition group"
+                  className="flex items-center justify-between p-2.5 rounded-xl hover:bg-white/10 text-neutral-200 hover:text-white transition group"
                 >
-                  <Gamepad2 className="w-4 h-4 text-[#C5F36A]" />
-                  <div>
-                    <p className="text-xs font-bold text-white">Minecraft</p>
-                    <p className="text-[10px] text-neutral-400">Paper, Purpur, Forge, Bedrock</p>
+                  <div className="flex items-center gap-3">
+                    <Gamepad2 className="w-4 h-4 text-[#C5F36A]" />
+                    <div>
+                      <p className="text-xs font-bold text-white">Minecraft</p>
+                      <p className="text-[10px] text-neutral-400">Paper, Purpur, Forge, Bedrock</p>
+                    </div>
                   </div>
+                  <span className="px-1.5 py-0.5 rounded text-[9px] font-mono font-bold uppercase tracking-wider bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                    LIVE
+                  </span>
                 </Link>
                 <Link
                   to="/games?game=rust"
-                  className="flex items-center gap-3 p-2.5 rounded-xl hover:bg-white/10 text-neutral-200 hover:text-white transition group"
+                  className="flex items-center justify-between p-2.5 rounded-xl hover:bg-white/10 text-neutral-200 hover:text-white transition group"
                 >
-                  <Gamepad2 className="w-4 h-4 text-orange-400" />
-                  <div>
-                    <p className="text-xs font-bold text-white">Rust</p>
-                    <p className="text-[10px] text-neutral-400">Oxide / uMod high-tick rate</p>
+                  <div className="flex items-center gap-3">
+                    <Gamepad2 className="w-4 h-4 text-orange-400" />
+                    <div>
+                      <p className="text-xs font-bold text-white">Rust</p>
+                      <p className="text-[10px] text-neutral-400">Oxide / uMod high-tick</p>
+                    </div>
                   </div>
+                  <span className="px-1.5 py-0.5 rounded text-[9px] font-mono font-bold uppercase tracking-wider bg-orange-500/20 text-orange-400 border border-orange-500/30">
+                    SOON
+                  </span>
                 </Link>
                 <Link
                   to="/games?game=cs2"
-                  className="flex items-center gap-3 p-2.5 rounded-xl hover:bg-white/10 text-neutral-200 hover:text-white transition group"
+                  className="flex items-center justify-between p-2.5 rounded-xl hover:bg-white/10 text-neutral-200 hover:text-white transition group"
                 >
-                  <Gamepad2 className="w-4 h-4 text-blue-400" />
-                  <div>
-                    <p className="text-xs font-bold text-white">Counter-Strike 2</p>
-                    <p className="text-[10px] text-neutral-400">128-tick tournament nodes</p>
+                  <div className="flex items-center gap-3">
+                    <Gamepad2 className="w-4 h-4 text-sky-400" />
+                    <div>
+                      <p className="text-xs font-bold text-white">Counter-Strike 2</p>
+                      <p className="text-[10px] text-neutral-400">128-tick tournament nodes</p>
+                    </div>
                   </div>
+                  <span className="px-1.5 py-0.5 rounded text-[9px] font-mono font-bold uppercase tracking-wider bg-sky-500/20 text-sky-400 border border-sky-500/30">
+                    SOON
+                  </span>
                 </Link>
               </div>
             )}
@@ -337,13 +352,41 @@ export const Navbar = ({ onOpenSearch }) => {
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
         <div className="lg:hidden bg-[#0D120E] border-b border-white/10 px-4 py-4 space-y-2 text-sm animate-fade-in">
-          <Link
-            to="/games"
-            onClick={() => setMobileMenuOpen(false)}
-            className="block py-2 text-neutral-200 hover:text-white font-semibold"
-          >
-            Game Servers
-          </Link>
+          <div>
+            <Link
+              to="/games"
+              onClick={() => setMobileMenuOpen(false)}
+              className="block py-2 text-neutral-200 hover:text-white font-semibold"
+            >
+              Game Servers
+            </Link>
+            <div className="pl-3 pb-1 space-y-1 border-l border-white/10 ml-2">
+              <Link
+                to="/games?game=minecraft"
+                onClick={() => setMobileMenuOpen(false)}
+                className="flex items-center justify-between py-1 text-xs text-neutral-300 hover:text-white"
+              >
+                <span>Minecraft</span>
+                <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-400 font-bold">LIVE</span>
+              </Link>
+              <Link
+                to="/games?game=rust"
+                onClick={() => setMobileMenuOpen(false)}
+                className="flex items-center justify-between py-1 text-xs text-neutral-300 hover:text-white"
+              >
+                <span>Rust</span>
+                <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-orange-500/20 text-orange-400 font-bold">SOON</span>
+              </Link>
+              <Link
+                to="/games?game=cs2"
+                onClick={() => setMobileMenuOpen(false)}
+                className="flex items-center justify-between py-1 text-xs text-neutral-300 hover:text-white"
+              >
+                <span>Counter-Strike 2</span>
+                <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-sky-500/20 text-sky-400 font-bold">SOON</span>
+              </Link>
+            </div>
+          </div>
           <Link
             to="/cloud"
             onClick={() => setMobileMenuOpen(false)}

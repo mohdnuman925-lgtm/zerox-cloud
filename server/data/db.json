@@ -5241,5 +5241,21 @@
         "client_access"
       ]
     }
+  ],
+  "early_access_subscribers": [
+    {
+      "id": "ea-1794724163651-yz30q",
+      "game": "rust",
+      "contact": "pro_gamer#1234",
+      "platform": "discord",
+      "created_at": "2026-11-15T06:29:23.651Z"
+    },
+    {
+      "id": "ea-1794724173745-z6nor",
+      "game": "cs2",
+      "contact": "csgo_champ@zerox.gg",
+      "platform": "email",
+      "created_at": "2026-11-15T06:29:33.745Z"
+    }
   ]
 }

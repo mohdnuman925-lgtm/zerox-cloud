@@ -1,5 +1,5 @@
 import express from 'express';
-import { getDB } from '../db.js';
+import { getDB, saveDB } from '../db.js';
 
 const router = express.Router();
 
@@ -70,6 +70,44 @@ router.post('/coupons/validate', (req, res) => {
     discount_percent: coupon.discount_percent,
     description: coupon.description
   });
+});
+
+// Register Early Access / Launch Notification for Games (e.g. Rust, CS2)
+router.post('/early-access', (req, res) => {
+  const { game, contact, platform } = req.body;
+  if (!game || !contact) {
+    return res.status(400).json({ error: 'Game and contact information (email or Discord) are required' });
+  }
+
+  const db = getDB();
+  if (!db.early_access_subscribers) {
+    db.early_access_subscribers = [];
+  }
+
+  const normalizedGame = game.toLowerCase();
+  const normalizedContact = contact.trim().toLowerCase();
+
+  // Prevent duplicate spam
+  const existing = db.early_access_subscribers.find(
+    (s) => s.game.toLowerCase() === normalizedGame && s.contact.toLowerCase() === normalizedContact
+  );
+
+  if (existing) {
+    return res.json({ success: true, message: 'You are already registered for launch updates!' });
+  }
+
+  const newEntry = {
+    id: `ea-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`,
+    game: normalizedGame,
+    contact: contact.trim(),
+    platform: platform || (contact.includes('@') ? 'email' : 'discord'),
+    created_at: new Date().toISOString()
+  };
+
+  db.early_access_subscribers.push(newEntry);
+  saveDB(db);
+
+  res.json({ success: true, message: `Registered successfully for ${normalizedGame.toUpperCase()} launch notifications!` });
 });
 
 export default router;

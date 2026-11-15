@@ -124,6 +124,7 @@ export const App = () => {
           {/* Public Website */}
           <Route path="/" element={<HomePage />} />
           <Route path="/games" element={<GameHostingPage />} />
+          <Route path="/games/:gameSlug" element={<GameHostingPage />} />
           <Route path="/cloud" element={<CloudVPSPage />} />
           <Route path="/dedicated" element={<DedicatedServersPage />} />
           <Route path="/web" element={<WebHostingPage />} />
