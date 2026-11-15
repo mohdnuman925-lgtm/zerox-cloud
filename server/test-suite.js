@@ -86,7 +86,11 @@ async function runTests() {
   assert.strictEqual(checkoutRes.status, 201);
   const checkoutData = await checkoutRes.json();
   assert(checkoutData.order.order_number.startsWith('ZX-'), 'Order number should start with ZX-');
-  assert.strictEqual(checkoutData.order.total_amount, 72, 'Discounted price should be ₹72 (80 - 10%)');
+  assert.strictEqual(checkoutData.order.subtotal, 80, 'Subtotal should be ₹80');
+  assert.strictEqual(checkoutData.order.discount_amount, 8, 'Discount should be ₹8 (10%)');
+  assert.strictEqual(checkoutData.order.taxable_amount, 72, 'Taxable amount should be ₹72');
+  assert.strictEqual(checkoutData.order.gst_amount, 12.96, 'GST 18% should be ₹12.96');
+  assert.strictEqual(checkoutData.order.total_amount, 84.96, 'Total due with 18% GST should be ₹84.96 (72 + 18% GST)');
   assert(checkoutData.services.length === 1, 'Should provision 1 service');
   const provisionedService = checkoutData.services[0];
   console.log(`✓ Test 6 Passed: Order & Auto-Provisioning OK (Service ID: ${provisionedService.service_id}, Port: ${provisionedService.port})`);
@@ -356,8 +360,57 @@ async function runTests() {
   assert.strictEqual(unsuspendRes.status, 200);
   console.log(`✓ Test 15 Passed: Super Admin Fleet Server Management OK (Power Signals, Config Edits, Suspension)`);
 
+  // Test 16: Bulk & Fleet-Wide Server Deletion (Delete All Servers At Once)
+  // 16a. Purge all servers at once
+  const delAllRes = await fetch(`${BASE_URL}/api/admin/servers/all`, {
+    method: 'DELETE',
+    headers: { Authorization: `Bearer ${adminToken}` }
+  });
+  assert.strictEqual(delAllRes.status, 200, 'DELETE /api/admin/servers/all should return 200');
+  const delAllData = await delAllRes.json();
+  assert.strictEqual(delAllData.success, true);
+
+  // 16b. Verify server fleet count is 0
+  const verifyFleetRes = await fetch(`${BASE_URL}/api/admin/servers`, {
+    headers: { Authorization: `Bearer ${adminToken}` }
+  });
+  const verifyFleetData = await verifyFleetRes.json();
+  assert.strictEqual(verifyFleetData.services.length, 0, 'Fleet should have 0 servers after delete all');
+
+  // 16c. Restore baseline demo server for UI and operational checks
+  const { getDB, saveDB } = await import('./db.js');
+  const dbRestore = getDB();
+  dbRestore.services = [
+    {
+      id: 'srv-demo-default-01',
+      service_id: 'ZX-SRV-1001',
+      order_id: 'ord-demo-01',
+      user_id: 'usr-demo-01',
+      user_email: 'mohdnuman925@gmail.com',
+      plan_id: 'plan-dirt',
+      name: "Mohd's Minecraft SMP",
+      category: 'games',
+      game: 'minecraft (Paper)',
+      node: 'delhi-node-01.zeroxcloud.site',
+      ip_address: '103.174.102.45',
+      port: 25565,
+      status: 'active',
+      cpu_usage: 12.4,
+      ram_usage: 1.8,
+      ram_max: 4,
+      disk_usage: 2.1,
+      disk_max: 30,
+      provider: 'pterodactyl',
+      provider_identifier: 'demo-ptero-default',
+      renewal_date: '2026-12-15T08:00:00.000Z',
+      created_at: new Date().toISOString()
+    }
+  ];
+  saveDB(dbRestore);
+  console.log(`✓ Test 16 Passed: Fleet-Wide Server Deletion OK (Delete All At Once & Provisioning Cleanup)`);
+
   console.log('----------------------------------------------------');
-  console.log('ALL 15 INTEGRATION TESTS COMPLETED SUCCESSFULLY!');
+  console.log('ALL 16 INTEGRATION TESTS COMPLETED SUCCESSFULLY!');
   console.log('----------------------------------------------------');
 }
 

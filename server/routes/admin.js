@@ -590,6 +590,134 @@ router.post('/servers/:id/status', (req, res) => {
   res.json({ success: true, server });
 });
 
+// 5a. Bulk Delete / Purge All Servers
+router.delete('/servers/all', (req, res) => {
+  const db = getDB();
+  const deletedCount = (db.services || []).length;
+  db.services = [];
+  db.provisioning_jobs = [];
+  saveDB(db);
+
+  logAudit(
+    req.user.name,
+    req.user.role,
+    'ADMIN_SERVERS_DELETE_ALL',
+    'fleet',
+    `Permanently deleted all ${deletedCount} servers across fleet`
+  );
+
+  res.json({
+    success: true,
+    count: deletedCount,
+    message: `Successfully terminated and deleted all ${deletedCount} server(s) across the fleet.`
+  });
+});
+
+router.post('/servers/bulk-delete', (req, res) => {
+  const { ids, all } = req.body || {};
+  const db = getDB();
+
+  if (all === true || ids === 'all') {
+    const deletedCount = (db.services || []).length;
+    db.services = [];
+    db.provisioning_jobs = [];
+    saveDB(db);
+
+    logAudit(
+      req.user.name,
+      req.user.role,
+      'ADMIN_SERVERS_DELETE_ALL',
+      'fleet',
+      `Permanently deleted all ${deletedCount} servers across fleet`
+    );
+
+    return res.json({
+      success: true,
+      count: deletedCount,
+      message: `Successfully terminated and deleted all ${deletedCount} server(s) across the fleet.`
+    });
+  }
+
+  if (Array.isArray(ids) && ids.length > 0) {
+    const idsSet = new Set(ids);
+    const toDelete = (db.services || []).filter(s => idsSet.has(s.id) || idsSet.has(s.service_id));
+    const deletedCount = toDelete.length;
+
+    db.services = (db.services || []).filter(s => !idsSet.has(s.id) && !idsSet.has(s.service_id));
+    const deletedIds = new Set(toDelete.map(s => s.id));
+    db.provisioning_jobs = (db.provisioning_jobs || []).filter(j => !deletedIds.has(j.service_id));
+    saveDB(db);
+
+    logAudit(
+      req.user.name,
+      req.user.role,
+      'ADMIN_SERVERS_BULK_DELETED',
+      `${deletedCount} servers`,
+      `Bulk deleted ${deletedCount} servers (${toDelete.map(s => s.service_id).join(', ')})`
+    );
+
+    return res.json({
+      success: true,
+      count: deletedCount,
+      message: `Successfully deleted ${deletedCount} server(s).`
+    });
+  }
+
+  return res.status(400).json({ error: 'Please specify server IDs or set all: true' });
+});
+
+router.delete('/servers', (req, res) => {
+  const db = getDB();
+  const isAll = req.query.all === 'true' || (req.body && req.body.all === true);
+
+  if (isAll) {
+    const deletedCount = (db.services || []).length;
+    db.services = [];
+    db.provisioning_jobs = [];
+    saveDB(db);
+
+    logAudit(
+      req.user.name,
+      req.user.role,
+      'ADMIN_SERVERS_DELETE_ALL',
+      'fleet',
+      `Permanently deleted all ${deletedCount} servers across fleet`
+    );
+
+    return res.json({
+      success: true,
+      count: deletedCount,
+      message: `Successfully terminated and deleted all ${deletedCount} server(s) across the fleet.`
+    });
+  }
+
+  const ids = req.body && Array.isArray(req.body.ids) ? req.body.ids : [];
+  if (ids.length > 0) {
+    const idsSet = new Set(ids);
+    const toDelete = (db.services || []).filter(s => idsSet.has(s.id) || idsSet.has(s.service_id));
+    const deletedCount = toDelete.length;
+
+    db.services = (db.services || []).filter(s => !idsSet.has(s.id) && !idsSet.has(s.service_id));
+    saveDB(db);
+
+    logAudit(
+      req.user.name,
+      req.user.role,
+      'ADMIN_SERVERS_BULK_DELETED',
+      `${deletedCount} servers`,
+      `Bulk deleted ${deletedCount} servers`
+    );
+
+    return res.json({
+      success: true,
+      count: deletedCount,
+      message: `Successfully deleted ${deletedCount} server(s).`
+    });
+  }
+
+  return res.status(400).json({ error: 'Specify ?all=true or an array of server ids in body' });
+});
+
 router.delete('/servers/:id', (req, res) => {
   const { id } = req.params;
   const db = getDB();

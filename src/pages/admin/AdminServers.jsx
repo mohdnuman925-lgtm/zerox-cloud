@@ -25,7 +25,8 @@ import {
   AlertCircle,
   X,
   Search,
-  Power
+  Power,
+  AlertTriangle
 } from 'lucide-react';
 
 export const AdminServers = () => {
@@ -39,6 +40,12 @@ export const AdminServers = () => {
   // Search & Filter
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
+
+  // Bulk Selection & Delete All State
+  const [selectedIds, setSelectedIds] = useState([]);
+  const [deleteAllModalOpen, setDeleteAllModalOpen] = useState(false);
+  const [bulkDeleteModalOpen, setBulkDeleteModalOpen] = useState(false);
+  const [deleteConfirmText, setDeleteConfirmText] = useState('');
 
   // Manage Modal State
   const [manageServer, setManageServer] = useState(null);
@@ -232,6 +239,75 @@ export const AdminServers = () => {
     }
   };
 
+  const toggleSelectAll = () => {
+    if (filteredServices.length > 0 && selectedIds.length === filteredServices.length) {
+      setSelectedIds([]);
+    } else {
+      setSelectedIds(filteredServices.map((s) => s.id));
+    }
+  };
+
+  const toggleSelectOne = (id) => {
+    setSelectedIds((prev) =>
+      prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
+    );
+  };
+
+  const handleDeleteAllServers = async () => {
+    setActionLoading(true);
+    setError('');
+    try {
+      const res = await fetch('/api/admin/servers/all', {
+        method: 'DELETE',
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      const result = await res.json();
+      if (!res.ok) throw new Error(result.error || 'Failed to delete all servers');
+
+      setSuccess(result.message || 'All fleet servers have been permanently deleted.');
+      setTimeout(() => setSuccess(''), 4000);
+      setSelectedIds([]);
+      setDeleteAllModalOpen(false);
+      setDeleteConfirmText('');
+      setManageServer(null);
+      fetchServersAndNodes();
+    } catch (err) {
+      setError(err.message || 'Bulk deletion failed');
+    } finally {
+      setActionLoading(false);
+    }
+  };
+
+  const handleDeleteSelectedServers = async () => {
+    if (selectedIds.length === 0) return;
+    setActionLoading(true);
+    setError('');
+    try {
+      const res = await fetch('/api/admin/servers/bulk-delete', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify({ ids: selectedIds })
+      });
+      const result = await res.json();
+      if (!res.ok) throw new Error(result.error || 'Failed to delete selected servers');
+
+      setSuccess(result.message || `Successfully deleted ${selectedIds.length} server(s).`);
+      setTimeout(() => setSuccess(''), 4000);
+      setSelectedIds([]);
+      setBulkDeleteModalOpen(false);
+      setDeleteConfirmText('');
+      setManageServer(null);
+      fetchServersAndNodes();
+    } catch (err) {
+      setError(err.message || 'Bulk deletion failed');
+    } finally {
+      setActionLoading(false);
+    }
+  };
+
   const copyToClipboard = (text, key) => {
     navigator.clipboard.writeText(text);
     setCopiedKey(key);
@@ -275,7 +351,7 @@ export const AdminServers = () => {
           </p>
         </div>
 
-        <div className="flex items-center gap-2.5">
+        <div className="flex flex-wrap items-center gap-2.5">
           <Link
             to="/admin/nodes"
             className="flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-[#C5F36A] text-black font-extrabold text-xs hover:bg-[#d4f788] transition shadow"
@@ -283,6 +359,18 @@ export const AdminServers = () => {
             <Cpu className="w-3.5 h-3.5" />
             Manage Nodes &amp; Limits
           </Link>
+          <button
+            onClick={() => {
+              setDeleteConfirmText('');
+              setDeleteAllModalOpen(true);
+            }}
+            disabled={totalServers === 0 || actionLoading}
+            className="flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-red-500/15 hover:bg-red-500/25 text-red-400 border border-red-500/30 text-xs font-bold transition shadow disabled:opacity-40 disabled:cursor-not-allowed"
+            title="Permanently delete all servers across the fleet at once"
+          >
+            <Trash2 className="w-3.5 h-3.5" />
+            Delete All Servers ({totalServers})
+          </button>
           <button
             onClick={fetchServersAndNodes}
             className="flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 text-xs text-neutral-300 hover:text-white border border-white/10 transition"
@@ -380,6 +468,47 @@ export const AdminServers = () => {
         </div>
       </div>
 
+      {/* Bulk Selection Bar */}
+      {selectedIds.length > 0 && (
+        <div className="p-3.5 px-5 rounded-2xl bg-red-950/40 border border-red-500/30 backdrop-blur-md flex flex-wrap items-center justify-between gap-3 shadow-xl animate-fade-in">
+          <div className="flex items-center gap-2">
+            <span className="w-2.5 h-2.5 rounded-full bg-red-400 animate-pulse" />
+            <span className="text-xs font-bold text-white">
+              {selectedIds.length} server{selectedIds.length > 1 ? 's' : ''} selected
+            </span>
+            <span className="text-xs text-neutral-400">
+              (out of {filteredServices.length} filtered / {totalServers} fleet total)
+            </span>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => setSelectedIds(filteredServices.map((s) => s.id))}
+              className="px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/15 text-xs text-white transition font-medium"
+            >
+              Select All Filtered ({filteredServices.length})
+            </button>
+            <button
+              onClick={() => setSelectedIds([])}
+              className="px-3 py-1.5 rounded-xl bg-white/5 hover:bg-white/10 text-xs text-neutral-400 hover:text-white transition"
+            >
+              Deselect All
+            </button>
+            <button
+              onClick={() => {
+                setDeleteConfirmText('');
+                setBulkDeleteModalOpen(true);
+              }}
+              disabled={actionLoading}
+              className="flex items-center gap-1.5 px-4 py-1.5 rounded-xl bg-red-500 hover:bg-red-600 text-white font-bold text-xs transition shadow-lg"
+            >
+              <Trash2 className="w-3.5 h-3.5" />
+              Delete Selected ({selectedIds.length})
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* Services Table */}
       <div className="rounded-3xl bg-[#121814] border border-white/10 overflow-hidden shadow-xl">
         <div className="p-4 border-b border-white/10 flex items-center justify-between">
@@ -396,7 +525,16 @@ export const AdminServers = () => {
           <table className="w-full text-left text-xs">
             <thead className="bg-black/40 border-b border-white/10 text-neutral-400 font-mono text-[10px] uppercase">
               <tr>
-                <th className="p-4 pl-6">SERVICE ID</th>
+                <th className="p-4 pl-6 w-12 text-center">
+                  <input
+                    type="checkbox"
+                    checked={filteredServices.length > 0 && selectedIds.length === filteredServices.length}
+                    onChange={toggleSelectAll}
+                    className="w-4 h-4 rounded bg-white/10 border-white/20 text-[#C5F36A] focus:ring-0 cursor-pointer accent-[#C5F36A]"
+                    title="Select all visible servers"
+                  />
+                </th>
+                <th className="p-4">SERVICE ID</th>
                 <th className="p-4">SERVER NAME</th>
                 <th className="p-4">CUSTOMER</th>
                 <th className="p-4">IP &amp; PORT</th>
@@ -409,14 +547,14 @@ export const AdminServers = () => {
             <tbody className="divide-y divide-white/5 text-neutral-300">
               {loading ? (
                 <tr>
-                  <td colSpan={8} className="p-12 text-center text-neutral-400">
+                  <td colSpan={9} className="p-12 text-center text-neutral-400">
                     <div className="w-7 h-7 border-2 border-[#C5F36A] border-t-transparent rounded-full animate-spin mx-auto mb-2" />
                     Loading instances...
                   </td>
                 </tr>
               ) : filteredServices.length === 0 ? (
                 <tr>
-                  <td colSpan={8} className="p-12 text-center text-neutral-400">
+                  <td colSpan={9} className="p-12 text-center text-neutral-400">
                     No servers match your search criteria.
                   </td>
                 </tr>
@@ -427,7 +565,15 @@ export const AdminServers = () => {
 
                   return (
                     <tr key={s.id} className="hover:bg-white/5 transition group">
-                      <td className="p-4 pl-6 font-mono font-bold text-white whitespace-nowrap">
+                      <td className="p-4 pl-6 w-12 text-center" onClick={(e) => e.stopPropagation()}>
+                        <input
+                          type="checkbox"
+                          checked={selectedIds.includes(s.id)}
+                          onChange={() => toggleSelectOne(s.id)}
+                          className="w-4 h-4 rounded bg-white/10 border-white/20 text-[#C5F36A] focus:ring-0 cursor-pointer accent-[#C5F36A]"
+                        />
+                      </td>
+                      <td className="p-4 font-mono font-bold text-white whitespace-nowrap">
                         <div className="flex items-center gap-1.5">
                           <span>{s.service_id}</span>
                           <button
@@ -896,6 +1042,146 @@ export const AdminServers = () => {
                 className="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/15 text-white font-medium text-xs transition"
               >
                 Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* CONFIRMATION MODAL: DELETE ALL SERVERS AT ONCE */}
+      {deleteAllModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md animate-fade-in">
+          <div className="w-full max-w-lg p-6 sm:p-8 rounded-3xl bg-[#121814] border border-red-500/40 shadow-2xl text-white space-y-6">
+            <div className="flex items-start gap-4">
+              <div className="w-12 h-12 rounded-2xl bg-red-500/15 border border-red-500/30 flex items-center justify-center text-red-400 shrink-0 shadow-lg">
+                <AlertTriangle className="w-6 h-6" />
+              </div>
+              <div>
+                <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-red-400 block">
+                  CRITICAL ADMINISTRATIVE PURGE
+                </span>
+                <h3 className="text-xl font-extrabold text-white">
+                  Delete All Servers At Once?
+                </h3>
+              </div>
+            </div>
+
+            <p className="text-xs text-neutral-300 leading-relaxed">
+              This action will permanently terminate, delete, and purge all{' '}
+              <span className="font-bold text-white font-mono">{totalServers}</span> customer servers across the entire ZEROX CLOUD fleet. All live game containers, node port allocations, and IP assignments will be erased immediately.
+            </p>
+
+            {/* Impact Metric Box */}
+            <div className="grid grid-cols-3 gap-2.5 p-4 rounded-2xl bg-black/50 border border-white/10 text-center">
+              <div>
+                <span className="text-[10px] font-mono text-neutral-400 uppercase block">SERVERS</span>
+                <span className="text-lg font-extrabold text-red-400 font-mono">{totalServers}</span>
+              </div>
+              <div>
+                <span className="text-[10px] font-mono text-neutral-400 uppercase block">ACTIVE ONLINE</span>
+                <span className="text-lg font-extrabold text-emerald-400 font-mono">{activeServers}</span>
+              </div>
+              <div>
+                <span className="text-[10px] font-mono text-neutral-400 uppercase block">RAM RELEASED</span>
+                <span className="text-lg font-extrabold text-white font-mono">{totalAllocatedRam} GB</span>
+              </div>
+            </div>
+
+            {/* Typing Challenge */}
+            <div className="space-y-2">
+              <label className="text-[11px] font-semibold text-neutral-300 block">
+                To confirm permanent fleet deletion, type <span className="font-mono text-red-400 font-bold">DELETE ALL</span> below:
+              </label>
+              <input
+                type="text"
+                value={deleteConfirmText}
+                onChange={(e) => setDeleteConfirmText(e.target.value.toUpperCase())}
+                placeholder="Type DELETE ALL"
+                className="w-full bg-black/60 border border-red-500/30 focus:border-red-500 rounded-xl px-4 py-2.5 text-xs text-white placeholder-neutral-500 uppercase font-mono tracking-wider focus:outline-none transition"
+              />
+            </div>
+
+            {/* Modal Actions */}
+            <div className="pt-2 border-t border-white/10 flex items-center justify-end gap-3">
+              <button
+                type="button"
+                onClick={() => {
+                  setDeleteAllModalOpen(false);
+                  setDeleteConfirmText('');
+                }}
+                disabled={actionLoading}
+                className="px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/15 text-neutral-300 hover:text-white text-xs font-semibold transition"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                onClick={handleDeleteAllServers}
+                disabled={actionLoading || (deleteConfirmText.trim() !== 'DELETE ALL' && deleteConfirmText.trim() !== 'DELETE')}
+                className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-red-600 hover:bg-red-500 text-white font-bold text-xs transition shadow-xl disabled:opacity-30 disabled:cursor-not-allowed"
+              >
+                <Trash2 className="w-4 h-4" />
+                {actionLoading ? 'Purging Fleet...' : `Permanently Delete All (${totalServers})`}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* CONFIRMATION MODAL: BULK DELETE SELECTED SERVERS */}
+      {bulkDeleteModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md animate-fade-in">
+          <div className="w-full max-w-lg p-6 sm:p-8 rounded-3xl bg-[#121814] border border-red-500/30 shadow-2xl text-white space-y-6">
+            <div className="flex items-start gap-4">
+              <div className="w-12 h-12 rounded-2xl bg-red-500/15 border border-red-500/30 flex items-center justify-center text-red-400 shrink-0 shadow-lg">
+                <Trash2 className="w-6 h-6" />
+              </div>
+              <div>
+                <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-red-400 block">
+                  BULK FLEET ACTION
+                </span>
+                <h3 className="text-xl font-extrabold text-white">
+                  Delete {selectedIds.length} Selected Server{selectedIds.length > 1 ? 's' : ''}?
+                </h3>
+              </div>
+            </div>
+
+            <p className="text-xs text-neutral-300 leading-relaxed">
+              Are you sure you want to permanently delete the <span className="font-bold text-white font-mono">{selectedIds.length}</span> selected server(s)? This will release their allocated ports and remove all associated data.
+            </p>
+
+            <div className="max-h-40 overflow-y-auto space-y-1.5 p-3 rounded-2xl bg-black/40 border border-white/5 divide-y divide-white/5 text-xs">
+              {data.services
+                .filter((s) => selectedIds.includes(s.id))
+                .map((srv) => (
+                  <div key={srv.id} className="pt-1.5 first:pt-0 flex items-center justify-between text-neutral-300">
+                    <div>
+                      <span className="font-bold text-white">{srv.name}</span>
+                      <span className="text-[10px] font-mono text-neutral-500 ml-2">({srv.service_id})</span>
+                    </div>
+                    <span className="font-mono text-[11px] text-[#C5F36A]">{srv.ip_address}:{srv.port}</span>
+                  </div>
+                ))}
+            </div>
+
+            {/* Modal Actions */}
+            <div className="pt-2 border-t border-white/10 flex items-center justify-end gap-3">
+              <button
+                type="button"
+                onClick={() => setBulkDeleteModalOpen(false)}
+                disabled={actionLoading}
+                className="px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/15 text-neutral-300 hover:text-white text-xs font-semibold transition"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                onClick={handleDeleteSelectedServers}
+                disabled={actionLoading}
+                className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-red-600 hover:bg-red-500 text-white font-bold text-xs transition shadow-xl"
+              >
+                <Trash2 className="w-4 h-4" />
+                {actionLoading ? 'Deleting...' : `Delete ${selectedIds.length} Server(s)`}
               </button>
             </div>
           </div>
