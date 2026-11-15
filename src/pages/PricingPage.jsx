@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { Check, ArrowRight, ShoppingCart } from 'lucide-react';
 import { ScrollReveal } from '../components/common/ScrollReveal';
+import minecraftPlanImage from '../assets/minecraft-plan-card.jpg';
 
 export const PricingPage = () => {
   const [activeCategory, setActiveCategory] = useState('all');
@@ -79,9 +80,19 @@ export const PricingPage = () => {
                   className="h-full"
                 >
                 <div
-                  className="p-6 rounded-3xl bg-[#121814] border border-white/10 hover:border-[#C5F36A]/40 transition duration-300 flex flex-col justify-between shadow-xl h-full hover:-translate-y-1"
+                  className="p-6 rounded-3xl bg-[#121814] border border-white/10 hover:border-[#C5F36A]/40 transition duration-300 flex flex-col justify-between shadow-xl h-full hover:-translate-y-1 overflow-hidden"
                 >
                   <div>
+                    {(plan.game_slug === 'minecraft' || plan.category === 'games') && (
+                      <div className="h-32 -mx-6 -mt-6 mb-4 overflow-hidden relative">
+                        <img
+                          src={minecraftPlanImage}
+                          alt="Minecraft"
+                          className="w-full h-full object-cover object-top"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#121814] via-black/20 to-transparent" />
+                      </div>
+                    )}
                     <div className="flex items-center justify-between mb-3">
                       <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase bg-white/10 text-white">
                         {plan.category}

@@ -15,6 +15,7 @@ import {
 } from 'lucide-react';
 import { ScrollReveal } from '../components/common/ScrollReveal';
 import { GameComingSoon } from '../components/games/GameComingSoon';
+import minecraftPlanImage from '../assets/minecraft-plan-card.jpg';
 
 export const GameHostingPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -222,8 +223,12 @@ export const GameHostingPage = () => {
                     : 'bg-[#121814]/70 border-white/10 text-neutral-400 hover:text-white hover:border-white/20'
                 }`}
               >
-                <div className="w-8 h-8 rounded-lg overflow-hidden flex items-center justify-center bg-emerald-950/80 border border-emerald-500/30">
-                  <Gamepad2 className="w-5 h-5 text-emerald-400" />
+                <div className="w-9 h-9 rounded-xl overflow-hidden border border-emerald-500/40 bg-emerald-950 shrink-0 shadow-md">
+                  <img
+                    src={minecraftPlanImage}
+                    alt="Minecraft"
+                    className="w-full h-full object-cover object-top"
+                  />
                 </div>
                 <div className="text-left">
                   <div className="flex items-center gap-2">
@@ -344,6 +349,33 @@ export const GameHostingPage = () => {
                   </span>
                 </div>
 
+                {/* Featured Minecraft Plans Showcase Banner */}
+                <div className="p-4 sm:p-5 rounded-3xl bg-gradient-to-r from-emerald-950/50 via-[#121814] to-black border border-emerald-500/25 backdrop-blur-md flex flex-col sm:flex-row items-center gap-5 shadow-2xl">
+                  <div className="w-24 h-32 sm:w-28 sm:h-36 rounded-2xl overflow-hidden border border-white/20 shadow-xl shrink-0">
+                    <img
+                      src={minecraftPlanImage}
+                      alt="Minecraft Server Plans"
+                      className="w-full h-full object-cover object-top"
+                    />
+                  </div>
+                  <div className="space-y-1.5 text-center sm:text-left flex-1">
+                    <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2">
+                      <span className="px-2.5 py-0.5 rounded text-[10px] font-mono font-bold uppercase tracking-wider bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                        OFFICIAL MINECRAFT HOSTING
+                      </span>
+                      <span className="text-xs font-mono text-neutral-400">
+                        • 20 TPS HIGH-FREQUENCY NODES
+                      </span>
+                    </div>
+                    <h2 className="text-lg sm:text-xl font-extrabold text-white">
+                      High-Performance Minecraft Server Packages
+                    </h2>
+                    <p className="text-xs text-neutral-300 max-w-xl">
+                      Ultra-low latency Paper, Purpur, Forge, Fabric &amp; Bedrock servers with 1-click modpack installer, automated NVMe cloud backups, and sub-10ms Indian routing.
+                    </p>
+                  </div>
+                </div>
+
                 {loading ? (
                   <div className="py-20 text-center text-neutral-400">
                     <div className="w-8 h-8 border-2 border-[#C5F36A] border-t-transparent rounded-full animate-spin mx-auto mb-3" />
@@ -369,23 +401,23 @@ export const GameHostingPage = () => {
                               : 'border-white/10 hover:border-white/25'
                           }`}
                         >
-                          {/* Top Card Graphic Banner Header matching video frame 030 */}
-                          <div className="h-36 relative overflow-hidden bg-gradient-to-br from-[#2D3A2F] via-[#1A261D] to-[#0D1510] p-4 flex flex-col justify-between group">
-                            {/* Minecraft Character illustration artwork background */}
-                            <div
-                              className="absolute inset-0 bg-cover bg-[center_top_15%] opacity-75 group-hover:opacity-90 group-hover:scale-105 transition-all duration-500"
-                              style={{
-                                backgroundImage: `url('${plan.image || '/assets/minecraft-plan-card.jpg'}')`
-                              }}
+                          {/* Top Card Graphic Banner Header */}
+                          <div className="h-44 relative overflow-hidden bg-black/50 rounded-t-3xl flex flex-col justify-between group">
+                            {/* Minecraft Character illustration artwork */}
+                            <img
+                              src={minecraftPlanImage}
+                              alt={plan.name}
+                              className="absolute inset-0 w-full h-full object-cover object-top opacity-85 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
+                              loading="eager"
                             />
-                            <div className="absolute inset-0 bg-gradient-to-t from-[#121814] via-black/40 to-black/25" />
+                            <div className="absolute inset-0 bg-gradient-to-t from-[#121814] via-[#121814]/30 to-black/30 pointer-events-none" />
 
-                            <div className="relative z-10 flex flex-wrap items-center gap-1.5">
-                              <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase tracking-wider bg-black/60 text-white backdrop-blur-sm border border-white/10">
+                            <div className="relative z-10 flex flex-wrap items-center gap-1.5 p-3">
+                              <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase tracking-wider bg-black/75 text-white backdrop-blur-md border border-white/10">
                                 {plan.tag || 'GAMES'}
                               </span>
                               {plan.badge && (
-                                <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase tracking-wider bg-black/60 text-[#C5F36A] backdrop-blur-sm border border-[#C5F36A]/30">
+                                <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase tracking-wider bg-black/75 text-[#C5F36A] backdrop-blur-md border border-[#C5F36A]/30">
                                   {plan.badge}
                                 </span>
                               )}
@@ -396,11 +428,11 @@ export const GameHostingPage = () => {
                               )}
                             </div>
 
-                            <div className="relative z-10">
-                              <span className="text-[10px] font-mono uppercase tracking-widest text-neutral-300 block">
+                            <div className="relative z-10 p-3 pt-0">
+                              <span className="text-[10px] font-mono uppercase tracking-widest text-[#C5F36A] font-bold block drop-shadow-md">
                                 MINECRAFT
                               </span>
-                              <h3 className="text-base font-extrabold text-white tracking-tight leading-tight truncate">
+                              <h3 className="text-base font-extrabold text-white tracking-tight leading-tight truncate drop-shadow-md">
                                 {plan.name}
                               </h3>
                             </div>
