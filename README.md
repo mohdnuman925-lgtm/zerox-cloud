@@ -131,6 +131,42 @@ server {
 
 ---
 
+## 💳 Cashfree Payments Setup
+ZEROX CLOUD integrates with **Cashfree Payments PG (v2023-08-01)** for instant automated activation via UPI, QR, Google Pay, PhonePe, Paytm, Cards, and Netbanking.
+
+Add your Cashfree API keys to `.env` or Vercel Environment Variables:
+```env
+CASHFREE_APP_ID=your_cashfree_app_id
+CASHFREE_SECRET_KEY=your_cashfree_secret_key
+CASHFREE_ENV=PRODUCTION # or SANDBOX for testing
+CASHFREE_API_VERSION=2023-08-01
+```
+*Note: If unconfigured, the system automatically runs in sandbox demo mode with instant auto-provisioning for testing.*
+
+---
+
+## 🎮 Discord OAuth2 Authentication Setup
+Allow customers to sign up and log in with their Discord accounts with 1 click:
+
+1. Go to the **[Discord Developer Portal](https://discord.com/developers/applications)**.
+2. Click **"New Application"** (name it `ZEROX CLOUD`).
+3. Navigate to **OAuth2** → **General**.
+4. Copy the **Client ID** and **Client Secret**.
+5. In **Redirects**, add:
+   - `https://zeroxcloud.site/api/auth/discord/callback`
+   - `https://zeroxxcloud.site/api/auth/discord/callback`
+   - `https://n.stake.bond/api/auth/discord/callback`
+   - `http://localhost:5050/api/auth/discord/callback` (for local development)
+6. Add the credentials to `.env` or Vercel Environment Variables:
+```env
+DISCORD_CLIENT_ID=your_discord_client_id
+DISCORD_CLIENT_SECRET=your_discord_client_secret
+DISCORD_REDIRECT_URI=https://zeroxcloud.site/api/auth/discord/callback
+```
+*Note: If unconfigured, the Discord login button automatically runs in instant demo SSO mode for testing.*
+
+---
+
 ## 🔐 Demo Credentials
 
 | Role | Email | Password |

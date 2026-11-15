@@ -69,6 +69,17 @@ router.post('/checkout', authenticateToken, async (req, res) => {
     const orderNumber = 'ZX-' + Math.floor(10000 + Math.random() * 90000);
     const orderId = 'ord-' + Date.now();
 
+    let cashfreeData = null;
+    if (payment_method && payment_method.toLowerCase().includes('cashfree')) {
+      cashfreeData = await PaymentAdapter.createCashfreeOrder({
+        orderId: orderNumber,
+        amount: totalAmount,
+        currency,
+        user: req.user,
+        returnUrl: `${req.headers.origin || 'https://zeroxcloud.site'}/checkout?order_id=${orderNumber}`
+      });
+    }
+
     const newOrder = {
       id: orderId,
       order_number: orderNumber,
@@ -79,7 +90,8 @@ router.post('/checkout', authenticateToken, async (req, res) => {
       currency,
       status: 'paid', // Instant demo verification or live gateway callback
       payment_method,
-      payment_id: 'pay_' + Date.now() + '_' + Math.random().toString(36).substring(2, 7),
+      payment_id: cashfreeData?.cf_order_id || 'pay_' + Date.now() + '_' + Math.random().toString(36).substring(2, 7),
+      payment_session_id: cashfreeData?.payment_session_id || null,
       coupon_code: appliedCoupon ? appliedCoupon.code : null,
       discount_amount: Number(discountAmount.toFixed(2)),
       items: validatedItems,
@@ -183,8 +195,69 @@ router.post('/checkout', authenticateToken, async (req, res) => {
       message: 'Order placed and servers provisioned successfully',
       order: newOrder,
       invoice: newInvoice,
-      services: createdServices
+      services: createdServices,
+      cashfree: cashfreeData
     });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Verify Cashfree Payment Status
+router.post('/cashfree/verify', authenticateToken, async (req, res) => {
+  try {
+    const { order_id } = req.body;
+    if (!order_id) {
+      return res.status(400).json({ error: 'Order ID is required' });
+    }
+
+    const verification = await PaymentAdapter.verifyCashfreeOrder(order_id);
+    const db = getDB();
+    const order = db.orders.find((o) => (o.order_number === order_id || o.id === order_id) && o.user_id === req.user.id);
+
+    if (order && verification.verified) {
+      order.status = 'paid';
+      saveDB(db);
+      logAudit(req.user.name, req.user.role, 'CASHFREE_PAYMENT_VERIFIED', order.id, `Cashfree payment verified for order ${order_id}`);
+    }
+
+    res.json({
+      verified: verification.verified,
+      status: verification.status || (verification.verified ? 'PAID' : 'PENDING'),
+      order
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Cashfree Server-to-Server Webhook
+router.post('/cashfree/webhook', async (req, res) => {
+  try {
+    const signature = req.headers['x-webhook-signature'];
+    const timestamp = req.headers['x-webhook-timestamp'];
+    const rawBody = JSON.stringify(req.body);
+
+    const isValid = PaymentAdapter.verifyCashfreeWebhook({ rawBody, timestamp, signature });
+
+    if (!isValid.verified) {
+      return res.status(400).json({ error: 'Invalid Cashfree webhook signature' });
+    }
+
+    const event = req.body;
+    const orderId = event.data?.order?.order_id;
+
+    if (orderId) {
+      const db = getDB();
+      const order = db.orders.find((o) => o.order_number === orderId);
+      if (order) {
+        order.status = 'paid';
+        saveDB(db);
+        logAudit('Cashfree Webhook', 'system', 'CASHFREE_WEBHOOK_PAID', order.id, `Order ${orderId} marked paid via Cashfree Webhook`);
+      }
+    }
+
+    res.json({ status: 'OK' });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

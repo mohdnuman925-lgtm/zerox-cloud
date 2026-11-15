@@ -119,6 +119,36 @@
       "panel_password": "Password123!",
       "status": "active",
       "created_at": "2026-11-14T15:45:39.911Z"
+    },
+    {
+      "id": "usr-1794713617057-c9z9",
+      "name": "Alex Gamer",
+      "email": "test.gamer.1794713616650@example.com",
+      "password_hash": "$2a$12$BrEpQyYOBW9GdczMKd9MquEDibibAiSeJ6zA9rKnR0KWPQymwoNdy",
+      "role": "customer",
+      "panel_password": "Password123!",
+      "status": "active",
+      "created_at": "2026-11-15T03:33:37.057Z"
+    },
+    {
+      "id": "usr-1794713637492-fwt9",
+      "name": "Alex Gamer",
+      "email": "test.gamer.1794713637086@example.com",
+      "password_hash": "$2a$12$fAA0wmMvEd1b1JLg7MKk/.rypeI5NiXgwWopdLqrUNRRUn3qTg0fq",
+      "role": "customer",
+      "panel_password": "Password123!",
+      "status": "active",
+      "created_at": "2026-11-15T03:33:57.492Z"
+    },
+    {
+      "id": "usr-discord-1794713640022",
+      "name": "Discord Gamer",
+      "email": "discord.gamer@zeroxcloud.com",
+      "password_hash": "$2a$10$jfzTHbB.e.xAjV6ZDgzSdO2C9EY5w8sNjba8J6MDN2kWC/qbMLGO6",
+      "role": "customer",
+      "panel_password": "DiscordPtero123!",
+      "status": "active",
+      "created_at": "2026-11-15T03:34:00.145Z"
     }
   ],
   "product_categories": [
@@ -664,7 +694,7 @@
       "discount_percent": 10,
       "description": "Welcome Offer: 10% OFF for new users",
       "max_uses": 1000,
-      "current_uses": 21,
+      "current_uses": 23,
       "valid_until": "2028-12-31T23:59:59Z",
       "enabled": true
     },
@@ -680,6 +710,122 @@
     }
   ],
   "orders": [
+    {
+      "id": "ord-1794713638803",
+      "order_number": "ZX-95179",
+      "user_id": "usr-1794713637492-fwt9",
+      "user_name": "Alex Gamer",
+      "user_email": "test.gamer.1794713637086@example.com",
+      "total_amount": 80,
+      "currency": "INR",
+      "status": "paid",
+      "payment_method": "Cashfree Payments",
+      "payment_id": "cf_demo_1794713638804",
+      "payment_session_id": "session_demo_cf_k39bvtw",
+      "coupon_code": null,
+      "discount_amount": 0,
+      "items": [
+        {
+          "plan_id": "plan-wood",
+          "plan_name": "WOOD PLAN",
+          "category": "games",
+          "processor": "intel",
+          "location": "India (Noida & Mumbai)",
+          "game": "Minecraft",
+          "software": "Paper",
+          "price": 80,
+          "quantity": 1
+        }
+      ],
+      "created_at": "2026-11-15T03:33:58.804Z"
+    },
+    {
+      "id": "ord-1794713637518",
+      "order_number": "ZX-43310",
+      "user_id": "usr-1794713637492-fwt9",
+      "user_name": "Alex Gamer",
+      "user_email": "test.gamer.1794713637086@example.com",
+      "total_amount": 72,
+      "currency": "INR",
+      "status": "paid",
+      "payment_method": "Razorpay UPI",
+      "payment_id": "pay_1794713637518_hpdht",
+      "payment_session_id": null,
+      "coupon_code": "ZEROXCLOUD",
+      "discount_amount": 8,
+      "items": [
+        {
+          "plan_id": "plan-wood",
+          "plan_name": "WOOD PLAN",
+          "category": "games",
+          "processor": "intel",
+          "location": "India (Noida & Mumbai)",
+          "game": "Minecraft",
+          "software": "Forge Minecraft",
+          "price": 80,
+          "quantity": 1
+        }
+      ],
+      "created_at": "2026-11-15T03:33:57.518Z"
+    },
+    {
+      "id": "ord-1794713618357",
+      "order_number": "ZX-68468",
+      "user_id": "usr-1794713617057-c9z9",
+      "user_name": "Alex Gamer",
+      "user_email": "test.gamer.1794713616650@example.com",
+      "total_amount": 80,
+      "currency": "INR",
+      "status": "paid",
+      "payment_method": "Cashfree Payments",
+      "payment_id": "cf_demo_1794713618358",
+      "payment_session_id": "session_demo_cf_mp0ma00",
+      "coupon_code": null,
+      "discount_amount": 0,
+      "items": [
+        {
+          "plan_id": "plan-wood",
+          "plan_name": "WOOD PLAN",
+          "category": "games",
+          "processor": "intel",
+          "location": "India (Noida & Mumbai)",
+          "game": "Minecraft",
+          "software": "Paper",
+          "price": 80,
+          "quantity": 1
+        }
+      ],
+      "created_at": "2026-11-15T03:33:38.358Z"
+    },
+    {
+      "id": "ord-1794713617080",
+      "order_number": "ZX-83123",
+      "user_id": "usr-1794713617057-c9z9",
+      "user_name": "Alex Gamer",
+      "user_email": "test.gamer.1794713616650@example.com",
+      "total_amount": 72,
+      "currency": "INR",
+      "status": "paid",
+      "payment_method": "Razorpay UPI",
+      "payment_id": "pay_1794713617080_xu1vb",
+      "payment_session_id": null,
+      "coupon_code": "ZEROXCLOUD",
+      "discount_amount": 8,
+      "items": [
+        {
+          "plan_id": "plan-wood",
+          "plan_name": "WOOD PLAN",
+          "category": "games",
+          "processor": "intel",
+          "location": "India (Noida & Mumbai)",
+          "game": "Minecraft",
+          "software": "Forge Minecraft",
+          "price": 80,
+          "quantity": 1
+        }
+      ],
+      "created_at": "2026-11-15T03:33:37.080Z"
+    },
     {
       "id": "ord-1794671139928",
       "order_number": "ZX-50390",
@@ -1072,6 +1218,102 @@
   ],
   "services": [
     {
+      "id": "srv-1794713640008-r1vo",
+      "service_id": "ZX-SRV-5833",
+      "order_id": "ord-1794713638803",
+      "user_id": "usr-1794713637492-fwt9",
+      "user_email": "test.gamer.1794713637086@example.com",
+      "plan_id": "plan-wood",
+      "name": "Alex's Minecraft",
+      "category": "games",
+      "game": "Minecraft (Paper)",
+      "node": "delhi-node-01.zeroxcloud.com",
+      "ip_address": "103.174.102.45",
+      "port": 25672,
+      "status": "active",
+      "cpu_usage": 0,
+      "ram_usage": 0.1,
+      "ram_max": 4,
+      "disk_usage": 0.5,
+      "disk_max": 30,
+      "provider": "pterodactyl",
+      "provider_identifier": "demo-ptero-8uvvks4",
+      "renewal_date": "2026-12-15T03:34:00.008Z",
+      "created_at": "2026-11-15T03:34:00.008Z"
+    },
+    {
+      "id": "srv-1794713638727-pd34",
+      "service_id": "ZX-SRV-2955",
+      "order_id": "ord-1794713637518",
+      "user_id": "usr-1794713637492-fwt9",
+      "user_email": "test.gamer.1794713637086@example.com",
+      "plan_id": "plan-wood",
+      "name": "Alex's Minecraft",
+      "category": "games",
+      "game": "Minecraft (Forge Minecraft)",
+      "node": "delhi-node-01.zeroxcloud.com",
+      "ip_address": "103.174.102.45",
+      "port": 25597,
+      "status": "suspended",
+      "cpu_usage": 0,
+      "ram_usage": 0,
+      "ram_max": 4,
+      "disk_usage": 0.5,
+      "disk_max": 30,
+      "provider": "pterodactyl",
+      "provider_identifier": "demo-ptero-fw51bhx",
+      "renewal_date": "2026-12-15T03:33:58.727Z",
+      "created_at": "2026-11-15T03:33:58.727Z"
+    },
+    {
+      "id": "srv-1794713619573-ogdd",
+      "service_id": "ZX-SRV-7448",
+      "order_id": "ord-1794713618357",
+      "user_id": "usr-1794713617057-c9z9",
+      "user_email": "test.gamer.1794713616650@example.com",
+      "plan_id": "plan-wood",
+      "name": "Alex's Minecraft",
+      "category": "games",
+      "game": "Minecraft (Paper)",
+      "node": "delhi-node-01.zeroxcloud.com",
+      "ip_address": "103.174.102.45",
+      "port": 25787,
+      "status": "active",
+      "cpu_usage": 0,
+      "ram_usage": 0.1,
+      "ram_max": 4,
+      "disk_usage": 0.5,
+      "disk_max": 30,
+      "provider": "pterodactyl",
+      "provider_identifier": "demo-ptero-v4ktbf0",
+      "renewal_date": "2026-12-15T03:33:39.573Z",
+      "created_at": "2026-11-15T03:33:39.573Z"
+    },
+    {
+      "id": "srv-1794713618294-qxd2",
+      "service_id": "ZX-SRV-3194",
+      "order_id": "ord-1794713617080",
+      "user_id": "usr-1794713617057-c9z9",
+      "user_email": "test.gamer.1794713616650@example.com",
+      "plan_id": "plan-wood",
+      "name": "Alex's Minecraft",
+      "category": "games",
+      "game": "Minecraft (Forge Minecraft)",
+      "node": "delhi-node-01.zeroxcloud.com",
+      "ip_address": "103.174.102.45",
+      "port": 25827,
+      "status": "suspended",
+      "cpu_usage": 0,
+      "ram_usage": 0,
+      "ram_max": 4,
+      "disk_usage": 0.5,
+      "disk_max": 30,
+      "provider": "pterodactyl",
+      "provider_identifier": "demo-ptero-4j4460k",
+      "renewal_date": "2026-12-15T03:33:38.294Z",
+      "created_at": "2026-11-15T03:33:38.294Z"
+    },
+    {
       "id": "srv-1794671141143-peyv",
       "service_id": "ZX-SRV-7520",
       "order_id": "ord-1794671139928",
@@ -1410,6 +1652,42 @@
   ],
   "provisioning_jobs": [
     {
+      "id": "job-1794713640008",
+      "service_id": "srv-1794713640008-r1vo",
+      "user_id": "usr-1794713637492-fwt9",
+      "status": "completed",
+      "attempts": 1,
+      "logs": "Allocated IP 103.174.102.45:25672. Node: delhi-node-01.zeroxcloud.com. Adapter mode: sandbox_demo",
+      "created_at": "2026-11-15T03:34:00.008Z"
+    },
+    {
+      "id": "job-1794713638727",
+      "service_id": "srv-1794713638727-pd34",
+      "user_id": "usr-1794713637492-fwt9",
+      "status": "completed",
+      "attempts": 1,
+      "logs": "Allocated IP 103.174.102.45:25597. Node: delhi-node-01.zeroxcloud.com. Adapter mode: sandbox_demo",
+      "created_at": "2026-11-15T03:33:58.727Z"
+    },
+    {
+      "id": "job-1794713619573",
+      "service_id": "srv-1794713619573-ogdd",
+      "user_id": "usr-1794713617057-c9z9",
+      "status": "completed",
+      "attempts": 1,
+      "logs": "Allocated IP 103.174.102.45:25787. Node: delhi-node-01.zeroxcloud.com. Adapter mode: sandbox_demo",
+      "created_at": "2026-11-15T03:33:39.573Z"
+    },
+    {
+      "id": "job-1794713618294",
+      "service_id": "srv-1794713618294-qxd2",
+      "user_id": "usr-1794713617057-c9z9",
+      "status": "completed",
+      "attempts": 1,
+      "logs": "Allocated IP 103.174.102.45:25827. Node: delhi-node-01.zeroxcloud.com. Adapter mode: sandbox_demo",
+      "created_at": "2026-11-15T03:33:38.294Z"
+    },
+    {
       "id": "job-1794671141143",
       "service_id": "srv-1794671141143-peyv",
       "user_id": "usr-1794671139911-9ziq",
@@ -1550,6 +1828,90 @@
     }
   ],
   "invoices": [
+    {
+      "id": "inv-1794713638804",
+      "invoice_number": "INV-2026-9568",
+      "order_id": "ord-1794713638803",
+      "user_id": "usr-1794713637492-fwt9",
+      "user_name": "Alex Gamer",
+      "user_email": "test.gamer.1794713637086@example.com",
+      "amount": 80,
+      "discount": 0,
+      "tax": 0,
+      "total": 80,
+      "currency": "INR",
+      "status": "paid",
+      "items": [
+        {
+          "description": "WOOD PLAN (Minecraft) - 1 Month",
+          "amount": 80
+        }
+      ],
+      "created_at": "2026-11-15T03:33:58.804Z"
+    },
+    {
+      "id": "inv-1794713637518",
+      "invoice_number": "INV-2026-3298",
+      "order_id": "ord-1794713637518",
+      "user_id": "usr-1794713637492-fwt9",
+      "user_name": "Alex Gamer",
+      "user_email": "test.gamer.1794713637086@example.com",
+      "amount": 80,
+      "discount": 8,
+      "tax": 0,
+      "total": 72,
+      "currency": "INR",
+      "status": "paid",
+      "items": [
+        {
+          "description": "WOOD PLAN (Minecraft) - 1 Month",
+          "amount": 80
+        }
+      ],
+      "created_at": "2026-11-15T03:33:57.518Z"
+    },
+    {
+      "id": "inv-1794713618358",
+      "invoice_number": "INV-2026-7905",
+      "order_id": "ord-1794713618357",
+      "user_id": "usr-1794713617057-c9z9",
+      "user_name": "Alex Gamer",
+      "user_email": "test.gamer.1794713616650@example.com",
+      "amount": 80,
+      "discount": 0,
+      "tax": 0,
+      "total": 80,
+      "currency": "INR",
+      "status": "paid",
+      "items": [
+        {
+          "description": "WOOD PLAN (Minecraft) - 1 Month",
+          "amount": 80
+        }
+      ],
+      "created_at": "2026-11-15T03:33:38.358Z"
+    },
+    {
+      "id": "inv-1794713617080",
+      "invoice_number": "INV-2026-7140",
+      "order_id": "ord-1794713617080",
+      "user_id": "usr-1794713617057-c9z9",
+      "user_name": "Alex Gamer",
+      "user_email": "test.gamer.1794713616650@example.com",
+      "amount": 80,
+      "discount": 8,
+      "tax": 0,
+      "total": 72,
+      "currency": "INR",
+      "status": "paid",
+      "items": [
+        {
+          "description": "WOOD PLAN (Minecraft) - 1 Month",
+          "amount": 80
+        }
+      ],
+      "created_at": "2026-11-15T03:33:37.080Z"
+    },
     {
       "id": "inv-1794671139928",
       "invoice_number": "INV-2026-2341",
@@ -1846,6 +2208,32 @@
   ],
   "support_tickets": [
     {
+      "id": "tkt-1794713638760",
+      "ticket_number": "TKT-9702",
+      "user_id": "usr-1794713637492-fwt9",
+      "user_name": "Alex Gamer",
+      "user_email": "test.gamer.1794713637086@example.com",
+      "department": "Game Server Support",
+      "priority": "high",
+      "subject": "Forge 1.20 memory allocation question",
+      "status": "open",
+      "created_at": "2026-11-15T03:33:58.760Z",
+      "updated_at": "2026-11-15T03:33:58.760Z"
+    },
+    {
+      "id": "tkt-1794713618321",
+      "ticket_number": "TKT-5833",
+      "user_id": "usr-1794713617057-c9z9",
+      "user_name": "Alex Gamer",
+      "user_email": "test.gamer.1794713616650@example.com",
+      "department": "Game Server Support",
+      "priority": "high",
+      "subject": "Forge 1.20 memory allocation question",
+      "status": "open",
+      "created_at": "2026-11-15T03:33:38.321Z",
+      "updated_at": "2026-11-15T03:33:38.321Z"
+    },
+    {
       "id": "tkt-1794671141167",
       "ticket_number": "TKT-4330",
       "user_id": "usr-1794671139911-9ziq",
@@ -2076,6 +2464,26 @@
       "message": "Can I allocate 6GB of heap?",
       "is_internal": false,
       "created_at": "2026-11-14T15:45:41.167Z"
+    },
+    {
+      "id": "msg-1794713618321",
+      "ticket_id": "tkt-1794713618321",
+      "sender_id": "usr-1794713617057-c9z9",
+      "sender_name": "Alex Gamer",
+      "sender_role": "customer",
+      "message": "Can I allocate 6GB of heap?",
+      "is_internal": false,
+      "created_at": "2026-11-15T03:33:38.321Z"
+    },
+    {
+      "id": "msg-1794713638760",
+      "ticket_id": "tkt-1794713638760",
+      "sender_id": "usr-1794713637492-fwt9",
+      "sender_name": "Alex Gamer",
+      "sender_role": "customer",
+      "message": "Can I allocate 6GB of heap?",
+      "is_internal": false,
+      "created_at": "2026-11-15T03:33:58.760Z"
     }
   ],
   "website_settings": {
@@ -2095,6 +2503,123 @@
     "maintenance_mode": false
   },
   "audit_logs": [
+    {
+      "id": "log-1794713640148-bbl7",
+      "actor_name": "Discord Gamer",
+      "actor_role": "customer",
+      "action": "LOGIN_DISCORD",
+      "target": "usr-discord-1794713640022",
+      "details": "Authenticated via Discord SSO",
+      "timestamp": "2026-11-15T03:34:00.148Z"
+    },
+    {
+      "id": "log-1794713640012-b22o",
+      "actor_name": "Alex Gamer",
+      "actor_role": "customer",
+      "action": "CREATE_ORDER_AND_PROVISION",
+      "target": "ord-1794713638803",
+      "details": "Order ZX-95179 created. Total: INR 80. Services: 1",
+      "timestamp": "2026-11-15T03:34:00.012Z"
+    },
+    {
+      "id": "log-1794713638763-408e",
+      "actor_name": "Alex Gamer",
+      "actor_role": "customer",
+      "action": "CREATE_TICKET",
+      "target": "TKT-9702",
+      "details": "Opened ticket: Forge 1.20 memory allocation question",
+      "timestamp": "2026-11-15T03:33:58.763Z"
+    },
+    {
+      "id": "log-1794713638748-qi6m",
+      "actor_name": "Alex Gamer",
+      "actor_role": "customer",
+      "action": "SERVER_POWER_ACTION",
+      "target": "ZX-SRV-2955",
+      "details": "Sent STOP to Alex's Minecraft (103.174.102.45:25597)",
+      "timestamp": "2026-11-15T03:33:58.749Z"
+    },
+    {
+      "id": "log-1794713638730-t10r",
+      "actor_name": "Alex Gamer",
+      "actor_role": "customer",
+      "action": "CREATE_ORDER_AND_PROVISION",
+      "target": "ord-1794713637518",
+      "details": "Order ZX-43310 created. Total: INR 72. Services: 1",
+      "timestamp": "2026-11-15T03:33:58.730Z"
+    },
+    {
+      "id": "log-1794713637494-klr5",
+      "actor_name": "Alex Gamer",
+      "actor_role": "customer",
+      "action": "REGISTER",
+      "target": "usr-1794713637492-fwt9",
+      "details": "User registered account",
+      "timestamp": "2026-11-15T03:33:57.494Z"
+    },
+    {
+      "id": "log-1794713637081-0t2c",
+      "actor_name": "Super Admin",
+      "actor_role": "super_admin",
+      "action": "LOGIN",
+      "target": "usr-admin-01",
+      "details": "User logged in successfully",
+      "timestamp": "2026-11-15T03:33:57.081Z"
+    },
+    {
+      "id": "log-1794713619575-47ry",
+      "actor_name": "Alex Gamer",
+      "actor_role": "customer",
+      "action": "CREATE_ORDER_AND_PROVISION",
+      "target": "ord-1794713618357",
+      "details": "Order ZX-68468 created. Total: INR 80. Services: 1",
+      "timestamp": "2026-11-15T03:33:39.575Z"
+    },
+    {
+      "id": "log-1794713618324-459p",
+      "actor_name": "Alex Gamer",
+      "actor_role": "customer",
+      "action": "CREATE_TICKET",
+      "target": "TKT-5833",
+      "details": "Opened ticket: Forge 1.20 memory allocation question",
+      "timestamp": "2026-11-15T03:33:38.324Z"
+    },
+    {
+      "id": "log-1794713618312-uw4d",
+      "actor_name": "Alex Gamer",
+      "actor_role": "customer",
+      "action": "SERVER_POWER_ACTION",
+      "target": "ZX-SRV-3194",
+      "details": "Sent STOP to Alex's Minecraft (103.174.102.45:25827)",
+      "timestamp": "2026-11-15T03:33:38.312Z"
+    },
+    {
+      "id": "log-1794713618296-yevi",
+      "actor_name": "Alex Gamer",
+      "actor_role": "customer",
+      "action": "CREATE_ORDER_AND_PROVISION",
+      "target": "ord-1794713617080",
+      "details": "Order ZX-83123 created. Total: INR 72. Services: 1",
+      "timestamp": "2026-11-15T03:33:38.296Z"
+    },
+    {
+      "id": "log-1794713617059-f2i6",
+      "actor_name": "Alex Gamer",
+      "actor_role": "customer",
+      "action": "REGISTER",
+      "target": "usr-1794713617057-c9z9",
+      "details": "User registered account",
+      "timestamp": "2026-11-15T03:33:37.059Z"
+    },
+    {
+      "id": "log-1794713616646-36vq",
+      "actor_name": "Super Admin",
+      "actor_role": "super_admin",
+      "action": "LOGIN",
+      "target": "usr-admin-01",
+      "details": "User logged in successfully",
+      "timestamp": "2026-11-15T03:33:36.646Z"
+    },
     {
       "id": "log-1794671141169-gd79",
       "actor_name": "Alex Gamer",

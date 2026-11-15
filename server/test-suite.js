@@ -151,8 +151,51 @@ async function runTests() {
   assert(auditData.logs.length > 0, 'Audit logs should be populated');
   console.log(`✓ Test 11 Passed: Security Audit Trails OK (${auditData.logs.length} events logged)`);
 
+  // Test 12: Cashfree Payment Order Creation & Session Generation
+  const cfCheckoutRes = await fetch(`${BASE_URL}/api/orders/checkout`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${userToken}`
+    },
+    body: JSON.stringify({
+      items: [
+        {
+          plan_id: woodPlan.id,
+          location: 'India (Noida & Mumbai)',
+          game: 'Minecraft',
+          software: 'Paper',
+          quantity: 1
+        }
+      ],
+      currency: 'INR',
+      payment_method: 'Cashfree Payments'
+    })
+  });
+  assert.strictEqual(cfCheckoutRes.status, 201, 'Cashfree checkout should succeed');
+  const cfData = await cfCheckoutRes.json();
+  assert(cfData.cashfree, 'Cashfree payload should be returned');
+  assert(cfData.cashfree.payment_session_id, 'Cashfree payment session ID must exist');
+  assert.strictEqual(cfData.order.payment_method, 'Cashfree Payments');
+  console.log(`✓ Test 12 Passed: Cashfree Payments & Session Generation OK (Session: ${cfData.cashfree.payment_session_id})`);
+
+  // Test 13: Discord OAuth2 Config & SSO
+  const dcUrlRes = await fetch(`${BASE_URL}/api/auth/discord/url?redirect=/client/overview`);
+  assert.strictEqual(dcUrlRes.status, 200, 'Discord URL endpoint should return 200');
+  const dcUrlData = await dcUrlRes.json();
+  assert(dcUrlData.redirectUri, 'Discord redirectUri must be provided');
+
+  const dcSsoRes = await fetch(`${BASE_URL}/api/auth/discord-sso`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' }
+  });
+  assert.strictEqual(dcSsoRes.status, 200, 'Discord SSO should return 200');
+  const dcSsoData = await dcSsoRes.json();
+  assert(dcSsoData.token, 'Discord auth token must be generated');
+  console.log(`✓ Test 13 Passed: Discord OAuth2 URL & SSO Verification OK (User: ${dcSsoData.user.name})`);
+
   console.log('----------------------------------------------------');
-  console.log('ALL 11 INTEGRATION TESTS COMPLETED SUCCESSFULLY!');
+  console.log('ALL 13 INTEGRATION TESTS COMPLETED SUCCESSFULLY!');
   console.log('----------------------------------------------------');
 }
 

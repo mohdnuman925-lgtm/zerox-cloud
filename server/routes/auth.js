@@ -149,7 +149,145 @@ router.post('/login', authRateLimiter, async (req, res) => {
   }
 });
 
-// Discord SSO Simulation
+// Discord OAuth2 URL Generator
+router.get('/discord/url', (req, res) => {
+  const clientId = process.env.DISCORD_CLIENT_ID || '';
+  const protocol = req.headers['x-forwarded-proto'] || req.protocol || 'http';
+  const host = req.headers['x-forwarded-host'] || req.get('host');
+  const redirectUri = process.env.DISCORD_REDIRECT_URI || `${protocol}://${host}/api/auth/discord/callback`;
+
+  if (!clientId) {
+    return res.json({
+      configured: false,
+      redirectUri,
+      message: 'DISCORD_CLIENT_ID not configured in .env'
+    });
+  }
+
+  const targetRedirect = req.query.redirect || '/client/overview';
+  const stateObj = { redirect: targetRedirect, nonce: Date.now() };
+  const state = Buffer.from(JSON.stringify(stateObj)).toString('base64');
+
+  const authUrl = `https://discord.com/api/oauth2/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(
+    redirectUri
+  )}&response_type=code&scope=identify%20email&state=${encodeURIComponent(state)}`;
+
+  res.json({
+    configured: true,
+    url: authUrl,
+    redirectUri
+  });
+});
+
+// Discord OAuth2 Callback Handler
+router.get('/discord/callback', async (req, res) => {
+  try {
+    const { code, state, error: discordError } = req.query;
+
+    if (discordError) {
+      return res.redirect(`/login?error=${encodeURIComponent('Discord authorization denied')}`);
+    }
+
+    if (!code) {
+      return res.redirect('/login?error=Missing+authorization+code');
+    }
+
+    let redirectPath = '/client/overview';
+    if (state) {
+      try {
+        const parsed = JSON.parse(Buffer.from(state, 'base64').toString('utf8'));
+        if (parsed.redirect) redirectPath = parsed.redirect;
+      } catch (e) {}
+    }
+
+    const clientId = process.env.DISCORD_CLIENT_ID;
+    const clientSecret = process.env.DISCORD_CLIENT_SECRET;
+    const protocol = req.headers['x-forwarded-proto'] || req.protocol || 'http';
+    const host = req.headers['x-forwarded-host'] || req.get('host');
+    const redirectUri = process.env.DISCORD_REDIRECT_URI || `${protocol}://${host}/api/auth/discord/callback`;
+
+    if (!clientId || !clientSecret) {
+      return res.redirect('/login?error=Discord+OAuth+keys+missing+on+server');
+    }
+
+    // Exchange code for Discord Access Token
+    const tokenParams = new URLSearchParams({
+      client_id: clientId,
+      client_secret: clientSecret,
+      grant_type: 'authorization_code',
+      code: String(code),
+      redirect_uri: redirectUri
+    });
+
+    const tokenRes = await fetch('https://discord.com/api/oauth2/token', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: tokenParams.toString()
+    });
+
+    const tokenData = await tokenRes.json();
+
+    if (!tokenRes.ok || !tokenData.access_token) {
+      console.error('Discord Token Exchange Error:', tokenData);
+      return res.redirect(`/login?error=${encodeURIComponent(tokenData.error_description || 'Discord authentication failed')}`);
+    }
+
+    // Fetch User Profile from Discord API
+    const userRes = await fetch('https://discord.com/api/users/@me', {
+      headers: { Authorization: `Bearer ${tokenData.access_token}` }
+    });
+
+    const discordUser = await userRes.json();
+
+    if (!userRes.ok || !discordUser.id) {
+      return res.redirect('/login?error=Failed+to+fetch+Discord+profile');
+    }
+
+    const db = getDB();
+    const email = (discordUser.email || `${discordUser.username}@discord.zeroxcloud.com`).toLowerCase();
+    const displayName = discordUser.global_name || discordUser.username;
+    const avatarUrl = discordUser.avatar
+      ? `https://cdn.discordapp.com/avatars/${discordUser.id}/${discordUser.avatar}.png`
+      : null;
+
+    let user = db.profiles.find((u) => u.discord_id === discordUser.id || u.email.toLowerCase() === email);
+
+    if (!user) {
+      const salt = bcrypt.genSaltSync(12);
+      const autoPass = 'Discord_' + Math.random().toString(36).substring(2, 8) + '!';
+
+      user = {
+        id: 'usr-dc-' + discordUser.id,
+        discord_id: discordUser.id,
+        name: displayName,
+        email,
+        avatar: avatarUrl,
+        password_hash: bcrypt.hashSync(autoPass, salt),
+        role: 'customer',
+        panel_password: autoPass,
+        status: 'active',
+        created_at: new Date().toISOString()
+      };
+      db.profiles.push(user);
+    } else {
+      user.discord_id = discordUser.id;
+      if (avatarUrl) user.avatar = avatarUrl;
+    }
+
+    saveDB(db);
+
+    logAudit(user.name, user.role, 'LOGIN_DISCORD_OAUTH', user.id, `Discord OAuth verified for @${discordUser.username}`);
+
+    const token = jwt.sign({ userId: user.id, role: user.role }, JWT_SECRET, { expiresIn: '7d' });
+
+    res.redirect(`/login?token=${encodeURIComponent(token)}&redirect=${encodeURIComponent(redirectPath)}&discord=success`);
+  } catch (error) {
+    console.error('Discord Callback Exception:', error);
+    res.redirect(`/login?error=${encodeURIComponent(error.message)}`);
+  }
+});
+
+// Discord SSO Simulation & Fallback
 router.post('/discord-sso', async (req, res) => {
   try {
     const db = getDB();

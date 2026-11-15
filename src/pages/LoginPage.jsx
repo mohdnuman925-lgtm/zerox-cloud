@@ -15,6 +15,18 @@ export const LoginPage = () => {
   const [searchParams] = useSearchParams();
   const redirect = searchParams.get('redirect') || '/client/overview';
 
+  React.useEffect(() => {
+    const tokenParam = searchParams.get('token');
+    const errorParam = searchParams.get('error');
+    if (errorParam) {
+      setError(decodeURIComponent(errorParam));
+    }
+    if (tokenParam) {
+      localStorage.setItem('zx_token', tokenParam);
+      window.location.href = redirect;
+    }
+  }, [searchParams, redirect]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
@@ -31,11 +43,21 @@ export const LoginPage = () => {
   };
 
   const handleDiscord = async () => {
+    setError('');
     try {
+      // Check if live Discord OAuth is configured on server
+      const res = await fetch('/api/auth/discord/url?redirect=' + encodeURIComponent(redirect));
+      const data = await res.json();
+      if (data.configured && data.url) {
+        window.location.href = data.url;
+      } else {
+        // Fallback to instant Discord SSO demo mode
+        await discordLogin();
+        navigate(redirect);
+      }
+    } catch (err) {
       await discordLogin();
       navigate(redirect);
-    } catch (err) {
-      setError(err.message);
     }
   };
 

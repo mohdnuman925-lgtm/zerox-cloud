@@ -29,7 +29,7 @@ export const CheckoutPage = () => {
 
   const [couponCode, setCouponCode] = useState('');
   const [couponError, setCouponError] = useState('');
-  const [paymentMethod, setPaymentMethod] = useState(currency === 'INR' ? 'Razorpay UPI' : 'Stripe Card');
+  const [paymentMethod, setPaymentMethod] = useState(currency === 'INR' ? 'Cashfree Payments' : 'Stripe Card');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [orderSuccess, setOrderSuccess] = useState(null);
@@ -135,7 +135,7 @@ export const CheckoutPage = () => {
               onClick={() => navigate('/client/servers')}
               className="flex-1 py-3.5 rounded-xl bg-white text-black font-bold text-xs hover:bg-[#C5F36A] transition flex items-center justify-center gap-1 shadow-lg"
             >
-              Open Server Console &rarr;
+              View My Services &amp; Details &rarr;
             </button>
             <button
               onClick={() => navigate('/client/billing')}
@@ -210,10 +210,17 @@ export const CheckoutPage = () => {
               <div className="space-y-2">
                 {[
                   {
+                    id: 'Cashfree Payments',
+                    title: 'Cashfree Payments (UPI, Cards, Netbanking)',
+                    subtitle: 'Instant Auto-Activation via UPI, GPay, PhonePe, Paytm, QR & Cards',
+                    recommended: currency === 'INR',
+                    badge: 'POPULAR'
+                  },
+                  {
                     id: 'Razorpay UPI',
                     title: 'Razorpay (India & UPI)',
                     subtitle: 'Google Pay, PhonePe, Paytm, QR & Indian NetBanking',
-                    recommended: currency === 'INR'
+                    recommended: false
                   },
                   {
                     id: 'Stripe Card',
@@ -234,7 +241,12 @@ export const CheckoutPage = () => {
                     <div>
                       <p className="text-xs sm:text-sm font-bold text-white flex items-center gap-2">
                         {pm.title}
-                        {pm.recommended && (
+                        {pm.badge && (
+                          <span className="px-1.5 py-0.5 rounded text-[9px] bg-[#C5F36A] text-black font-extrabold uppercase">
+                            {pm.badge}
+                          </span>
+                        )}
+                        {pm.recommended && !pm.badge && (
                           <span className="px-1.5 py-0.5 rounded text-[9px] bg-[#C5F36A] text-black font-extrabold uppercase">
                             Recommended
                           </span>
