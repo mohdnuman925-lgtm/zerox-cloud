@@ -76,18 +76,18 @@ export const ParticleBackground = () => {
 
   return (
     <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-      {/* Cinematic Minecraft cave & campfire background from reference video with subtle scroll parallax */}
+      {/* Cinematic Minecraft night sky & lanterns background with subtle scroll parallax */}
       <img
         src="/assets/minecraft-bg.jpg"
-        alt=""
-        className="absolute inset-0 w-full h-full object-cover object-bottom opacity-45 blur-[2px] transition-transform duration-100 ease-out will-change-transform"
+        alt="Minecraft Night Sky Background"
+        className="absolute inset-0 w-full h-full object-cover object-center opacity-65 transition-transform duration-100 ease-out will-change-transform"
         style={{
           transform: `translate3d(0, ${-Math.min(scrollY * 0.05, 75)}px, 0) scale(1.06)`
         }}
       />
 
-      {/* Dark atmospheric overlay so text and glass cards pop */}
-      <div className="absolute inset-0 bg-[#080B0A]/80 backdrop-blur-[1px]" />
+      {/* Atmospheric dark gradient overlay ensuring pristine contrast for text and glass cards */}
+      <div className="absolute inset-0 bg-gradient-to-b from-[#080B0A]/65 via-[#080B0A]/78 to-[#080B0A]/92" />
 
       {/* Rising campfire embers canvas */}
       <canvas
