@@ -39,25 +39,16 @@ export const BrandLogo = ({
       </div>
 
       {showText && (
-        scriptFont ? (
-          <span
-            className="text-xl text-white font-normal tracking-tight"
-            style={{ fontFamily: "'Brush Script MT', 'Kaushan Script', 'Caveat', cursive" }}
-          >
-            ZeroxCloud
-          </span>
-        ) : (
-          <span className={`font-extrabold ${dimensions.text} tracking-tight text-white flex items-center gap-1.5`}>
-            ZEROX <span className="text-[#C5F36A] font-semibold text-xs px-1.5 py-0.5 rounded bg-[#C5F36A]/10 border border-[#C5F36A]/20">CLOUD</span>
-          </span>
-        )
+        <span className={`font-bold ${dimensions.text} tracking-tight text-white flex items-center`}>
+          ZorixCloud
+        </span>
       )}
     </div>
   );
 
   if (linkTo) {
     return (
-      <Link to={linkTo} aria-label="ZEROX CLOUD Home">
+      <Link to={linkTo} aria-label="ZorixCloud Home">
         {content}
       </Link>
     );
