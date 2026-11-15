@@ -207,14 +207,14 @@ export const CheckoutPage = () => {
           {/* Left: Customer & Payment selection */}
           <div className="lg:col-span-7 space-y-6">
             {/* Account Info */}
-            <div className="p-6 rounded-3xl bg-[#121814] border border-white/10 space-y-4">
+            <div className="p-6 rounded-3xl bg-[#0e1611]/65 border border-white/15 backdrop-blur-2xl shadow-[0_12px_40px_rgba(0,0,0,0.45),inset_0_1px_1px_rgba(255,255,255,0.14)] space-y-4">
               <h3 className="text-sm font-bold text-white flex items-center gap-2">
                 <span className="w-5 h-5 rounded-full bg-white/10 flex items-center justify-center text-xs">1</span>
                 Customer Account
               </h3>
               {user ? (
                 <div className="space-y-3">
-                  <div className="p-4 rounded-xl bg-white/5 border border-white/5 flex items-center justify-between text-xs">
+                  <div className="p-4 rounded-xl bg-white/[0.04] backdrop-blur-sm border border-white/10 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] flex items-center justify-between text-xs">
                     <div>
                       <p className="font-bold text-white">{user.name}</p>
                       <p className="text-neutral-400">{user.email}</p>
@@ -225,7 +225,7 @@ export const CheckoutPage = () => {
                   </div>
 
                   {/* Optional GSTIN Input for Business Invoice */}
-                  <div className="p-3.5 rounded-xl bg-black/40 border border-white/10 space-y-1.5">
+                  <div className="p-3.5 rounded-xl bg-black/40 border border-white/10 space-y-1.5 backdrop-blur-md">
                     <label className="text-[11px] font-semibold text-neutral-300 block">
                       GSTIN / Business Tax ID <span className="text-neutral-500 font-normal">(Optional for GST Invoice &amp; ITC)</span>
                     </label>
@@ -253,7 +253,7 @@ export const CheckoutPage = () => {
             </div>
 
             {/* Payment Method Selector */}
-            <div className="p-6 rounded-3xl bg-[#121814] border border-white/10 space-y-4">
+            <div className="p-6 rounded-3xl bg-[#0e1611]/65 border border-white/15 backdrop-blur-2xl shadow-[0_12px_40px_rgba(0,0,0,0.45),inset_0_1px_1px_rgba(255,255,255,0.14)] space-y-4">
               <h3 className="text-sm font-bold text-white flex items-center gap-2">
                 <span className="w-5 h-5 rounded-full bg-white/10 flex items-center justify-center text-xs">2</span>
                 Payment Method
@@ -284,10 +284,10 @@ export const CheckoutPage = () => {
                   <button
                     key={pm.id}
                     onClick={() => setPaymentMethod(pm.id)}
-                    className={`w-full p-4 rounded-2xl border text-left flex items-center justify-between transition ${
+                    className={`w-full p-4 rounded-2xl border text-left flex items-center justify-between transition-all backdrop-blur-md ${
                       paymentMethod === pm.id
-                        ? 'bg-white/15 border-[#C5F36A] text-white shadow-lg'
-                        : 'bg-black/30 border-white/10 text-neutral-300 hover:border-white/20'
+                        ? 'bg-white/20 border-[#C5F36A] text-white shadow-[0_4px_24px_rgba(197,243,106,0.15),inset_0_1px_0_rgba(255,255,255,0.2)]'
+                        : 'bg-black/35 border-white/10 text-neutral-300 hover:border-white/25 hover:bg-white/5'
                     }`}
                   >
                     <div>
@@ -320,7 +320,7 @@ export const CheckoutPage = () => {
 
           {/* Right: Order Summary */}
           <div className="lg:col-span-5">
-            <div className="p-6 rounded-3xl bg-[#121814] border border-white/10 space-y-6 sticky top-24 shadow-2xl">
+            <div className="p-6 rounded-3xl bg-[#0e1611]/70 border border-white/15 backdrop-blur-2xl shadow-[0_16px_48px_rgba(0,0,0,0.55),inset_0_1px_1px_rgba(255,255,255,0.14)] space-y-6 sticky top-24">
               <h3 className="text-base font-bold text-white">Order Summary</h3>
 
               {/* Items List */}

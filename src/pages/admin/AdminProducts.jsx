@@ -209,7 +209,7 @@ export const AdminProducts = () => {
       )}
 
       {/* Plans List Table */}
-      <div className="rounded-3xl bg-[#121814] border border-white/10 overflow-hidden shadow-xl">
+      <div className="rounded-3xl bg-[#0e1611]/60 border border-white/15 backdrop-blur-2xl shadow-[0_12px_40px_rgba(0,0,0,0.45),inset_0_1px_1px_rgba(255,255,255,0.14)] overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
             <thead className="bg-black/30 border-b border-white/10 text-neutral-400 font-mono text-[10px] uppercase">
@@ -295,7 +295,7 @@ export const AdminProducts = () => {
       {/* Plan Create/Edit Modal */}
       {modalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fade-in">
-          <div className="w-full max-w-lg p-6 rounded-3xl bg-[#121814] border border-white/15 shadow-2xl text-white space-y-4 max-h-[90vh] overflow-y-auto">
+          <div className="w-full max-w-lg p-6 rounded-3xl bg-[#0e1611]/90 border border-white/20 backdrop-blur-2xl shadow-2xl text-white space-y-4 max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between">
               <h3 className="text-base font-bold text-white">
                 {editPlan ? `Edit Plan: ${editPlan.name}` : 'Create New Hosting Plan'}

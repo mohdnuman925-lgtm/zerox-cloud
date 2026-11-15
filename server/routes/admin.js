@@ -1,5 +1,5 @@
 import express from 'express';
-import { getDB, saveDB, logAudit } from '../db.js';
+import { getDB, saveDB, logAudit, getInitialData } from '../db.js';
 import { authenticateToken } from './auth.js';
 import { PterodactylAdapter } from '../providers/pterodactylAdapter.js';
 
@@ -340,6 +340,25 @@ router.get('/plans', (req, res) => {
   res.json({ plans: db.plans });
 });
 
+router.post('/plans/seed', (req, res) => {
+  try {
+    const initialData = getInitialData();
+    const db = getDB();
+    db.plans = initialData.plans;
+    saveDB(db);
+
+    logAudit(req.user.name, req.user.role, 'SEED_PLANS', 'All Plans', `Reset/seeded ${db.plans.length} official plans`);
+
+    res.json({
+      message: `Successfully seeded ${db.plans.length} official plans`,
+      count: db.plans.length,
+      plans: db.plans
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 router.post('/plans', (req, res) => {
   try {
     const planData = req.body;
@@ -349,22 +368,29 @@ router.post('/plans', (req, res) => {
 
     const db = getDB();
     const newPlan = {
-      id: 'plan-' + Date.now(),
-      product_id: 'prod-' + Date.now(),
+      id: planData.id || ('plan-' + Date.now()),
+      product_id: planData.product_id || ('prod-' + Date.now()),
       category: planData.category,
       game_slug: planData.game_slug || null,
       processor: planData.processor || null,
       name: planData.name.trim().toUpperCase(),
       tag: planData.tag || planData.category.toUpperCase(),
       badge: planData.badge || '',
+      save_badge: planData.save_badge || null,
+      image: planData.image || null,
       price_inr: parseFloat(planData.price_inr) || 0.0,
       price_usd: parseFloat(planData.price_usd) || 0.0,
+      original_price_inr: planData.original_price_inr ? parseFloat(planData.original_price_inr) : null,
       ram: planData.ram || '4 GB',
       cpu: planData.cpu || '100% CPU',
       storage: planData.storage || '30 GB NVMe',
       bandwidth: planData.bandwidth || 'Unlimited',
       location: planData.location || 'India (Noida & Mumbai)',
-      features: Array.isArray(planData.features) ? planData.features : ['Instant deployment', 'DDoS protection'],
+      features: Array.isArray(planData.features)
+        ? planData.features
+        : (typeof planData.features === 'string'
+            ? planData.features.split('\n').map((s) => s.trim()).filter(Boolean)
+            : ['Instant deployment', 'DDoS protection']),
       sort_order: db.plans.length + 1,
       enabled: planData.enabled ?? true,
       stock_status: planData.stock_status || 'in_stock'
@@ -393,11 +419,22 @@ router.put('/plans/:id', (req, res) => {
       return res.status(404).json({ error: 'Plan not found' });
     }
 
+    let parsedFeatures = db.plans[index].features;
+    if (updates.features !== undefined) {
+      parsedFeatures = Array.isArray(updates.features)
+        ? updates.features
+        : (typeof updates.features === 'string'
+            ? updates.features.split('\n').map((s) => s.trim()).filter(Boolean)
+            : db.plans[index].features);
+    }
+
     db.plans[index] = {
       ...db.plans[index],
       ...updates,
       price_inr: updates.price_inr !== undefined ? parseFloat(updates.price_inr) : db.plans[index].price_inr,
       price_usd: updates.price_usd !== undefined ? parseFloat(updates.price_usd) : db.plans[index].price_usd,
+      original_price_inr: updates.original_price_inr !== undefined ? (updates.original_price_inr ? parseFloat(updates.original_price_inr) : null) : db.plans[index].original_price_inr,
+      features: parsedFeatures,
       updated_at: new Date().toISOString()
     };
 

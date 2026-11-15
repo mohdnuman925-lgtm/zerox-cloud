@@ -41,7 +41,7 @@ export const PricingPage = () => {
           </p>
 
           {/* Filter Pills */}
-          <div className="mt-8 inline-flex flex-wrap items-center justify-center p-1.5 rounded-2xl bg-[#121814] border border-white/10 gap-1">
+          <div className="mt-8 inline-flex flex-wrap items-center justify-center p-1.5 rounded-2xl bg-[#0e1611]/60 border border-white/15 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.4),inset_0_1px_1px_rgba(255,255,255,0.12)] gap-1">
             {[
               { id: 'all', label: 'All Packages' },
               { id: 'games', label: 'Game Servers' },
@@ -80,7 +80,7 @@ export const PricingPage = () => {
                   className="h-full"
                 >
                 <div
-                  className="p-6 rounded-3xl bg-[#121814] border border-white/10 hover:border-[#C5F36A]/40 transition duration-300 flex flex-col justify-between shadow-xl h-full hover:-translate-y-1 overflow-hidden"
+                  className="p-6 rounded-3xl bg-[#0b130e]/60 backdrop-blur-2xl border border-white/15 hover:border-[#C5F36A]/45 transition duration-300 flex flex-col justify-between shadow-[0_12px_36px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.14)] hover:shadow-[0_16px_48px_rgba(0,0,0,0.65),0_0_25px_rgba(197,243,106,0.15),inset_0_1px_1px_rgba(255,255,255,0.22)] h-full hover:-translate-y-1 overflow-hidden"
                 >
                   <div>
                     {(plan.game_slug === 'minecraft' || plan.category === 'games') && (
@@ -91,7 +91,7 @@ export const PricingPage = () => {
                           className="w-full h-full object-cover object-top opacity-100 group-hover:scale-105 transition-all duration-500"
                           loading="eager"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-[#121814] via-black/20 to-transparent pointer-events-none" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#0b130e] via-black/20 to-transparent pointer-events-none" />
                       </div>
                     )}
                     <div className="flex items-center justify-between mb-3">
