@@ -131,14 +131,14 @@ export const ClientServers = () => {
               <span className="font-bold text-white">External Game Panel:</span> Server power actions (Start / Stop / Restart), live console logs, and file management are handled in Pterodactyl.
             </p>
             <p className="text-[11px] text-neutral-400 mt-0.5">
-              Log in at <span className="text-white font-mono">portal.zeroxcloud.com</span> using your account email and website password.
+              Log in at <span className="text-white font-mono">panel.zeroxcloud.site</span> using your account email and website password.
             </p>
           </div>
         </div>
 
         <div className="flex items-center gap-2 shrink-0">
           <a
-            href="https://portal.zeroxcloud.com"
+            href="https://panel.zeroxcloud.site"
             target="_blank"
             rel="noopener noreferrer"
             className="px-3.5 py-2 rounded-xl bg-white text-black text-xs font-bold hover:bg-[#C5F36A] transition flex items-center gap-1.5 shadow"
@@ -225,7 +225,7 @@ export const ClientServers = () => {
 
                   {/* Panel Link Button */}
                   <a
-                    href="https://portal.zeroxcloud.com"
+                    href="https://panel.zeroxcloud.site"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-white/5 hover:bg-white/10 text-xs font-semibold text-white border border-white/10 transition"
@@ -329,7 +329,7 @@ export const ClientServers = () => {
                 {/* Bottom Helper Bar */}
                 <div className="pt-3 border-t border-white/5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-[11px] text-neutral-400">
                   <p>
-                    <span>Server control &amp; terminal:</span> Use the <a href="https://portal.zeroxcloud.com" target="_blank" rel="noopener noreferrer" className="text-white underline hover:text-[#C5F36A]">Pterodactyl Panel</a> to start, stop, restart, upload mods, and view console logs.
+                    <span>Server control &amp; terminal:</span> Use the <a href="https://panel.zeroxcloud.site" target="_blank" rel="noopener noreferrer" className="text-white underline hover:text-[#C5F36A]">Pterodactyl Panel</a> to start, stop, restart, upload mods, and view console logs.
                   </p>
                   <Link
                     to="/client/support"

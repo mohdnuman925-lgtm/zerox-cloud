@@ -12,7 +12,7 @@
 - **Hero Section & Live Console Preview**:
   - Interactive category tabs (`Game servers`, `Cloud`, `Dedicated`, `Web hosting`, `Discord bots`)
   - Glass callout pill (`Explore game servers →`)
-  - Pterodactyl console preview frame (`portal.zeroxcloud.com`) with floating SLA badges (`✦ 99.9% Uptime SLA`, `⚡ Sub-15ms Latency`)
+  - Pterodactyl console preview frame (`panel.zeroxcloud.site`) with floating SLA badges (`✦ 99.9% Uptime SLA`, `⚡ Sub-15ms Latency`)
 - **Interactive Bento Grid**: 5-card layout showcasing Game servers, Cloud servers, Dedicated servers, Web hosting, and Discord bots with arrow pills.
 - **5-Step Game Configurator (`/games`)**:
   - `01 LOCATION`: India (Noida & Mumbai)
@@ -24,7 +24,7 @@
 - **Split-Screen Authentication (`/login`, `/register`)**: Brand marketing checklist on the left, glass form on the right with Discord OAuth integration.
 - **Client Management Portal (`/client/*`)**:
   - Overview metrics (Active Servers, Open Tickets, Total Spent)
-  - Servers list with Pterodactyl Panel notice banner (`portal.zeroxcloud.com`), live power controls (Stop, Restart, Start), and console logs
+  - Servers list with Pterodactyl Panel notice banner (`panel.zeroxcloud.site`), live power controls (Stop, Restart, Start), and console logs
   - Full-featured support ticket system and billing invoice history
 - **Super Admin Control Center (`/admin/*`)**: Complete management of customers, servers, products/plans, coupons, and security audit trails.
 

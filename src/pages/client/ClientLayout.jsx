@@ -169,7 +169,7 @@ export const ClientLayout = () => {
             </div>
 
             <p className="text-xs text-neutral-300 leading-relaxed">
-              Update your credentials for the game control panel (portal.zeroxcloud.com). This keeps your website and panel passwords synchronized.
+              Update your credentials for the game control panel (panel.zeroxcloud.site). This keeps your website and panel passwords synchronized.
             </p>
 
             {panelSuccess && (

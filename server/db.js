@@ -526,7 +526,7 @@ const getInitialData = () => {
       welcome_discount_percent: 10,
       welcome_coupon_code: 'ZEROXCLOUD',
       discord_url: 'https://discord.gg/zeroxcloud',
-      pterodactyl_panel_url: 'https://portal.zeroxcloud.com',
+      pterodactyl_panel_url: 'https://panel.zeroxcloud.site',
       contact_email: 'support@zeroxcloud.com',
       currency_default: 'INR',
       tax_rate: 0.0,

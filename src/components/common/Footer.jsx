@@ -18,7 +18,7 @@ export const Footer = () => {
 
             <div className="flex items-center gap-2 text-[11px] text-neutral-500">
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-              <span>Game Panel: portal.zeroxcloud.com</span>
+              <span>Game Panel: panel.zeroxcloud.site</span>
             </div>
           </div>
 

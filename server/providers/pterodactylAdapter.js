@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
 dotenv.config();
 
-const PTERODACTYL_URL = process.env.PTERODACTYL_URL || 'https://portal.zeroxcloud.com';
+const PTERODACTYL_URL = process.env.PTERODACTYL_URL || 'https://panel.zeroxcloud.site';
 const PTERODACTYL_API_KEY = process.env.PTERODACTYL_API_KEY || '';
 
 /**

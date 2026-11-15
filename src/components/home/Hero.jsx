@@ -153,7 +153,7 @@ export const Hero = () => {
                 <span className="w-3 h-3 rounded-full bg-[#10B981] inline-block opacity-90" />
               </div>
               <div className="px-5 py-1 rounded-lg bg-black/50 text-[11px] font-mono text-neutral-400 border border-white/5">
-                portal.zeroxcloud.com / server / live-console
+                panel.zeroxcloud.site / server / live-console
               </div>
               <div className="w-12" />
             </div>

@@ -228,7 +228,7 @@ export const ClientOverview = () => {
               Panel Credentials
             </h4>
             <p className="text-xs text-neutral-400 mt-0.5 leading-relaxed">
-              Sync your password with portal.zeroxcloud.com.
+              Sync your password with panel.zeroxcloud.site.
             </p>
           </div>
         </div>

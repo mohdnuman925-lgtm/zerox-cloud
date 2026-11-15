@@ -71,7 +71,7 @@ export const ClientSettings = () => {
           <div>
             <h3 className="text-sm font-bold text-white">Game Panel Credentials</h3>
             <p className="text-xs text-neutral-400 mt-0.5">
-              Sync your login credentials with portal.zeroxcloud.com
+              Sync your login credentials with panel.zeroxcloud.site
             </p>
           </div>
         </div>
