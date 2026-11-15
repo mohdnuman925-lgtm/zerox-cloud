@@ -40,7 +40,7 @@ export const BrandLogo = ({
 
       {showText && (
         <span className={`font-bold ${dimensions.text} tracking-tight text-white flex items-center`}>
-          ZorixCloud
+          ZeroxCloud
         </span>
       )}
     </div>
@@ -48,7 +48,7 @@ export const BrandLogo = ({
 
   if (linkTo) {
     return (
-      <Link to={linkTo} aria-label="ZorixCloud Home">
+      <Link to={linkTo} aria-label="ZeroxCloud Home">
         {content}
       </Link>
     );

@@ -212,7 +212,7 @@ export const Navbar = ({ onOpenSearch }) => {
               target="_blank"
               rel="noopener noreferrer"
               className="text-neutral-400 hover:text-white transition p-1.5 flex items-center justify-center"
-              title="Join ZorixCloud Discord"
+              title="Join ZeroxCloud Discord"
               aria-label="Discord"
             >
               <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">

@@ -25,7 +25,7 @@ export const Hero = () => {
   const [isHovered, setIsHovered] = useState(false);
   const navigate = useNavigate();
 
-  const panelUrl = siteSettings?.pterodactyl_panel_url || 'https://portal.zorixcloud.com';
+  const panelUrl = siteSettings?.pterodactyl_panel_url || 'https://panel.zeroxcloud.site';
   const displayPanelUrl = (panelUrl || '')
     .replace(/^https?:\/\//, '')
     .replace(/\/.*$/, '');
