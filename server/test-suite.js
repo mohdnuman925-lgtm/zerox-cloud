@@ -289,8 +289,75 @@ async function runTests() {
   assert.strictEqual(delNodeRes.status, 200, 'Node deletion should succeed');
   console.log(`✓ Test 14 Passed: Infrastructure Nodes & Wings Management OK (CRUD, IP edit, Limits & Maintenance)`);
 
+  // Test 15: Super Admin Fleet Server Management (Power Signals, Config Edits, Suspension)
+  // 15a. Get list of servers
+  const srvListRes = await fetch(`${BASE_URL}/api/admin/servers`, {
+    headers: { Authorization: `Bearer ${adminToken}` }
+  });
+  assert.strictEqual(srvListRes.status, 200);
+  const srvListData = await srvListRes.json();
+  assert(srvListData.services.length > 0, 'At least 1 server should exist');
+  const targetServer = srvListData.services[0];
+
+  // 15b. Execute admin power action (restart)
+  const powerRes = await fetch(`${BASE_URL}/api/admin/servers/${targetServer.id}/power`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${adminToken}`
+    },
+    body: JSON.stringify({ action: 'restart' })
+  });
+  assert.strictEqual(powerRes.status, 200, 'Admin power action restart should succeed');
+  const powerData = await powerRes.json();
+  assert.strictEqual(powerData.action, 'restart');
+
+  // 15c. Update server configuration (RAM, Port, IP)
+  const updateSrvRes = await fetch(`${BASE_URL}/api/admin/servers/${targetServer.id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${adminToken}`
+    },
+    body: JSON.stringify({
+      name: 'Super Admin Managed SMP',
+      port: 25688,
+      ram_max: 8.0
+    })
+  });
+  assert.strictEqual(updateSrvRes.status, 200, 'Server update should succeed');
+  const updateSrvData = await updateSrvRes.json();
+  assert.strictEqual(updateSrvData.server.name, 'Super Admin Managed SMP');
+  assert.strictEqual(updateSrvData.server.port, 25688);
+  assert.strictEqual(updateSrvData.server.ram_max, 8.0);
+
+  // 15d. Suspend server
+  const suspendRes = await fetch(`${BASE_URL}/api/admin/servers/${targetServer.id}/status`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${adminToken}`
+    },
+    body: JSON.stringify({ status: 'suspended', reason: 'Audit verification' })
+  });
+  assert.strictEqual(suspendRes.status, 200);
+  const suspendData = await suspendRes.json();
+  assert.strictEqual(suspendData.server.status, 'suspended');
+
+  // 15e. Unsuspend back to active
+  const unsuspendRes = await fetch(`${BASE_URL}/api/admin/servers/${targetServer.id}/status`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${adminToken}`
+    },
+    body: JSON.stringify({ status: 'active', reason: 'Audit completed' })
+  });
+  assert.strictEqual(unsuspendRes.status, 200);
+  console.log(`✓ Test 15 Passed: Super Admin Fleet Server Management OK (Power Signals, Config Edits, Suspension)`);
+
   console.log('----------------------------------------------------');
-  console.log('ALL 14 INTEGRATION TESTS COMPLETED SUCCESSFULLY!');
+  console.log('ALL 15 INTEGRATION TESTS COMPLETED SUCCESSFULLY!');
   console.log('----------------------------------------------------');
 }
 

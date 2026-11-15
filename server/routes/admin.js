@@ -1,6 +1,7 @@
 import express from 'express';
 import { getDB, saveDB, logAudit } from '../db.js';
 import { authenticateToken } from './auth.js';
+import { PterodactylAdapter } from '../providers/pterodactylAdapter.js';
 
 const router = express.Router();
 
@@ -215,6 +216,180 @@ router.get('/servers', (req, res) => {
     services: db.services,
     provisioning_jobs: db.provisioning_jobs
   });
+});
+
+router.get('/servers/:id', (req, res) => {
+  const { id } = req.params;
+  const db = getDB();
+  const server = db.services.find((s) => s.id === id || s.service_id === id);
+  if (!server) {
+    return res.status(404).json({ error: 'Server not found' });
+  }
+  const customer = db.profiles.find((p) => p.id === server.user_id || p.email === server.user_email);
+  const jobs = db.provisioning_jobs.filter((j) => j.service_id === server.id || j.service_id === server.service_id);
+  res.json({ server, customer, jobs });
+});
+
+router.put('/servers/:id', (req, res) => {
+  try {
+    const { id } = req.params;
+    const db = getDB();
+    const server = db.services.find((s) => s.id === id || s.service_id === id);
+    if (!server) {
+      return res.status(404).json({ error: 'Server not found' });
+    }
+
+    const {
+      name,
+      node,
+      ip_address,
+      port,
+      status,
+      ram_max,
+      disk_max,
+      renewal_date,
+      user_email
+    } = req.body;
+
+    if (name !== undefined) server.name = name.trim();
+    if (node !== undefined) server.node = node.trim();
+    if (ip_address !== undefined) server.ip_address = ip_address.trim();
+    if (port !== undefined) server.port = Number(port);
+    if (status !== undefined) server.status = status;
+    if (ram_max !== undefined) server.ram_max = Number(ram_max);
+    if (disk_max !== undefined) server.disk_max = Number(disk_max);
+    if (renewal_date !== undefined) server.renewal_date = renewal_date;
+
+    if (user_email !== undefined && user_email.trim() !== '') {
+      const newOwner = db.profiles.find((p) => p.email.toLowerCase() === user_email.trim().toLowerCase());
+      if (newOwner) {
+        server.user_id = newOwner.id;
+        server.user_email = newOwner.email;
+      } else {
+        server.user_email = user_email.trim().toLowerCase();
+      }
+    }
+
+    server.updated_at = new Date().toISOString();
+    saveDB(db);
+
+    logAudit(
+      req.user.name,
+      req.user.role,
+      'ADMIN_SERVER_UPDATED',
+      server.service_id,
+      `Updated server ${server.name} (IP: ${server.ip_address}:${server.port}, Node: ${server.node}, Status: ${server.status})`
+    );
+
+    res.json({ success: true, server });
+  } catch (err) {
+    console.error('Error updating server:', err);
+    res.status(500).json({ error: 'Failed to update server: ' + err.message });
+  }
+});
+
+router.post('/servers/:id/power', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { action } = req.body;
+
+    if (!['start', 'stop', 'restart', 'kill'].includes(action)) {
+      return res.status(400).json({ error: 'Invalid power action' });
+    }
+
+    const db = getDB();
+    const server = db.services.find((s) => s.id === id || s.service_id === id);
+    if (!server) {
+      return res.status(404).json({ error: 'Server not found' });
+    }
+
+    await PterodactylAdapter.sendPowerAction(
+      server.provider_identifier || server.service_id,
+      action
+    );
+
+    if (action === 'start' || action === 'restart') {
+      server.status = 'active';
+      server.cpu_usage = action === 'start' ? 12.4 : 18.2;
+    } else if (action === 'stop' || action === 'kill') {
+      server.status = 'stopped';
+      server.cpu_usage = 0.0;
+    }
+
+    server.updated_at = new Date().toISOString();
+    saveDB(db);
+
+    logAudit(
+      req.user.name,
+      req.user.role,
+      'ADMIN_SERVER_POWER',
+      server.service_id,
+      `Executed power action "${action.toUpperCase()}" on server ${server.name}`
+    );
+
+    res.json({
+      success: true,
+      action,
+      status: server.status,
+      message: `Power signal "${action}" sent to ${server.name}`
+    });
+  } catch (err) {
+    console.error('Error sending power action:', err);
+    res.status(500).json({ error: 'Failed to execute power action: ' + err.message });
+  }
+});
+
+router.post('/servers/:id/status', (req, res) => {
+  const { id } = req.params;
+  const { status, reason } = req.body;
+
+  if (!['active', 'suspended', 'stopped'].includes(status)) {
+    return res.status(400).json({ error: 'Invalid status' });
+  }
+
+  const db = getDB();
+  const server = db.services.find((s) => s.id === id || s.service_id === id);
+  if (!server) {
+    return res.status(404).json({ error: 'Server not found' });
+  }
+
+  server.status = status;
+  server.updated_at = new Date().toISOString();
+  saveDB(db);
+
+  logAudit(
+    req.user.name,
+    req.user.role,
+    `ADMIN_SERVER_${status.toUpperCase()}`,
+    server.service_id,
+    reason || `Server status updated to ${status}`
+  );
+
+  res.json({ success: true, server });
+});
+
+router.delete('/servers/:id', (req, res) => {
+  const { id } = req.params;
+  const db = getDB();
+  const index = db.services.findIndex((s) => s.id === id || s.service_id === id);
+
+  if (index === -1) {
+    return res.status(404).json({ error: 'Server not found' });
+  }
+
+  const server = db.services[index];
+  db.services.splice(index, 1);
+  saveDB(db);
+
+  logAudit(
+    req.user.name,
+    req.user.role,
+    'ADMIN_SERVER_DELETED',
+    server.service_id,
+    `Terminated and deleted server ${server.name} owned by ${server.user_email}`
+  );
+
+  res.json({ success: true, message: `Server "${server.name}" (${server.service_id}) terminated successfully.` });
 });
 
 // 5b. Infrastructure Nodes & Wings Management
