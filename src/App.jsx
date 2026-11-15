@@ -47,10 +47,27 @@ import { AdminContent } from './pages/admin/AdminContent';
 import { AdminSettings } from './pages/admin/AdminSettings';
 import { AdminAuditLogs } from './pages/admin/AdminAuditLogs';
 
+// Smooth Momentum Scrolling & Scroll Animations
+import { useLenis } from './hooks/useLenis';
+import { ScrollProgressBar } from './components/common/ScrollProgressBar';
+import { ScrollToTopButton } from './components/common/ScrollToTopButton';
+
 export const App = () => {
+  // Initialize Lenis smooth momentum scrolling engine
+  useLenis();
+
   const [searchOpen, setSearchOpen] = useState(false);
   const [replaySplashTrigger, setReplaySplashTrigger] = useState(0);
   const location = useLocation();
+
+  // Scroll to top smoothly on route change
+  useEffect(() => {
+    if (window.lenis) {
+      window.lenis.scrollTo(0, { immediate: true });
+    } else {
+      window.scrollTo(0, 0);
+    }
+  }, [location.pathname]);
 
   useEffect(() => {
     const handleReplay = () => {
@@ -66,6 +83,9 @@ export const App = () => {
 
   return (
     <div className="min-h-screen bg-[#080B0A] text-white flex flex-col font-sans selection:bg-[#C5F36A] selection:text-black">
+      {/* Sleek Neon Glow Top Scroll Progress Indicator */}
+      <ScrollProgressBar />
+
       {/* Cinematic Splash Screen matching video loading sequence */}
       <SplashScreen
         key={replaySplashTrigger}
@@ -92,6 +112,7 @@ export const App = () => {
           <WelcomeModal />
           <CookieBanner />
           <ChatWidget />
+          <ScrollToTopButton />
         </>
       )}
 

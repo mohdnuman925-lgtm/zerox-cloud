@@ -1,11 +1,16 @@
 import React from 'react';
 import { ArrowRight, MessageSquare, Users, Radio } from 'lucide-react';
+import { ScrollReveal } from '../common/ScrollReveal';
 
 export const DiscordBanner = () => {
   return (
     <section className="py-16 relative z-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="relative overflow-hidden rounded-3xl bg-[#121814]/85 border border-white/10 p-8 sm:p-12 flex flex-col md:flex-row items-center justify-between gap-8 backdrop-blur-md shadow-2xl">
+        <ScrollReveal
+          animation="zoom-in"
+          duration={800}
+          className="relative overflow-hidden rounded-3xl bg-[#121814]/85 border border-white/10 p-8 sm:p-12 flex flex-col md:flex-row items-center justify-between gap-8 backdrop-blur-md shadow-2xl"
+        >
           <div className="space-y-4 max-w-xl text-center md:text-left relative z-10">
             <span className="text-xs font-mono font-bold uppercase tracking-wider text-neutral-400">
               — COMMUNITY
@@ -44,7 +49,7 @@ export const DiscordBanner = () => {
               <ArrowRight className="w-4 h-4" />
             </a>
           </div>
-        </div>
+        </ScrollReveal>
       </div>
     </section>
   );

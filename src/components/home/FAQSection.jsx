@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { ChevronDown, Plus, Minus } from 'lucide-react';
+import { ScrollReveal } from '../common/ScrollReveal';
 
 export const FAQSection = () => {
   const [openIndex, setOpenIndex] = useState(0);
@@ -34,7 +35,7 @@ export const FAQSection = () => {
   return (
     <section className="py-20 relative z-10 border-t border-white/5">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
+        <ScrollReveal animation="fade-up" className="text-center mb-12">
           <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#C5F36A]">
             KNOWLEDGE BASE
           </span>
@@ -44,20 +45,22 @@ export const FAQSection = () => {
           <p className="mt-2 text-sm text-neutral-400">
             Got questions? We've got answers. If you need more help, our team is live 24/7.
           </p>
-        </div>
+        </ScrollReveal>
 
         <div className="space-y-3">
           {faqs.map((faq, i) => {
             const isOpen = openIndex === i;
             return (
-              <div
+              <ScrollReveal
                 key={i}
-                className="rounded-2xl bg-[#121814]/80 border border-white/10 overflow-hidden transition-all duration-200"
+                animation="fade-up"
+                delay={i * 60}
               >
-                <button
-                  onClick={() => setOpenIndex(isOpen ? -1 : i)}
-                  className="w-full p-5 text-left flex items-center justify-between gap-4 font-bold text-sm sm:text-base text-white hover:text-[#C5F36A] transition"
-                >
+                <div className="rounded-2xl bg-[#121814]/80 border border-white/10 overflow-hidden transition-all duration-200">
+                  <button
+                    onClick={() => setOpenIndex(isOpen ? -1 : i)}
+                    className="w-full p-5 text-left flex items-center justify-between gap-4 font-bold text-sm sm:text-base text-white hover:text-[#C5F36A] transition"
+                  >
                   <span>{faq.q}</span>
                   <div className="w-7 h-7 rounded-full bg-white/5 flex items-center justify-center flex-shrink-0 text-neutral-400">
                     {isOpen ? <Minus className="w-4 h-4 text-[#C5F36A]" /> : <Plus className="w-4 h-4" />}
@@ -70,8 +73,9 @@ export const FAQSection = () => {
                   </div>
                 )}
               </div>
-            );
-          })}
+            </ScrollReveal>
+          );
+        })}
         </div>
       </div>
     </section>

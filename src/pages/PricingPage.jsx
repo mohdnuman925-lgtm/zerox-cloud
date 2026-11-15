@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { Check, ArrowRight, ShoppingCart } from 'lucide-react';
+import { ScrollReveal } from '../components/common/ScrollReveal';
 
 export const PricingPage = () => {
   const [activeCategory, setActiveCategory] = useState('all');
@@ -27,7 +28,7 @@ export const PricingPage = () => {
   return (
     <div className="py-12 relative z-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
+        <ScrollReveal animation="fade-up" className="text-center mb-12">
           <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#C5F36A]">
             TRANSPARENT PRICING
           </span>
@@ -61,19 +62,24 @@ export const PricingPage = () => {
               </button>
             ))}
           </div>
-        </div>
+        </ScrollReveal>
 
         {/* Plans Table / Cards */}
         {loading ? (
           <div className="py-20 text-center text-neutral-400">Loading catalog pricing...</div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {filtered.map((plan) => {
+            {filtered.map((plan, idx) => {
               const price = currency === 'USD' ? plan.price_usd : plan.price_inr;
               return (
-                <div
+                <ScrollReveal
                   key={plan.id}
-                  className="p-6 rounded-3xl bg-[#121814] border border-white/10 hover:border-[#C5F36A]/40 transition duration-300 flex flex-col justify-between shadow-xl"
+                  animation="fade-up"
+                  delay={idx * 60}
+                  className="h-full"
+                >
+                <div
+                  className="p-6 rounded-3xl bg-[#121814] border border-white/10 hover:border-[#C5F36A]/40 transition duration-300 flex flex-col justify-between shadow-xl h-full hover:-translate-y-1"
                 >
                   <div>
                     <div className="flex items-center justify-between mb-3">
@@ -141,6 +147,7 @@ export const PricingPage = () => {
                     </button>
                   </div>
                 </div>
+                </ScrollReveal>
               );
             })}
           </div>

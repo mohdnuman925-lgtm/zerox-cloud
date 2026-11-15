@@ -1,7 +1,16 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 export const ParticleBackground = () => {
   const canvasRef = useRef(null);
+  const [scrollY, setScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollY(window.scrollY || 0);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -67,11 +76,14 @@ export const ParticleBackground = () => {
 
   return (
     <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-      {/* Cinematic Minecraft cave & campfire background from reference video */}
+      {/* Cinematic Minecraft cave & campfire background from reference video with subtle scroll parallax */}
       <img
         src="/assets/minecraft-bg.jpg"
         alt=""
-        className="absolute inset-0 w-full h-full object-cover object-bottom opacity-45 blur-[2px] scale-105"
+        className="absolute inset-0 w-full h-full object-cover object-bottom opacity-45 blur-[2px] transition-transform duration-100 ease-out will-change-transform"
+        style={{
+          transform: `translate3d(0, ${-Math.min(scrollY * 0.05, 75)}px, 0) scale(1.06)`
+        }}
       />
 
       {/* Dark atmospheric overlay so text and glass cards pop */}

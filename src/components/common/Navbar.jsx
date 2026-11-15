@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { BrandLogo } from './BrandLogo';
 import { useAuth } from '../../context/AuthContext';
@@ -25,6 +25,15 @@ export const Navbar = ({ onOpenSearch }) => {
   const [legalOpen, setLegalOpen] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -34,7 +43,7 @@ export const Navbar = ({ onOpenSearch }) => {
   };
 
   return (
-    <header className="sticky top-0 z-40 w-full bg-[#080B0A]/80 backdrop-blur-xl border-b border-white/10 transition-all">
+    <header className={`sticky top-0 z-40 w-full transition-all duration-300 ${isScrolled ? 'bg-[#080B0A]/95 backdrop-blur-2xl border-b border-white/15 shadow-2xl py-0' : 'bg-[#080B0A]/70 backdrop-blur-md border-b border-white/10'}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
         {/* Brand Logo matching video identity */}
         <BrandLogo />

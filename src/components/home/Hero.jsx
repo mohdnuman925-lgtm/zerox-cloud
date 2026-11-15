@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   Gamepad2,
@@ -8,12 +8,24 @@ import {
   Bot,
   ArrowRight,
   Check,
-  Sparkles
+  Sparkles,
+  ChevronDown
 } from 'lucide-react';
+import { ScrollReveal } from '../common/ScrollReveal';
+import { scrollTo } from '../../hooks/useLenis';
 
 export const Hero = () => {
   const [activeTab, setActiveTab] = useState('games');
+  const [scrollY, setScrollY] = useState(0);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollY(window.scrollY || 0);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const tabs = [
     {
@@ -131,20 +143,35 @@ export const Hero = () => {
           </span>
         </div>
 
-        {/* Server Panel Preview Mockup with Floating Badges matching video frame 008 */}
-        <div className="mt-14 max-w-5xl mx-auto relative">
-          {/* Floating SLA Badges */}
-          <div className="hidden sm:flex absolute -top-4 left-6 z-20 items-center gap-2 px-4 py-1.5 rounded-full bg-[#121814]/95 border border-white/15 text-xs font-semibold text-white backdrop-blur-md shadow-2xl">
+        {/* Server Panel Preview Mockup with Floating Badges and Scroll Parallax */}
+        <ScrollReveal animation="zoom-in" delay={120} duration={850} className="mt-14 max-w-5xl mx-auto relative [perspective:1000px]">
+          {/* Floating SLA Badges with Parallax Drift */}
+          <div
+            className="hidden sm:flex absolute -top-4 left-6 z-20 items-center gap-2 px-4 py-1.5 rounded-full bg-[#121814]/95 border border-white/15 text-xs font-semibold text-white backdrop-blur-md shadow-2xl transition-transform duration-100 ease-out"
+            style={{
+              transform: `translateY(${-Math.min(scrollY * 0.08, 16)}px)`
+            }}
+          >
             <Sparkles className="w-3.5 h-3.5 text-[#C5F36A]" />
             99.9% Uptime SLA
           </div>
-          <div className="hidden sm:flex absolute -top-4 right-6 z-20 items-center gap-2 px-4 py-1.5 rounded-full bg-[#121814]/95 border border-white/15 text-xs font-semibold text-white backdrop-blur-md shadow-2xl">
+          <div
+            className="hidden sm:flex absolute -top-4 right-6 z-20 items-center gap-2 px-4 py-1.5 rounded-full bg-[#121814]/95 border border-white/15 text-xs font-semibold text-white backdrop-blur-md shadow-2xl transition-transform duration-100 ease-out"
+            style={{
+              transform: `translateY(${-Math.min(scrollY * 0.08, 16)}px)`
+            }}
+          >
             <span className="text-[#C5F36A]">⚡</span>
             Sub-15ms Latency
           </div>
 
-          {/* Browser Window Frame */}
-          <div className="rounded-3xl bg-[#0D120F]/90 border border-white/15 shadow-2xl overflow-hidden text-left backdrop-blur-md">
+          {/* Browser Window Frame with subtle scroll perspective */}
+          <div
+            className="rounded-3xl bg-[#0D120F]/90 border border-white/15 shadow-2xl overflow-hidden text-left backdrop-blur-md transition-transform duration-100 ease-out"
+            style={{
+              transform: `translateY(${Math.min(scrollY * 0.04, 20)}px) scale(${Math.max(0.97, 1 - scrollY * 0.00008)})`
+            }}
+          >
             {/* Browser Top Bar */}
             <div className="px-5 py-3.5 bg-[#121814]/90 border-b border-white/10 flex items-center justify-between">
               <div className="flex items-center gap-2">
@@ -169,6 +196,22 @@ export const Hero = () => {
               <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors flex items-center justify-center pointer-events-none" />
             </div>
           </div>
+        </ScrollReveal>
+
+        {/* Scroll To Explore Animated Indicator */}
+        <div className="mt-14 flex justify-center">
+          <button
+            onClick={() => scrollTo('#bento-grid')}
+            className="group flex flex-col items-center gap-2.5 text-neutral-400 hover:text-white transition-all cursor-pointer focus:outline-none"
+            aria-label="Scroll to explore"
+          >
+            <span className="text-[10px] font-mono tracking-widest uppercase text-neutral-400 group-hover:text-[#C5F36A] transition-colors">
+              Scroll to explore
+            </span>
+            <div className="w-5 h-8 rounded-full border border-white/20 group-hover:border-[#C5F36A]/60 flex items-start justify-center p-1 transition-colors">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#C5F36A] animate-scroll-wheel" />
+            </div>
+          </button>
         </div>
       </div>
     </section>

@@ -11,6 +11,7 @@ import {
   ShoppingCart,
   ArrowRight
 } from 'lucide-react';
+import { ScrollReveal } from '../components/common/ScrollReveal';
 
 export const GameHostingPage = () => {
   const [searchParams] = useSearchParams();
@@ -243,14 +244,19 @@ export const GameHostingPage = () => {
               </div>
             ) : (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-                {filteredPlans.map((plan) => {
+                {filteredPlans.map((plan, idx) => {
                   const price = currency === 'USD' ? plan.price_usd : plan.price_inr;
                   const isFeatured = plan.badge === 'MOST SOLD' || plan.badge === 'LIMITED STOCK';
 
                   return (
-                    <div
+                    <ScrollReveal
                       key={plan.id}
-                      className={`relative rounded-3xl bg-[#121814]/90 backdrop-blur-md border transition-all duration-300 flex flex-col justify-between overflow-hidden shadow-2xl ${
+                      animation="fade-up"
+                      delay={idx * 60}
+                      className="h-full"
+                    >
+                    <div
+                      className={`relative rounded-3xl bg-[#121814]/90 backdrop-blur-md border transition-all duration-300 flex flex-col justify-between overflow-hidden shadow-2xl h-full ${
                         isFeatured
                           ? 'border-white/30 ring-1 ring-white/20'
                           : 'border-white/10 hover:border-white/25'
@@ -372,6 +378,7 @@ export const GameHostingPage = () => {
                         </div>
                       </div>
                     </div>
+                    </ScrollReveal>
                   );
                 })}
               </div>

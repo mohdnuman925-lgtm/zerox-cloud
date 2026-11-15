@@ -1,5 +1,6 @@
 import React from 'react';
 import { Cpu, Zap, Shield, Heart, Settings, Clock } from 'lucide-react';
+import { ScrollReveal } from '../common/ScrollReveal';
 
 export const FeaturesSection = () => {
   const features = [
@@ -38,8 +39,8 @@ export const FeaturesSection = () => {
   return (
     <section className="py-20 relative z-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header matching frame 011 */}
-        <div className="text-left mb-12">
+        {/* Section Header with smooth scroll reveal */}
+        <ScrollReveal animation="fade-up" className="text-left mb-12">
           <span className="text-xs font-mono font-bold uppercase tracking-wider text-neutral-400">
             — WE WON'T DISAPPOINT
           </span>
@@ -49,29 +50,33 @@ export const FeaturesSection = () => {
           <p className="mt-2 text-sm sm:text-base text-neutral-400">
             Everything you need for professional game server hosting
           </p>
-        </div>
+        </ScrollReveal>
 
-        {/* Features Grid */}
+        {/* Features Grid with cascading scroll reveal */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {features.map((feat, index) => {
             const Icon = feat.icon;
             return (
-              <div
+              <ScrollReveal
                 key={index}
-                className="p-8 rounded-3xl bg-[#121814]/75 backdrop-blur-md border border-white/10 hover:border-white/20 transition-all duration-300 group shadow-xl flex flex-col justify-between"
+                animation="fade-up"
+                delay={index * 80}
+                className="h-full"
               >
-                <div>
-                  <div className="w-11 h-11 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-white mb-6 group-hover:bg-white group-hover:text-black transition">
-                    <Icon className="w-5 h-5" />
+                <div className="p-8 rounded-3xl bg-[#121814]/75 backdrop-blur-md border border-white/10 hover:border-white/20 transition-all duration-300 group shadow-xl flex flex-col justify-between h-full hover:-translate-y-1">
+                  <div>
+                    <div className="w-11 h-11 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-white mb-6 group-hover:bg-white group-hover:text-black transition">
+                      <Icon className="w-5 h-5" />
+                    </div>
+                    <h3 className="text-xl font-bold text-white tracking-tight">
+                      {feat.title}
+                    </h3>
+                    <p className="mt-2 text-xs sm:text-sm text-neutral-400 leading-relaxed font-normal">
+                      {feat.desc}
+                    </p>
                   </div>
-                  <h3 className="text-xl font-bold text-white tracking-tight">
-                    {feat.title}
-                  </h3>
-                  <p className="mt-2 text-xs sm:text-sm text-neutral-400 leading-relaxed font-normal">
-                    {feat.desc}
-                  </p>
                 </div>
-              </div>
+              </ScrollReveal>
             );
           })}
         </div>

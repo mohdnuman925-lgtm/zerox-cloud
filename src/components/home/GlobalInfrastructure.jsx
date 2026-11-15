@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import { ScrollReveal } from '../common/ScrollReveal';
 
 export const GlobalInfrastructure = () => {
   const canvasRef = useRef(null);
@@ -81,7 +82,7 @@ export const GlobalInfrastructure = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           {/* Left Text & Location Cards matching frame 013 */}
           <div className="lg:col-span-7 space-y-6">
-            <div>
+            <ScrollReveal animation="fade-up">
               <span className="text-xs font-mono font-bold uppercase tracking-wider text-neutral-400">
                 — NETWORK
               </span>
@@ -91,45 +92,50 @@ export const GlobalInfrastructure = () => {
               <p className="mt-3 text-sm sm:text-base text-neutral-300 leading-relaxed max-w-xl">
                 Asia is live with Mumbai and Noida nodes. Europe and the Americas are rolling out next as ZEROX CLOUD expands to more low-latency regions.
               </p>
-            </div>
+            </ScrollReveal>
 
-            {/* Grid of regional nodes */}
+            {/* Grid of regional nodes with staggered reveals */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-2">
               {locations.map((loc, idx) => (
-                <div
+                <ScrollReveal
                   key={idx}
-                  className="p-4 rounded-2xl bg-[#121814]/85 border border-white/10 hover:border-white/20 transition duration-200 flex items-center justify-between shadow-lg"
+                  animation="fade-up"
+                  delay={idx * 70}
                 >
-                  <div className="flex items-center gap-3">
-                    <img
-                      src={loc.flag}
-                      alt={loc.name}
-                      className="w-6 h-4 object-cover rounded-sm shadow-sm"
-                    />
-                    <div>
-                      <h4 className="text-sm font-bold text-white">{loc.name}</h4>
-                      <p className="text-[11px] text-neutral-400">{loc.country}</p>
+                  <div className="p-4 rounded-2xl bg-[#121814]/85 border border-white/10 hover:border-white/20 transition duration-200 flex items-center justify-between shadow-lg hover:-translate-y-0.5">
+                    <div className="flex items-center gap-3">
+                      <img
+                        src={loc.flag}
+                        alt={loc.name}
+                        className="w-6 h-4 object-cover rounded-sm shadow-sm"
+                      />
+                      <div>
+                        <h4 className="text-sm font-bold text-white">{loc.name}</h4>
+                        <p className="text-[11px] text-neutral-400">{loc.country}</p>
+                      </div>
                     </div>
+                    <span className="px-2.5 py-1 rounded-lg text-xs font-mono font-bold bg-white/10 text-white border border-white/5">
+                      {loc.ping}
+                    </span>
                   </div>
-                  <span className="px-2.5 py-1 rounded-lg text-xs font-mono font-bold bg-white/10 text-white border border-white/5">
-                    {loc.ping}
-                  </span>
-                </div>
+                </ScrollReveal>
               ))}
             </div>
 
-            <p className="text-xs font-mono text-neutral-400 pt-1">
-              Europe &amp; Americas — coming soon
-            </p>
+            <ScrollReveal animation="fade-up" delay={400}>
+              <p className="text-xs font-mono text-neutral-400 pt-1">
+                Europe &amp; Americas — coming soon
+              </p>
+            </ScrollReveal>
           </div>
 
           {/* Right Interactive 3D Dot Globe with Glowing Halo Ring */}
-          <div className="lg:col-span-5 flex justify-center items-center relative">
+          <ScrollReveal animation="zoom-in" delay={150} className="lg:col-span-5 flex justify-center items-center relative">
             <canvas
               ref={canvasRef}
               className="w-[320px] h-[320px] sm:w-[400px] sm:h-[400px]"
             />
-          </div>
+          </ScrollReveal>
         </div>
       </div>
     </section>
