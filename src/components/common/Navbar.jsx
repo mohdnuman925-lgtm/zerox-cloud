@@ -3,6 +3,7 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { BrandLogo } from './BrandLogo';
 import { useAuth } from '../../context/AuthContext';
 import { useCart } from '../../context/CartContext';
+import { useSound } from '../../context/SoundContext';
 import {
   Gamepad2,
   Cloud,
@@ -15,12 +16,15 @@ import {
   LogOut,
   ShieldAlert,
   Menu,
-  X
+  X,
+  Volume2,
+  VolumeX
 } from 'lucide-react';
 
 export const Navbar = ({ onOpenSearch }) => {
   const { user, isAdmin, logout } = useAuth();
   const { totalCount, setIsCartOpen, currency, setCurrency } = useCart();
+  const { soundEnabled, toggleSound } = useSound();
   const [gamesOpen, setGamesOpen] = useState(false);
   const [legalOpen, setLegalOpen] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
@@ -248,6 +252,24 @@ export const Navbar = ({ onOpenSearch }) => {
             <span>{currency === 'INR' ? '🇮🇳 ₹ INR' : '🇺🇸 $ USD'}</span>
           </button>
 
+          {/* Sound FX Toggle */}
+          <button
+            onClick={toggleSound}
+            className={`p-2 rounded-lg transition border text-xs flex items-center justify-center ${
+              soundEnabled
+                ? 'bg-white/5 hover:bg-white/10 text-[#C5F36A] border-white/10'
+                : 'bg-white/5 hover:bg-white/10 text-neutral-500 border-white/5'
+            }`}
+            title={soundEnabled ? 'Click sound: ON (click to mute)' : 'Click sound: MUTED (click to enable)'}
+            aria-label="Toggle clicking sound"
+          >
+            {soundEnabled ? (
+              <Volume2 className="w-4 h-4 text-[#C5F36A]" />
+            ) : (
+              <VolumeX className="w-4 h-4 text-neutral-500" />
+            )}
+          </button>
+
           {/* Cart Drawer Trigger */}
           <button
             onClick={() => setIsCartOpen(true)}
@@ -429,6 +451,29 @@ export const Navbar = ({ onOpenSearch }) => {
               className="text-xs font-bold text-white px-2 py-1 bg-white/10 rounded"
             >
               {currency === 'INR' ? '🇮🇳 ₹ INR' : '🇺🇸 $ USD'}
+            </button>
+          </div>
+          <div className="pt-2 border-t border-white/10 flex items-center justify-between">
+            <span className="text-xs text-neutral-400">Clicking Sound</span>
+            <button
+              onClick={toggleSound}
+              className={`text-xs font-bold px-2 py-1 rounded flex items-center gap-1.5 transition ${
+                soundEnabled
+                  ? 'bg-[#C5F36A]/20 text-[#C5F36A] border border-[#C5F36A]/30'
+                  : 'bg-white/10 text-neutral-400 border border-white/10'
+              }`}
+            >
+              {soundEnabled ? (
+                <>
+                  <Volume2 className="w-3.5 h-3.5" />
+                  <span>ON</span>
+                </>
+              ) : (
+                <>
+                  <VolumeX className="w-3.5 h-3.5" />
+                  <span>MUTED</span>
+                </>
+              )}
             </button>
           </div>
         </div>

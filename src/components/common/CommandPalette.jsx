@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Search, Gamepad2, Cloud, Server, Globe, Bot, Shield, FileText, X, Play } from 'lucide-react';
+import { Search, Gamepad2, Cloud, Server, Globe, Bot, Shield, FileText, X, Play, Volume2, VolumeX } from 'lucide-react';
+import { useSound } from '../../context/SoundContext';
 
 export const CommandPalette = ({ isOpen, onClose }) => {
   const [query, setQuery] = useState('');
   const navigate = useNavigate();
+  const { soundEnabled, toggleSound } = useSound();
 
   const commands = [
     { title: 'Minecraft Server Hosting', category: 'Game Hosting', path: '/games?game=minecraft', icon: Gamepad2 },
@@ -17,6 +19,7 @@ export const CommandPalette = ({ isOpen, onClose }) => {
     { title: 'Pricing Matrix & Calculator', category: 'Products', path: '/pricing', icon: Server },
     { title: 'Client Area Dashboard', category: 'Account', path: '/client/overview', icon: Shield },
     { title: 'Super Admin Control Center', category: 'Administration', path: '/admin/overview', icon: Shield },
+    { title: soundEnabled ? 'Mute UI Clicking Sound' : 'Enable UI Clicking Sound', category: 'Settings', action: 'toggle-sound', icon: soundEnabled ? Volume2 : VolumeX },
     { title: 'Replay Cinematic Intro (Splash Screen)', category: 'Experience', action: 'replay-splash', icon: Play },
     { title: 'Terms of Service', category: 'Legal', path: '/terms', icon: FileText },
     { title: 'Refund Policy (Strict No-Refund)', category: 'Legal', path: '/refund', icon: FileText },
@@ -50,6 +53,8 @@ export const CommandPalette = ({ isOpen, onClose }) => {
     if (cmd.action === 'replay-splash') {
       sessionStorage.removeItem('zerox_splash_shown');
       window.dispatchEvent(new CustomEvent('zerox-replay-splash'));
+    } else if (cmd.action === 'toggle-sound') {
+      toggleSound();
     } else if (cmd.path) {
       navigate(cmd.path);
     }
