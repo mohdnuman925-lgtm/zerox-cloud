@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Search, Gamepad2, Cloud, Server, Globe, Bot, Shield, FileText, X, Play, Volume2, VolumeX } from 'lucide-react';
+import { Search, Gamepad2, Cloud, Server, Globe, Bot, Shield, FileText, X, Play, Volume2, VolumeX, Activity } from 'lucide-react';
 import { useSound } from '../../context/SoundContext';
 import { GameLogo } from './GameLogo';
 
@@ -15,6 +15,7 @@ export const CommandPalette = ({ isOpen, onClose }) => {
     { title: 'Counter-Strike 2 Hosting', category: 'Game Hosting', path: '/games?game=cs2', game: 'cs2' },
     { title: 'Cloud / VPS Hosting', category: 'Cloud Infrastructure', path: '/cloud', icon: Cloud },
     { title: 'Dedicated Bare-Metal Servers', category: 'Infrastructure', path: '/dedicated', icon: Server },
+    { title: 'Global Network Status & Uptime', category: 'Infrastructure', path: '/status', icon: Activity },
     { title: 'Web Hosting & Domains', category: 'Web Solutions', path: '/web', icon: Globe },
     { title: 'Discord Bot Hosting', category: 'Application Hosting', path: '/bots', icon: Bot },
     { title: 'Pricing Matrix & Calculator', category: 'Products', path: '/pricing', icon: Server },

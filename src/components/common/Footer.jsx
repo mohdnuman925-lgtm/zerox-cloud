@@ -16,9 +16,18 @@ export const Footer = () => {
               Premium hosting solutions for gamers and developers. Experience unmatched performance with our cutting-edge infrastructure.
             </p>
 
-            <div className="flex items-center gap-2 text-[11px] text-neutral-500">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-              <span>Game Panel: panel.zeroxcloud.site</span>
+            <div className="flex flex-col gap-1.5">
+              <div className="flex items-center gap-2 text-[11px] text-neutral-500">
+                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                <span>Game Panel: panel.zeroxcloud.site</span>
+              </div>
+              <Link
+                to="/status"
+                className="flex items-center gap-2 text-[11px] text-neutral-400 hover:text-[#C5F36A] transition group"
+              >
+                <span className="w-2 h-2 rounded-full bg-emerald-400" />
+                <span>All Systems Operational • View Status</span>
+              </Link>
             </div>
           </div>
 
@@ -80,6 +89,12 @@ export const Footer = () => {
               <li>
                 <Link to="/checkout" className="hover:text-white transition">
                   Cart & Checkout
+                </Link>
+              </li>
+              <li>
+                <Link to="/status" className="hover:text-white transition flex items-center gap-1.5">
+                  <span>Network status</span>
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
                 </Link>
               </li>
             </ul>

@@ -175,6 +175,16 @@ export const Navbar = ({ onOpenSearch }) => {
               Blog
             </Link>
 
+            <Link
+              to="/status"
+              className={`flex items-center gap-1.5 transition ${
+                location.pathname === '/status' ? 'text-white font-semibold' : 'hover:text-white'
+              }`}
+            >
+              <span>Status</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+            </Link>
+
             {/* Legal Dropdown */}
             <div
               className="relative"
@@ -418,6 +428,14 @@ export const Navbar = ({ onOpenSearch }) => {
               className="block py-2 text-neutral-200 hover:text-white font-semibold"
             >
               Blog
+            </Link>
+            <Link
+              to="/status"
+              onClick={() => setMobileMenuOpen(false)}
+              className="flex items-center justify-between py-2 text-neutral-200 hover:text-white font-semibold"
+            >
+              <span>Network Status</span>
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
             </Link>
             <Link
               to="/terms"
