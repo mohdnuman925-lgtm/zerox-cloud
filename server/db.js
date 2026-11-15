@@ -48,7 +48,7 @@ const getInitialData = () => {
       { id: 'cat-bots', name: 'Discord Bot Hosting', slug: 'discord-bots', enabled: true, icon: 'Bot', sort_order: 5 }
     ],
     games: [
-      { id: 'gm-minecraft', name: 'Minecraft', slug: 'minecraft', featured: true, image: 'https://images.unsplash.com/photo-1627856013091-fed6e4e30025?w=600&auto=format&fit=crop&q=80', description: 'Paper, Purpur, Forge, Fabric, Vanilla, Bedrock' },
+      { id: 'gm-minecraft', name: 'Minecraft', slug: 'minecraft', featured: true, image: '/assets/minecraft-plan-card.jpg', description: 'Paper, Purpur, Forge, Fabric, Vanilla, Bedrock' },
       { id: 'gm-rust', name: 'Rust', slug: 'rust', featured: true, image: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?w=600&auto=format&fit=crop&q=80', description: 'Oxide / uMod high-tick survival' },
       { id: 'gm-cs2', name: 'Counter-Strike 2', slug: 'cs2', featured: true, image: 'https://images.unsplash.com/photo-1511512578047-dfb367046420?w=600&auto=format&fit=crop&q=80', description: '128 tickrate competitive esports servers' },
       { id: 'gm-ark', name: 'ARK: Survival Evolved', slug: 'ark', featured: false, image: 'https://images.unsplash.com/photo-1538481199705-c710c4e965fc?w=600&auto=format&fit=crop&q=80', description: 'Crossplay cluster support' }

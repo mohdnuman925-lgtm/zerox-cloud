@@ -370,15 +370,15 @@ export const GameHostingPage = () => {
                           }`}
                         >
                           {/* Top Card Graphic Banner Header matching video frame 030 */}
-                          <div className="h-32 relative overflow-hidden bg-gradient-to-br from-[#2D3A2F] via-[#1A261D] to-[#0D1510] p-4 flex flex-col justify-between">
+                          <div className="h-36 relative overflow-hidden bg-gradient-to-br from-[#2D3A2F] via-[#1A261D] to-[#0D1510] p-4 flex flex-col justify-between group">
                             {/* Minecraft Character illustration artwork background */}
                             <div
-                              className="absolute inset-0 bg-cover bg-center opacity-65 scale-105"
+                              className="absolute inset-0 bg-cover bg-[center_top_15%] opacity-75 group-hover:opacity-90 group-hover:scale-105 transition-all duration-500"
                               style={{
-                                backgroundImage: `url('https://images.unsplash.com/photo-1627856013091-fed6e4e30025?w=600&auto=format&fit=crop&q=80')`
+                                backgroundImage: `url('${plan.image || '/assets/minecraft-plan-card.jpg'}')`
                               }}
                             />
-                            <div className="absolute inset-0 bg-gradient-to-t from-[#121814] via-black/30 to-black/30" />
+                            <div className="absolute inset-0 bg-gradient-to-t from-[#121814] via-black/40 to-black/25" />
 
                             <div className="relative z-10 flex flex-wrap items-center gap-1.5">
                               <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase tracking-wider bg-black/60 text-white backdrop-blur-sm border border-white/10">
