@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Search, Gamepad2, Cloud, Server, Globe, Bot, Shield, FileText, X, Play, Volume2, VolumeX } from 'lucide-react';
 import { useSound } from '../../context/SoundContext';
+import { GameLogo } from './GameLogo';
 
 export const CommandPalette = ({ isOpen, onClose }) => {
   const [query, setQuery] = useState('');
@@ -9,9 +10,9 @@ export const CommandPalette = ({ isOpen, onClose }) => {
   const { soundEnabled, toggleSound } = useSound();
 
   const commands = [
-    { title: 'Minecraft Server Hosting', category: 'Game Hosting', path: '/games?game=minecraft', icon: Gamepad2 },
-    { title: 'Rust Server Hosting', category: 'Game Hosting', path: '/games?game=rust', icon: Gamepad2 },
-    { title: 'Counter-Strike 2 Hosting', category: 'Game Hosting', path: '/games?game=cs2', icon: Gamepad2 },
+    { title: 'Minecraft Server Hosting', category: 'Game Hosting', path: '/games?game=minecraft', game: 'minecraft' },
+    { title: 'Rust Server Hosting', category: 'Game Hosting', path: '/games?game=rust', game: 'rust' },
+    { title: 'Counter-Strike 2 Hosting', category: 'Game Hosting', path: '/games?game=cs2', game: 'cs2' },
     { title: 'Cloud / VPS Hosting', category: 'Cloud Infrastructure', path: '/cloud', icon: Cloud },
     { title: 'Dedicated Bare-Metal Servers', category: 'Infrastructure', path: '/dedicated', icon: Server },
     { title: 'Web Hosting & Domains', category: 'Web Solutions', path: '/web', icon: Globe },
@@ -96,8 +97,12 @@ export const CommandPalette = ({ isOpen, onClose }) => {
                   className="w-full flex items-center justify-between p-3 rounded-xl hover:bg-white/10 text-left transition group"
                 >
                   <div className="flex items-center gap-3">
-                    <div className="p-2 rounded-lg bg-white/5 border border-white/10 text-neutral-300 group-hover:text-[#C5F36A] group-hover:border-[#C5F36A]/30 transition">
-                      <Icon className="w-4 h-4" />
+                    <div className="p-1.5 rounded-lg bg-white/5 border border-white/10 text-neutral-300 group-hover:text-[#C5F36A] group-hover:border-[#C5F36A]/30 transition w-8 h-8 flex items-center justify-center shrink-0">
+                      {item.game ? (
+                        <GameLogo game={item.game} className="w-5 h-5" />
+                      ) : (
+                        Icon && <Icon className="w-4 h-4" />
+                      )}
                     </div>
                     <div>
                       <p className="text-sm font-medium text-white group-hover:text-[#C5F36A] transition">

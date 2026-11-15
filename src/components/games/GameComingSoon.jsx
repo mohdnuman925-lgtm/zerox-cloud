@@ -20,6 +20,7 @@ import {
   Terminal
 } from 'lucide-react';
 import { ScrollReveal } from '../common/ScrollReveal';
+import { GameLogo } from '../common/GameLogo';
 
 export const GameComingSoon = ({ game = 'rust', onSelectMinecraft }) => {
   const isRust = game.toLowerCase() === 'rust';
@@ -237,12 +238,19 @@ export const GameComingSoon = ({ game = 'rust', onSelectMinecraft }) => {
               </span>
             </div>
 
-            {/* Title & Tagline */}
-            <div className="max-w-3xl space-y-2">
-              <h2 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
-                {config.name}{' '}
-                <span className={config.accent}>Server Hosting</span>
-              </h2>
+            {/* Title & Tagline with Game Logo */}
+            <div className="max-w-3xl space-y-3">
+              <div className="flex items-center gap-3.5 sm:gap-4">
+                <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-black/60 border border-white/20 p-2 sm:p-2.5 flex items-center justify-center backdrop-blur-md shadow-2xl shrink-0">
+                  <GameLogo game={gameKey} className="w-full h-full" />
+                </div>
+                <div>
+                  <h2 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
+                    {config.name}{' '}
+                    <span className={config.accent}>Server Hosting</span>
+                  </h2>
+                </div>
+              </div>
               <p className="text-base sm:text-lg font-medium text-neutral-200">
                 {config.tagline}
               </p>
@@ -335,7 +343,7 @@ export const GameComingSoon = ({ game = 'rust', onSelectMinecraft }) => {
                   onClick={onSelectMinecraft}
                   className="px-5 py-2.5 rounded-xl bg-white/10 hover:bg-white/15 border border-white/15 text-white text-xs font-bold flex items-center gap-2 transition active:scale-95"
                 >
-                  <Gamepad2 className="w-4 h-4 text-[#C5F36A]" />
+                  <GameLogo game="minecraft" className="w-4 h-4" />
                   <span>Browse Live Minecraft Plans Instead</span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </button>

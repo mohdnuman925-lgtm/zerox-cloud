@@ -15,6 +15,7 @@ import {
 } from 'lucide-react';
 import { ScrollReveal } from '../components/common/ScrollReveal';
 import { GameComingSoon } from '../components/games/GameComingSoon';
+import { GameLogo } from '../components/common/GameLogo';
 import minecraftPlanImage from '../assets/minecraft-plan-card.jpg';
 
 export const GameHostingPage = () => {
@@ -223,12 +224,8 @@ export const GameHostingPage = () => {
                     : 'bg-[#121814]/70 border-white/10 text-neutral-400 hover:text-white hover:border-white/20'
                 }`}
               >
-                <div className="w-9 h-9 rounded-xl overflow-hidden border border-emerald-500/40 bg-emerald-950 shrink-0 shadow-md">
-                  <img
-                    src={minecraftPlanImage}
-                    alt="Minecraft"
-                    className="w-full h-full object-cover object-top"
-                  />
+                <div className="w-10 h-10 rounded-xl overflow-hidden border border-emerald-500/40 bg-emerald-950/80 p-1.5 flex items-center justify-center shrink-0 shadow-md">
+                  <GameLogo game="minecraft" className="w-full h-full" />
                 </div>
                 <div className="text-left">
                   <div className="flex items-center gap-2">
@@ -251,8 +248,8 @@ export const GameHostingPage = () => {
                     : 'bg-[#121814]/70 border-white/10 text-neutral-400 hover:text-white hover:border-white/20'
                 }`}
               >
-                <div className="w-8 h-8 rounded-lg overflow-hidden flex items-center justify-center bg-orange-950/80 border border-orange-500/30">
-                  <Flame className="w-5 h-5 text-orange-400" />
+                <div className="w-10 h-10 rounded-xl overflow-hidden border border-orange-500/40 bg-orange-950/80 p-1.5 flex items-center justify-center shrink-0 shadow-md">
+                  <GameLogo game="rust" className="w-full h-full" />
                 </div>
                 <div className="text-left">
                   <div className="flex items-center gap-2">
@@ -275,8 +272,8 @@ export const GameHostingPage = () => {
                     : 'bg-[#121814]/70 border-white/10 text-neutral-400 hover:text-white hover:border-white/20'
                 }`}
               >
-                <div className="w-8 h-8 rounded-lg overflow-hidden flex items-center justify-center bg-sky-950/80 border border-sky-500/30">
-                  <Crosshair className="w-5 h-5 text-sky-400" />
+                <div className="w-10 h-10 rounded-xl overflow-hidden border border-sky-500/40 bg-sky-950/80 p-1.5 flex items-center justify-center shrink-0 shadow-md">
+                  <GameLogo game="cs2" className="w-full h-full" />
                 </div>
                 <div className="text-left">
                   <div className="flex items-center gap-2">

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { BrandLogo } from './BrandLogo';
+import { GameLogo } from './GameLogo';
 import { useAuth } from '../../context/AuthContext';
 import { useCart } from '../../context/CartContext';
 import { useSound } from '../../context/SoundContext';
@@ -79,7 +80,9 @@ export const Navbar = ({ onOpenSearch }) => {
                   className="flex items-center justify-between p-2.5 rounded-xl hover:bg-white/10 text-neutral-200 hover:text-white transition group"
                 >
                   <div className="flex items-center gap-3">
-                    <Gamepad2 className="w-4 h-4 text-[#C5F36A]" />
+                    <div className="w-6 h-6 rounded-lg bg-emerald-950/80 border border-emerald-500/30 p-1 flex items-center justify-center shrink-0">
+                      <GameLogo game="minecraft" className="w-full h-full" />
+                    </div>
                     <div>
                       <p className="text-xs font-bold text-white">Minecraft</p>
                       <p className="text-[10px] text-neutral-400">Paper, Purpur, Forge, Bedrock</p>
@@ -94,7 +97,9 @@ export const Navbar = ({ onOpenSearch }) => {
                   className="flex items-center justify-between p-2.5 rounded-xl hover:bg-white/10 text-neutral-200 hover:text-white transition group"
                 >
                   <div className="flex items-center gap-3">
-                    <Gamepad2 className="w-4 h-4 text-orange-400" />
+                    <div className="w-6 h-6 rounded-lg bg-orange-950/80 border border-orange-500/30 p-1 flex items-center justify-center shrink-0">
+                      <GameLogo game="rust" className="w-full h-full" />
+                    </div>
                     <div>
                       <p className="text-xs font-bold text-white">Rust</p>
                       <p className="text-[10px] text-neutral-400">Oxide / uMod high-tick</p>
@@ -109,7 +114,9 @@ export const Navbar = ({ onOpenSearch }) => {
                   className="flex items-center justify-between p-2.5 rounded-xl hover:bg-white/10 text-neutral-200 hover:text-white transition group"
                 >
                   <div className="flex items-center gap-3">
-                    <Gamepad2 className="w-4 h-4 text-sky-400" />
+                    <div className="w-6 h-6 rounded-lg bg-sky-950/80 border border-sky-500/30 p-1 flex items-center justify-center shrink-0">
+                      <GameLogo game="cs2" className="w-full h-full" />
+                    </div>
                     <div>
                       <p className="text-xs font-bold text-white">Counter-Strike 2</p>
                       <p className="text-[10px] text-neutral-400">128-tick tournament nodes</p>
@@ -388,7 +395,10 @@ export const Navbar = ({ onOpenSearch }) => {
                 onClick={() => setMobileMenuOpen(false)}
                 className="flex items-center justify-between py-1 text-xs text-neutral-300 hover:text-white"
               >
-                <span>Minecraft</span>
+                <span className="flex items-center gap-2">
+                  <GameLogo game="minecraft" className="w-4 h-4" />
+                  <span>Minecraft</span>
+                </span>
                 <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-400 font-bold">LIVE</span>
               </Link>
               <Link
@@ -396,7 +406,10 @@ export const Navbar = ({ onOpenSearch }) => {
                 onClick={() => setMobileMenuOpen(false)}
                 className="flex items-center justify-between py-1 text-xs text-neutral-300 hover:text-white"
               >
-                <span>Rust</span>
+                <span className="flex items-center gap-2">
+                  <GameLogo game="rust" className="w-4 h-4" />
+                  <span>Rust</span>
+                </span>
                 <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-orange-500/20 text-orange-400 font-bold">SOON</span>
               </Link>
               <Link
@@ -404,7 +417,10 @@ export const Navbar = ({ onOpenSearch }) => {
                 onClick={() => setMobileMenuOpen(false)}
                 className="flex items-center justify-between py-1 text-xs text-neutral-300 hover:text-white"
               >
-                <span>Counter-Strike 2</span>
+                <span className="flex items-center gap-2">
+                  <GameLogo game="cs2" className="w-4 h-4" />
+                  <span>Counter-Strike 2</span>
+                </span>
                 <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-sky-500/20 text-sky-400 font-bold">SOON</span>
               </Link>
             </div>
