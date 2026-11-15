@@ -51,7 +51,6 @@ import { AdminAuditLogs } from './pages/admin/AdminAuditLogs';
 
 // Smooth Momentum Scrolling & Scroll Animations
 import { useLenis } from './hooks/useLenis';
-import { ScrollProgressBar } from './components/common/ScrollProgressBar';
 import { ScrollToTopButton } from './components/common/ScrollToTopButton';
 
 export const App = () => {
@@ -85,9 +84,6 @@ export const App = () => {
 
   return (
     <div className="min-h-screen bg-[#080B0A] text-white flex flex-col font-sans selection:bg-[#C5F36A] selection:text-black">
-      {/* Sleek Neon Glow Top Scroll Progress Indicator */}
-      <ScrollProgressBar />
-
       {/* Cinematic Splash Screen matching video loading sequence */}
       <SplashScreen
         key={replaySplashTrigger}
